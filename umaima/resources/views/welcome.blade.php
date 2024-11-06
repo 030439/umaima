@@ -1,140 +1,4191 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<!doctype html>
+<html lang="en" data-layout="vertical" data-topbar="light" data-sidebar="dark" data-sidebar-size="lg" data-sidebar-image="none" data-preloader="disable" data-theme="default" data-theme-colors="default">
+<head>
 
-        <title>Laravel</title>
+    <meta charset="utf-8" />
+    <title>Dashboard | Velzon - Admin & Dashboard Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Themesbrand" name="author" />
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="assets/images/favicon.ico">
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
+    <!-- jsvectormap css -->
+    <link href="assets/libs/jsvectormap/jsvectormap.min.css" rel="stylesheet" type="text/css" />
 
-        <!-- Styles -->
-        <style>
-            /* ! tailwindcss v3.2.4 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:Figtree, sans-serif;font-feature-settings:normal}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;font-weight:inherit;line-height:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}[type=button],[type=reset],[type=submit],button{-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]{display:none}*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: }::-webkit-backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: }.relative{position:relative}.mx-auto{margin-left:auto;margin-right:auto}.mx-6{margin-left:1.5rem;margin-right:1.5rem}.ml-4{margin-left:1rem}.mt-16{margin-top:4rem}.mt-6{margin-top:1.5rem}.mt-4{margin-top:1rem}.-mt-px{margin-top:-1px}.mr-1{margin-right:0.25rem}.flex{display:flex}.inline-flex{display:inline-flex}.grid{display:grid}.h-16{height:4rem}.h-7{height:1.75rem}.h-6{height:1.5rem}.h-5{height:1.25rem}.min-h-screen{min-height:100vh}.w-auto{width:auto}.w-16{width:4rem}.w-7{width:1.75rem}.w-6{width:1.5rem}.w-5{width:1.25rem}.max-w-7xl{max-width:80rem}.shrink-0{flex-shrink:0}.scale-100{--tw-scale-x:1;--tw-scale-y:1;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.grid-cols-1{grid-template-columns:repeat(1, minmax(0, 1fr))}.items-center{align-items:center}.justify-center{justify-content:center}.gap-6{gap:1.5rem}.gap-4{gap:1rem}.self-center{align-self:center}.rounded-lg{border-radius:0.5rem}.rounded-full{border-radius:9999px}.bg-gray-100{--tw-bg-opacity:1;background-color:rgb(243 244 246 / var(--tw-bg-opacity))}.bg-white{--tw-bg-opacity:1;background-color:rgb(255 255 255 / var(--tw-bg-opacity))}.bg-red-50{--tw-bg-opacity:1;background-color:rgb(254 242 242 / var(--tw-bg-opacity))}.bg-dots-darker{background-image:url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.22676 0C1.91374 0 2.45351 0.539773 2.45351 1.22676C2.45351 1.91374 1.91374 2.45351 1.22676 2.45351C0.539773 2.45351 0 1.91374 0 1.22676C0 0.539773 0.539773 0 1.22676 0Z' fill='rgba(0,0,0,0.07)'/%3E%3C/svg%3E")}.from-gray-700\/50{--tw-gradient-from:rgb(55 65 81 / 0.5);--tw-gradient-to:rgb(55 65 81 / 0);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.via-transparent{--tw-gradient-to:rgb(0 0 0 / 0);--tw-gradient-stops:var(--tw-gradient-from), transparent, var(--tw-gradient-to)}.bg-center{background-position:center}.stroke-red-500{stroke:#ef4444}.stroke-gray-400{stroke:#9ca3af}.p-6{padding:1.5rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.text-center{text-align:center}.text-right{text-align:right}.text-xl{font-size:1.25rem;line-height:1.75rem}.text-sm{font-size:0.875rem;line-height:1.25rem}.font-semibold{font-weight:600}.leading-relaxed{line-height:1.625}.text-gray-600{--tw-text-opacity:1;color:rgb(75 85 99 / var(--tw-text-opacity))}.text-gray-900{--tw-text-opacity:1;color:rgb(17 24 39 / var(--tw-text-opacity))}.text-gray-500{--tw-text-opacity:1;color:rgb(107 114 128 / var(--tw-text-opacity))}.underline{-webkit-text-decoration-line:underline;text-decoration-line:underline}.antialiased{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.shadow-2xl{--tw-shadow:0 25px 50px -12px rgb(0 0 0 / 0.25);--tw-shadow-colored:0 25px 50px -12px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-gray-500\/20{--tw-shadow-color:rgb(107 114 128 / 0.2);--tw-shadow:var(--tw-shadow-colored)}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.selection\:bg-red-500 *::selection{--tw-bg-opacity:1;background-color:rgb(239 68 68 / var(--tw-bg-opacity))}.selection\:text-white *::selection{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity))}.selection\:bg-red-500::selection{--tw-bg-opacity:1;background-color:rgb(239 68 68 / var(--tw-bg-opacity))}.selection\:text-white::selection{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity))}.hover\:text-gray-900:hover{--tw-text-opacity:1;color:rgb(17 24 39 / var(--tw-text-opacity))}.hover\:text-gray-700:hover{--tw-text-opacity:1;color:rgb(55 65 81 / var(--tw-text-opacity))}.focus\:rounded-sm:focus{border-radius:0.125rem}.focus\:outline:focus{outline-style:solid}.focus\:outline-2:focus{outline-width:2px}.focus\:outline-red-500:focus{outline-color:#ef4444}.group:hover .group-hover\:stroke-gray-600{stroke:#4b5563}@media (prefers-reduced-motion: no-preference){.motion-safe\:hover\:scale-\[1\.01\]:hover{--tw-scale-x:1.01;--tw-scale-y:1.01;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}}@media (prefers-color-scheme: dark){.dark\:bg-gray-900{--tw-bg-opacity:1;background-color:rgb(17 24 39 / var(--tw-bg-opacity))}.dark\:bg-gray-800\/50{background-color:rgb(31 41 55 / 0.5)}.dark\:bg-red-800\/20{background-color:rgb(153 27 27 / 0.2)}.dark\:bg-dots-lighter{background-image:url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.22676 0C1.91374 0 2.45351 0.539773 2.45351 1.22676C2.45351 1.91374 1.91374 2.45351 1.22676 2.45351C0.539773 2.45351 0 1.91374 0 1.22676C0 0.539773 0.539773 0 1.22676 0Z' fill='rgba(255,255,255,0.07)'/%3E%3C/svg%3E")}.dark\:bg-gradient-to-bl{background-image:linear-gradient(to bottom left, var(--tw-gradient-stops))}.dark\:stroke-gray-600{stroke:#4b5563}.dark\:text-gray-400{--tw-text-opacity:1;color:rgb(156 163 175 / var(--tw-text-opacity))}.dark\:text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity))}.dark\:shadow-none{--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.dark\:ring-1{--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)}.dark\:ring-inset{--tw-ring-inset:inset}.dark\:ring-white\/5{--tw-ring-color:rgb(255 255 255 / 0.05)}.dark\:hover\:text-white:hover{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity))}.group:hover .dark\:group-hover\:stroke-gray-400{stroke:#9ca3af}}@media (min-width: 640px){.sm\:fixed{position:fixed}.sm\:top-0{top:0px}.sm\:right-0{right:0px}.sm\:ml-0{margin-left:0px}.sm\:flex{display:flex}.sm\:items-center{align-items:center}.sm\:justify-center{justify-content:center}.sm\:justify-between{justify-content:space-between}.sm\:text-left{text-align:left}.sm\:text-right{text-align:right}}@media (min-width: 768px){.md\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}}@media (min-width: 1024px){.lg\:gap-8{gap:2rem}.lg\:p-8{padding:2rem}}
-        </style>
-    </head>
-    <body class="antialiased">
-        <div class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
-            @if (Route::has('login'))
-                <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right">
-                    @auth
-                        <a href="{{ url('/home') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Home</a>
-                    @else
-                        <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log in</a>
+    <!--Swiper slider css-->
+    <link href="assets/libs/swiper/swiper-bundle.min.css" rel="stylesheet" type="text/css" />
 
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Register</a>
-                        @endif
-                    @endauth
+    <!-- Layout config Js -->
+    <script src="assets/js/layout.js"></script>
+    <!-- Bootstrap Css -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- Icons Css -->
+    <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" />
+    <!-- custom Css-->
+    <link href="assets/css/custom.min.css" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+    <!-- Begin page -->
+    <div id="layout-wrapper">
+
+        <header id="page-topbar">
+    <div class="layout-width">
+        <div class="navbar-header">
+            <div class="d-flex">
+                <!-- LOGO -->
+                <div class="navbar-brand-box horizontal-logo">
+                    <a href="index.html" class="logo logo-dark">
+                        <span class="logo-sm">
+                            <img src="assets/images/logo-sm.png" alt="" height="22">
+                        </span>
+                        <span class="logo-lg">
+                            <img src="assets/images/logo-dark.png" alt="" height="17">
+                        </span>
+                    </a>
+
+                    <a href="index.html" class="logo logo-light">
+                        <span class="logo-sm">
+                            <img src="assets/images/logo-sm.png" alt="" height="22">
+                        </span>
+                        <span class="logo-lg">
+                            <img src="assets/images/logo-light.png" alt="" height="17">
+                        </span>
+                    </a>
                 </div>
-            @endif
 
-            <div class="max-w-7xl mx-auto p-6 lg:p-8">
-                <div class="flex justify-center">
-                    <svg viewBox="0 0 62 65" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-16 w-auto bg-gray-100 dark:bg-gray-900">
-                        <path d="M61.8548 14.6253C61.8778 14.7102 61.8895 14.7978 61.8897 14.8858V28.5615C61.8898 28.737 61.8434 28.9095 61.7554 29.0614C61.6675 29.2132 61.5409 29.3392 61.3887 29.4265L49.9104 36.0351V49.1337C49.9104 49.4902 49.7209 49.8192 49.4118 49.9987L25.4519 63.7916C25.3971 63.8227 25.3372 63.8427 25.2774 63.8639C25.255 63.8714 25.2338 63.8851 25.2101 63.8913C25.0426 63.9354 24.8666 63.9354 24.6991 63.8913C24.6716 63.8838 24.6467 63.8689 24.6205 63.8589C24.5657 63.8389 24.5084 63.8215 24.456 63.7916L0.501061 49.9987C0.348882 49.9113 0.222437 49.7853 0.134469 49.6334C0.0465019 49.4816 0.000120578 49.3092 0 49.1337L0 8.10652C0 8.01678 0.0124642 7.92953 0.0348998 7.84477C0.0423783 7.8161 0.0598282 7.78993 0.0697995 7.76126C0.0884958 7.70891 0.105946 7.65531 0.133367 7.6067C0.152063 7.5743 0.179485 7.54812 0.20192 7.51821C0.230588 7.47832 0.256763 7.43719 0.290416 7.40229C0.319084 7.37362 0.356476 7.35243 0.388883 7.32751C0.425029 7.29759 0.457436 7.26518 0.498568 7.2415L12.4779 0.345059C12.6296 0.257786 12.8015 0.211853 12.9765 0.211853C13.1515 0.211853 13.3234 0.257786 13.475 0.345059L25.4531 7.2415H25.4556C25.4955 7.26643 25.5292 7.29759 25.5653 7.32626C25.5977 7.35119 25.6339 7.37362 25.6625 7.40104C25.6974 7.43719 25.7224 7.47832 25.7523 7.51821C25.7735 7.54812 25.8021 7.5743 25.8196 7.6067C25.8483 7.65656 25.8645 7.70891 25.8844 7.76126C25.8944 7.78993 25.9118 7.8161 25.9193 7.84602C25.9423 7.93096 25.954 8.01853 25.9542 8.10652V33.7317L35.9355 27.9844V14.8846C35.9355 14.7973 35.948 14.7088 35.9704 14.6253C35.9792 14.5954 35.9954 14.5692 36.0053 14.5405C36.0253 14.4882 36.0427 14.4346 36.0702 14.386C36.0888 14.3536 36.1163 14.3274 36.1375 14.2975C36.1674 14.2576 36.1923 14.2165 36.2272 14.1816C36.2559 14.1529 36.292 14.1317 36.3244 14.1068C36.3618 14.0769 36.3942 14.0445 36.4341 14.0208L48.4147 7.12434C48.5663 7.03694 48.7383 6.99094 48.9133 6.99094C49.0883 6.99094 49.2602 7.03694 49.4118 7.12434L61.3899 14.0208C61.4323 14.0457 61.4647 14.0769 61.5021 14.1055C61.5333 14.1305 61.5694 14.1529 61.5981 14.1803C61.633 14.2165 61.6579 14.2576 61.6878 14.2975C61.7103 14.3274 61.7377 14.3536 61.7551 14.386C61.7838 14.4346 61.8 14.4882 61.8199 14.5405C61.8312 14.5692 61.8474 14.5954 61.8548 14.6253ZM59.893 27.9844V16.6121L55.7013 19.0252L49.9104 22.3593V33.7317L59.8942 27.9844H59.893ZM47.9149 48.5566V37.1768L42.2187 40.4299L25.953 49.7133V61.2003L47.9149 48.5566ZM1.99677 9.83281V48.5566L23.9562 61.199V49.7145L12.4841 43.2219L12.4804 43.2194L12.4754 43.2169C12.4368 43.1945 12.4044 43.1621 12.3682 43.1347C12.3371 43.1097 12.3009 43.0898 12.2735 43.0624L12.271 43.0586C12.2386 43.0275 12.2162 42.9888 12.1887 42.9539C12.1638 42.9203 12.1339 42.8916 12.114 42.8567L12.1127 42.853C12.0903 42.8156 12.0766 42.7707 12.0604 42.7283C12.0442 42.6909 12.023 42.656 12.013 42.6161C12.0005 42.5688 11.998 42.5177 11.9931 42.4691C11.9881 42.4317 11.9781 42.3943 11.9781 42.3569V15.5801L6.18848 12.2446L1.99677 9.83281ZM12.9777 2.36177L2.99764 8.10652L12.9752 13.8513L22.9541 8.10527L12.9752 2.36177H12.9777ZM18.1678 38.2138L23.9574 34.8809V9.83281L19.7657 12.2459L13.9749 15.5801V40.6281L18.1678 38.2138ZM48.9133 9.14105L38.9344 14.8858L48.9133 20.6305L58.8909 14.8846L48.9133 9.14105ZM47.9149 22.3593L42.124 19.0252L37.9323 16.6121V27.9844L43.7219 31.3174L47.9149 33.7317V22.3593ZM24.9533 47.987L39.59 39.631L46.9065 35.4555L36.9352 29.7145L25.4544 36.3242L14.9907 42.3482L24.9533 47.987Z" fill="#FF2D20"/>
-                    </svg>
+                <button type="button" class="btn btn-sm px-3 fs-16 header-item vertical-menu-btn topnav-hamburger material-shadow-none" id="topnav-hamburger-icon">
+                    <span class="hamburger-icon">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </span>
+                </button>
+
+                <!-- App Search-->
+                <form class="app-search d-none d-md-block">
+                    <div class="position-relative">
+                        <input type="text" class="form-control" placeholder="Search..." autocomplete="off" id="search-options" value="">
+                        <span class="mdi mdi-magnify search-widget-icon"></span>
+                        <span class="mdi mdi-close-circle search-widget-icon search-widget-icon-close d-none" id="search-close-options"></span>
+                    </div>
+                    <div class="dropdown-menu dropdown-menu-lg" id="search-dropdown">
+                        <div data-simplebar style="max-height: 320px;">
+                            <!-- item-->
+                            <div class="dropdown-header">
+                                <h6 class="text-overflow text-muted mb-0 text-uppercase">Recent Searches</h6>
+                            </div>
+
+                            <div class="dropdown-item bg-transparent text-wrap">
+                                <a href="index.html" class="btn btn-soft-secondary btn-sm rounded-pill">how to setup <i class="mdi mdi-magnify ms-1"></i></a>
+                                <a href="index.html" class="btn btn-soft-secondary btn-sm rounded-pill">buttons <i class="mdi mdi-magnify ms-1"></i></a>
+                            </div>
+                            <!-- item-->
+                            <div class="dropdown-header mt-2">
+                                <h6 class="text-overflow text-muted mb-1 text-uppercase">Pages</h6>
+                            </div>
+
+                            <!-- item-->
+                            <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                <i class="ri-bubble-chart-line align-middle fs-18 text-muted me-2"></i>
+                                <span>Analytics Dashboard</span>
+                            </a>
+
+                            <!-- item-->
+                            <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                <i class="ri-lifebuoy-line align-middle fs-18 text-muted me-2"></i>
+                                <span>Help Center</span>
+                            </a>
+
+                            <!-- item-->
+                            <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                <i class="ri-user-settings-line align-middle fs-18 text-muted me-2"></i>
+                                <span>My account settings</span>
+                            </a>
+
+                            <!-- item-->
+                            <div class="dropdown-header mt-2">
+                                <h6 class="text-overflow text-muted mb-2 text-uppercase">Members</h6>
+                            </div>
+
+                            <div class="notification-list">
+                                <!-- item -->
+                                <a href="javascript:void(0);" class="dropdown-item notify-item py-2">
+                                    <div class="d-flex">
+                                        <img src="assets/images/users/avatar-2.jpg" class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                        <div class="flex-grow-1">
+                                            <h6 class="m-0">Angela Bernier</h6>
+                                            <span class="fs-11 mb-0 text-muted">Manager</span>
+                                        </div>
+                                    </div>
+                                </a>
+                                <!-- item -->
+                                <a href="javascript:void(0);" class="dropdown-item notify-item py-2">
+                                    <div class="d-flex">
+                                        <img src="assets/images/users/avatar-3.jpg" class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                        <div class="flex-grow-1">
+                                            <h6 class="m-0">David Grasso</h6>
+                                            <span class="fs-11 mb-0 text-muted">Web Designer</span>
+                                        </div>
+                                    </div>
+                                </a>
+                                <!-- item -->
+                                <a href="javascript:void(0);" class="dropdown-item notify-item py-2">
+                                    <div class="d-flex">
+                                        <img src="assets/images/users/avatar-5.jpg" class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                        <div class="flex-grow-1">
+                                            <h6 class="m-0">Mike Bunch</h6>
+                                            <span class="fs-11 mb-0 text-muted">React Developer</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="text-center pt-3 pb-1">
+                            <a href="pages-search-results.html" class="btn btn-primary btn-sm">View All Results <i class="ri-arrow-right-line ms-1"></i></a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="d-flex align-items-center">
+
+                <div class="dropdown d-md-none topbar-head-dropdown header-item">
+                    <button type="button" class="btn btn-icon btn-topbar material-shadow-none btn-ghost-secondary rounded-circle" id="page-header-search-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="bx bx-search fs-22"></i>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0" aria-labelledby="page-header-search-dropdown">
+                        <form class="p-3">
+                            <div class="form-group m-0">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Search ..." aria-label="Recipient's username">
+                                    <button class="btn btn-primary" type="submit"><i class="mdi mdi-magnify"></i></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
 
-                <div class="mt-16">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-                        <a href="https://laravel.com/docs" class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
-                            <div>
-                                <div class="h-16 w-16 bg-red-50 dark:bg-red-800/20 flex items-center justify-center rounded-full">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="w-7 h-7 stroke-red-500">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
-                                    </svg>
-                                </div>
+                <div class="dropdown ms-1 topbar-head-dropdown header-item">
+                    <button type="button" class="btn btn-icon btn-topbar material-shadow-none btn-ghost-secondary rounded-circle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img id="header-lang-img" src="assets/images/flags/us.svg" alt="Header Language" height="20" class="rounded">
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-end">
 
-                                <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">Documentation</h2>
-
-                                <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                                    Laravel has wonderful documentation covering every aspect of the framework. Whether you are a newcomer or have prior experience with Laravel, we recommend reading our documentation from beginning to end.
-                                </p>
-                            </div>
-
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="self-center shrink-0 stroke-red-500 w-6 h-6 mx-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
-                            </svg>
+                        <!-- item-->
+                        <a href="javascript:void(0);" class="dropdown-item notify-item language py-2" data-lang="en" title="English">
+                            <img src="assets/images/flags/us.svg" alt="user-image" class="me-2 rounded" height="18">
+                            <span class="align-middle">English</span>
                         </a>
 
-                        <a href="https://laracasts.com" class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
-                            <div>
-                                <div class="h-16 w-16 bg-red-50 dark:bg-red-800/20 flex items-center justify-center rounded-full">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="w-7 h-7 stroke-red-500">
-                                        <path stroke-linecap="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" />
-                                    </svg>
-                                </div>
-
-                                <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">Laracasts</h2>
-
-                                <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                                    Laracasts offers thousands of video tutorials on Laravel, PHP, and JavaScript development. Check them out, see for yourself, and massively level up your development skills in the process.
-                                </p>
-                            </div>
-
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="self-center shrink-0 stroke-red-500 w-6 h-6 mx-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
-                            </svg>
+                        <!-- item-->
+                        <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="sp" title="Spanish">
+                            <img src="assets/images/flags/spain.svg" alt="user-image" class="me-2 rounded" height="18">
+                            <span class="align-middle">Española</span>
                         </a>
 
-                        <a href="https://laravel-news.com" class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
-                            <div>
-                                <div class="h-16 w-16 bg-red-50 dark:bg-red-800/20 flex items-center justify-center rounded-full">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="w-7 h-7 stroke-red-500">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5M6 7.5h3v3H6v-3z" />
-                                    </svg>
-                                </div>
-
-                                <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">Laravel News</h2>
-
-                                <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                                    Laravel News is a community driven portal and newsletter aggregating all of the latest and most important news in the Laravel ecosystem, including new package releases and tutorials.
-                                </p>
-                            </div>
-
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="self-center shrink-0 stroke-red-500 w-6 h-6 mx-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
-                            </svg>
+                        <!-- item-->
+                        <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="gr" title="German">
+                            <img src="assets/images/flags/germany.svg" alt="user-image" class="me-2 rounded" height="18"> <span class="align-middle">Deutsche</span>
                         </a>
 
-                        <div class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
-                            <div>
-                                <div class="h-16 w-16 bg-red-50 dark:bg-red-800/20 flex items-center justify-center rounded-full">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="w-7 h-7 stroke-red-500">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.115 5.19l.319 1.913A6 6 0 008.11 10.36L9.75 12l-.387.775c-.217.433-.132.956.21 1.298l1.348 1.348c.21.21.329.497.329.795v1.089c0 .426.24.815.622 1.006l.153.076c.433.217.956.132 1.298-.21l.723-.723a8.7 8.7 0 002.288-4.042 1.087 1.087 0 00-.358-1.099l-1.33-1.108c-.251-.21-.582-.299-.905-.245l-1.17.195a1.125 1.125 0 01-.98-.314l-.295-.295a1.125 1.125 0 010-1.591l.13-.132a1.125 1.125 0 011.3-.21l.603.302a.809.809 0 001.086-1.086L14.25 7.5l1.256-.837a4.5 4.5 0 001.528-1.732l.146-.292M6.115 5.19A9 9 0 1017.18 4.64M6.115 5.19A8.965 8.965 0 0112 3c1.929 0 3.716.607 5.18 1.64" />
-                                    </svg>
+                        <!-- item-->
+                        <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="it" title="Italian">
+                            <img src="assets/images/flags/italy.svg" alt="user-image" class="me-2 rounded" height="18">
+                            <span class="align-middle">Italiana</span>
+                        </a>
+
+                        <!-- item-->
+                        <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="ru" title="Russian">
+                            <img src="assets/images/flags/russia.svg" alt="user-image" class="me-2 rounded" height="18">
+                            <span class="align-middle">русский</span>
+                        </a>
+
+                        <!-- item-->
+                        <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="ch" title="Chinese">
+                            <img src="assets/images/flags/china.svg" alt="user-image" class="me-2 rounded" height="18">
+                            <span class="align-middle">中国人</span>
+                        </a>
+
+                        <!-- item-->
+                        <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="fr" title="French">
+                            <img src="assets/images/flags/french.svg" alt="user-image" class="me-2 rounded" height="18">
+                            <span class="align-middle">français</span>
+                        </a>
+
+                        <!-- item-->
+                        <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="ar" title="Arabic">
+                            <img src="assets/images/flags/ae.svg" alt="user-image" class="me-2 rounded" height="18">
+                            <span class="align-middle">Arabic</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="dropdown topbar-head-dropdown ms-1 header-item">
+                    <button type="button" class="btn btn-icon btn-topbar material-shadow-none btn-ghost-secondary rounded-circle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class='bx bx-category-alt fs-22'></i>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-lg p-0 dropdown-menu-end">
+                        <div class="p-3 border-top-0 border-start-0 border-end-0 border-dashed border">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <h6 class="m-0 fw-semibold fs-15"> Web Apps </h6>
                                 </div>
+                                <div class="col-auto">
+                                    <a href="#!" class="btn btn-sm btn-soft-info"> View All Apps
+                                        <i class="ri-arrow-right-s-line align-middle"></i></a>
+                                </div>
+                            </div>
+                        </div>
 
-                                <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">Vibrant Ecosystem</h2>
+                        <div class="p-2">
+                            <div class="row g-0">
+                                <div class="col">
+                                    <a class="dropdown-icon-item" href="#!">
+                                        <img src="assets/images/brands/github.png" alt="Github">
+                                        <span>GitHub</span>
+                                    </a>
+                                </div>
+                                <div class="col">
+                                    <a class="dropdown-icon-item" href="#!">
+                                        <img src="assets/images/brands/bitbucket.png" alt="bitbucket">
+                                        <span>Bitbucket</span>
+                                    </a>
+                                </div>
+                                <div class="col">
+                                    <a class="dropdown-icon-item" href="#!">
+                                        <img src="assets/images/brands/dribbble.png" alt="dribbble">
+                                        <span>Dribbble</span>
+                                    </a>
+                                </div>
+                            </div>
 
-                                <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                                    Laravel's robust library of first-party tools and libraries, such as <a href="https://forge.laravel.com" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Forge</a>, <a href="https://vapor.laravel.com" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Vapor</a>, <a href="https://nova.laravel.com" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Nova</a>, and <a href="https://envoyer.io" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Envoyer</a> help you take your projects to the next level. Pair them with powerful open source libraries like <a href="https://laravel.com/docs/billing" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Cashier</a>, <a href="https://laravel.com/docs/dusk" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dusk</a>, <a href="https://laravel.com/docs/broadcasting" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Echo</a>, <a href="https://laravel.com/docs/horizon" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Horizon</a>, <a href="https://laravel.com/docs/sanctum" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Sanctum</a>, <a href="https://laravel.com/docs/telescope" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Telescope</a>, and more.
-                                </p>
+                            <div class="row g-0">
+                                <div class="col">
+                                    <a class="dropdown-icon-item" href="#!">
+                                        <img src="assets/images/brands/dropbox.png" alt="dropbox">
+                                        <span>Dropbox</span>
+                                    </a>
+                                </div>
+                                <div class="col">
+                                    <a class="dropdown-icon-item" href="#!">
+                                        <img src="assets/images/brands/mail_chimp.png" alt="mail_chimp">
+                                        <span>Mail Chimp</span>
+                                    </a>
+                                </div>
+                                <div class="col">
+                                    <a class="dropdown-icon-item" href="#!">
+                                        <img src="assets/images/brands/slack.png" alt="slack">
+                                        <span>Slack</span>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="flex justify-center mt-16 px-0 sm:items-center sm:justify-between">
-                    <div class="text-center text-sm text-gray-500 dark:text-gray-400 sm:text-left">
-                        <div class="flex items-center gap-4">
-                            <a href="https://github.com/sponsors/taylorotwell" class="group inline-flex items-center hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="-mt-px mr-1 w-5 h-5 stroke-gray-400 dark:stroke-gray-600 group-hover:stroke-gray-600 dark:group-hover:stroke-gray-400">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-                                </svg>
-                                Sponsor
+                <div class="dropdown topbar-head-dropdown ms-1 header-item">
+                    <button type="button" class="btn btn-icon btn-topbar material-shadow-none btn-ghost-secondary rounded-circle" id="page-header-cart-dropdown" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false">
+                        <i class='bx bx-shopping-bag fs-22'></i>
+                        <span class="position-absolute topbar-badge cartitem-badge fs-10 translate-middle badge rounded-pill bg-info">5</span>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-xl dropdown-menu-end p-0 dropdown-menu-cart" aria-labelledby="page-header-cart-dropdown">
+                        <div class="p-3 border-top-0 border-start-0 border-end-0 border-dashed border">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <h6 class="m-0 fs-16 fw-semibold"> My Cart</h6>
+                                </div>
+                                <div class="col-auto">
+                                    <span class="badge bg-warning-subtle text-warning fs-13"><span class="cartitem-badge">7</span>
+                                        items</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div data-simplebar style="max-height: 300px;">
+                            <div class="p-2">
+                                <div class="text-center empty-cart" id="empty-cart">
+                                    <div class="avatar-md mx-auto my-3">
+                                        <div class="avatar-title bg-info-subtle text-info fs-36 rounded-circle">
+                                            <i class='bx bx-cart'></i>
+                                        </div>
+                                    </div>
+                                    <h5 class="mb-3">Your Cart is Empty!</h5>
+                                    <a href="apps-ecommerce-products.html" class="btn btn-success w-md mb-3">Shop Now</a>
+                                </div>
+                                <div class="d-block dropdown-item dropdown-item-cart text-wrap px-3 py-2">
+                                    <div class="d-flex align-items-center">
+                                        <img src="assets/images/products/img-1.png" class="me-3 rounded-circle avatar-sm p-2 bg-light" alt="user-pic">
+                                        <div class="flex-grow-1">
+                                            <h6 class="mt-0 mb-1 fs-14">
+                                                <a href="apps-ecommerce-product-details.html" class="text-reset">Branded
+                                                    T-Shirts</a>
+                                            </h6>
+                                            <p class="mb-0 fs-12 text-muted">
+                                                Quantity: <span>10 x $32</span>
+                                            </p>
+                                        </div>
+                                        <div class="px-2">
+                                            <h5 class="m-0 fw-normal">$<span class="cart-item-price">320</span></h5>
+                                        </div>
+                                        <div class="ps-2">
+                                            <button type="button" class="btn btn-icon btn-sm btn-ghost-secondary remove-item-btn"><i class="ri-close-fill fs-16"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="d-block dropdown-item dropdown-item-cart text-wrap px-3 py-2">
+                                    <div class="d-flex align-items-center">
+                                        <img src="assets/images/products/img-2.png" class="me-3 rounded-circle avatar-sm p-2 bg-light" alt="user-pic">
+                                        <div class="flex-grow-1">
+                                            <h6 class="mt-0 mb-1 fs-14">
+                                                <a href="apps-ecommerce-product-details.html" class="text-reset">Bentwood Chair</a>
+                                            </h6>
+                                            <p class="mb-0 fs-12 text-muted">
+                                                Quantity: <span>5 x $18</span>
+                                            </p>
+                                        </div>
+                                        <div class="px-2">
+                                            <h5 class="m-0 fw-normal">$<span class="cart-item-price">89</span></h5>
+                                        </div>
+                                        <div class="ps-2">
+                                            <button type="button" class="btn btn-icon btn-sm btn-ghost-secondary remove-item-btn"><i class="ri-close-fill fs-16"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="d-block dropdown-item dropdown-item-cart text-wrap px-3 py-2">
+                                    <div class="d-flex align-items-center">
+                                        <img src="assets/images/products/img-3.png" class="me-3 rounded-circle avatar-sm p-2 bg-light" alt="user-pic">
+                                        <div class="flex-grow-1">
+                                            <h6 class="mt-0 mb-1 fs-14">
+                                                <a href="apps-ecommerce-product-details.html" class="text-reset">
+                                                    Borosil Paper Cup</a>
+                                            </h6>
+                                            <p class="mb-0 fs-12 text-muted">
+                                                Quantity: <span>3 x $250</span>
+                                            </p>
+                                        </div>
+                                        <div class="px-2">
+                                            <h5 class="m-0 fw-normal">$<span class="cart-item-price">750</span></h5>
+                                        </div>
+                                        <div class="ps-2">
+                                            <button type="button" class="btn btn-icon btn-sm btn-ghost-secondary remove-item-btn"><i class="ri-close-fill fs-16"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="d-block dropdown-item dropdown-item-cart text-wrap px-3 py-2">
+                                    <div class="d-flex align-items-center">
+                                        <img src="assets/images/products/img-6.png" class="me-3 rounded-circle avatar-sm p-2 bg-light" alt="user-pic">
+                                        <div class="flex-grow-1">
+                                            <h6 class="mt-0 mb-1 fs-14">
+                                                <a href="apps-ecommerce-product-details.html" class="text-reset">Gray
+                                                    Styled T-Shirt</a>
+                                            </h6>
+                                            <p class="mb-0 fs-12 text-muted">
+                                                Quantity: <span>1 x $1250</span>
+                                            </p>
+                                        </div>
+                                        <div class="px-2">
+                                            <h5 class="m-0 fw-normal">$ <span class="cart-item-price">1250</span></h5>
+                                        </div>
+                                        <div class="ps-2">
+                                            <button type="button" class="btn btn-icon btn-sm btn-ghost-secondary remove-item-btn"><i class="ri-close-fill fs-16"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="d-block dropdown-item dropdown-item-cart text-wrap px-3 py-2">
+                                    <div class="d-flex align-items-center">
+                                        <img src="assets/images/products/img-5.png" class="me-3 rounded-circle avatar-sm p-2 bg-light" alt="user-pic">
+                                        <div class="flex-grow-1">
+                                            <h6 class="mt-0 mb-1 fs-14">
+                                                <a href="apps-ecommerce-product-details.html" class="text-reset">Stillbird Helmet</a>
+                                            </h6>
+                                            <p class="mb-0 fs-12 text-muted">
+                                                Quantity: <span>2 x $495</span>
+                                            </p>
+                                        </div>
+                                        <div class="px-2">
+                                            <h5 class="m-0 fw-normal">$<span class="cart-item-price">990</span></h5>
+                                        </div>
+                                        <div class="ps-2">
+                                            <button type="button" class="btn btn-icon btn-sm btn-ghost-secondary remove-item-btn"><i class="ri-close-fill fs-16"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-3 border-bottom-0 border-start-0 border-end-0 border-dashed border" id="checkout-elem">
+                            <div class="d-flex justify-content-between align-items-center pb-3">
+                                <h5 class="m-0 text-muted">Total:</h5>
+                                <div class="px-2">
+                                    <h5 class="m-0" id="cart-item-total">$1258.58</h5>
+                                </div>
+                            </div>
+
+                            <a href="apps-ecommerce-checkout.html" class="btn btn-success text-center w-100">
+                                Checkout
                             </a>
                         </div>
                     </div>
+                </div>
 
-                    <div class="ml-4 text-center text-sm text-gray-500 dark:text-gray-400 sm:text-right sm:ml-0">
-                        Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
+                <div class="ms-1 header-item d-none d-sm-flex">
+                    <button type="button" class="btn btn-icon btn-topbar material-shadow-none btn-ghost-secondary rounded-circle" data-toggle="fullscreen">
+                        <i class='bx bx-fullscreen fs-22'></i>
+                    </button>
+                </div>
+
+                <div class="ms-1 header-item d-none d-sm-flex">
+                    <button type="button" class="btn btn-icon btn-topbar material-shadow-none btn-ghost-secondary rounded-circle light-dark-mode">
+                        <i class='bx bx-moon fs-22'></i>
+                    </button>
+                </div>
+
+                <div class="dropdown topbar-head-dropdown ms-1 header-item" id="notificationDropdown">
+                    <button type="button" class="btn btn-icon btn-topbar material-shadow-none btn-ghost-secondary rounded-circle" id="page-header-notifications-dropdown" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false">
+                        <i class='bx bx-bell fs-22'></i>
+                        <span class="position-absolute topbar-badge fs-10 translate-middle badge rounded-pill bg-danger">3<span class="visually-hidden">unread messages</span></span>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0" aria-labelledby="page-header-notifications-dropdown">
+
+                        <div class="dropdown-head bg-primary bg-pattern rounded-top">
+                            <div class="p-3">
+                                <div class="row align-items-center">
+                                    <div class="col">
+                                        <h6 class="m-0 fs-16 fw-semibold text-white"> Notifications </h6>
+                                    </div>
+                                    <div class="col-auto dropdown-tabs">
+                                        <span class="badge bg-light text-body fs-13"> 4 New</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="px-2 pt-2">
+                                <ul class="nav nav-tabs dropdown-tabs nav-tabs-custom" data-dropdown-tabs="true" id="notificationItemsTab" role="tablist">
+                                    <li class="nav-item waves-effect waves-light">
+                                        <a class="nav-link active" data-bs-toggle="tab" href="#all-noti-tab" role="tab" aria-selected="true">
+                                            All (4)
+                                        </a>
+                                    </li>
+                                    <li class="nav-item waves-effect waves-light">
+                                        <a class="nav-link" data-bs-toggle="tab" href="#messages-tab" role="tab" aria-selected="false">
+                                            Messages
+                                        </a>
+                                    </li>
+                                    <li class="nav-item waves-effect waves-light">
+                                        <a class="nav-link" data-bs-toggle="tab" href="#alerts-tab" role="tab" aria-selected="false">
+                                            Alerts
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+
+                        <div class="tab-content position-relative" id="notificationItemsTabContent">
+                            <div class="tab-pane fade show active py-2 ps-2" id="all-noti-tab" role="tabpanel">
+                                <div data-simplebar style="max-height: 300px;" class="pe-2">
+                                    <div class="text-reset notification-item d-block dropdown-item position-relative">
+                                        <div class="d-flex">
+                                            <div class="avatar-xs me-3 flex-shrink-0">
+                                                <span class="avatar-title bg-info-subtle text-info rounded-circle fs-16">
+                                                    <i class="bx bx-badge-check"></i>
+                                                </span>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <a href="#!" class="stretched-link">
+                                                    <h6 class="mt-0 mb-2 lh-base">Your <b>Elite</b> author Graphic
+                                                        Optimization <span class="text-secondary">reward</span> is
+                                                        ready!
+                                                    </h6>
+                                                </a>
+                                                <p class="mb-0 fs-11 fw-medium text-uppercase text-muted">
+                                                    <span><i class="mdi mdi-clock-outline"></i> Just 30 sec ago</span>
+                                                </p>
+                                            </div>
+                                            <div class="px-2 fs-15">
+                                                <div class="form-check notification-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="all-notification-check01">
+                                                    <label class="form-check-label" for="all-notification-check01"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="text-reset notification-item d-block dropdown-item position-relative">
+                                        <div class="d-flex">
+                                            <img src="assets/images/users/avatar-2.jpg" class="me-3 rounded-circle avatar-xs flex-shrink-0" alt="user-pic">
+                                            <div class="flex-grow-1">
+                                                <a href="#!" class="stretched-link">
+                                                    <h6 class="mt-0 mb-1 fs-13 fw-semibold">Angela Bernier</h6>
+                                                </a>
+                                                <div class="fs-13 text-muted">
+                                                    <p class="mb-1">Answered to your comment on the cash flow forecast's
+                                                        graph 🔔.</p>
+                                                </div>
+                                                <p class="mb-0 fs-11 fw-medium text-uppercase text-muted">
+                                                    <span><i class="mdi mdi-clock-outline"></i> 48 min ago</span>
+                                                </p>
+                                            </div>
+                                            <div class="px-2 fs-15">
+                                                <div class="form-check notification-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="all-notification-check02">
+                                                    <label class="form-check-label" for="all-notification-check02"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="text-reset notification-item d-block dropdown-item position-relative">
+                                        <div class="d-flex">
+                                            <div class="avatar-xs me-3 flex-shrink-0">
+                                                <span class="avatar-title bg-danger-subtle text-danger rounded-circle fs-16">
+                                                    <i class='bx bx-message-square-dots'></i>
+                                                </span>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <a href="#!" class="stretched-link">
+                                                    <h6 class="mt-0 mb-2 fs-13 lh-base">You have received <b class="text-success">20</b> new messages in the conversation
+                                                    </h6>
+                                                </a>
+                                                <p class="mb-0 fs-11 fw-medium text-uppercase text-muted">
+                                                    <span><i class="mdi mdi-clock-outline"></i> 2 hrs ago</span>
+                                                </p>
+                                            </div>
+                                            <div class="px-2 fs-15">
+                                                <div class="form-check notification-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="all-notification-check03">
+                                                    <label class="form-check-label" for="all-notification-check03"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="text-reset notification-item d-block dropdown-item position-relative">
+                                        <div class="d-flex">
+                                            <img src="assets/images/users/avatar-8.jpg" class="me-3 rounded-circle avatar-xs flex-shrink-0" alt="user-pic">
+                                            <div class="flex-grow-1">
+                                                <a href="#!" class="stretched-link">
+                                                    <h6 class="mt-0 mb-1 fs-13 fw-semibold">Maureen Gibson</h6>
+                                                </a>
+                                                <div class="fs-13 text-muted">
+                                                    <p class="mb-1">We talked about a project on linkedin.</p>
+                                                </div>
+                                                <p class="mb-0 fs-11 fw-medium text-uppercase text-muted">
+                                                    <span><i class="mdi mdi-clock-outline"></i> 4 hrs ago</span>
+                                                </p>
+                                            </div>
+                                            <div class="px-2 fs-15">
+                                                <div class="form-check notification-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="all-notification-check04">
+                                                    <label class="form-check-label" for="all-notification-check04"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="my-3 text-center view-all">
+                                        <button type="button" class="btn btn-soft-success waves-effect waves-light">View
+                                            All Notifications <i class="ri-arrow-right-line align-middle"></i></button>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="tab-pane fade py-2 ps-2" id="messages-tab" role="tabpanel" aria-labelledby="messages-tab">
+                                <div data-simplebar style="max-height: 300px;" class="pe-2">
+                                    <div class="text-reset notification-item d-block dropdown-item">
+                                        <div class="d-flex">
+                                            <img src="assets/images/users/avatar-3.jpg" class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                            <div class="flex-grow-1">
+                                                <a href="#!" class="stretched-link">
+                                                    <h6 class="mt-0 mb-1 fs-13 fw-semibold">James Lemire</h6>
+                                                </a>
+                                                <div class="fs-13 text-muted">
+                                                    <p class="mb-1">We talked about a project on linkedin.</p>
+                                                </div>
+                                                <p class="mb-0 fs-11 fw-medium text-uppercase text-muted">
+                                                    <span><i class="mdi mdi-clock-outline"></i> 30 min ago</span>
+                                                </p>
+                                            </div>
+                                            <div class="px-2 fs-15">
+                                                <div class="form-check notification-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="messages-notification-check01">
+                                                    <label class="form-check-label" for="messages-notification-check01"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="text-reset notification-item d-block dropdown-item">
+                                        <div class="d-flex">
+                                            <img src="assets/images/users/avatar-2.jpg" class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                            <div class="flex-grow-1">
+                                                <a href="#!" class="stretched-link">
+                                                    <h6 class="mt-0 mb-1 fs-13 fw-semibold">Angela Bernier</h6>
+                                                </a>
+                                                <div class="fs-13 text-muted">
+                                                    <p class="mb-1">Answered to your comment on the cash flow forecast's
+                                                        graph 🔔.</p>
+                                                </div>
+                                                <p class="mb-0 fs-11 fw-medium text-uppercase text-muted">
+                                                    <span><i class="mdi mdi-clock-outline"></i> 2 hrs ago</span>
+                                                </p>
+                                            </div>
+                                            <div class="px-2 fs-15">
+                                                <div class="form-check notification-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="messages-notification-check02">
+                                                    <label class="form-check-label" for="messages-notification-check02"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="text-reset notification-item d-block dropdown-item">
+                                        <div class="d-flex">
+                                            <img src="assets/images/users/avatar-6.jpg" class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                            <div class="flex-grow-1">
+                                                <a href="#!" class="stretched-link">
+                                                    <h6 class="mt-0 mb-1 fs-13 fw-semibold">Kenneth Brown</h6>
+                                                </a>
+                                                <div class="fs-13 text-muted">
+                                                    <p class="mb-1">Mentionned you in his comment on 📃 invoice #12501.
+                                                    </p>
+                                                </div>
+                                                <p class="mb-0 fs-11 fw-medium text-uppercase text-muted">
+                                                    <span><i class="mdi mdi-clock-outline"></i> 10 hrs ago</span>
+                                                </p>
+                                            </div>
+                                            <div class="px-2 fs-15">
+                                                <div class="form-check notification-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="messages-notification-check03">
+                                                    <label class="form-check-label" for="messages-notification-check03"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="text-reset notification-item d-block dropdown-item">
+                                        <div class="d-flex">
+                                            <img src="assets/images/users/avatar-8.jpg" class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                            <div class="flex-grow-1">
+                                                <a href="#!" class="stretched-link">
+                                                    <h6 class="mt-0 mb-1 fs-13 fw-semibold">Maureen Gibson</h6>
+                                                </a>
+                                                <div class="fs-13 text-muted">
+                                                    <p class="mb-1">We talked about a project on linkedin.</p>
+                                                </div>
+                                                <p class="mb-0 fs-11 fw-medium text-uppercase text-muted">
+                                                    <span><i class="mdi mdi-clock-outline"></i> 3 days ago</span>
+                                                </p>
+                                            </div>
+                                            <div class="px-2 fs-15">
+                                                <div class="form-check notification-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="messages-notification-check04">
+                                                    <label class="form-check-label" for="messages-notification-check04"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="my-3 text-center view-all">
+                                        <button type="button" class="btn btn-soft-success waves-effect waves-light">View
+                                            All Messages <i class="ri-arrow-right-line align-middle"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade p-4" id="alerts-tab" role="tabpanel" aria-labelledby="alerts-tab"></div>
+
+                            <div class="notification-actions" id="notification-actions">
+                                <div class="d-flex text-muted justify-content-center">
+                                    Select <div id="select-content" class="text-body fw-semibold px-1">0</div> Result <button type="button" class="btn btn-link link-danger p-0 ms-3" data-bs-toggle="modal" data-bs-target="#removeNotificationModal">Remove</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dropdown ms-sm-3 header-item topbar-user">
+                    <button type="button" class="btn material-shadow-none" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="d-flex align-items-center">
+                            <img class="rounded-circle header-profile-user" src="assets/images/users/avatar-1.jpg" alt="Header Avatar">
+                            <span class="text-start ms-xl-2">
+                                <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">Anna Adame</span>
+                                <span class="d-none d-xl-block ms-1 fs-12 user-name-sub-text">Founder</span>
+                            </span>
+                        </span>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-end">
+                        <!-- item-->
+                        <h6 class="dropdown-header">Welcome Anna!</h6>
+                        <a class="dropdown-item" href="pages-profile.html"><i class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Profile</span></a>
+                        <a class="dropdown-item" href="apps-chat.html"><i class="mdi mdi-message-text-outline text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Messages</span></a>
+                        <a class="dropdown-item" href="apps-tasks-kanban.html"><i class="mdi mdi-calendar-check-outline text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Taskboard</span></a>
+                        <a class="dropdown-item" href="pages-faqs.html"><i class="mdi mdi-lifebuoy text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Help</span></a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="pages-profile.html"><i class="mdi mdi-wallet text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Balance : <b>$5971.67</b></span></a>
+                        <a class="dropdown-item" href="pages-profile-settings.html"><span class="badge bg-success-subtle text-success mt-1 float-end">New</span><i class="mdi mdi-cog-outline text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Settings</span></a>
+                        <a class="dropdown-item" href="auth-lockscreen-basic.html"><i class="mdi mdi-lock text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Lock screen</span></a>
+                        <a class="dropdown-item" href="auth-logout-basic.html"><i class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span class="align-middle" data-key="t-logout">Logout</span></a>
                     </div>
                 </div>
             </div>
         </div>
-    </body>
+    </div>
+</header>
+
+<!-- removeNotificationModal -->
+<div id="removeNotificationModal" class="modal fade zoomIn" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="NotificationModalbtn-close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mt-2 text-center">
+                    <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop" colors="primary:#f7b84b,secondary:#f06548" style="width:100px;height:100px"></lord-icon>
+                    <div class="mt-4 pt-2 fs-15 mx-4 mx-sm-5">
+                        <h4>Are you sure ?</h4>
+                        <p class="text-muted mx-4 mb-0">Are you sure you want to remove this Notification ?</p>
+                    </div>
+                </div>
+                <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
+                    <button type="button" class="btn w-sm btn-light" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn w-sm btn-danger" id="delete-notification">Yes, Delete It!</button>
+                </div>
+            </div>
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+        <!-- ========== App Menu ========== -->
+        <div class="app-menu navbar-menu">
+            <!-- LOGO -->
+            <div class="navbar-brand-box">
+                <!-- Dark Logo-->
+                <a href="index.html" class="logo logo-dark">
+                    <span class="logo-sm">
+                        <img src="assets/images/logo-sm.png" alt="" height="22">
+                    </span>
+                    <span class="logo-lg">
+                        <img src="assets/images/logo-dark.png" alt="" height="17">
+                    </span>
+                </a>
+                <!-- Light Logo-->
+                <a href="index.html" class="logo logo-light">
+                    <span class="logo-sm">
+                        <img src="assets/images/logo-sm.png" alt="" height="22">
+                    </span>
+                    <span class="logo-lg">
+                        <img src="assets/images/logo-light.png" alt="" height="17">
+                    </span>
+                </a>
+                <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover" id="vertical-hover">
+                    <i class="ri-record-circle-line"></i>
+                </button>
+            </div>
+    
+            <div class="dropdown sidebar-user m-1 rounded">
+                <button type="button" class="btn material-shadow-none" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="d-flex align-items-center gap-2">
+                        <img class="rounded header-profile-user" src="assets/images/users/avatar-1.jpg" alt="Header Avatar">
+                        <span class="text-start">
+                            <span class="d-block fw-medium sidebar-user-name-text">Anna Adame</span>
+                            <span class="d-block fs-14 sidebar-user-name-sub-text"><i class="ri ri-circle-fill fs-10 text-success align-baseline"></i> <span class="align-middle">Online</span></span>
+                        </span>
+                    </span>
+                </button>
+                <div class="dropdown-menu dropdown-menu-end">
+                    <!-- item-->
+                    <h6 class="dropdown-header">Welcome Anna!</h6>
+                    <a class="dropdown-item" href="pages-profile.html"><i class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Profile</span></a>
+                    <a class="dropdown-item" href="apps-chat.html"><i class="mdi mdi-message-text-outline text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Messages</span></a>
+                    <a class="dropdown-item" href="apps-tasks-kanban.html"><i class="mdi mdi-calendar-check-outline text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Taskboard</span></a>
+                    <a class="dropdown-item" href="pages-faqs.html"><i class="mdi mdi-lifebuoy text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Help</span></a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="pages-profile.html"><i class="mdi mdi-wallet text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Balance : <b>$5971.67</b></span></a>
+                    <a class="dropdown-item" href="pages-profile-settings.html"><span class="badge bg-success-subtle text-success mt-1 float-end">New</span><i class="mdi mdi-cog-outline text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Settings</span></a>
+                    <a class="dropdown-item" href="auth-lockscreen-basic.html"><i class="mdi mdi-lock text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Lock screen</span></a>
+                    <a class="dropdown-item" href="auth-logout-basic.html"><i class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span class="align-middle" data-key="t-logout">Logout</span></a>
+                </div>
+            </div>
+            <div id="scrollbar">
+                <div class="container-fluid">
+
+
+                    <div id="two-column-menu">
+                    </div>
+                    <ul class="navbar-nav" id="navbar-nav">
+                        <li class="menu-title"><span data-key="t-menu">Menu</span></li>
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="#sidebarDashboards" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarDashboards">
+                                <i class="ri-dashboard-2-line"></i> <span data-key="t-dashboards">Dashboards</span>
+                            </a>
+                            <div class="collapse menu-dropdown" id="sidebarDashboards">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="dashboard-analytics.html" class="nav-link" data-key="t-analytics"> Analytics </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="dashboard-crm.html" class="nav-link" data-key="t-crm"> CRM </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="index.html" class="nav-link" data-key="t-ecommerce"> Ecommerce </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="dashboard-crypto.html" class="nav-link" data-key="t-crypto"> Crypto </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="dashboard-projects.html" class="nav-link" data-key="t-projects"> Projects </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="dashboard-nft.html" class="nav-link" data-key="t-nft"> NFT</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="dashboard-job.html" class="nav-link" data-key="t-job">Job</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="dashboard-blog.html" class="nav-link"><span data-key="t-blog">Blog</span> <span class="badge bg-success" data-key="t-new">New</span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li> <!-- end Dashboard Menu -->
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="#sidebarApps" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
+                                <i class="ri-apps-2-line"></i> <span data-key="t-apps">Apps</span>
+                            </a>
+                            <div class="collapse menu-dropdown" id="sidebarApps">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="#sidebarCalendar" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarCalendar" data-key="t-calender">
+                                            Calendar
+                                        </a>
+                                        <div class="collapse menu-dropdown" id="sidebarCalendar">
+                                            <ul class="nav nav-sm flex-column">
+                                                <li class="nav-item">
+                                                    <a href="apps-calendar.html" class="nav-link" data-key="t-main-calender"> Main Calender </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="apps-calendar-month-grid.html" class="nav-link" data-key="t-month-grid"> Month Grid </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="apps-chat.html" class="nav-link" data-key="t-chat"> Chat </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#sidebarEmail" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarEmail" data-key="t-email">
+                                            Email
+                                        </a>
+                                        <div class="collapse menu-dropdown" id="sidebarEmail">
+                                            <ul class="nav nav-sm flex-column">
+                                                <li class="nav-item">
+                                                    <a href="apps-mailbox.html" class="nav-link" data-key="t-mailbox"> Mailbox </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="#sidebaremailTemplates" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebaremailTemplates" data-key="t-email-templates">
+                                                        Email Templates
+                                                    </a>
+                                                    <div class="collapse menu-dropdown" id="sidebaremailTemplates">
+                                                        <ul class="nav nav-sm flex-column">
+                                                            <li class="nav-item">
+                                                                <a href="apps-email-basic.html" class="nav-link" data-key="t-basic-action"> Basic Action </a>
+                                                            </li>
+                                                            <li class="nav-item">
+                                                                <a href="apps-email-ecommerce.html" class="nav-link" data-key="t-ecommerce-action"> Ecommerce Action </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#sidebarEcommerce" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarEcommerce" data-key="t-ecommerce">
+                                            Ecommerce
+                                        </a>
+                                        <div class="collapse menu-dropdown" id="sidebarEcommerce">
+                                            <ul class="nav nav-sm flex-column">
+                                                <li class="nav-item">
+                                                    <a href="apps-ecommerce-products.html" class="nav-link" data-key="t-products"> Products </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="apps-ecommerce-product-details.html" class="nav-link" data-key="t-product-Details"> Product Details </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="apps-ecommerce-add-product.html" class="nav-link" data-key="t-create-product"> Create Product </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="apps-ecommerce-orders.html" class="nav-link" data-key="t-orders">
+                                                        Orders </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="apps-ecommerce-order-details.html" class="nav-link" data-key="t-order-details"> Order Details </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="apps-ecommerce-customers.html" class="nav-link" data-key="t-customers"> Customers </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="apps-ecommerce-cart.html" class="nav-link" data-key="t-shopping-cart"> Shopping Cart </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="apps-ecommerce-checkout.html" class="nav-link" data-key="t-checkout"> Checkout </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="apps-ecommerce-sellers.html" class="nav-link" data-key="t-sellers">
+                                                        Sellers </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="apps-ecommerce-seller-details.html" class="nav-link" data-key="t-sellers-details"> Seller Details </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#sidebarProjects" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarProjects" data-key="t-projects">
+                                            Projects
+                                        </a>
+                                        <div class="collapse menu-dropdown" id="sidebarProjects">
+                                            <ul class="nav nav-sm flex-column">
+                                                <li class="nav-item">
+                                                    <a href="apps-projects-list.html" class="nav-link" data-key="t-list"> List
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="apps-projects-overview.html" class="nav-link" data-key="t-overview"> Overview </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="apps-projects-create.html" class="nav-link" data-key="t-create-project"> Create Project </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#sidebarTasks" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarTasks" data-key="t-tasks"> Tasks
+                                        </a>
+                                        <div class="collapse menu-dropdown" id="sidebarTasks">
+                                            <ul class="nav nav-sm flex-column">
+                                                <li class="nav-item">
+                                                    <a href="apps-tasks-kanban.html" class="nav-link" data-key="t-kanbanboard">
+                                                        Kanban Board </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="apps-tasks-list-view.html" class="nav-link" data-key="t-list-view">
+                                                        List View </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="apps-tasks-details.html" class="nav-link" data-key="t-task-details"> Task Details </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#sidebarCRM" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarCRM" data-key="t-crm"> CRM
+                                        </a>
+                                        <div class="collapse menu-dropdown" id="sidebarCRM">
+                                            <ul class="nav nav-sm flex-column">
+                                                <li class="nav-item">
+                                                    <a href="apps-crm-contacts.html" class="nav-link" data-key="t-contacts">
+                                                        Contacts </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="apps-crm-companies.html" class="nav-link" data-key="t-companies">
+                                                        Companies </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="apps-crm-deals.html" class="nav-link" data-key="t-deals"> Deals
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="apps-crm-leads.html" class="nav-link" data-key="t-leads"> Leads
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#sidebarCrypto" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarCrypto" data-key="t-crypto"> Crypto
+                                        </a>
+                                        <div class="collapse menu-dropdown" id="sidebarCrypto">
+                                            <ul class="nav nav-sm flex-column">
+                                                <li class="nav-item">
+                                                    <a href="apps-crypto-transactions.html" class="nav-link" data-key="t-transactions"> Transactions </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="apps-crypto-buy-sell.html" class="nav-link" data-key="t-buy-sell">
+                                                        Buy & Sell </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="apps-crypto-orders.html" class="nav-link" data-key="t-orders">
+                                                        Orders </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="apps-crypto-wallet.html" class="nav-link" data-key="t-my-wallet">
+                                                        My Wallet </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="apps-crypto-ico.html" class="nav-link" data-key="t-ico-list"> ICO
+                                                        List </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="apps-crypto-kyc.html" class="nav-link" data-key="t-kyc-application"> KYC Application </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#sidebarInvoices" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarInvoices" data-key="t-invoices">
+                                            Invoices
+                                        </a>
+                                        <div class="collapse menu-dropdown" id="sidebarInvoices">
+                                            <ul class="nav nav-sm flex-column">
+                                                <li class="nav-item">
+                                                    <a href="apps-invoices-list.html" class="nav-link" data-key="t-list-view">
+                                                        List View </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="apps-invoices-details.html" class="nav-link" data-key="t-details">
+                                                        Details </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="apps-invoices-create.html" class="nav-link" data-key="t-create-invoice"> Create Invoice </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#sidebarTickets" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarTickets" data-key="t-supprt-tickets">
+                                            Support Tickets
+                                        </a>
+                                        <div class="collapse menu-dropdown" id="sidebarTickets">
+                                            <ul class="nav nav-sm flex-column">
+                                                <li class="nav-item">
+                                                    <a href="apps-tickets-list.html" class="nav-link" data-key="t-list-view">
+                                                        List View </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="apps-tickets-details.html" class="nav-link" data-key="t-ticket-details"> Ticket Details </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#sidebarnft" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarnft" data-key="t-nft-marketplace">
+                                            NFT Marketplace
+                                        </a>
+                                        <div class="collapse menu-dropdown" id="sidebarnft">
+                                            <ul class="nav nav-sm flex-column">
+                                                <li class="nav-item">
+                                                    <a href="apps-nft-marketplace.html" class="nav-link" data-key="t-marketplace"> Marketplace </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="apps-nft-explore.html" class="nav-link" data-key="t-explore-now"> Explore Now </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="apps-nft-auction.html" class="nav-link" data-key="t-live-auction"> Live Auction </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="apps-nft-item-details.html" class="nav-link" data-key="t-item-details"> Item Details </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="apps-nft-collections.html" class="nav-link" data-key="t-collections"> Collections </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="apps-nft-creators.html" class="nav-link" data-key="t-creators"> Creators </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="apps-nft-ranking.html" class="nav-link" data-key="t-ranking"> Ranking </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="apps-nft-wallet.html" class="nav-link" data-key="t-wallet-connect"> Wallet Connect </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="apps-nft-create.html" class="nav-link" data-key="t-create-nft"> Create NFT </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="apps-file-manager.html" class="nav-link"> <span data-key="t-file-manager">File Manager</span></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="apps-todo.html" class="nav-link"> <span data-key="t-to-do">To Do</span></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#sidebarjobs" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarjobs" data-key="t-jobs"> Jobs</a>
+                                        <div class="collapse menu-dropdown" id="sidebarjobs">
+                                            <ul class="nav nav-sm flex-column">
+                                                <li class="nav-item">
+                                                    <a href="apps-job-statistics.html" class="nav-link" data-key="t-statistics"> Statistics </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="#sidebarJoblists" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarJoblists" data-key="t-job-lists">
+                                                        Job Lists
+                                                    </a>
+                                                    <div class="collapse menu-dropdown" id="sidebarJoblists">
+                                                        <ul class="nav nav-sm flex-column">
+                                                            <li class="nav-item">
+                                                                <a href="apps-job-lists.html" class="nav-link" data-key="t-list"> List
+                                                                </a>
+                                                            </li>
+                                                            <li class="nav-item">
+                                                                <a href="apps-job-grid-lists.html" class="nav-link" data-key="t-grid"> Grid </a>
+                                                            </li>
+                                                            <li class="nav-item">
+                                                                <a href="apps-job-details.html" class="nav-link" data-key="t-overview"> Overview</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="#sidebarCandidatelists" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarCandidatelists" data-key="t-candidate-lists">
+                                                        Candidate Lists
+                                                    </a>
+                                                    <div class="collapse menu-dropdown" id="sidebarCandidatelists">
+                                                        <ul class="nav nav-sm flex-column">
+                                                            <li class="nav-item">
+                                                                <a href="apps-job-candidate-lists.html" class="nav-link" data-key="t-list-view"> List View
+                                                                </a>
+                                                            </li>
+                                                            <li class="nav-item">
+                                                                <a href="apps-job-candidate-grid.html" class="nav-link" data-key="t-grid-view"> Grid View</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="apps-job-application.html" class="nav-link" data-key="t-application"> Application </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="apps-job-new.html" class="nav-link" data-key="t-new-job"> New Job </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="apps-job-companies-lists.html" class="nav-link" data-key="t-companies-list"> Companies List </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="apps-job-categories.html" class="nav-link" data-key="t-job-categories"> Job Categories</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="apps-api-key.html" class="nav-link" data-key="t-api-key">API Key</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="#sidebarLayouts" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarLayouts">
+                                <i class="ri-layout-3-line"></i> <span data-key="t-layouts">Layouts</span> <span class="badge badge-pill bg-danger" data-key="t-hot">Hot</span>
+                            </a>
+                            <div class="collapse menu-dropdown" id="sidebarLayouts">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="layouts-horizontal.html" target="_blank" class="nav-link" data-key="t-horizontal">Horizontal</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="layouts-detached.html" target="_blank" class="nav-link" data-key="t-detached">Detached</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="layouts-two-column.html" target="_blank" class="nav-link" data-key="t-two-column">Two Column</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="layouts-vertical-hovered.html" target="_blank" class="nav-link" data-key="t-hovered">Hovered</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li> <!-- end Dashboard Menu -->
+
+                        <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Pages</span></li>
+
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="#sidebarAuth" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAuth">
+                                <i class="ri-account-circle-line"></i> <span data-key="t-authentication">Authentication</span>
+                            </a>
+                            <div class="collapse menu-dropdown" id="sidebarAuth">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="#sidebarSignIn" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarSignIn" data-key="t-signin"> Sign In
+                                        </a>
+                                        <div class="collapse menu-dropdown" id="sidebarSignIn">
+                                            <ul class="nav nav-sm flex-column">
+                                                <li class="nav-item">
+                                                    <a href="auth-signin-basic.html" class="nav-link" data-key="t-basic"> Basic
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="auth-signin-cover.html" class="nav-link" data-key="t-cover"> Cover
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#sidebarSignUp" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarSignUp" data-key="t-signup"> Sign Up
+                                        </a>
+                                        <div class="collapse menu-dropdown" id="sidebarSignUp">
+                                            <ul class="nav nav-sm flex-column">
+                                                <li class="nav-item">
+                                                    <a href="auth-signup-basic.html" class="nav-link" data-key="t-basic"> Basic
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="auth-signup-cover.html" class="nav-link" data-key="t-cover"> Cover
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a href="#sidebarResetPass" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarResetPass" data-key="t-password-reset">
+                                            Password Reset
+                                        </a>
+                                        <div class="collapse menu-dropdown" id="sidebarResetPass">
+                                            <ul class="nav nav-sm flex-column">
+                                                <li class="nav-item">
+                                                    <a href="auth-pass-reset-basic.html" class="nav-link" data-key="t-basic">
+                                                        Basic </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="auth-pass-reset-cover.html" class="nav-link" data-key="t-cover">
+                                                        Cover </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a href="#sidebarchangePass" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarchangePass" data-key="t-password-create">
+                                            Password Create
+                                        </a>
+                                        <div class="collapse menu-dropdown" id="sidebarchangePass">
+                                            <ul class="nav nav-sm flex-column">
+                                                <li class="nav-item">
+                                                    <a href="auth-pass-change-basic.html" class="nav-link" data-key="t-basic">
+                                                        Basic </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="auth-pass-change-cover.html" class="nav-link" data-key="t-cover">
+                                                        Cover </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a href="#sidebarLockScreen" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarLockScreen" data-key="t-lock-screen">
+                                            Lock Screen
+                                        </a>
+                                        <div class="collapse menu-dropdown" id="sidebarLockScreen">
+                                            <ul class="nav nav-sm flex-column">
+                                                <li class="nav-item">
+                                                    <a href="auth-lockscreen-basic.html" class="nav-link" data-key="t-basic">
+                                                        Basic </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="auth-lockscreen-cover.html" class="nav-link" data-key="t-cover">
+                                                        Cover </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a href="#sidebarLogout" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarLogout" data-key="t-logout"> Logout
+                                        </a>
+                                        <div class="collapse menu-dropdown" id="sidebarLogout">
+                                            <ul class="nav nav-sm flex-column">
+                                                <li class="nav-item">
+                                                    <a href="auth-logout-basic.html" class="nav-link" data-key="t-basic"> Basic
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="auth-logout-cover.html" class="nav-link" data-key="t-cover"> Cover
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#sidebarSuccessMsg" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarSuccessMsg" data-key="t-success-message"> Success Message
+                                        </a>
+                                        <div class="collapse menu-dropdown" id="sidebarSuccessMsg">
+                                            <ul class="nav nav-sm flex-column">
+                                                <li class="nav-item">
+                                                    <a href="auth-success-msg-basic.html" class="nav-link" data-key="t-basic">
+                                                        Basic </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="auth-success-msg-cover.html" class="nav-link" data-key="t-cover">
+                                                        Cover </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#sidebarTwoStep" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarTwoStep" data-key="t-two-step-verification"> Two Step Verification
+                                        </a>
+                                        <div class="collapse menu-dropdown" id="sidebarTwoStep">
+                                            <ul class="nav nav-sm flex-column">
+                                                <li class="nav-item">
+                                                    <a href="auth-twostep-basic.html" class="nav-link" data-key="t-basic"> Basic
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="auth-twostep-cover.html" class="nav-link" data-key="t-cover"> Cover
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#sidebarErrors" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarErrors" data-key="t-errors"> Errors
+                                        </a>
+                                        <div class="collapse menu-dropdown" id="sidebarErrors">
+                                            <ul class="nav nav-sm flex-column">
+                                                <li class="nav-item">
+                                                    <a href="auth-404-basic.html" class="nav-link" data-key="t-404-basic"> 404
+                                                        Basic </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="auth-404-cover.html" class="nav-link" data-key="t-404-cover"> 404
+                                                        Cover </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="auth-404-alt.html" class="nav-link" data-key="t-404-alt"> 404 Alt
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="auth-500.html" class="nav-link" data-key="t-500"> 500 </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="auth-offline.html" class="nav-link" data-key="t-offline-page"> Offline Page </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="#sidebarPages" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarPages">
+                                <i class="ri-pages-line"></i> <span data-key="t-pages">Pages</span>
+                            </a>
+                            <div class="collapse menu-dropdown" id="sidebarPages">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="pages-starter.html" class="nav-link" data-key="t-starter"> Starter </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#sidebarProfile" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarProfile" data-key="t-profile"> Profile
+                                        </a>
+                                        <div class="collapse menu-dropdown" id="sidebarProfile">
+                                            <ul class="nav nav-sm flex-column">
+                                                <li class="nav-item">
+                                                    <a href="pages-profile.html" class="nav-link" data-key="t-simple-page">
+                                                        Simple Page </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="pages-profile-settings.html" class="nav-link" data-key="t-settings"> Settings </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="pages-team.html" class="nav-link" data-key="t-team"> Team </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="pages-timeline.html" class="nav-link" data-key="t-timeline"> Timeline </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="pages-faqs.html" class="nav-link" data-key="t-faqs"> FAQs </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="pages-pricing.html" class="nav-link" data-key="t-pricing"> Pricing </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="pages-gallery.html" class="nav-link" data-key="t-gallery"> Gallery </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="pages-maintenance.html" class="nav-link" data-key="t-maintenance"> Maintenance
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="pages-coming-soon.html" class="nav-link" data-key="t-coming-soon"> Coming Soon
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="pages-sitemap.html" class="nav-link" data-key="t-sitemap"> Sitemap </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="pages-search-results.html" class="nav-link" data-key="t-search-results"> Search Results </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="pages-privacy-policy.html" class="nav-link" data-key="t-privacy-policy">Privacy Policy</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="pages-term-conditions.html" class="nav-link" data-key="t-term-conditions">Term & Conditions</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#sidebarBlogs" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarBlogs">
+                                            <span data-key="t-blogs">Blogs</span> <span class="badge badge-pill bg-success" data-key="t-new">New</span>
+                                        </a>
+                                        <div class="collapse menu-dropdown" id="sidebarBlogs">
+                                            <ul class="nav nav-sm flex-column">
+                                                <li class="nav-item">
+                                                    <a href="pages-blog-list.html" class="nav-link" data-key="t-list-view">List View</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="pages-blog-grid.html" class="nav-link" data-key="t-grid-view">Grid View</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="pages-blog-overview.html" class="nav-link" data-key="t-overview">Overview</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="#sidebarLanding" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarLanding">
+                                <i class="ri-rocket-line"></i> <span data-key="t-landing">Landing</span>
+                            </a>
+                            <div class="collapse menu-dropdown" id="sidebarLanding">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="landing.html" class="nav-link" data-key="t-one-page"> One Page </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="nft-landing.html" class="nav-link" data-key="t-nft-landing"> NFT Landing </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="job-landing.html" class="nav-link" data-key="t-job">Job</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-components">Components</span></li>
+
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="#sidebarUI" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarUI">
+                                <i class="ri-pencil-ruler-2-line"></i> <span data-key="t-base-ui">Base UI</span>
+                            </a>
+                            <div class="collapse menu-dropdown mega-dropdown-menu" id="sidebarUI">
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <ul class="nav nav-sm flex-column">
+                                            <li class="nav-item">
+                                                <a href="ui-alerts.html" class="nav-link" data-key="t-alerts">Alerts</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="ui-badges.html" class="nav-link" data-key="t-badges">Badges</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="ui-buttons.html" class="nav-link" data-key="t-buttons">Buttons</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="ui-colors.html" class="nav-link" data-key="t-colors">Colors</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="ui-cards.html" class="nav-link" data-key="t-cards">Cards</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="ui-carousel.html" class="nav-link" data-key="t-carousel">Carousel</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="ui-dropdowns.html" class="nav-link" data-key="t-dropdowns">Dropdowns</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="ui-grid.html" class="nav-link" data-key="t-grid">Grid</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <ul class="nav nav-sm flex-column">
+                                            <li class="nav-item">
+                                                <a href="ui-images.html" class="nav-link" data-key="t-images">Images</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="ui-tabs.html" class="nav-link" data-key="t-tabs">Tabs</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="ui-accordions.html" class="nav-link" data-key="t-accordion-collapse">Accordion & Collapse</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="ui-modals.html" class="nav-link" data-key="t-modals">Modals</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="ui-offcanvas.html" class="nav-link" data-key="t-offcanvas">Offcanvas</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="ui-placeholders.html" class="nav-link" data-key="t-placeholders">Placeholders</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="ui-progress.html" class="nav-link" data-key="t-progress">Progress</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="ui-notifications.html" class="nav-link" data-key="t-notifications">Notifications</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <ul class="nav nav-sm flex-column">
+                                            <li class="nav-item">
+                                                <a href="ui-media.html" class="nav-link" data-key="t-media-object">Media
+                                                    object</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="ui-embed-video.html" class="nav-link" data-key="t-embed-video">Embed
+                                                    Video</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="ui-typography.html" class="nav-link" data-key="t-typography">Typography</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="ui-lists.html" class="nav-link" data-key="t-lists">Lists</a>
+                                            </li>
+                                            <li class="nav-item">
+        										<a href="ui-links.html" class="nav-link"><span data-key="t-links">Links</span> <span class="badge badge-pill bg-success" data-key="t-new">New</span></a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="ui-general.html" class="nav-link" data-key="t-general">General</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="ui-ribbons.html" class="nav-link" data-key="t-ribbons">Ribbons</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="ui-utilities.html" class="nav-link" data-key="t-utilities">Utilities</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="#sidebarAdvanceUI" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAdvanceUI">
+                                <i class="ri-stack-line"></i> <span data-key="t-advance-ui">Advance UI</span>
+                            </a>
+                            <div class="collapse menu-dropdown" id="sidebarAdvanceUI">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="advance-ui-sweetalerts.html" class="nav-link" data-key="t-sweet-alerts">Sweet
+                                            Alerts</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="advance-ui-nestable.html" class="nav-link" data-key="t-nestable-list">Nestable
+                                            List</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="advance-ui-scrollbar.html" class="nav-link" data-key="t-scrollbar">Scrollbar</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="advance-ui-animation.html" class="nav-link" data-key="t-animation">Animation</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="advance-ui-tour.html" class="nav-link" data-key="t-tour">Tour</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="advance-ui-swiper.html" class="nav-link" data-key="t-swiper-slider">Swiper
+                                            Slider</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="advance-ui-ratings.html" class="nav-link" data-key="t-ratings">Ratings</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="advance-ui-highlight.html" class="nav-link" data-key="t-highlight">Highlight</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="advance-ui-scrollspy.html" class="nav-link" data-key="t-scrollSpy">ScrollSpy</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="widgets.html">
+                                <i class="ri-honour-line"></i> <span data-key="t-widgets">Widgets</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="#sidebarForms" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarForms">
+                                <i class="ri-file-list-3-line"></i> <span data-key="t-forms">Forms</span>
+                            </a>
+                            <div class="collapse menu-dropdown" id="sidebarForms">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="forms-elements.html" class="nav-link" data-key="t-basic-elements">Basic
+                                            Elements</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="forms-select.html" class="nav-link" data-key="t-form-select"> Form Select </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="forms-checkboxs-radios.html" class="nav-link" data-key="t-checkboxs-radios">Checkboxs & Radios</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="forms-pickers.html" class="nav-link" data-key="t-pickers"> Pickers </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="forms-masks.html" class="nav-link" data-key="t-input-masks">Input Masks</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="forms-advanced.html" class="nav-link" data-key="t-advanced">Advanced</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="forms-range-sliders.html" class="nav-link" data-key="t-range-slider"> Range
+                                            Slider </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="forms-validation.html" class="nav-link" data-key="t-validation">Validation</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="forms-wizard.html" class="nav-link" data-key="t-wizard">Wizard</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="forms-editors.html" class="nav-link" data-key="t-editors">Editors</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="forms-file-uploads.html" class="nav-link" data-key="t-file-uploads">File
+                                            Uploads</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="forms-layouts.html" class="nav-link" data-key="t-form-layouts">Form Layouts</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="forms-select2.html" class="nav-link" data-key="t-select2">Select2</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="#sidebarTables" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarTables">
+                                <i class="ri-layout-grid-line"></i> <span data-key="t-tables">Tables</span>
+                            </a>
+                            <div class="collapse menu-dropdown" id="sidebarTables">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="tables-basic.html" class="nav-link" data-key="t-basic-tables">Basic Tables</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="tables-gridjs.html" class="nav-link" data-key="t-grid-js">Grid Js</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="tables-listjs.html" class="nav-link" data-key="t-list-js">List Js</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="tables-datatables.html" class="nav-link" data-key="t-datatables">Datatables</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="#sidebarCharts" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarCharts">
+                                <i class="ri-pie-chart-line"></i> <span data-key="t-charts">Charts</span>
+                            </a>
+                            <div class="collapse menu-dropdown" id="sidebarCharts">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="#sidebarApexcharts" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApexcharts" data-key="t-apexcharts">
+                                            Apexcharts
+                                        </a>
+                                        <div class="collapse menu-dropdown" id="sidebarApexcharts">
+                                            <ul class="nav nav-sm flex-column">
+                                                <li class="nav-item">
+                                                    <a href="charts-apex-line.html" class="nav-link" data-key="t-line"> Line
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="charts-apex-area.html" class="nav-link" data-key="t-area"> Area
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="charts-apex-column.html" class="nav-link" data-key="t-column">
+                                                        Column </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="charts-apex-bar.html" class="nav-link" data-key="t-bar"> Bar </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="charts-apex-mixed.html" class="nav-link" data-key="t-mixed"> Mixed
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="charts-apex-timeline.html" class="nav-link" data-key="t-timeline">
+                                                        Timeline </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="charts-apex-range-area.html" class="nav-link" data-key="t-range-area">Range Area</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="charts-apex-funnel.html" class="nav-link" data-key="t-funnel">Funnel</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="charts-apex-candlestick.html" class="nav-link" data-key="t-candlstick"> Candlstick </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="charts-apex-boxplot.html" class="nav-link" data-key="t-boxplot">
+                                                        Boxplot </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="charts-apex-bubble.html" class="nav-link" data-key="t-bubble">
+                                                        Bubble </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="charts-apex-scatter.html" class="nav-link" data-key="t-scatter">
+                                                        Scatter </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="charts-apex-heatmap.html" class="nav-link" data-key="t-heatmap">
+                                                        Heatmap </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="charts-apex-treemap.html" class="nav-link" data-key="t-treemap">
+                                                        Treemap </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="charts-apex-pie.html" class="nav-link" data-key="t-pie"> Pie </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="charts-apex-radialbar.html" class="nav-link" data-key="t-radialbar"> Radialbar </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="charts-apex-radar.html" class="nav-link" data-key="t-radar"> Radar
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="charts-apex-polar.html" class="nav-link" data-key="t-polar-area">
+                                                        Polar Area </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="charts-apex-slope.html" class="nav-link"><span data-key="t-slope">Slope</span> <span class="badge badge-pill bg-success" data-key="t-new">New</span></a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="charts-chartjs.html" class="nav-link" data-key="t-chartjs"> Chartjs </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="charts-echarts.html" class="nav-link" data-key="t-echarts"> Echarts </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="#sidebarIcons" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarIcons">
+                                <i class="ri-compasses-2-line"></i> <span data-key="t-icons">Icons</span>
+                            </a>
+                            <div class="collapse menu-dropdown" id="sidebarIcons">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="icons-remix.html" class="nav-link"><span data-key="t-remix">Remix</span> <span class="badge badge-pill bg-info">v4.3</span></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="icons-boxicons.html" class="nav-link"><span data-key="t-boxicons">Boxicons</span> <span class="badge badge-pill bg-info">v2.1.4</span></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="icons-materialdesign.html" class="nav-link"><span data-key="t-material-design">Material Design</span> <span class="badge badge-pill bg-info">v7.2.96</span></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="icons-lineawesome.html" class="nav-link" data-key="t-line-awesome">Line Awesome</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="icons-feather.html" class="nav-link"><span data-key="t-feather">Feather</span> <span class="badge badge-pill bg-info">v4.29.2</span></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="icons-crypto.html" class="nav-link"> <span data-key="t-crypto-svg">Crypto SVG</span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="#sidebarMaps" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarMaps">
+                                <i class="ri-map-pin-line"></i> <span data-key="t-maps">Maps</span>
+                            </a>
+                            <div class="collapse menu-dropdown" id="sidebarMaps">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="maps-google.html" class="nav-link" data-key="t-google">
+                                            Google
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="maps-vector.html" class="nav-link" data-key="t-vector">
+                                            Vector
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="maps-leaflet.html" class="nav-link" data-key="t-leaflet">
+                                            Leaflet
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="#sidebarMultilevel" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarMultilevel">
+                                <i class="ri-share-line"></i> <span data-key="t-multi-level">Multi Level</span>
+                            </a>
+                            <div class="collapse menu-dropdown" id="sidebarMultilevel">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link" data-key="t-level-1.1"> Level 1.1 </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#sidebarAccount" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAccount" data-key="t-level-1.2"> Level
+                                            1.2
+                                        </a>
+                                        <div class="collapse menu-dropdown" id="sidebarAccount">
+                                            <ul class="nav nav-sm flex-column">
+                                                <li class="nav-item">
+                                                    <a href="#" class="nav-link" data-key="t-level-2.1"> Level 2.1 </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="#sidebarCrm" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarCrm" data-key="t-level-2.2"> Level 2.2
+                                                    </a>
+                                                    <div class="collapse menu-dropdown" id="sidebarCrm">
+                                                        <ul class="nav nav-sm flex-column">
+                                                            <li class="nav-item">
+                                                                <a href="#" class="nav-link" data-key="t-level-3.1"> Level 3.1
+                                                                </a>
+                                                            </li>
+                                                            <li class="nav-item">
+                                                                <a href="#" class="nav-link" data-key="t-level-3.2"> Level 3.2
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+                <!-- Sidebar -->
+            </div>
+
+            <div class="sidebar-background"></div>
+        </div>
+        <!-- Left Sidebar End -->
+        <!-- Vertical Overlay-->
+        <div class="vertical-overlay"></div>
+
+        <!-- ============================================================== -->
+        <!-- Start right Content here -->
+        <!-- ============================================================== -->
+        <div class="main-content">
+
+            <div class="page-content">
+                <div class="container-fluid">
+
+                    <div class="row">
+                        <div class="col">
+
+                            <div class="h-100">
+                                <div class="row mb-3 pb-1">
+                                    <div class="col-12">
+                                        <div class="d-flex align-items-lg-center flex-lg-row flex-column">
+                                            <div class="flex-grow-1">
+                                                <h4 class="fs-16 mb-1">Good Morning, Anna!</h4>
+                                                <p class="text-muted mb-0">Here's what's happening with your store today.</p>
+                                            </div>
+                                            <div class="mt-3 mt-lg-0">
+                                                <form action="javascript:void(0);">
+                                                    <div class="row g-3 mb-0 align-items-center">
+                                                        <div class="col-sm-auto">
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control border-0 minimal-border dash-filter-picker shadow" data-provider="flatpickr" data-range-date="true" data-date-format="d M, Y" data-deafult-date="01 Jan 2022 to 31 Jan 2022">
+                                                                <div class="input-group-text bg-primary border-primary text-white">
+                                                                    <i class="ri-calendar-2-line"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!--end col-->
+                                                        <div class="col-auto">
+                                                            <button type="button" class="btn btn-soft-success material-shadow-none"><i class="ri-add-circle-line align-middle me-1"></i> Add Product</button>
+                                                        </div>
+                                                        <!--end col-->
+                                                        <div class="col-auto">
+                                                            <button type="button" class="btn btn-soft-info btn-icon waves-effect material-shadow-none waves-light layout-rightside-btn"><i class="ri-pulse-line"></i></button>
+                                                        </div>
+                                                        <!--end col-->
+                                                    </div>
+                                                    <!--end row-->
+                                                </form>
+                                            </div>
+                                        </div><!-- end card header -->
+                                    </div>
+                                    <!--end col-->
+                                </div>
+                                <!--end row-->
+
+                                <div class="row">
+                                    <div class="col-xl-3 col-md-6">
+                                        <!-- card -->
+                                        <div class="card card-animate">
+                                            <div class="card-body">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="flex-grow-1 overflow-hidden">
+                                                        <p class="text-uppercase fw-medium text-muted text-truncate mb-0"> Total Earnings</p>
+                                                    </div>
+                                                    <div class="flex-shrink-0">
+                                                        <h5 class="text-success fs-14 mb-0">
+                                                            <i class="ri-arrow-right-up-line fs-13 align-middle"></i> +16.24 %
+                                                        </h5>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex align-items-end justify-content-between mt-4">
+                                                    <div>
+                                                        <h4 class="fs-22 fw-semibold ff-secondary mb-4">$<span class="counter-value" data-target="559.25">0</span>k </h4>
+                                                        <a href="#" class="text-decoration-underline">View net earnings</a>
+                                                    </div>
+                                                    <div class="avatar-sm flex-shrink-0">
+                                                        <span class="avatar-title bg-success-subtle rounded fs-3">
+                                                            <i class="bx bx-dollar-circle text-success"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div><!-- end card body -->
+                                        </div><!-- end card -->
+                                    </div><!-- end col -->
+
+                                    <div class="col-xl-3 col-md-6">
+                                        <!-- card -->
+                                        <div class="card card-animate">
+                                            <div class="card-body">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="flex-grow-1 overflow-hidden">
+                                                     <p class="text-uppercase fw-medium text-muted text-truncate mb-0">Orders</p>
+                                                    </div>
+                                                    <div class="flex-shrink-0">
+                                                        <h5 class="text-danger fs-14 mb-0">
+                                                            <i class="ri-arrow-right-down-line fs-13 align-middle"></i> -3.57 %
+                                                        </h5>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex align-items-end justify-content-between mt-4">
+                                                    <div>
+                                                        <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="36894">0</span></h4>
+                                                        <a href="#" class="text-decoration-underline">View all orders</a>
+                                                    </div>
+                                                    <div class="avatar-sm flex-shrink-0">
+                                                        <span class="avatar-title bg-info-subtle rounded fs-3">
+                                                            <i class="bx bx-shopping-bag text-info"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div><!-- end card body -->
+                                        </div><!-- end card -->
+                                    </div><!-- end col -->
+
+                                    <div class="col-xl-3 col-md-6">
+                                        <!-- card -->
+                                        <div class="card card-animate">
+                                            <div class="card-body">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="flex-grow-1 overflow-hidden">
+                                                        <p class="text-uppercase fw-medium text-muted text-truncate mb-0">Customers</p>
+                                                    </div>
+                                                    <div class="flex-shrink-0">
+                                                        <h5 class="text-success fs-14 mb-0">
+                                                            <i class="ri-arrow-right-up-line fs-13 align-middle"></i> +29.08 %
+                                                        </h5>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex align-items-end justify-content-between mt-4">
+                                                    <div>
+                                                        <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="183.35">0</span>M </h4>
+                                                        <a href="#" class="text-decoration-underline">See details</a>
+                                                    </div>
+                                                    <div class="avatar-sm flex-shrink-0">
+                                                        <span class="avatar-title bg-warning-subtle rounded fs-3">
+                                                            <i class="bx bx-user-circle text-warning"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div><!-- end card body -->
+                                        </div><!-- end card -->
+                                    </div><!-- end col -->
+
+                                    <div class="col-xl-3 col-md-6">
+                                        <!-- card -->
+                                        <div class="card card-animate">
+                                            <div class="card-body">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="flex-grow-1 overflow-hidden">
+                                                        <p class="text-uppercase fw-medium text-muted text-truncate mb-0"> My Balance</p>
+                                                    </div>
+                                                    <div class="flex-shrink-0">
+                                                        <h5 class="text-muted fs-14 mb-0">
+                                                            +0.00 %
+                                                        </h5>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex align-items-end justify-content-between mt-4">
+                                                    <div>
+                                                        <h4 class="fs-22 fw-semibold ff-secondary mb-4">$<span class="counter-value" data-target="165.89">0</span>k </h4>
+                                                        <a href="#" class="text-decoration-underline">Withdraw money</a>
+                                                    </div>
+                                                    <div class="avatar-sm flex-shrink-0">
+                                                        <span class="avatar-title bg-primary-subtle rounded fs-3">
+                                                            <i class="bx bx-wallet text-primary"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div><!-- end card body -->
+                                        </div><!-- end card -->
+                                    </div><!-- end col -->
+                                </div> <!-- end row-->
+
+                                <div class="row">
+                                    <div class="col-xl-8">
+                                        <div class="card">
+                                            <div class="card-header border-0 align-items-center d-flex">
+                                                <h4 class="card-title mb-0 flex-grow-1">Revenue</h4>
+                                                <div>
+                                                    <button type="button" class="btn btn-soft-secondary material-shadow-none btn-sm">
+                                                        ALL
+                                                    </button>
+                                                    <button type="button" class="btn btn-soft-secondary material-shadow-none btn-sm">
+                                                        1M
+                                                    </button>
+                                                    <button type="button" class="btn btn-soft-secondary material-shadow-none btn-sm">
+                                                        6M
+                                                    </button>
+                                                    <button type="button" class="btn btn-soft-primary material-shadow-none btn-sm">
+                                                        1Y
+                                                    </button>
+                                                </div>
+                                            </div><!-- end card header -->
+
+                                            <div class="card-header p-0 border-0 bg-light-subtle">
+                                                <div class="row g-0 text-center">
+                                                    <div class="col-6 col-sm-3">
+                                                        <div class="p-3 border border-dashed border-start-0">
+                                                            <h5 class="mb-1"><span class="counter-value" data-target="7585">0</span></h5>
+                                                            <p class="text-muted mb-0">Orders</p>
+                                                        </div>
+                                                    </div>
+                                                    <!--end col-->
+                                                    <div class="col-6 col-sm-3">
+                                                        <div class="p-3 border border-dashed border-start-0">
+                                                            <h5 class="mb-1">$<span class="counter-value" data-target="22.89">0</span>k</h5>
+                                                            <p class="text-muted mb-0">Earnings</p>
+                                                        </div>
+                                                    </div>
+                                                    <!--end col-->
+                                                    <div class="col-6 col-sm-3">
+                                                        <div class="p-3 border border-dashed border-start-0">
+                                                            <h5 class="mb-1"><span class="counter-value" data-target="367">0</span></h5>
+                                                            <p class="text-muted mb-0">Refunds</p>
+                                                        </div>
+                                                    </div>
+                                                    <!--end col-->
+                                                    <div class="col-6 col-sm-3">
+                                                        <div class="p-3 border border-dashed border-start-0 border-end-0">
+                                                            <h5 class="mb-1 text-success"><span class="counter-value" data-target="18.92">0</span>%</h5>
+                                                            <p class="text-muted mb-0">Conversation Ratio</p>
+                                                        </div>
+                                                    </div>
+                                                    <!--end col-->
+                                                </div>
+                                            </div><!-- end card header -->
+
+                                            <div class="card-body p-0 pb-2">
+                                                <div class="w-100">
+                                                    <div id="customer_impression_charts" data-colors='["--vz-primary", "--vz-success", "--vz-danger"]' data-colors-minimal='["--vz-light", "--vz-primary", "--vz-info"]' data-colors-saas='["--vz-success", "--vz-info", "--vz-danger"]' data-colors-modern='["--vz-warning", "--vz-primary", "--vz-success"]' data-colors-interactive='["--vz-info", "--vz-primary", "--vz-danger"]' data-colors-creative='["--vz-warning", "--vz-primary", "--vz-danger"]' data-colors-corporate='["--vz-light", "--vz-primary", "--vz-secondary"]' data-colors-galaxy='["--vz-secondary", "--vz-primary", "--vz-primary-rgb, 0.50"]' data-colors-classic='["--vz-light", "--vz-primary", "--vz-secondary"]' data-colors-vintage='["--vz-success", "--vz-primary", "--vz-secondary"]' class="apex-charts" dir="ltr"></div>
+                                                </div>
+                                            </div><!-- end card body -->
+                                        </div><!-- end card -->
+                                    </div><!-- end col -->
+
+                                    <div class="col-xl-4">
+                                        <!-- card -->
+                                        <div class="card card-height-100">
+                                            <div class="card-header align-items-center d-flex">
+                                                <h4 class="card-title mb-0 flex-grow-1">Sales by Locations</h4>
+                                                <div class="flex-shrink-0">
+                                                    <button type="button" class="btn btn-soft-primary material-shadow-none btn-sm">
+                                                        Export Report
+                                                    </button>
+                                                </div>
+                                            </div><!-- end card header -->
+
+                                            <!-- card body -->
+                                            <div class="card-body">
+
+                                                <div id="sales-by-locations" data-colors='["--vz-light", "--vz-success", "--vz-primary"]' data-colors-interactive='["--vz-light", "--vz-info", "--vz-primary"]' style="height: 269px" dir="ltr"></div>
+
+                                                <div class="px-2 py-2 mt-1">
+                                                    <p class="mb-1">Canada <span class="float-end">75%</span></p>
+                                                    <div class="progress mt-2" style="height: 6px;">
+                                                        <div class="progress-bar progress-bar-striped bg-primary" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="75"></div>
+                                                    </div>
+
+                                                    <p class="mt-3 mb-1">Greenland <span class="float-end">47%</span>
+                                                    </p>
+                                                    <div class="progress mt-2" style="height: 6px;">
+                                                        <div class="progress-bar progress-bar-striped bg-primary" role="progressbar" style="width: 47%" aria-valuenow="47" aria-valuemin="0" aria-valuemax="47"></div>
+                                                    </div>
+
+                                                    <p class="mt-3 mb-1">Russia <span class="float-end">82%</span></p>
+                                                    <div class="progress mt-2" style="height: 6px;">
+                                                        <div class="progress-bar progress-bar-striped bg-primary" role="progressbar" style="width: 82%" aria-valuenow="82" aria-valuemin="0" aria-valuemax="82"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- end card body -->
+                                        </div>
+                                        <!-- end card -->
+                                    </div>
+                                    <!-- end col -->
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-xl-6">
+                                        <div class="card">
+                                            <div class="card-header align-items-center d-flex">
+                                                <h4 class="card-title mb-0 flex-grow-1">Best Selling Products</h4>
+                                                <div class="flex-shrink-0">
+                                                    <div class="dropdown card-header-dropdown">
+                                                        <a class="text-reset dropdown-btn" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <span class="fw-semibold text-uppercase fs-12">Sort by:
+                                                            </span><span class="text-muted">Today<i class="mdi mdi-chevron-down ms-1"></i></span>
+                                                        </a>
+                                                        <div class="dropdown-menu dropdown-menu-end">
+                                                            <a class="dropdown-item" href="#">Today</a>
+                                                            <a class="dropdown-item" href="#">Yesterday</a>
+                                                            <a class="dropdown-item" href="#">Last 7 Days</a>
+                                                            <a class="dropdown-item" href="#">Last 30 Days</a>
+                                                            <a class="dropdown-item" href="#">This Month</a>
+                                                            <a class="dropdown-item" href="#">Last Month</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div><!-- end card header -->
+
+                                            <div class="card-body">
+                                                <div class="table-responsive table-card">
+                                                    <table class="table table-hover table-centered align-middle table-nowrap mb-0">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="d-flex align-items-center">
+                                                                        <div class="avatar-sm bg-light rounded p-1 me-2">
+                                                                            <img src="assets/images/products/img-1.png" alt="" class="img-fluid d-block" />
+                                                                        </div>
+                                                                        <div>
+                                                                            <h5 class="fs-14 my-1"><a href="apps-ecommerce-product-details.html" class="text-reset">Branded T-Shirts</a></h5>
+                                                                            <span class="text-muted">24 Apr 2021</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <h5 class="fs-14 my-1 fw-normal">$29.00</h5>
+                                                                    <span class="text-muted">Price</span>
+                                                                </td>
+                                                                <td>
+                                                                    <h5 class="fs-14 my-1 fw-normal">62</h5>
+                                                                    <span class="text-muted">Orders</span>
+                                                                </td>
+                                                                <td>
+                                                                    <h5 class="fs-14 my-1 fw-normal">510</h5>
+                                                                    <span class="text-muted">Stock</span>
+                                                                </td>
+                                                                <td>
+                                                                    <h5 class="fs-14 my-1 fw-normal">$1,798</h5>
+                                                                    <span class="text-muted">Amount</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="d-flex align-items-center">
+                                                                        <div class="avatar-sm bg-light rounded p-1 me-2">
+                                                                            <img src="assets/images/products/img-2.png" alt="" class="img-fluid d-block" />
+                                                                        </div>
+                                                                        <div>
+                                                                            <h5 class="fs-14 my-1"><a href="apps-ecommerce-product-details.html" class="text-reset">Bentwood Chair</a></h5>
+                                                                            <span class="text-muted">19 Mar 2021</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <h5 class="fs-14 my-1 fw-normal">$85.20</h5>
+                                                                    <span class="text-muted">Price</span>
+                                                                </td>
+                                                                <td>
+                                                                    <h5 class="fs-14 my-1 fw-normal">35</h5>
+                                                                    <span class="text-muted">Orders</span>
+                                                                </td>
+                                                                <td>
+                                                                    <h5 class="fs-14 my-1 fw-normal"><span class="badge bg-danger-subtle text-danger">Out of stock</span> </h5>
+                                                                    <span class="text-muted">Stock</span>
+                                                                </td>
+                                                                <td>
+                                                                    <h5 class="fs-14 my-1 fw-normal">$2982</h5>
+                                                                    <span class="text-muted">Amount</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="d-flex align-items-center">
+                                                                        <div class="avatar-sm bg-light rounded p-1 me-2">
+                                                                            <img src="assets/images/products/img-3.png" alt="" class="img-fluid d-block" />
+                                                                        </div>
+                                                                        <div>
+                                                                            <h5 class="fs-14 my-1"><a href="apps-ecommerce-product-details.html" class="text-reset">Borosil Paper Cup</a></h5>
+                                                                            <span class="text-muted">01 Mar 2021</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <h5 class="fs-14 my-1 fw-normal">$14.00</h5>
+                                                                    <span class="text-muted">Price</span>
+                                                                </td>
+                                                                <td>
+                                                                    <h5 class="fs-14 my-1 fw-normal">80</h5>
+                                                                    <span class="text-muted">Orders</span>
+                                                                </td>
+                                                                <td>
+                                                                    <h5 class="fs-14 my-1 fw-normal">749</h5>
+                                                                    <span class="text-muted">Stock</span>
+                                                                </td>
+                                                                <td>
+                                                                    <h5 class="fs-14 my-1 fw-normal">$1120</h5>
+                                                                    <span class="text-muted">Amount</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="d-flex align-items-center">
+                                                                        <div class="avatar-sm bg-light rounded p-1 me-2">
+                                                                            <img src="assets/images/products/img-4.png" alt="" class="img-fluid d-block" />
+                                                                        </div>
+                                                                        <div>
+                                                                            <h5 class="fs-14 my-1"><a href="apps-ecommerce-product-details.html" class="text-reset">One Seater Sofa</a></h5>
+                                                                            <span class="text-muted">11 Feb 2021</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <h5 class="fs-14 my-1 fw-normal">$127.50</h5>
+                                                                    <span class="text-muted">Price</span>
+                                                                </td>
+                                                                <td>
+                                                                    <h5 class="fs-14 my-1 fw-normal">56</h5>
+                                                                    <span class="text-muted">Orders</span>
+                                                                </td>
+                                                                <td>
+                                                                    <h5 class="fs-14 my-1 fw-normal"><span class="badge bg-danger-subtle text-danger">Out of stock</span></h5>
+                                                                    <span class="text-muted">Stock</span>
+                                                                </td>
+                                                                <td>
+                                                                    <h5 class="fs-14 my-1 fw-normal">$7140</h5>
+                                                                    <span class="text-muted">Amount</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="d-flex align-items-center">
+                                                                        <div class="avatar-sm bg-light rounded p-1 me-2">
+                                                                            <img src="assets/images/products/img-5.png" alt="" class="img-fluid d-block" />
+                                                                        </div>
+                                                                        <div>
+                                                                            <h5 class="fs-14 my-1"><a href="apps-ecommerce-product-details.html" class="text-reset">Stillbird Helmet</a></h5>
+                                                                            <span class="text-muted">17 Jan 2021</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <h5 class="fs-14 my-1 fw-normal">$54</h5>
+                                                                    <span class="text-muted">Price</span>
+                                                                </td>
+                                                                <td>
+                                                                    <h5 class="fs-14 my-1 fw-normal">74</h5>
+                                                                    <span class="text-muted">Orders</span>
+                                                                </td>
+                                                                <td>
+                                                                    <h5 class="fs-14 my-1 fw-normal">805</h5>
+                                                                    <span class="text-muted">Stock</span>
+                                                                </td>
+                                                                <td>
+                                                                    <h5 class="fs-14 my-1 fw-normal">$3996</h5>
+                                                                    <span class="text-muted">Amount</span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+                                                <div class="align-items-center mt-4 pt-2 justify-content-between row text-center text-sm-start">
+                                                    <div class="col-sm">
+                                                        <div class="text-muted">
+                                                            Showing <span class="fw-semibold">5</span> of <span class="fw-semibold">25</span> Results
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-auto  mt-3 mt-sm-0">
+                                                        <ul class="pagination pagination-separated pagination-sm mb-0 justify-content-center">
+                                                            <li class="page-item disabled">
+                                                                <a href="#" class="page-link">←</a>
+                                                            </li>
+                                                            <li class="page-item">
+                                                                <a href="#" class="page-link">1</a>
+                                                            </li>
+                                                            <li class="page-item active">
+                                                                <a href="#" class="page-link">2</a>
+                                                            </li>
+                                                            <li class="page-item">
+                                                                <a href="#" class="page-link">3</a>
+                                                            </li>
+                                                            <li class="page-item">
+                                                                <a href="#" class="page-link">→</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xl-6">
+                                        <div class="card card-height-100">
+                                            <div class="card-header align-items-center d-flex">
+                                                <h4 class="card-title mb-0 flex-grow-1">Top Sellers</h4>
+                                                <div class="flex-shrink-0">
+                                                    <div class="dropdown card-header-dropdown">
+                                                        <a class="text-reset dropdown-btn" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <span class="text-muted">Report<i class="mdi mdi-chevron-down ms-1"></i></span>
+                                                        </a>
+                                                        <div class="dropdown-menu dropdown-menu-end">
+                                                            <a class="dropdown-item" href="#">Download Report</a>
+                                                            <a class="dropdown-item" href="#">Export</a>
+                                                            <a class="dropdown-item" href="#">Import</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div><!-- end card header -->
+
+                                            <div class="card-body">
+                                                <div class="table-responsive table-card">
+                                                    <table class="table table-centered table-hover align-middle table-nowrap mb-0">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="d-flex align-items-center">
+                                                                        <div class="flex-shrink-0 me-2">
+                                                                            <img src="assets/images/companies/img-1.png" alt="" class="avatar-sm p-2" />
+                                                                        </div>
+                                                                        <div>
+                                                                            <h5 class="fs-14 my-1 fw-medium">
+                                                                                <a href="apps-ecommerce-seller-details.html" class="text-reset">iTest Factory</a>
+                                                                            </h5>
+                                                                            <span class="text-muted">Oliver Tyler</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <span class="text-muted">Bags and Wallets</span>
+                                                                </td>
+                                                                <td>
+                                                                    <p class="mb-0">8547</p>
+                                                                    <span class="text-muted">Stock</span>
+                                                                </td>
+                                                                <td>
+                                                                    <span class="text-muted">$541200</span>
+                                                                </td>
+                                                                <td>
+                                                                    <h5 class="fs-14 mb-0">32%<i class="ri-bar-chart-fill text-success fs-16 align-middle ms-2"></i></h5>
+                                                                </td>
+                                                            </tr><!-- end -->
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="d-flex align-items-center">
+                                                                        <div class="flex-shrink-0 me-2">
+                                                                            <img src="assets/images/companies/img-2.png" alt="" class="avatar-sm p-2" />
+                                                                        </div>
+                                                                        <div class="flex-grow-1">
+                                                                            <h5 class="fs-14 my-1 fw-medium"><a href="apps-ecommerce-seller-details.html" class="text-reset">Digitech Galaxy</a></h5>
+                                                                            <span class="text-muted">John Roberts</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <span class="text-muted">Watches</span>
+                                                                </td>
+                                                                <td>
+                                                                    <p class="mb-0">895</p>
+                                                                    <span class="text-muted">Stock</span>
+                                                                </td>
+                                                                <td>
+                                                                    <span class="text-muted">$75030</span>
+                                                                </td>
+                                                                <td>
+                                                                    <h5 class="fs-14 mb-0">79%<i class="ri-bar-chart-fill text-success fs-16 align-middle ms-2"></i></h5>
+                                                                </td>
+                                                            </tr><!-- end -->
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="d-flex align-items-center">
+                                                                        <div class="flex-shrink-0 me-2">
+                                                                            <img src="assets/images/companies/img-3.png" alt="" class="avatar-sm p-2" />
+                                                                        </div>
+                                                                        <div class="flex-gow-1">
+                                                                            <h5 class="fs-14 my-1 fw-medium"><a href="apps-ecommerce-seller-details.html" class="text-reset">Nesta Technologies</a></h5>
+                                                                            <span class="text-muted">Harley Fuller</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <span class="text-muted">Bike Accessories</span>
+                                                                </td>
+                                                                <td>
+                                                                    <p class="mb-0">3470</p>
+                                                                    <span class="text-muted">Stock</span>
+                                                                </td>
+                                                                <td>
+                                                                    <span class="text-muted">$45600</span>
+                                                                </td>
+                                                                <td>
+                                                                    <h5 class="fs-14 mb-0">90%<i class="ri-bar-chart-fill text-success fs-16 align-middle ms-2"></i></h5>
+                                                                </td>
+                                                            </tr><!-- end -->
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="d-flex align-items-center">
+                                                                        <div class="flex-shrink-0 me-2">
+                                                                            <img src="assets/images/companies/img-8.png" alt="" class="avatar-sm p-2" />
+                                                                        </div>
+                                                                        <div class="flex-grow-1">
+                                                                            <h5 class="fs-14 my-1 fw-medium"><a href="apps-ecommerce-seller-details.html" class="text-reset">Zoetic Fashion</a></h5>
+                                                                            <span class="text-muted">James Bowen</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <span class="text-muted">Clothes</span>
+                                                                </td>
+                                                                <td>
+                                                                    <p class="mb-0">5488</p>
+                                                                    <span class="text-muted">Stock</span>
+                                                                </td>
+                                                                <td>
+                                                                    <span class="text-muted">$29456</span>
+                                                                </td>
+                                                                <td>
+                                                                    <h5 class="fs-14 mb-0">40%<i class="ri-bar-chart-fill text-success fs-16 align-middle ms-2"></i></h5>
+                                                                </td>
+                                                            </tr><!-- end -->
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="d-flex align-items-center">
+                                                                        <div class="flex-shrink-0 me-2">
+                                                                            <img src="assets/images/companies/img-5.png" alt="" class="avatar-sm p-2" />
+                                                                        </div>
+                                                                        <div class="flex-grow-1">
+                                                                            <h5 class="fs-14 my-1 fw-medium">
+                                                                                <a href="apps-ecommerce-seller-details.html" class="text-reset">Meta4Systems</a>
+                                                                            </h5>
+                                                                            <span class="text-muted">Zoe Dennis</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <span class="text-muted">Furniture</span>
+                                                                </td>
+                                                                <td>
+                                                                    <p class="mb-0">4100</p>
+                                                                    <span class="text-muted">Stock</span>
+                                                                </td>
+                                                                <td>
+                                                                    <span class="text-muted">$11260</span>
+                                                                </td>
+                                                                <td>
+                                                                    <h5 class="fs-14 mb-0">57%<i class="ri-bar-chart-fill text-success fs-16 align-middle ms-2"></i></h5>
+                                                                </td>
+                                                            </tr><!-- end -->
+                                                        </tbody>
+                                                    </table><!-- end table -->
+                                                </div>
+
+                                                <div class="align-items-center mt-4 pt-2 justify-content-between row text-center text-sm-start">
+                                                    <div class="col-sm">
+                                                        <div class="text-muted">
+                                                            Showing <span class="fw-semibold">5</span> of <span class="fw-semibold">25</span> Results
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-auto  mt-3 mt-sm-0">
+                                                        <ul class="pagination pagination-separated pagination-sm mb-0 justify-content-center">
+                                                            <li class="page-item disabled">
+                                                                <a href="#" class="page-link">←</a>
+                                                            </li>
+                                                            <li class="page-item">
+                                                                <a href="#" class="page-link">1</a>
+                                                            </li>
+                                                            <li class="page-item active">
+                                                                <a href="#" class="page-link">2</a>
+                                                            </li>
+                                                            <li class="page-item">
+                                                                <a href="#" class="page-link">3</a>
+                                                            </li>
+                                                            <li class="page-item">
+                                                                <a href="#" class="page-link">→</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+
+                                            </div> <!-- .card-body-->
+                                        </div> <!-- .card-->
+                                    </div> <!-- .col-->
+                                </div> <!-- end row-->
+
+                                <div class="row">
+                                    <div class="col-xl-4">
+                                        <div class="card card-height-100">
+                                            <div class="card-header align-items-center d-flex">
+                                                <h4 class="card-title mb-0 flex-grow-1">Store Visits by Source</h4>
+                                                <div class="flex-shrink-0">
+                                                    <div class="dropdown card-header-dropdown">
+                                                        <a class="text-reset dropdown-btn" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <span class="text-muted">Report<i class="mdi mdi-chevron-down ms-1"></i></span>
+                                                        </a>
+                                                        <div class="dropdown-menu dropdown-menu-end">
+                                                            <a class="dropdown-item" href="#">Download Report</a>
+                                                            <a class="dropdown-item" href="#">Export</a>
+                                                            <a class="dropdown-item" href="#">Import</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div><!-- end card header -->
+
+                                            <div class="card-body">
+                                                <div id="store-visits-source" data-colors='["--vz-primary", "--vz-success", "--vz-warning", "--vz-danger", "--vz-info"]' data-colors-minimal='["--vz-primary", "--vz-primary-rgb, 0.85", "--vz-primary-rgb, 0.70", "--vz-primary-rgb, 0.60", "--vz-primary-rgb, 0.45"]' data-colors-interactive='["--vz-primary", "--vz-primary-rgb, 0.85", "--vz-primary-rgb, 0.70", "--vz-primary-rgb, 0.60", "--vz-primary-rgb, 0.45"]' data-colors-galaxy='["--vz-primary", "--vz-primary-rgb, 0.85", "--vz-primary-rgb, 0.70", "--vz-primary-rgb, 0.60", "--vz-primary-rgb, 0.45"]' class="apex-charts" dir="ltr"></div>
+                                            </div>
+                                        </div> <!-- .card-->
+                                    </div> <!-- .col-->
+
+                                    <div class="col-xl-8">
+                                        <div class="card">
+                                            <div class="card-header align-items-center d-flex">
+                                                <h4 class="card-title mb-0 flex-grow-1">Recent Orders</h4>
+                                                <div class="flex-shrink-0">
+                                                    <button type="button" class="btn btn-soft-info btn-sm material-shadow-none">
+                                                        <i class="ri-file-list-3-line align-middle"></i> Generate Report
+                                                    </button>
+                                                </div>
+                                            </div><!-- end card header -->
+
+                                            <div class="card-body">
+                                                <div class="table-responsive table-card">
+                                                    <table class="table table-borderless table-centered align-middle table-nowrap mb-0">
+                                                        <thead class="text-muted table-light">
+                                                            <tr>
+                                                                <th scope="col">Order ID</th>
+                                                                <th scope="col">Customer</th>
+                                                                <th scope="col">Product</th>
+                                                                <th scope="col">Amount</th>
+                                                                <th scope="col">Vendor</th>
+                                                                <th scope="col">Status</th>
+                                                                <th scope="col">Rating</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    <a href="apps-ecommerce-order-details.html" class="fw-medium link-primary">#VZ2112</a>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex align-items-center">
+                                                                        <div class="flex-shrink-0 me-2">
+                                                                            <img src="assets/images/users/avatar-1.jpg" alt="" class="avatar-xs rounded-circle material-shadow" />
+                                                                        </div>
+                                                                        <div class="flex-grow-1">Alex Smith</div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>Clothes</td>
+                                                                <td>
+                                                                    <span class="text-success">$109.00</span>
+                                                                </td>
+                                                                <td>Zoetic Fashion</td>
+                                                                <td>
+                                                                    <span class="badge bg-success-subtle text-success">Paid</span>
+                                                                </td>
+                                                                <td>
+                                                                    <h5 class="fs-14 fw-medium mb-0">5.0<span class="text-muted fs-11 ms-1">(61 votes)</span></h5>
+                                                                </td>
+                                                            </tr><!-- end tr -->
+                                                            <tr>
+                                                                <td>
+                                                                    <a href="apps-ecommerce-order-details.html" class="fw-medium link-primary">#VZ2111</a>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex align-items-center">
+                                                                        <div class="flex-shrink-0 me-2">
+                                                                            <img src="assets/images/users/avatar-2.jpg" alt="" class="avatar-xs rounded-circle material-shadow" />
+                                                                        </div>
+                                                                        <div class="flex-grow-1">Jansh Brown</div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>Kitchen Storage</td>
+                                                                <td>
+                                                                    <span class="text-success">$149.00</span>
+                                                                </td>
+                                                                <td>Micro Design</td>
+                                                                <td>
+                                                                    <span class="badge bg-warning-subtle text-warning">Pending</span>
+                                                                </td>
+                                                                <td>
+                                                                    <h5 class="fs-14 fw-medium mb-0">4.5<span class="text-muted fs-11 ms-1">(61 votes)</span></h5>
+                                                                </td>
+                                                            </tr><!-- end tr -->
+                                                            <tr>
+                                                                <td>
+                                                                    <a href="apps-ecommerce-order-details.html" class="fw-medium link-primary">#VZ2109</a>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex align-items-center">
+                                                                        <div class="flex-shrink-0 me-2">
+                                                                            <img src="assets/images/users/avatar-3.jpg" alt="" class="avatar-xs rounded-circle material-shadow" />
+                                                                        </div>
+                                                                        <div class="flex-grow-1">Ayaan Bowen</div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>Bike Accessories</td>
+                                                                <td>
+                                                                    <span class="text-success">$215.00</span>
+                                                                </td>
+                                                                <td>Nesta Technologies</td>
+                                                                <td>
+                                                                    <span class="badge bg-success-subtle text-success">Paid</span>
+                                                                </td>
+                                                                <td>
+                                                                    <h5 class="fs-14 fw-medium mb-0">4.9<span class="text-muted fs-11 ms-1">(89 votes)</span></h5>
+                                                                </td>
+                                                            </tr><!-- end tr -->
+                                                            <tr>
+                                                                <td>
+                                                                    <a href="apps-ecommerce-order-details.html" class="fw-medium link-primary">#VZ2108</a>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex align-items-center">
+                                                                        <div class="flex-shrink-0 me-2">
+                                                                            <img src="assets/images/users/avatar-4.jpg" alt="" class="avatar-xs rounded-circle material-shadow" />
+                                                                        </div>
+                                                                        <div class="flex-grow-1">Prezy Mark</div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>Furniture</td>
+                                                                <td>
+                                                                    <span class="text-success">$199.00</span>
+                                                                </td>
+                                                                <td>Syntyce Solutions</td>
+                                                                <td>
+                                                                    <span class="badge bg-danger-subtle text-danger">Unpaid</span>
+                                                                </td>
+                                                                <td>
+                                                                    <h5 class="fs-14 fw-medium mb-0">4.3<span class="text-muted fs-11 ms-1">(47 votes)</span></h5>
+                                                                </td>
+                                                            </tr><!-- end tr -->
+                                                            <tr>
+                                                                <td>
+                                                                    <a href="apps-ecommerce-order-details.html" class="fw-medium link-primary">#VZ2107</a>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex align-items-center">
+                                                                        <div class="flex-shrink-0 me-2">
+                                                                            <img src="assets/images/users/avatar-6.jpg" alt="" class="avatar-xs rounded-circle material-shadow" />
+                                                                        </div>
+                                                                        <div class="flex-grow-1">Vihan Hudda</div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>Bags and Wallets</td>
+                                                                <td>
+                                                                    <span class="text-success">$330.00</span>
+                                                                </td>
+                                                                <td>iTest Factory</td>
+                                                                <td>
+                                                                    <span class="badge bg-success-subtle text-success">Paid</span>
+                                                                </td>
+                                                                <td>
+                                                                    <h5 class="fs-14 fw-medium mb-0">4.7<span class="text-muted fs-11 ms-1">(161 votes)</span></h5>
+                                                                </td>
+                                                            </tr><!-- end tr -->
+                                                        </tbody><!-- end tbody -->
+                                                    </table><!-- end table -->
+                                                </div>
+                                            </div>
+                                        </div> <!-- .card-->
+                                    </div> <!-- .col-->
+                                </div> <!-- end row-->
+
+                            </div> <!-- end .h-100-->
+
+                        </div> <!-- end col -->
+
+                        <div class="col-auto layout-rightside-col">
+                            <div class="overlay"></div>
+                            <div class="layout-rightside">
+                                <div class="card h-100 rounded-0">
+                                    <div class="card-body p-0">
+                                        <div class="p-3">
+                                            <h6 class="text-muted mb-0 text-uppercase fw-semibold">Recent Activity</h6>
+                                        </div>
+                                        <div data-simplebar style="max-height: 410px;" class="p-3 pt-0">
+                                            <div class="acitivity-timeline acitivity-main">
+                                                <div class="acitivity-item d-flex">
+                                                    <div class="flex-shrink-0 avatar-xs acitivity-avatar">
+                                                        <div class="avatar-title bg-success-subtle text-success rounded-circle material-shadow">
+                                                            <i class="ri-shopping-cart-2-line"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex-grow-1 ms-3">
+                                                        <h6 class="mb-1 lh-base">Purchase by James Price</h6>
+                                                        <p class="text-muted mb-1">Product noise evolve smartwatch </p>
+                                                        <small class="mb-0 text-muted">02:14 PM Today</small>
+                                                    </div>
+                                                </div>
+                                                <div class="acitivity-item py-3 d-flex">
+                                                    <div class="flex-shrink-0 avatar-xs acitivity-avatar">
+                                                        <div class="avatar-title bg-danger-subtle text-danger rounded-circle material-shadow">
+                                                            <i class="ri-stack-fill"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex-grow-1 ms-3">
+                                                        <h6 class="mb-1 lh-base">Added new <span class="fw-semibold">style collection</span></h6>
+                                                        <p class="text-muted mb-1">By Nesta Technologies</p>
+                                                        <div class="d-inline-flex gap-2 border border-dashed p-2 mb-2">
+                                                            <a href="apps-ecommerce-product-details.html" class="bg-light rounded p-1">
+                                                                <img src="assets/images/products/img-8.png" alt="" class="img-fluid d-block" />
+                                                            </a>
+                                                            <a href="apps-ecommerce-product-details.html" class="bg-light rounded p-1">
+                                                                <img src="assets/images/products/img-2.png" alt="" class="img-fluid d-block" />
+                                                            </a>
+                                                            <a href="apps-ecommerce-product-details.html" class="bg-light rounded p-1">
+                                                                <img src="assets/images/products/img-10.png" alt="" class="img-fluid d-block" />
+                                                            </a>
+                                                        </div>
+                                                        <p class="mb-0 text-muted"><small>9:47 PM Yesterday</small></p>
+                                                    </div>
+                                                </div>
+                                                <div class="acitivity-item py-3 d-flex">
+                                                    <div class="flex-shrink-0">
+                                                        <img src="assets/images/users/avatar-2.jpg" alt="" class="avatar-xs rounded-circle acitivity-avatar material-shadow">
+                                                    </div>
+                                                    <div class="flex-grow-1 ms-3">
+                                                        <h6 class="mb-1 lh-base">Natasha Carey have liked the products</h6>
+                                                        <p class="text-muted mb-1">Allow users to like products in your WooCommerce store.</p>
+                                                        <small class="mb-0 text-muted">25 Dec, 2021</small>
+                                                    </div>
+                                                </div>
+                                                <div class="acitivity-item py-3 d-flex">
+                                                    <div class="flex-shrink-0">
+                                                        <div class="avatar-xs acitivity-avatar">
+                                                            <div class="avatar-title rounded-circle bg-secondary material-shadow">
+                                                                <i class="mdi mdi-sale fs-14"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex-grow-1 ms-3">
+                                                        <h6 class="mb-1 lh-base">Today offers by <a href="apps-ecommerce-seller-details.html" class="link-secondary">Digitech Galaxy</a></h6>
+                                                        <p class="text-muted mb-2">Offer is valid on orders of Rs.500 Or above for selected products only.</p>
+                                                        <small class="mb-0 text-muted">12 Dec, 2021</small>
+                                                    </div>
+                                                </div>
+                                                <div class="acitivity-item py-3 d-flex">
+                                                    <div class="flex-shrink-0">
+                                                        <div class="avatar-xs acitivity-avatar">
+                                                            <div class="avatar-title rounded-circle bg-danger-subtle text-danger material-shadow">
+                                                                <i class="ri-bookmark-fill"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex-grow-1 ms-3">
+                                                        <h6 class="mb-1 lh-base">Favorite Product</h6>
+                                                        <p class="text-muted mb-2">Esther James have Favorite product.</p>
+                                                        <small class="mb-0 text-muted">25 Nov, 2021</small>
+                                                    </div>
+                                                </div>
+                                                <div class="acitivity-item py-3 d-flex">
+                                                    <div class="flex-shrink-0">
+                                                        <div class="avatar-xs acitivity-avatar">
+                                                            <div class="avatar-title rounded-circle bg-secondary material-shadow">
+                                                                <i class="mdi mdi-sale fs-14"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex-grow-1 ms-3">
+                                                        <h6 class="mb-1 lh-base">Flash sale starting <span class="text-primary">Tomorrow.</span></h6>
+                                                        <p class="text-muted mb-0">Flash sale by <a href="javascript:void(0);" class="link-secondary fw-medium">Zoetic Fashion</a></p>
+                                                        <small class="mb-0 text-muted">22 Oct, 2021</small>
+                                                    </div>
+                                                </div>
+                                                <div class="acitivity-item py-3 d-flex">
+                                                    <div class="flex-shrink-0">
+                                                        <div class="avatar-xs acitivity-avatar">
+                                                            <div class="avatar-title rounded-circle bg-info-subtle text-info material-shadow">
+                                                                <i class="ri-line-chart-line"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex-grow-1 ms-3">
+                                                        <h6 class="mb-1 lh-base">Monthly sales report</h6>
+                                                        <p class="text-muted mb-2"><span class="text-danger">2 days left</span> notification to submit the monthly sales report. <a href="javascript:void(0);" class="link-warning text-decoration-underline">Reports Builder</a></p>
+                                                        <small class="mb-0 text-muted">15 Oct</small>
+                                                    </div>
+                                                </div>
+                                                <div class="acitivity-item d-flex">
+                                                    <div class="flex-shrink-0">
+                                                        <img src="assets/images/users/avatar-3.jpg" alt="" class="avatar-xs rounded-circle acitivity-avatar material-shadow" />
+                                                    </div>
+                                                    <div class="flex-grow-1 ms-3">
+                                                        <h6 class="mb-1 lh-base">Frank Hook Commented</h6>
+                                                        <p class="text-muted mb-2 fst-italic">" A product that has reviews is more likable to be sold than a product. "</p>
+                                                        <small class="mb-0 text-muted">26 Aug, 2021</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="p-3 mt-2">
+                                            <h6 class="text-muted mb-3 text-uppercase fw-semibold">Top 10 Categories
+                                            </h6>
+
+                                            <ol class="ps-3 text-muted">
+                                                <li class="py-1">
+                                                    <a href="#" class="text-muted">Mobile & Accessories <span class="float-end">(10,294)</span></a>
+                                                </li>
+                                                <li class="py-1">
+                                                    <a href="#" class="text-muted">Desktop <span class="float-end">(6,256)</span></a>
+                                                </li>
+                                                <li class="py-1">
+                                                    <a href="#" class="text-muted">Electronics <span class="float-end">(3,479)</span></a>
+                                                </li>
+                                                <li class="py-1">
+                                                    <a href="#" class="text-muted">Home & Furniture <span class="float-end">(2,275)</span></a>
+                                                </li>
+                                                <li class="py-1">
+                                                    <a href="#" class="text-muted">Grocery <span class="float-end">(1,950)</span></a>
+                                                </li>
+                                                <li class="py-1">
+                                                    <a href="#" class="text-muted">Fashion <span class="float-end">(1,582)</span></a>
+                                                </li>
+                                                <li class="py-1">
+                                                    <a href="#" class="text-muted">Appliances <span class="float-end">(1,037)</span></a>
+                                                </li>
+                                                <li class="py-1">
+                                                    <a href="#" class="text-muted">Beauty, Toys & More <span class="float-end">(924)</span></a>
+                                                </li>
+                                                <li class="py-1">
+                                                    <a href="#" class="text-muted">Food & Drinks <span class="float-end">(701)</span></a>
+                                                </li>
+                                                <li class="py-1">
+                                                    <a href="#" class="text-muted">Toys & Games <span class="float-end">(239)</span></a>
+                                                </li>
+                                            </ol>
+                                            <div class="mt-3 text-center">
+                                                <a href="javascript:void(0);" class="text-muted text-decoration-underline">View all Categories</a>
+                                            </div>
+                                        </div>
+                                        <div class="p-3">
+                                            <h6 class="text-muted mb-3 text-uppercase fw-semibold">Products Reviews</h6>
+                                            <!-- Swiper -->
+                                            <div class="swiper vertical-swiper" style="height: 250px;">
+                                                <div class="swiper-wrapper">
+                                                    <div class="swiper-slide">
+                                                        <div class="card border border-dashed shadow-none">
+                                                            <div class="card-body">
+                                                                <div class="d-flex">
+                                                                    <div class="flex-shrink-0 avatar-sm">
+                                                                        <div class="avatar-title bg-light rounded material-shadow">
+                                                                            <img src="assets/images/companies/img-1.png" alt="" height="30">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="flex-grow-1 ms-3">
+                                                                        <div>
+                                                                            <p class="text-muted mb-1 fst-italic text-truncate-two-lines"> " Great product and looks great, lots of features. "</p>
+                                                                            <div
+                                                                                class="fs-11 align-middle text-warning">
+                                                                                <i class="ri-star-fill"></i>
+                                                                                <i class="ri-star-fill"></i>
+                                                                                <i class="ri-star-fill"></i>
+                                                                                <i class="ri-star-fill"></i>
+                                                                                <i class="ri-star-fill"></i>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="text-end mb-0 text-muted">
+                                                                            - by <cite title="Source Title">Force Medicines</cite>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="swiper-slide">
+                                                        <div class="card border border-dashed shadow-none">
+                                                            <div class="card-body">
+                                                                <div class="d-flex">
+                                                                    <div class="flex-shrink-0">
+                                                                        <img src="assets/images/users/avatar-3.jpg" alt="" class="avatar-sm rounded material-shadow">
+                                                                    </div>
+                                                                    <div class="flex-grow-1 ms-3">
+                                                                        <div>
+                                                                            <p class="text-muted mb-1 fst-italic text-truncate-two-lines"> " Amazing template, very easy to understand and manipulate. "</p>
+                                                                            <div class="fs-11 align-middle text-warning">
+                                                                                <i class="ri-star-fill"></i>
+                                                                                <i class="ri-star-fill"></i>
+                                                                                <i class="ri-star-fill"></i>
+                                                                                <i class="ri-star-fill"></i>
+                                                                                <i class="ri-star-half-fill"></i>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="text-end mb-0 text-muted">
+                                                                            - by <cite title="Source Title">Henry Baird</cite>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="swiper-slide">
+                                                        <div class="card border border-dashed shadow-none">
+                                                            <div class="card-body">
+                                                                <div class="d-flex">
+                                                                    <div class="flex-shrink-0 avatar-sm">
+                                                                        <div class="avatar-title bg-light rounded">
+                                                                            <img src="assets/images/companies/img-8.png" alt="" height="30">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="flex-grow-1 ms-3">
+                                                                        <div>
+                                                                            <p class="text-muted mb-1 fst-italic text-truncate-two-lines"> "Very beautiful product and Very helpful customer service."</p>
+                                                                            <div class="fs-11 align-middle text-warning">
+                                                                                <i class="ri-star-fill"></i>
+                                                                                <i class="ri-star-fill"></i>
+                                                                                <i class="ri-star-fill"></i>
+                                                                                <i class="ri-star-line"></i>
+                                                                                <i class="ri-star-line"></i>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="text-end mb-0 text-muted">
+                                                                            - by <cite title="Source Title">Zoetic Fashion</cite>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="swiper-slide">
+                                                        <div class="card border border-dashed shadow-none">
+                                                            <div class="card-body">
+                                                                <div class="d-flex">
+                                                                    <div class="flex-shrink-0">
+                                                                        <img src="assets/images/users/avatar-2.jpg" alt="" class="avatar-sm rounded material-shadow">
+                                                                    </div>
+                                                                    <div class="flex-grow-1 ms-3">
+                                                                        <div>
+                                                                            <p class="text-muted mb-1 fst-italic text-truncate-two-lines">" The product is very beautiful. I like it. "</p>
+                                                                            <div class="fs-11 align-middle text-warning">
+                                                                                <i class="ri-star-fill"></i>
+                                                                                <i class="ri-star-fill"></i>
+                                                                                <i class="ri-star-fill"></i>
+                                                                                <i class="ri-star-half-fill"></i>
+                                                                                <i class="ri-star-line"></i>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="text-end mb-0 text-muted">
+                                                                            - by <cite title="Source Title">Nancy Martino</cite>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="p-3">
+                                            <h6 class="text-muted mb-3 text-uppercase fw-semibold">Customer Reviews</h6>
+                                            <div class="bg-light px-3 py-2 rounded-2 mb-2">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="flex-grow-1">
+                                                        <div class="fs-16 align-middle text-warning">
+                                                            <i class="ri-star-fill"></i>
+                                                            <i class="ri-star-fill"></i>
+                                                            <i class="ri-star-fill"></i>
+                                                            <i class="ri-star-fill"></i>
+                                                            <i class="ri-star-half-fill"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex-shrink-0">
+                                                        <h6 class="mb-0">4.5 out of 5</h6>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="text-center">
+                                                <div class="text-muted">Total <span class="fw-medium">5.50k</span> reviews</div>
+                                            </div>
+
+                                            <div class="mt-3">
+                                                <div class="row align-items-center g-2">
+                                                    <div class="col-auto">
+                                                        <div class="p-1">
+                                                            <h6 class="mb-0">5 star</h6>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="p-1">
+                                                            <div class="progress animated-progress progress-sm">
+                                                                <div class="progress-bar bg-success" role="progressbar" style="width: 50.16%" aria-valuenow="50.16" aria-valuemin="0" aria-valuemax="100"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-auto">
+                                                        <div class="p-1">
+                                                            <h6 class="mb-0 text-muted">2758</h6>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- end row -->
+
+                                                <div class="row align-items-center g-2">
+                                                    <div class="col-auto">
+                                                        <div class="p-1">
+                                                            <h6 class="mb-0">4 star</h6>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="p-1">
+                                                            <div class="progress animated-progress progress-sm">
+                                                                <div class="progress-bar bg-success" role="progressbar" style="width: 29.32%" aria-valuenow="29.32" aria-valuemin="0" aria-valuemax="100"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-auto">
+                                                        <div class="p-1">
+                                                            <h6 class="mb-0 text-muted">1063</h6>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- end row -->
+
+                                                <div class="row align-items-center g-2">
+                                                    <div class="col-auto">
+                                                        <div class="p-1">
+                                                            <h6 class="mb-0">3 star</h6>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="p-1">
+                                                            <div class="progress animated-progress progress-sm">
+                                                                <div class="progress-bar bg-warning" role="progressbar" style="width: 18.12%" aria-valuenow="18.12" aria-valuemin="0" aria-valuemax="100"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-auto">
+                                                        <div class="p-1">
+                                                            <h6 class="mb-0 text-muted">997</h6>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- end row -->
+
+                                                <div class="row align-items-center g-2">
+                                                    <div class="col-auto">
+                                                        <div class="p-1">
+                                                            <h6 class="mb-0">2 star</h6>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="p-1">
+                                                            <div class="progress animated-progress progress-sm">
+                                                                <div class="progress-bar bg-success" role="progressbar" style="width: 4.98%" aria-valuenow="4.98" aria-valuemin="0" aria-valuemax="100"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-auto">
+                                                        <div class="p-1">
+                                                            <h6 class="mb-0 text-muted">227</h6>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- end row -->
+
+                                                <div class="row align-items-center g-2">
+                                                    <div class="col-auto">
+                                                        <div class="p-1">
+                                                            <h6 class="mb-0">1 star</h6>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="p-1">
+                                                            <div class="progress animated-progress progress-sm">
+                                                                <div class="progress-bar bg-danger" role="progressbar" style="width: 7.42%" aria-valuenow="7.42" aria-valuemin="0" aria-valuemax="100"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-auto">
+                                                        <div class="p-1">
+                                                            <h6 class="mb-0 text-muted">408</h6>
+                                                        </div>
+                                                    </div>
+                                                </div><!-- end row -->
+                                            </div>
+                                        </div>
+
+                                        <div class="card sidebar-alert bg-light border-0 text-center mx-4 mb-0 mt-3">
+                                            <div class="card-body">
+                                                <img src="assets/images/giftbox.png" alt="">
+                                                <div class="mt-4">
+                                                    <h5>Invite New Seller</h5>
+                                                    <p class="text-muted lh-base">Refer a new seller to us and earn $100 per refer.</p>
+                                                    <button type="button" class="btn btn-primary btn-label rounded-pill"><i class="ri-mail-fill label-icon align-middle rounded-pill fs-16 me-2"></i> Invite Now</button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div> <!-- end card-->
+                            </div> <!-- end .rightbar-->
+
+                        </div> <!-- end col -->
+                    </div>
+
+                </div>
+                <!-- container-fluid -->
+            </div>
+            <!-- End Page-content -->
+
+            <footer class="footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <script>document.write(new Date().getFullYear())</script> © Velzon.
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="text-sm-end d-none d-sm-block">
+                                Design & Develop by Themesbrand
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        <!-- end main content-->
+
+    </div>
+    <!-- END layout-wrapper -->
+
+
+
+    <!--start back-to-top-->
+    <button onclick="topFunction()" class="btn btn-danger btn-icon" id="back-to-top">
+        <i class="ri-arrow-up-line"></i>
+    </button>
+    <!--end back-to-top-->
+
+    <!--preloader-->
+    <div id="preloader">
+        <div id="status">
+            <div class="spinner-border text-primary avatar-sm" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="customizer-setting d-none d-md-block">
+        <div class="btn-info rounded-pill shadow-lg btn btn-icon btn-lg p-2" data-bs-toggle="offcanvas" data-bs-target="#theme-settings-offcanvas" aria-controls="theme-settings-offcanvas">
+            <i class='mdi mdi-spin mdi-cog-outline fs-22'></i>
+        </div>
+    </div>
+
+    <!-- Theme Settings -->
+    <div class="offcanvas offcanvas-end border-0" tabindex="-1" id="theme-settings-offcanvas">
+        <div class="d-flex align-items-center bg-primary bg-gradient p-3 offcanvas-header">
+            <h5 class="m-0 me-2 text-white">Theme Customizer</h5>
+
+            <button type="button" class="btn-close btn-close-white ms-auto" id="customizerclose-btn" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body p-0">
+            <div data-simplebar class="h-100">
+                <div class="p-4">
+                    <h6 class="mb-0 fw-semibold text-uppercase">Layout</h6>
+                    <p class="text-muted">Choose your layout</p>
+
+                    <div class="row gy-3">
+                        <div class="col-4">
+                            <div class="form-check card-radio">
+                                <input id="customizer-layout01" name="data-layout" type="radio" value="vertical" class="form-check-input">
+                                <label class="form-check-label p-0 avatar-md w-100 material-shadow" for="customizer-layout01">
+                                    <span class="d-flex gap-1 h-100">
+                                        <span class="flex-shrink-0">
+                                            <span class="bg-light d-flex h-100 flex-column gap-1 p-1">
+                                                <span class="d-block p-1 px-2 bg-primary-subtle rounded mb-2"></span>
+                                                <span class="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
+                                                <span class="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
+                                                <span class="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
+                                            </span>
+                                        </span>
+                                        <span class="flex-grow-1">
+                                            <span class="d-flex h-100 flex-column">
+                                                <span class="bg-light d-block p-1"></span>
+                                                <span class="bg-light d-block p-1 mt-auto"></span>
+                                            </span>
+                                        </span>
+                                    </span>
+                                </label>
+                            </div>
+                            <h5 class="fs-13 text-center mt-2">Vertical</h5>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-check card-radio">
+                                <input id="customizer-layout02" name="data-layout" type="radio" value="horizontal" class="form-check-input">
+                                <label class="form-check-label p-0 avatar-md w-100 material-shadow" for="customizer-layout02">
+                                    <span class="d-flex h-100 flex-column gap-1">
+                                        <span class="bg-light d-flex p-1 gap-1 align-items-center">
+                                            <span class="d-block p-1 bg-primary-subtle rounded me-1"></span>
+                                            <span class="d-block p-1 pb-0 px-2 bg-primary-subtle ms-auto"></span>
+                                            <span class="d-block p-1 pb-0 px-2 bg-primary-subtle"></span>
+                                        </span>
+                                        <span class="bg-light d-block p-1"></span>
+                                        <span class="bg-light d-block p-1 mt-auto"></span>
+                                    </span>
+                                </label>
+                            </div>
+                            <h5 class="fs-13 text-center mt-2">Horizontal</h5>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-check card-radio">
+                                <input id="customizer-layout03" name="data-layout" type="radio" value="twocolumn" class="form-check-input">
+                                <label class="form-check-label p-0 avatar-md w-100 material-shadow" for="customizer-layout03">
+                                    <span class="d-flex gap-1 h-100">
+                                        <span class="flex-shrink-0">
+                                            <span class="bg-light d-flex h-100 flex-column gap-1">
+                                                <span class="d-block p-1 bg-primary-subtle mb-2"></span>
+                                                <span class="d-block p-1 pb-0 bg-primary-subtle"></span>
+                                                <span class="d-block p-1 pb-0 bg-primary-subtle"></span>
+                                                <span class="d-block p-1 pb-0 bg-primary-subtle"></span>
+                                            </span>
+                                        </span>
+                                        <span class="flex-shrink-0">
+                                            <span class="bg-light d-flex h-100 flex-column gap-1 p-1">
+                                                <span class="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
+                                                <span class="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
+                                                <span class="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
+                                                <span class="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
+                                            </span>
+                                        </span>
+                                        <span class="flex-grow-1">
+                                            <span class="d-flex h-100 flex-column">
+                                                <span class="bg-light d-block p-1"></span>
+                                                <span class="bg-light d-block p-1 mt-auto"></span>
+                                            </span>
+                                        </span>
+                                    </span>
+                                </label>
+                            </div>
+                            <h5 class="fs-13 text-center mt-2">Two Column</h5>
+                        </div>
+                        <!-- end col -->
+
+                        <div class="col-4">
+                            <div class="form-check card-radio">
+                                <input id="customizer-layout04" name="data-layout" type="radio" value="semibox" class="form-check-input">
+                                <label class="form-check-label p-0 avatar-md w-100 material-shadow" for="customizer-layout04">
+                                    <span class="d-flex gap-1 h-100">
+                                        <span class="flex-shrink-0 p-1">
+                                            <span class="bg-light d-flex h-100 flex-column gap-1 p-1">
+                                                <span class="d-block p-1 px-2 bg-primary-subtle rounded mb-2"></span>
+                                                <span class="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
+                                                <span class="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
+                                                <span class="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
+                                            </span>
+                                        </span>
+                                        <span class="flex-grow-1">
+                                            <span class="d-flex h-100 flex-column pt-1 pe-2">
+                                                <span class="bg-light d-block p-1"></span>
+                                                <span class="bg-light d-block p-1 mt-auto"></span>
+                                            </span>
+                                        </span>
+                                    </span>
+                                </label>
+                            </div>
+                            <h5 class="fs-13 text-center mt-2">Semi Box</h5>
+                        </div>
+                        <!-- end col -->
+                    </div>
+
+                    <div class="form-check form-switch form-switch-md mb-3 mt-4">
+                        <input type="checkbox" class="form-check-input" id="sidebarUserProfile">
+                        <label class="form-check-label" for="sidebarUserProfile">Sidebar User Profile Avatar</label>
+                    </div>
+
+                    <h6 class="mt-4 mb-0 fw-semibold text-uppercase">Theme</h6>
+                    <p class="text-muted">Choose your suitable Theme.</p>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-check card-radio">
+                                <input id="customizer-theme01" name="data-theme" type="radio" value="default" class="form-check-input">
+                                <label class="form-check-label p-0" for="customizer-theme01">
+                                    <img src="../../assets/images/demo/default.png" alt="" class="img-fluid">
+                                </label>
+                            </div>
+                            <h5 class="fs-13 text-center fw-medium mt-2">Default</h5>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-check card-radio">
+                                <input id="customizer-theme02" name="data-theme" type="radio" value="saas" class="form-check-input">
+                                <label class="form-check-label p-0" for="customizer-theme02">
+                                    <img src="../../assets/images/demo/saas.png" alt="" class="img-fluid">
+                                </label>
+                            </div>
+                            <h5 class="fs-13 text-center fw-medium mt-2">Sass</h5>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-check card-radio">
+                                <input id="customizer-theme03" name="data-theme" type="radio" value="corporate" class="form-check-input">
+                                <label class="form-check-label p-0" for="customizer-theme03">
+                                    <img src="../../assets/images/demo/corporate.png" alt="" class="img-fluid">
+                                </label>
+                            </div>
+                            <h5 class="fs-13 text-center fw-medium mt-2">Corporate</h5>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-check card-radio">
+                                <input id="customizer-theme04" name="data-theme" type="radio" value="galaxy" class="form-check-input">
+                                <label class="form-check-label p-0" for="customizer-theme04">
+                                    <img src="../../assets/images/demo/galaxy.png" alt="" class="img-fluid">
+                                </label>
+                            </div>
+                            <h5 class="fs-13 text-center fw-medium mt-2">Galaxy</h5>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-check card-radio">
+                                <input id="customizer-theme05" name="data-theme" type="radio" value="material" class="form-check-input">
+                                <label class="form-check-label p-0" for="customizer-theme05">
+                                    <img src="../../assets/images/demo/material.png" alt="" class="img-fluid">
+                                </label>
+                            </div>
+                            <h5 class="fs-13 text-center fw-medium mt-2">Material</h5>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-check card-radio">
+                                <input id="customizer-theme06" name="data-theme" type="radio" value="creative" class="form-check-input">
+                                <label class="form-check-label p-0" for="customizer-theme06">
+                                    <img src="../../assets/images/demo/creative.png" alt="" class="img-fluid">
+                                </label>
+                            </div>
+                            <h5 class="fs-13 text-center fw-medium mt-2">Creative</h5>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-check card-radio">
+                                <input id="customizer-theme07" name="data-theme" type="radio" value="minimal" class="form-check-input">
+                                <label class="form-check-label p-0" for="customizer-theme07">
+                                    <img src="../../assets/images/demo/minimal.png" alt="" class="img-fluid">
+                                </label>
+                            </div>
+                            <h5 class="fs-13 text-center fw-medium mt-2">Minimal</h5>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-check card-radio">
+                                <input id="customizer-theme08" name="data-theme" type="radio" value="modern" class="form-check-input">
+                                <label class="form-check-label p-0" for="customizer-theme08">
+                                    <img src="../../assets/images/demo/modern.png" alt="" class="img-fluid">
+                                </label>
+                            </div>
+                            <h5 class="fs-13 text-center fw-medium mt-2">Modern</h5>
+                        </div>
+                        <!-- end col -->
+                        <div class="col-6">
+                            <div class="form-check card-radio">
+                                <input id="customizer-theme09" name="data-theme" type="radio" value="interactive" class="form-check-input">
+                                <label class="form-check-label p-0" for="customizer-theme09">
+                                    <img src="../../assets/images/demo/interactive.png" alt="" class="img-fluid">
+                                </label>
+                            </div>
+                            <h5 class="fs-13 text-center fw-medium mt-2">Interactive</h5>
+                        </div><!-- end col -->
+
+                        <div class="col-6">
+                            <div class="form-check card-radio">
+                                <input id="customizer-theme10" name="data-theme" type="radio" value="classic" class="form-check-input">
+                                <label class="form-check-label p-0" for="customizer-theme10">
+                                    <img src="../../assets/images/demo/classic.png" alt="" class="img-fluid">
+                                </label>
+                            </div>
+                            <h5 class="fs-13 text-center fw-medium mt-2">Classic</h5>
+                        </div><!-- end col -->
+
+                        <div class="col-6">
+                            <div class="form-check card-radio">
+                                <input id="customizer-theme11" name="data-theme" type="radio" value="vintage" class="form-check-input">
+                                <label class="form-check-label p-0" for="customizer-theme11">
+                                    <img src="../../assets/images/demo/vintage.png" alt="" class="img-fluid">
+                                </label>
+                            </div>
+                            <h5 class="fs-13 text-center fw-medium mt-2">Vintage</h5>
+                        </div><!-- end col -->
+                    </div>
+
+                    <h6 class="mt-4 mb-0 fw-semibold text-uppercase">Color Scheme</h6>
+                    <p class="text-muted">Choose Light or Dark Scheme.</p>
+
+                    <div class="colorscheme-cardradio">
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="form-check card-radio">
+                                    <input class="form-check-input" type="radio" name="data-bs-theme" id="layout-mode-light" value="light">
+                                    <label class="form-check-label p-0 avatar-md w-100 material-shadow" for="layout-mode-light">
+                                        <span class="d-flex gap-1 h-100">
+                                            <span class="flex-shrink-0">
+                                                <span class="bg-light d-flex h-100 flex-column gap-1 p-1">
+                                                    <span class="d-block p-1 px-2 bg-primary-subtle rounded mb-2"></span>
+                                                    <span class="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
+                                                    <span class="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
+                                                    <span class="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
+                                                </span>
+                                            </span>
+                                            <span class="flex-grow-1">
+                                                <span class="d-flex h-100 flex-column">
+                                                    <span class="bg-light d-block p-1"></span>
+                                                    <span class="bg-light d-block p-1 mt-auto"></span>
+                                                </span>
+                                            </span>
+                                        </span>
+                                    </label>
+                                </div>
+                                <h5 class="fs-13 text-center mt-2">Light</h5>
+                            </div>
+
+                            <div class="col-4">
+                                <div class="form-check card-radio dark">
+                                    <input class="form-check-input" type="radio" name="data-bs-theme" id="layout-mode-dark" value="dark">
+                                    <label class="form-check-label p-0 avatar-md w-100 bg-dark material-shadow" for="layout-mode-dark">
+                                        <span class="d-flex gap-1 h-100">
+                                            <span class="flex-shrink-0">
+                                                <span class="bg-white bg-opacity-10 d-flex h-100 flex-column gap-1 p-1">
+                                                    <span class="d-block p-1 px-2 bg-white bg-opacity-10 rounded mb-2"></span>
+                                                    <span class="d-block p-1 px-2 pb-0 bg-white bg-opacity-10"></span>
+                                                    <span class="d-block p-1 px-2 pb-0 bg-white bg-opacity-10"></span>
+                                                    <span class="d-block p-1 px-2 pb-0 bg-white bg-opacity-10"></span>
+                                                </span>
+                                            </span>
+                                            <span class="flex-grow-1">
+                                                <span class="d-flex h-100 flex-column">
+                                                    <span class="bg-white bg-opacity-10 d-block p-1"></span>
+                                                    <span class="bg-white bg-opacity-10 d-block p-1 mt-auto"></span>
+                                                </span>
+                                            </span>
+                                        </span>
+                                    </label>
+                                </div>
+                                <h5 class="fs-13 text-center mt-2">Dark</h5>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="sidebar-visibility">
+                        <h6 class="mt-4 mb-0 fw-semibold text-uppercase">Sidebar Visibility</h6>
+                        <p class="text-muted">Choose show or Hidden sidebar.</p>
+                
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="form-check card-radio">
+                                    <input class="form-check-input" type="radio" name="data-sidebar-visibility" id="sidebar-visibility-show" value="show">
+                                    <label class="form-check-label p-0 avatar-md w-100 material-shadow" for="sidebar-visibility-show">
+                                        <span class="d-flex gap-1 h-100">
+                                            <span class="flex-shrink-0 p-1">
+                                                <span class="bg-light d-flex h-100 flex-column gap-1 p-1">
+                                                    <span class="d-block p-1 px-2 bg-primary-subtle rounded mb-2"></span>
+                                                    <span class="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
+                                                    <span class="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
+                                                    <span class="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
+                                                </span>
+                                            </span>
+                                            <span class="flex-grow-1">
+                                                <span class="d-flex h-100 flex-column pt-1 pe-2">
+                                                    <span class="bg-light d-block p-1"></span>
+                                                    <span class="bg-light d-block p-1 mt-auto"></span>
+                                                </span>
+                                            </span>
+                                        </span>
+                                    </label>
+                                </div>
+                                <h5 class="fs-13 text-center mt-2">Show</h5>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-check card-radio">
+                                    <input class="form-check-input" type="radio" name="data-sidebar-visibility" id="sidebar-visibility-hidden" value="hidden">
+                                    <label class="form-check-label p-0 avatar-md w-100 px-2 material-shadow" for="sidebar-visibility-hidden">
+                                        <span class="d-flex gap-1 h-100">
+                                            <span class="flex-grow-1">
+                                                <span class="d-flex h-100 flex-column pt-1 px-2">
+                                                    <span class="bg-light d-block p-1"></span>
+                                                    <span class="bg-light d-block p-1 mt-auto"></span>
+                                                </span>
+                                            </span>
+                                        </span>
+                                    </label>
+                                </div>
+                                <h5 class="fs-13 text-center mt-2">Hidden</h5>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="layout-width">
+                        <h6 class="mt-4 mb-0 fw-semibold text-uppercase">Layout Width</h6>
+                        <p class="text-muted">Choose Fluid or Boxed layout.</p>
+
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="form-check card-radio">
+                                    <input class="form-check-input" type="radio" name="data-layout-width" id="layout-width-fluid" value="fluid">
+                                    <label class="form-check-label p-0 avatar-md w-100 material-shadow" for="layout-width-fluid">
+                                        <span class="d-flex gap-1 h-100">
+                                            <span class="flex-shrink-0">
+                                                <span class="bg-light d-flex h-100 flex-column gap-1 p-1">
+                                                    <span class="d-block p-1 px-2 bg-primary-subtle rounded mb-2"></span>
+                                                    <span class="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
+                                                    <span class="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
+                                                    <span class="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
+                                                </span>
+                                            </span>
+                                            <span class="flex-grow-1">
+                                                <span class="d-flex h-100 flex-column">
+                                                    <span class="bg-light d-block p-1"></span>
+                                                    <span class="bg-light d-block p-1 mt-auto"></span>
+                                                </span>
+                                            </span>
+                                        </span>
+                                    </label>
+                                </div>
+                                <h5 class="fs-13 text-center mt-2">Fluid</h5>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-check card-radio">
+                                    <input class="form-check-input" type="radio" name="data-layout-width" id="layout-width-boxed" value="boxed">
+                                    <label class="form-check-label p-0 avatar-md w-100 px-2 material-shadow" for="layout-width-boxed">
+                                        <span class="d-flex gap-1 h-100 border-start border-end">
+                                            <span class="flex-shrink-0">
+                                                <span class="bg-light d-flex h-100 flex-column gap-1 p-1">
+                                                    <span class="d-block p-1 px-2 bg-primary-subtle rounded mb-2"></span>
+                                                    <span class="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
+                                                    <span class="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
+                                                    <span class="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
+                                                </span>
+                                            </span>
+                                            <span class="flex-grow-1">
+                                                <span class="d-flex h-100 flex-column">
+                                                    <span class="bg-light d-block p-1"></span>
+                                                    <span class="bg-light d-block p-1 mt-auto"></span>
+                                                </span>
+                                            </span>
+                                        </span>
+                                    </label>
+                                </div>
+                                <h5 class="fs-13 text-center mt-2">Boxed</h5>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="layout-position">
+                        <h6 class="mt-4 mb-0 fw-semibold text-uppercase">Layout Position</h6>
+                        <p class="text-muted">Choose Fixed or Scrollable Layout Position.</p>
+
+                        <div class="btn-group radio" role="group">
+                            <input type="radio" class="btn-check" name="data-layout-position" id="layout-position-fixed" value="fixed">
+                            <label class="btn btn-light w-sm" for="layout-position-fixed">Fixed</label>
+
+                            <input type="radio" class="btn-check" name="data-layout-position" id="layout-position-scrollable" value="scrollable">
+                            <label class="btn btn-light w-sm ms-0" for="layout-position-scrollable">Scrollable</label>
+                        </div>
+                    </div>
+                    <h6 class="mt-4 mb-0 fw-semibold text-uppercase">Topbar Color</h6>
+                    <p class="text-muted">Choose Light or Dark Topbar Color.</p>
+
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="form-check card-radio">
+                                <input class="form-check-input" type="radio" name="data-topbar" id="topbar-color-light" value="light">
+                                <label class="form-check-label p-0 avatar-md w-100 material-shadow" for="topbar-color-light">
+                                    <span class="d-flex gap-1 h-100">
+                                        <span class="flex-shrink-0">
+                                            <span class="bg-light d-flex h-100 flex-column gap-1 p-1">
+                                                <span class="d-block p-1 px-2 bg-primary-subtle rounded mb-2"></span>
+                                                <span class="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
+                                                <span class="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
+                                                <span class="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
+                                            </span>
+                                        </span>
+                                        <span class="flex-grow-1">
+                                            <span class="d-flex h-100 flex-column">
+                                                <span class="bg-light d-block p-1"></span>
+                                                <span class="bg-light d-block p-1 mt-auto"></span>
+                                            </span>
+                                        </span>
+                                    </span>
+                                </label>
+                            </div>
+                            <h5 class="fs-13 text-center mt-2">Light</h5>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-check card-radio">
+                                <input class="form-check-input" type="radio" name="data-topbar" id="topbar-color-dark" value="dark">
+                                <label class="form-check-label p-0 avatar-md w-100 material-shadow" for="topbar-color-dark">
+                                    <span class="d-flex gap-1 h-100">
+                                        <span class="flex-shrink-0">
+                                            <span class="bg-light d-flex h-100 flex-column gap-1 p-1">
+                                                <span class="d-block p-1 px-2 bg-primary-subtle rounded mb-2"></span>
+                                                <span class="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
+                                                <span class="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
+                                                <span class="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
+                                            </span>
+                                        </span>
+                                        <span class="flex-grow-1">
+                                            <span class="d-flex h-100 flex-column">
+                                                <span class="bg-primary d-block p-1"></span>
+                                                <span class="bg-light d-block p-1 mt-auto"></span>
+                                            </span>
+                                        </span>
+                                    </span>
+                                </label>
+                            </div>
+                            <h5 class="fs-13 text-center mt-2">Dark</h5>
+                        </div>
+                    </div>
+
+                    <div id="sidebar-size">
+                        <h6 class="mt-4 mb-0 fw-semibold text-uppercase">Sidebar Size</h6>
+                        <p class="text-muted">Choose a size of Sidebar.</p>
+
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="form-check sidebar-setting card-radio">
+                                    <input class="form-check-input" type="radio" name="data-sidebar-size" id="sidebar-size-default" value="lg">
+                                    <label class="form-check-label p-0 avatar-md w-100 material-shadow" for="sidebar-size-default">
+                                        <span class="d-flex gap-1 h-100">
+                                            <span class="flex-shrink-0">
+                                                <span class="bg-light d-flex h-100 flex-column gap-1 p-1">
+                                                    <span class="d-block p-1 px-2 bg-primary-subtle rounded mb-2"></span>
+                                                    <span class="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
+                                                    <span class="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
+                                                    <span class="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
+                                                </span>
+                                            </span>
+                                            <span class="flex-grow-1">
+                                                <span class="d-flex h-100 flex-column">
+                                                    <span class="bg-light d-block p-1"></span>
+                                                    <span class="bg-light d-block p-1 mt-auto"></span>
+                                                </span>
+                                            </span>
+                                        </span>
+                                    </label>
+                                </div>
+                                <h5 class="fs-13 text-center mt-2">Default</h5>
+                            </div>
+
+                            <div class="col-4">
+                                <div class="form-check sidebar-setting card-radio">
+                                    <input class="form-check-input" type="radio" name="data-sidebar-size" id="sidebar-size-compact" value="md">
+                                    <label class="form-check-label p-0 avatar-md w-100 material-shadow" for="sidebar-size-compact">
+                                        <span class="d-flex gap-1 h-100">
+                                            <span class="flex-shrink-0">
+                                                <span class="bg-light d-flex h-100 flex-column gap-1 p-1">
+                                                    <span class="d-block p-1 bg-primary-subtle rounded mb-2"></span>
+                                                    <span class="d-block p-1 pb-0 bg-primary-subtle"></span>
+                                                    <span class="d-block p-1 pb-0 bg-primary-subtle"></span>
+                                                    <span class="d-block p-1 pb-0 bg-primary-subtle"></span>
+                                                </span>
+                                            </span>
+                                            <span class="flex-grow-1">
+                                                <span class="d-flex h-100 flex-column">
+                                                    <span class="bg-light d-block p-1"></span>
+                                                    <span class="bg-light d-block p-1 mt-auto"></span>
+                                                </span>
+                                            </span>
+                                        </span>
+                                    </label>
+                                </div>
+                                <h5 class="fs-13 text-center mt-2">Compact</h5>
+                            </div>
+
+                            <div class="col-4">
+                                <div class="form-check sidebar-setting card-radio">
+                                    <input class="form-check-input" type="radio" name="data-sidebar-size" id="sidebar-size-small" value="sm">
+                                    <label class="form-check-label p-0 avatar-md w-100 material-shadow" for="sidebar-size-small">
+                                        <span class="d-flex gap-1 h-100">
+                                            <span class="flex-shrink-0">
+                                                <span class="bg-light d-flex h-100 flex-column gap-1">
+                                                    <span class="d-block p-1 bg-primary-subtle mb-2"></span>
+                                                    <span class="d-block p-1 pb-0 bg-primary-subtle"></span>
+                                                    <span class="d-block p-1 pb-0 bg-primary-subtle"></span>
+                                                    <span class="d-block p-1 pb-0 bg-primary-subtle"></span>
+                                                </span>
+                                            </span>
+                                            <span class="flex-grow-1">
+                                                <span class="d-flex h-100 flex-column">
+                                                    <span class="bg-light d-block p-1"></span>
+                                                    <span class="bg-light d-block p-1 mt-auto"></span>
+                                                </span>
+                                            </span>
+                                        </span>
+                                    </label>
+                                </div>
+                                <h5 class="fs-13 text-center mt-2">Small (Icon View)</h5>
+                            </div>
+
+                            <div class="col-4">
+                                <div class="form-check sidebar-setting card-radio">
+                                    <input class="form-check-input" type="radio" name="data-sidebar-size" id="sidebar-size-small-hover" value="sm-hover">
+                                    <label class="form-check-label p-0 avatar-md w-100 material-shadow" for="sidebar-size-small-hover">
+                                        <span class="d-flex gap-1 h-100">
+                                            <span class="flex-shrink-0">
+                                                <span class="bg-light d-flex h-100 flex-column gap-1">
+                                                    <span class="d-block p-1 bg-primary-subtle mb-2"></span>
+                                                    <span class="d-block p-1 pb-0 bg-primary-subtle"></span>
+                                                    <span class="d-block p-1 pb-0 bg-primary-subtle"></span>
+                                                    <span class="d-block p-1 pb-0 bg-primary-subtle"></span>
+                                                </span>
+                                            </span>
+                                            <span class="flex-grow-1">
+                                                <span class="d-flex h-100 flex-column">
+                                                    <span class="bg-light d-block p-1"></span>
+                                                    <span class="bg-light d-block p-1 mt-auto"></span>
+                                                </span>
+                                            </span>
+                                        </span>
+                                    </label>
+                                </div>
+                                <h5 class="fs-13 text-center mt-2">Small Hover View</h5>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="sidebar-view">
+                        <h6 class="mt-4 mb-0 fw-semibold text-uppercase">Sidebar View</h6>
+                        <p class="text-muted">Choose Default or Detached Sidebar view.</p>
+
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="form-check sidebar-setting card-radio">
+                                    <input class="form-check-input" type="radio" name="data-layout-style" id="sidebar-view-default" value="default">
+                                    <label class="form-check-label p-0 avatar-md w-100 material-shadow" for="sidebar-view-default">
+                                        <span class="d-flex gap-1 h-100">
+                                            <span class="flex-shrink-0">
+                                                <span class="bg-light d-flex h-100 flex-column gap-1 p-1">
+                                                    <span class="d-block p-1 px-2 bg-primary-subtle rounded mb-2"></span>
+                                                    <span class="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
+                                                    <span class="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
+                                                    <span class="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
+                                                </span>
+                                            </span>
+                                            <span class="flex-grow-1">
+                                                <span class="d-flex h-100 flex-column">
+                                                    <span class="bg-light d-block p-1"></span>
+                                                    <span class="bg-light d-block p-1 mt-auto"></span>
+                                                </span>
+                                            </span>
+                                        </span>
+                                    </label>
+                                </div>
+                                <h5 class="fs-13 text-center mt-2">Default</h5>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-check sidebar-setting card-radio">
+                                    <input class="form-check-input" type="radio" name="data-layout-style" id="sidebar-view-detached" value="detached">
+                                    <label class="form-check-label p-0 avatar-md w-100 material-shadow" for="sidebar-view-detached">
+                                        <span class="d-flex h-100 flex-column">
+                                            <span class="bg-light d-flex p-1 gap-1 align-items-center px-2">
+                                                <span class="d-block p-1 bg-primary-subtle rounded me-1"></span>
+                                                <span class="d-block p-1 pb-0 px-2 bg-primary-subtle ms-auto"></span>
+                                                <span class="d-block p-1 pb-0 px-2 bg-primary-subtle"></span>
+                                            </span>
+                                            <span class="d-flex gap-1 h-100 p-1 px-2">
+                                                <span class="flex-shrink-0">
+                                                    <span class="bg-light d-flex h-100 flex-column gap-1 p-1">
+                                                        <span class="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
+                                                        <span class="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
+                                                        <span class="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
+                                                    </span>
+                                                </span>
+                                            </span>
+                                            <span class="bg-light d-block p-1 mt-auto px-2"></span>
+                                        </span>
+                                    </label>
+                                </div>
+                                <h5 class="fs-13 text-center mt-2">Detached</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="sidebar-color">
+                        <h6 class="mt-4 mb-0 fw-semibold text-uppercase">Sidebar Color</h6>
+                        <p class="text-muted">Choose a color of Sidebar.</p>
+
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="form-check sidebar-setting card-radio" data-bs-toggle="collapse" data-bs-target="#collapseBgGradient.show">
+                                    <input class="form-check-input" type="radio" name="data-sidebar" id="sidebar-color-light" value="light">
+                                    <label class="form-check-label p-0 avatar-md w-100 material-shadow" for="sidebar-color-light">
+                                        <span class="d-flex gap-1 h-100">
+                                            <span class="flex-shrink-0">
+                                                <span class="bg-white border-end d-flex h-100 flex-column gap-1 p-1">
+                                                    <span class="d-block p-1 px-2 bg-primary-subtle rounded mb-2"></span>
+                                                    <span class="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
+                                                    <span class="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
+                                                    <span class="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
+                                                </span>
+                                            </span>
+                                            <span class="flex-grow-1">
+                                                <span class="d-flex h-100 flex-column">
+                                                    <span class="bg-light d-block p-1"></span>
+                                                    <span class="bg-light d-block p-1 mt-auto"></span>
+                                                </span>
+                                            </span>
+                                        </span>
+                                    </label>
+                                </div>
+                                <h5 class="fs-13 text-center mt-2">Light</h5>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-check sidebar-setting card-radio" data-bs-toggle="collapse" data-bs-target="#collapseBgGradient.show">
+                                    <input class="form-check-input" type="radio" name="data-sidebar" id="sidebar-color-dark" value="dark">
+                                    <label class="form-check-label p-0 avatar-md w-100 material-shadow" for="sidebar-color-dark">
+                                        <span class="d-flex gap-1 h-100">
+                                            <span class="flex-shrink-0">
+                                                <span class="bg-primary d-flex h-100 flex-column gap-1 p-1">
+                                                    <span class="d-block p-1 px-2 bg-white bg-opacity-10 rounded mb-2"></span>
+                                                    <span class="d-block p-1 px-2 pb-0 bg-white bg-opacity-10"></span>
+                                                    <span class="d-block p-1 px-2 pb-0 bg-white bg-opacity-10"></span>
+                                                    <span class="d-block p-1 px-2 pb-0 bg-white bg-opacity-10"></span>
+                                                </span>
+                                            </span>
+                                            <span class="flex-grow-1">
+                                                <span class="d-flex h-100 flex-column">
+                                                    <span class="bg-light d-block p-1"></span>
+                                                    <span class="bg-light d-block p-1 mt-auto"></span>
+                                                </span>
+                                            </span>
+                                        </span>
+                                    </label>
+                                </div>
+                                <h5 class="fs-13 text-center mt-2">Dark</h5>
+                            </div>
+                            <div class="col-4">
+                                <button class="btn btn-link avatar-md w-100 p-0 overflow-hidden border collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBgGradient" aria-expanded="false" aria-controls="collapseBgGradient">
+                                    <span class="d-flex gap-1 h-100">
+                                        <span class="flex-shrink-0">
+                                            <span class="bg-vertical-gradient d-flex h-100 flex-column gap-1 p-1">
+                                                <span class="d-block p-1 px-2 bg-white bg-opacity-10 rounded mb-2"></span>
+                                                <span class="d-block p-1 px-2 pb-0 bg-white bg-opacity-10"></span>
+                                                <span class="d-block p-1 px-2 pb-0 bg-white bg-opacity-10"></span>
+                                                <span class="d-block p-1 px-2 pb-0 bg-white bg-opacity-10"></span>
+                                            </span>
+                                        </span>
+                                        <span class="flex-grow-1">
+                                            <span class="d-flex h-100 flex-column">
+                                                <span class="bg-light d-block p-1"></span>
+                                                <span class="bg-light d-block p-1 mt-auto"></span>
+                                            </span>
+                                        </span>
+                                    </span>
+                                </button>
+                                <h5 class="fs-13 text-center mt-2">Gradient</h5>
+                            </div>
+                        </div>
+                        <!-- end row -->
+
+                        <div class="collapse" id="collapseBgGradient">
+                            <div class="d-flex gap-2 flex-wrap img-switch p-2 px-3 bg-light rounded">
+
+                                <div class="form-check sidebar-setting card-radio">
+                                    <input class="form-check-input" type="radio" name="data-sidebar" id="sidebar-color-gradient" value="gradient">
+                                    <label class="form-check-label p-0 avatar-xs rounded-circle" for="sidebar-color-gradient">
+                                        <span class="avatar-title rounded-circle bg-vertical-gradient"></span>
+                                    </label>
+                                </div>
+                                <div class="form-check sidebar-setting card-radio">
+                                    <input class="form-check-input" type="radio" name="data-sidebar" id="sidebar-color-gradient-2" value="gradient-2">
+                                    <label class="form-check-label p-0 avatar-xs rounded-circle" for="sidebar-color-gradient-2">
+                                        <span class="avatar-title rounded-circle bg-vertical-gradient-2"></span>
+                                    </label>
+                                </div>
+                                <div class="form-check sidebar-setting card-radio">
+                                    <input class="form-check-input" type="radio" name="data-sidebar" id="sidebar-color-gradient-3" value="gradient-3">
+                                    <label class="form-check-label p-0 avatar-xs rounded-circle" for="sidebar-color-gradient-3">
+                                        <span class="avatar-title rounded-circle bg-vertical-gradient-3"></span>
+                                    </label>
+                                </div>
+                                <div class="form-check sidebar-setting card-radio">
+                                    <input class="form-check-input" type="radio" name="data-sidebar" id="sidebar-color-gradient-4" value="gradient-4">
+                                    <label class="form-check-label p-0 avatar-xs rounded-circle" for="sidebar-color-gradient-4">
+                                        <span class="avatar-title rounded-circle bg-vertical-gradient-4"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="sidebar-img">
+                        <h6 class="mt-4 mb-0 fw-semibold text-uppercase">Sidebar Images</h6>
+                        <p class="text-muted">Choose a image of Sidebar.</p>
+
+                        <div class="d-flex gap-2 flex-wrap img-switch">
+                            <div class="form-check sidebar-setting card-radio">
+                                <input class="form-check-input" type="radio" name="data-sidebar-image" id="sidebarimg-none" value="none">
+                                <label class="form-check-label p-0 avatar-sm h-auto" for="sidebarimg-none">
+                                    <span class="avatar-md w-auto bg-light d-flex align-items-center justify-content-center">
+                                        <i class="ri-close-fill fs-20"></i>
+                                    </span>
+                                </label>
+                            </div>
+
+                            <div class="form-check sidebar-setting card-radio">
+                                <input class="form-check-input" type="radio" name="data-sidebar-image" id="sidebarimg-01" value="img-1">
+                                <label class="form-check-label p-0 avatar-sm h-auto" for="sidebarimg-01">
+                                    <img src="assets/images/sidebar/img-1.jpg" alt="" class="avatar-md w-auto object-fit-cover">
+                                </label>
+                            </div>	
+
+                            <div class="form-check sidebar-setting card-radio">
+                                <input class="form-check-input" type="radio" name="data-sidebar-image" id="sidebarimg-02" value="img-2">
+                                <label class="form-check-label p-0 avatar-sm h-auto" for="sidebarimg-02">
+                                    <img src="assets/images/sidebar/img-2.jpg" alt="" class="avatar-md w-auto object-fit-cover">
+                                </label>
+                            </div>
+                            <div class="form-check sidebar-setting card-radio">
+                                <input class="form-check-input" type="radio" name="data-sidebar-image" id="sidebarimg-03" value="img-3">
+                                <label class="form-check-label p-0 avatar-sm h-auto" for="sidebarimg-03">
+                                    <img src="assets/images/sidebar/img-3.jpg" alt="" class="avatar-md w-auto object-fit-cover">
+                                </label>
+                            </div>
+                            <div class="form-check sidebar-setting card-radio">
+                                <input class="form-check-input" type="radio" name="data-sidebar-image" id="sidebarimg-04" value="img-4">
+                                <label class="form-check-label p-0 avatar-sm h-auto" for="sidebarimg-04">
+                                    <img src="assets/images/sidebar/img-4.jpg" alt="" class="avatar-md w-auto object-fit-cover">
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="sidebar-color">
+                        <h6 class="mt-4 mb-0 fw-semibold text-uppercase">Primary Color</h6>
+                        <p class="text-muted">Choose a color of Primary.</p>
+
+                        <div class="d-flex flex-wrap gap-2">
+                            <div class="form-check sidebar-setting card-radio">
+                                <input class="form-check-input" type="radio" name="data-theme-colors" id="themeColor-01" value="default">
+                                <label class="form-check-label avatar-xs p-0" for="themeColor-01"></label>
+                            </div>
+                            <div class="form-check sidebar-setting card-radio">
+                                <input class="form-check-input" type="radio" name="data-theme-colors" id="themeColor-02" value="green">
+                                <label class="form-check-label avatar-xs p-0" for="themeColor-02"></label>
+                            </div>
+                            <div class="form-check sidebar-setting card-radio">
+                                <input class="form-check-input" type="radio" name="data-theme-colors" id="themeColor-03" value="purple">
+                                <label class="form-check-label avatar-xs p-0" for="themeColor-03"></label>
+                            </div>
+                            <div class="form-check sidebar-setting card-radio">
+                                <input class="form-check-input" type="radio" name="data-theme-colors" id="themeColor-04" value="blue">
+                                <label class="form-check-label avatar-xs p-0" for="themeColor-04"></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="preloader-menu">
+                        <h6 class="mt-4 mb-0 fw-semibold text-uppercase">Preloader</h6>
+                        <p class="text-muted">Choose a preloader.</p>
+                    
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="form-check sidebar-setting card-radio">
+                                    <input class="form-check-input" type="radio" name="data-preloader" id="preloader-view-custom" value="enable">
+                                    <label class="form-check-label p-0 avatar-md w-100 material-shadow" for="preloader-view-custom">
+                                        <span class="d-flex gap-1 h-100">
+                                            <span class="flex-shrink-0">
+                                                <span class="bg-light d-flex h-100 flex-column gap-1 p-1">
+                                                    <span class="d-block p-1 px-2 bg-primary-subtle rounded mb-2"></span>
+                                                    <span class="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
+                                                    <span class="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
+                                                    <span class="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
+                                                </span>
+                                            </span>
+                                            <span class="flex-grow-1">
+                                                <span class="d-flex h-100 flex-column">
+                                                    <span class="bg-light d-block p-1"></span>
+                                                    <span class="bg-light d-block p-1 mt-auto"></span>
+                                                </span>
+                                            </span>
+                                        </span>
+                                        <!-- <div id="preloader"> -->
+                                        <div id="status" class="d-flex align-items-center justify-content-center">
+                                            <div class="spinner-border text-primary avatar-xxs m-auto" role="status">
+                                                <span class="visually-hidden">Loading...</span>
+                                            </div>
+                                        </div>
+                                        <!-- </div> -->
+                                    </label>
+                                </div>
+                                <h5 class="fs-13 text-center mt-2">Enable</h5>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-check sidebar-setting card-radio">
+                                    <input class="form-check-input" type="radio" name="data-preloader" id="preloader-view-none" value="disable">
+                                    <label class="form-check-label p-0 avatar-md w-100 material-shadow" for="preloader-view-none">
+                                        <span class="d-flex gap-1 h-100">
+                                            <span class="flex-shrink-0">
+                                                <span class="bg-light d-flex h-100 flex-column gap-1 p-1">
+                                                    <span class="d-block p-1 px-2 bg-primary-subtle rounded mb-2"></span>
+                                                    <span class="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
+                                                    <span class="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
+                                                    <span class="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
+                                                </span>
+                                            </span>
+                                            <span class="flex-grow-1">
+                                                <span class="d-flex h-100 flex-column">
+                                                    <span class="bg-light d-block p-1"></span>
+                                                    <span class="bg-light d-block p-1 mt-auto"></span>
+                                                </span>
+                                            </span>
+                                        </span>
+                                    </label>
+                                </div>
+                                <h5 class="fs-13 text-center mt-2">Disable</h5>
+                            </div>
+                        </div>
+                    
+                    </div>
+                    <!-- end preloader-menu -->
+
+                    <div id="body-img" style="display: none;">
+                        <h6 class="mt-4 mb-0 fw-semibold text-uppercase">Background Image</h6>
+                        <p class="text-muted">Choose a body background image.</p>
+                
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="form-check sidebar-setting card-radio">
+                                    <input class="form-check-input" type="radio" name="data-body-image" id="body-img-none" value="none">
+                                    <label class="form-check-label p-0 avatar-md w-100" data-body-image="none" for="body-img-none">
+                                        <span class="d-flex gap-1 h-100">
+                                            <span class="flex-shrink-0">
+                                                <span class="bg-light d-flex h-100 flex-column gap-1 p-1">
+                                                    <span class="d-block p-1 px-2 bg-primary-subtle rounded mb-2"></span>
+                                                    <span class="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
+                                                    <span class="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
+                                                    <span class="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
+                                                </span>
+                                            </span>
+                                            <span class="flex-grow-1">
+                                                <span class="d-flex h-100 flex-column">
+                                                    <span class="bg-light d-block p-1"></span>
+                                                    <span class="bg-light d-block p-1 mt-auto"></span>
+                                                </span>
+                                            </span>
+                                        </span>
+                                    </label>
+                                </div>
+                                <h5 class="fs-13 text-center mt-2">None</h5>
+                            </div>
+                            <!-- end col -->
+                            <div class="col-4">
+                                <div class="form-check sidebar-setting card-radio">
+                                    <input class="form-check-input" type="radio" name="data-body-image" id="body-img-one" value="img-1">
+                                    <label class="form-check-label p-0 avatar-md w-100" data-body-image="img-1" for="body-img-one">
+                                    </label>
+                                </div>
+                                <h5 class="fs-13 text-center mt-2">One</h5>
+                            </div>
+                            <!-- end col -->
+                
+                            <div class="col-4">
+                                <div class="form-check sidebar-setting card-radio">
+                                    <input class="form-check-input" type="radio" name="data-body-image" id="body-img-two" value="img-2">
+                                    <label class="form-check-label p-0 avatar-md w-100" data-body-image="img-2" for="body-img-two">
+                                    </label>
+                                </div>
+                                <h5 class="fs-13 text-center mt-2">Two</h5>
+                            </div>
+                            <!-- end col -->
+                
+                            <div class="col-4">
+                                <div class="form-check sidebar-setting card-radio">
+                                    <input class="form-check-input" type="radio" name="data-body-image" id="body-img-three" value="img-3">
+                                    <label class="form-check-label p-0 avatar-md w-100" data-body-image="img-3" for="body-img-three">
+                                    </label>
+                                </div>
+                                <h5 class="fs-13 text-center mt-2">Three</h5>
+                            </div>
+                            <!-- end col -->
+                        </div>
+                        <!-- end row -->
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="offcanvas-footer border-top p-3 text-center">
+            <div class="row">
+                <div class="col-6">
+                    <button type="button" class="btn btn-light w-100" id="reset-layout">Reset</button>
+                </div>
+                <div class="col-6">
+                    <a href="https://1.envato.market/velzon-admin" target="_blank" class="btn btn-primary w-100">Buy Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/libs/simplebar/simplebar.min.js"></script>
+    <script src="assets/libs/node-waves/waves.min.js"></script>
+    <script src="assets/libs/feather-icons/feather.min.js"></script>
+    <script src="assets/js/pages/plugins/lord-icon-2.1.0.js"></script>
+    <script src="assets/js/plugins.js"></script>
+
+    <!-- apexcharts -->
+    <script src="assets/libs/apexcharts/apexcharts.min.js"></script>
+
+    <!-- Vector map-->
+    <script src="assets/libs/jsvectormap/jsvectormap.min.js"></script>
+    <script src="assets/libs/jsvectormap/maps/world-merc.js"></script>
+
+    <!--Swiper slider js-->
+    <script src="assets/libs/swiper/swiper-bundle.min.js"></script>
+
+    <!-- Dashboard init -->
+    <script src="assets/js/pages/dashboard-ecommerce.init.js"></script>
+
+    <!-- App js -->
+    <script src="assets/js/app.js"></script>
+</body>
 </html>
