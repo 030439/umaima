@@ -3,11 +3,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-// use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use App\Services\UserService;
 
 class RolePermissionController extends Controller
 {
+    protected $userService;
+
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
     
     public function index()
     {
@@ -32,6 +39,9 @@ class RolePermissionController extends Controller
         // $users = User::all();
         return view('permissions.index');
         return view('permissions.index', compact('roles', 'permissions', 'users'));
+    }
+    public function permissionListing(){
+
     }
 
     public function storePermission(Request $request)
