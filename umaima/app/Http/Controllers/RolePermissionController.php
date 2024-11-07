@@ -21,8 +21,28 @@ class RolePermissionController extends Controller
         // $roles = Role::all();
         // $permissions = Permission::all();
         // $users = User::all();
-        return view('roles.index');
+        $permissions = Permission::all()->groupBy(function ($permission) {
+            // Group by the prefix of the permission name (e.g., 'user_management')
+            return explode('_', $permission->name)[0];
+        });
+    
+        return view('roles.index',compact('permissions'));
         return view('permissions.index', compact('roles', 'permissions', 'users'));
+    }
+    public function getPermissions()
+    {
+        try {
+            $permissions = Permission::all();
+            return response()->json([
+                'status' => 'success',
+                'permissions' => $permissions
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
     }
 
     // public function storeRole(Request $request)

@@ -34,6 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/roles', [RolePermissionController::class, 'storeRole'])->name('roles.store');
     Route::get('/permissions', [RolePermissionController::class, 'permissions'])->name('permissions.index');
     Route::get('/permissions-list', [RolePermissionController::class, 'permissionsList'])->name('permissions.list');
+    Route::get('/permissions-listing', [RolePermissionController::class, 'getPermissions'])->name('permissions.listing');
     Route::post('/permissions', [RolePermissionController::class, 'storePermission'])->name('permissions.store');
     Route::post('/assign-role', [RolePermissionController::class, 'assignRole'])->name('roles.assign');
 // });

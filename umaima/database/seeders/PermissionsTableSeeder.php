@@ -25,6 +25,11 @@ class PermissionsTableSeeder extends Seeder
             ['name' => 'api_create', 'guard_name' => 'web'],
             ['name' => 'api_delete', 'guard_name' => 'web'],
 
+            ['name' => 'payroll_read', 'guard_name' => 'web'],
+            ['name' => 'payroll_write', 'guard_name' => 'web'],
+            ['name' => 'payroll_create', 'guard_name' => 'web'],
+            ['name' => 'payroll_delete', 'guard_name' => 'web'],
+
         ];
 
         DB::table('permissions')->insert($permissions);
