@@ -5,15 +5,15 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
-use App\Services\UserService;
+use App\Services\PermissionsService;
 
 class RolePermissionController extends Controller
 {
-    protected $userService;
+    protected $permissionsService;
 
-    public function __construct(UserService $userService)
+    public function __construct(PermissionsService $permissionsService)
     {
-        $this->userService = $userService;
+        $this->permissionsService = $permissionsService;
     }
 
     public function index()
@@ -39,14 +39,14 @@ class RolePermissionController extends Controller
 
     public function permissionsList()
     {
-        $users = $this->userService->getUsers();
+        $users = $this->permissionsService->getUsers();
         return response()->json($users);
     }
 
     public function storePermission()
     {
-        $result = $this->userService->createPermission();
-        return response()->json($result);
+        $result = $this->permissionsService->createPermission();
+        return ($result);
     }
 
     // public function assignRole(Request $request)

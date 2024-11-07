@@ -27,11 +27,14 @@ trait QueryTrait
         }
 
         // Apply filters if provided
+        // Apply filters if provided
         if (!empty($filters)) {
             foreach ($filters as $column => $value) {
-                $query->where($column, 'like', '%' . $value . '%');
+                // Apply the like condition for each filter
+                $query->where($column, 'like', $value);
             }
         }
+
 
         // Apply group by if provided
         if (!empty($groupBy)) {

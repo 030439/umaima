@@ -33,9 +33,13 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .then(response => response.json()) // Assuming a JSON response
         .then(data => {
+            $(".modal-backdrop").hide();
             if (data.success) {
                 // Handle success (you could reset the form, show success message, etc.)
                 showToast("Permission created successfully!", "success");
+                setTimeout(() => {
+                    location.reload(); // Reload the page
+                }, 2000); 
             } else {
                 // Handle failure
                 showToast("Error: " + data.message, "danger");
@@ -59,10 +63,9 @@ function showToast(message, type) {
         toast.setAttribute("aria-atomic", "true");
 
         toast.innerHTML = `
-            <div class="toast-body">
+            <div class="toast-body text-white">
                 ${message}
             </div>
-            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
         `;
 
         // Append the toast to the container

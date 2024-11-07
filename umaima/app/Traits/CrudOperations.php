@@ -13,20 +13,6 @@ trait CrudOperations {
         return $this->db->table($table)->where($idColumn, $id)->delete();
     }
 
-    
-    //  Get a filtered and paginated list of records, supports complex queries.
-    //  
-    //    string $table
-    //    int $perPage
-    //    int $page
-    //   array $columns
-    //   array $filters
-    //   array $joins
-    //    string $orderColumn
-    //   string $orderDirection
-    //   array $groupBy
-    //    array $having
-
     public function getFilteredPaginated($table, $perPage = 10, $page = 1, $columns = ['*'], $filters = [], $joins = [], $orderColumn = 'id', $orderDirection = 'asc', $groupBy = [], $having = []) {
         $builder = $this->db->table($table)->select($columns);
 

@@ -51,5 +51,5 @@
   <div class="layout-wrapper layout-content-navbar  ">
   <div class="layout-container">
     <!-- Toast Container -->
-<div class="toast-container position-fixed top-0 end-0 p-3" id="toastContainer"></div>
+<div class="toast-container position-fixed top-0 end-0 p-3" id="toastContainer" style="color:#fff !important"></div>
 
