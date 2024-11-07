@@ -18,16 +18,7 @@ class RolePermissionController extends Controller
 
     public function index()
     {
-        // $roles = Role::all();
-        // $permissions = Permission::all();
-        // $users = User::all();
-        $permissions = Permission::all()->groupBy(function ($permission) {
-            // Group by the prefix of the permission name (e.g., 'user_management')
-            return explode('_', $permission->name)[0];
-        });
-    
-        return view('roles.index',compact('permissions'));
-        return view('permissions.index', compact('roles', 'permissions', 'users'));
+        return view('roles.index');
     }
     public function getPermissions()
     {
@@ -45,12 +36,13 @@ class RolePermissionController extends Controller
         }
     }
 
-    // public function storeRole(Request $request)
-    // {
-    //     $request->validate(['name' => 'required|unique:roles,name']);
-    //     Role::create(['name' => $request->name]);
-    //     return back()->with('success', 'Role created successfully.');
-    // }
+    public function storeRole(Request $request)
+    {
+        dd($request);
+        $request->validate(['name' => 'required|unique:roles,name']);
+        Role::create(['name' => $request->name]);
+        return back()->with('success', 'Role created successfully.');
+    }
 
     public function permissions()
     {

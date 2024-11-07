@@ -372,3 +372,7 @@ function capitalize(word) {
 
 fetchPermissions();
 
+
+
+
+
