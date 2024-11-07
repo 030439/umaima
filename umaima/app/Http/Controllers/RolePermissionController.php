@@ -15,7 +15,7 @@ class RolePermissionController extends Controller
     {
         $this->userService = $userService;
     }
-    
+
     public function index()
     {
         // $roles = Role::all();
@@ -34,21 +34,19 @@ class RolePermissionController extends Controller
 
     public function permissions()
     {
-        // $roles = Role::all();
-        // $permissions = Permission::all();
-        // $users = User::all();
-        return view('permissions.index');
-        return view('permissions.index', compact('roles', 'permissions', 'users'));
-    }
-    public function permissionListing(){
-
+        return view('permissions.index',['pageName' => 'app-access-permission']);
     }
 
-    public function storePermission(Request $request)
+    public function permissionsList()
     {
-        $request->validate(['name' => 'required|unique:permissions,name']);
-        Permission::create(['name' => $request->name]);
-        return back()->with('success', 'Permission created successfully.');
+        $users = $this->userService->getUsers();
+        return response()->json($users);
+    }
+
+    public function storePermission()
+    {
+        $result = $this->userService->createPermission();
+        return response()->json($result);
     }
 
     // public function assignRole(Request $request)

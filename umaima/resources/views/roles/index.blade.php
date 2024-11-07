@@ -1,4 +1,4 @@
-
+<?php $page="one";?>
 @extends('layout.app')
 
 @section('title', 'Home Page')
@@ -11,12 +11,7 @@
     <div class="layout-page">
       
       
-    <form action="{{ route('permissions.store') }}" method="POST">
-    @csrf
-    <input type="text" name="name" placeholder="Permission Name" required>
-    <button type="submit">Create Permission</button>
-</form>
-
+    
 
 <!-- Navbar -->
 
@@ -972,5 +967,6 @@
           </div>
           <!-- / Content -->
 
-          
+         
           @endsection
+          

@@ -1,4 +1,4 @@
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description" content="Start your development with a Dashboard for Bootstrap 5" />
     <meta name="keywords" content="dashboard, bootstrap 5 dashboard, bootstrap 5 design, bootstrap 5">
     <!-- Canonical SEO -->
@@ -24,13 +24,15 @@
     
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="../../assets/vendor/libs/node-waves/node-waves.css" />
-    
+
     <link rel="stylesheet" href="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/typeahead-js/typeahead.css" /> 
     <link rel="stylesheet" href="../../assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css">
-<link rel="stylesheet" href="../../assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css">
-<link rel="stylesheet" href="../../assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css">
-<link rel="stylesheet" href="../../assets/vendor/libs/%40form-validation/form-validation.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css">
+    <link rel="stylesheet" href="../../assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css">
+    <link rel="stylesheet" href="../../assets/vendor/libs/%40form-validation/form-validation.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/toastr/toastr.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/animate-css/animate.css" />
 
     <!-- Page CSS -->
     
@@ -48,3 +50,6 @@
   <body>
   <div class="layout-wrapper layout-content-navbar  ">
   <div class="layout-container">
+    <!-- Toast Container -->
+<div class="toast-container position-fixed top-0 end-0 p-3" id="toastContainer"></div>
+
