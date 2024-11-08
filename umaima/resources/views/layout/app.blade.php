@@ -9,5 +9,7 @@
     
 @include('partials.header')
 @include('partials.aside')
+@include('partials.nav')
 @yield('content')
 @include('partials.footer')
+@yield('files')

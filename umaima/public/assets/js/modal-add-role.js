@@ -39,7 +39,8 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(response => response.json()) // Assuming a JSON response
         .then(data => {
             $(".modal-backdrop").hide();
-            if (data.status === 'success') {
+            $("#addRoleModal").hide();
+            if (data.success) {
                 // Handle success (reset form, show success message, etc.)
                 showToast("Role created successfully!", "success");
                 setTimeout(() => {

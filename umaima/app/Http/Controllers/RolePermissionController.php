@@ -20,28 +20,11 @@ class RolePermissionController extends Controller
     {
         return view('roles.index');
     }
-    public function getPermissions()
-    {
-        try {
-            $permissions = Permission::all();
-            return response()->json([
-                'status' => 'success',
-                'permissions' => $permissions
-            ]);
-        } catch (\Exception $e) {
-            return response()->json([
-                'status' => 'error',
-                'message' => $e->getMessage()
-            ], 500);
-        }
-    }
 
-    public function storeRole(Request $request)
+    public function storeRole()
     {
-        dd($request);
-        $request->validate(['name' => 'required|unique:roles,name']);
-        Role::create(['name' => $request->name]);
-        return back()->with('success', 'Role created successfully.');
+        $role = $this->permissionsService->createRoleWithPermissions();
+        return $role;
     }
 
     public function permissions()
@@ -59,6 +42,26 @@ class RolePermissionController extends Controller
     {
         $result = $this->permissionsService->createPermission();
         return ($result);
+    }
+    public function getRoles()
+    {
+        $roles = Role::all(['id', 'name']); // Fetch roles with only id and name
+        return response()->json($roles);
+    }
+    public function getPermissions()
+    {
+        try {
+            $permissions = Permission::all();
+            return response()->json([
+                'status' => 'success',
+                'permissions' => $permissions
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
     }
 
     // public function assignRole(Request $request)

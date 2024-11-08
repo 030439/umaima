@@ -4,11 +4,15 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+use App\Models\User; // Ensure the User model is imported
 
 class PermissionsTableSeeder extends Seeder
 {
     public function run()
     {
+        // Define permissions
         $permissions = [
             ['name' => 'user_management_read', 'guard_name' => 'web'],
             ['name' => 'user_management_write', 'guard_name' => 'web'],
@@ -29,9 +33,34 @@ class PermissionsTableSeeder extends Seeder
             ['name' => 'payroll_write', 'guard_name' => 'web'],
             ['name' => 'payroll_create', 'guard_name' => 'web'],
             ['name' => 'payroll_delete', 'guard_name' => 'web'],
-
         ];
 
-        DB::table('permissions')->insert($permissions);
+        // Insert permissions
+        foreach ($permissions as $permission) {
+            Permission::firstOrCreate($permission);
+        }
+
+        // Create admin role and assign permissions
+        $adminRole = Role::firstOrCreate(['name' => 'admin']);
+        $adminRole->syncPermissions(Permission::all());
+
+        // Create a new admin user and assign the admin role
+
+      
+
+
+        $user = User::firstOrCreate(
+            ['email' => 'info@admin.com'],
+            [
+                'fname' => 'admin',
+                'lname'=>"admin",
+                'status'=>true,
+                'username' => 'admin',
+                'password' => bcrypt('info123'), // Encrypt password
+            ]
+        );
+
+        // Attach the role to the user
+        $user->assignRole($adminRole);
     }
 }

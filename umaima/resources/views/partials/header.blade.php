@@ -33,23 +33,13 @@
     <link rel="stylesheet" href="../../assets/vendor/libs/%40form-validation/form-validation.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/toastr/toastr.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/animate-css/animate.css" />
-
-    <!-- Page CSS -->
-    
-
-    <!-- Helpers -->
+    <link rel="stylesheet" href="../../assets/vendor/libs/select2/select2.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/%40form-validation/form-validation.css" />
     <script src="../../assets/vendor/js/helpers.js"></script>
-    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
-    
-  
-    
-    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../../assets/js/config.js"></script>
-    
   </head>
   <body>
   <div class="layout-wrapper layout-content-navbar  ">
-  <div class="layout-container">
-    <!-- Toast Container -->
-<div class="toast-container position-fixed top-0 end-0 p-3" id="toastContainer" style="color:#fff !important"></div>
-
+    <div class="layout-container">
+      <div class="toast-container position-fixed top-0 end-0 p-3" id="toastContainer" style="color:#fff !important"></div>
+      
