@@ -1,3 +1,4 @@
+       
 
 <!-- Footer -->
 <footer class="content-footer footer bg-footer-theme">
@@ -43,14 +44,10 @@
     <div class="drag-target"></div>
     
   </div>
- 
-
+  <!-- / Layout wrapper -->
 
     
-
-
    
-  </body>
-</html>
 
+    
 

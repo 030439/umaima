@@ -1,21 +1,17 @@
-
+<?php $page="one";?>
 @extends('layout.app')
 
 @section('title', 'Home Page')
 @section('content')
+
+<!-- Content wrapper -->
 <div class="content-wrapper">
-
-        <!-- Content -->
-        
-          <div class="container-xxl flex-grow-1 container-p-y">
-            
-            
-<h4 class="mb-1">Roles List</h4>
-
-<p class="mb-6">A role provided access to predefined menus and features so that depending on <br> assigned role an administrator can have access to what user needs.</p>
-<!-- Role cards -->
-<div class="row g-6">
-  <div class="col-xl-4 col-lg-6 col-md-6">
+  <div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="mb-1">Roles List</h4>
+    <p class="mb-6">A role provided access to predefined menus and features so that depending on <br> assigned role an administrator can have access to what user needs.</p>
+        <!-- Role cards -->
+    <div class="row g-6">
+    <div class="col-xl-4 col-lg-6 col-md-6">
     <div class="card">
       <div class="card-body">
         <div class="d-flex justify-content-between align-items-center mb-4">
@@ -44,8 +40,8 @@
         </div>
       </div>
     </div>
-  </div>
-  <div class="col-xl-4 col-lg-6 col-md-6">
+    </div>
+    <div class="col-xl-4 col-lg-6 col-md-6">
     <div class="card">
       <div class="card-body">
         <div class="d-flex justify-content-between align-items-center mb-4">
@@ -74,8 +70,8 @@
         </div>
       </div>
     </div>
-  </div>
-  <div class="col-xl-4 col-lg-6 col-md-6">
+    </div>
+    <div class="col-xl-4 col-lg-6 col-md-6">
     <div class="card">
       <div class="card-body">
         <div class="d-flex justify-content-between align-items-center mb-4">
@@ -104,8 +100,8 @@
         </div>
       </div>
     </div>
-  </div>
-  <div class="col-xl-4 col-lg-6 col-md-6">
+    </div>
+    <div class="col-xl-4 col-lg-6 col-md-6">
     <div class="card">
       <div class="card-body">
         <div class="d-flex justify-content-between align-items-center mb-4">
@@ -134,8 +130,8 @@
         </div>
       </div>
     </div>
-  </div>
-  <div class="col-xl-4 col-lg-6 col-md-6">
+    </div>
+    <div class="col-xl-4 col-lg-6 col-md-6">
     <div class="card">
       <div class="card-body">
         <div class="d-flex justify-content-between align-items-center mb-4">
@@ -164,8 +160,8 @@
         </div>
       </div>
     </div>
-  </div>
-  <div class="col-xl-4 col-lg-6 col-md-6">
+    </div>
+    <div class="col-xl-4 col-lg-6 col-md-6">
     <div class="card h-100">
       <div class="row h-100">
         <div class="col-sm-5">
@@ -181,12 +177,12 @@
         </div>
       </div>
     </div>
-  </div>
-  <div class="col-12">
+    </div>
+    <div class="col-12">
     <h4 class="mt-6 mb-1">Total users with their roles</h4>
     <p class="mb-0">Find all of your company’s administrator accounts and their associate roles.</p>
-  </div>
-  <div class="col-12">
+    </div>
+    <div class="col-12">
     <!-- Role Table -->
     <div class="card">
       <div class="card-datatable table-responsive">
@@ -207,13 +203,9 @@
       </div>
     </div>
     <!--/ Role Table -->
-  </div>
-</div>
-<!--/ Role cards -->
-
-<!-- Add Role Modal -->
-<!-- Add Role Modal -->
-<div class="modal fade" id="addRoleModal" tabindex="-1" aria-hidden="true">
+    </div>
+    </div>
+    <div class="modal fade" id="addRoleModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-simple modal-dialog-centered modal-add-new-role">
     <div class="modal-content">
       <div class="modal-body">
@@ -252,21 +244,11 @@
     </div>
     </div>
     </div>
-<!--/ Add Role Modal -->
-
-<!-- / Add Role Modal -->
-          </div>
-          <!-- / Content -->
-
-          
-        
-
-          @endsection
-          @section('files')
-    <!-- Core JS -->
-    <!-- build:js assets/vendor/js/core.js -->
-    
-    <script src="../../assets/vendor/libs/jquery/jquery.js"></script>
+  </div>
+@endsection
+@section('files')
+<!-- Page JS -->
+<script src="../../assets/vendor/libs/jquery/jquery.js"></script>
     <script src="../../assets/vendor/libs/popper/popper.js"></script>
     <script src="../../assets/vendor/js/bootstrap.js"></script>
       <script src="../../assets/vendor/libs/node-waves/node-waves.js"></script>
@@ -280,16 +262,33 @@
 
     <!-- Vendors JS -->
     <script src="../../assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
-<script src="../../assets/vendor/libs/select2/select2.js"></script>
-<script src="../../assets/vendor/libs/%40form-validation/popular.js"></script>
-<script src="../../assets/vendor/libs/%40form-validation/bootstrap5.js"></script>
-<script src="../../assets/vendor/libs/%40form-validation/auto-focus.js"></script>
+
+<script src="../../assets/vendor/libs/@form-validation/popular.js"></script>
+<script src="../../assets/vendor/libs/@form-validation/bootstrap5.js"></script>
+<script src="../../assets/vendor/libs/@form-validation/auto-focus.js"></script>
 
     <!-- Main JS -->
-    <script src="../../assets/js/main.js"></script>
-    
+   <script src="../../assets/js/main.js"></script>
+  <script src="../../assets/js/app-access-roles.js"></script>
+  <script src="../../assets/js/modal-add-role.js"></script>
+  <script>
+  // Get references to the elements
+  const menuInnerShadow = document.querySelector('.menu-inner-shadow');
+  const menuInner = document.querySelector('.menu-inner');
 
-    <!-- Page JS -->
-    <script src="../../assets/js/app-access-roles.js"></script>
-<script src="../../assets/js/modal-add-role.js"></script>
+  // Listen to the scroll event
+  window.addEventListener('scroll', function() {
+    // Check if the page is scrolling
+    if (window.scrollY > 0) {
+      // Change the class of the shadow and menu when scrolling
+      menuInnerShadow.style.display = 'block';
+      menuInner.classList.add('ps--scrolling-y');
+    } else {
+      // Revert the class changes when the scroll stops (top of the page)
+      menuInnerShadow.style.display = 'none';
+      menuInner.classList.remove('ps--scrolling-y');
+    }
+  });
+</script>
+
 @endsection

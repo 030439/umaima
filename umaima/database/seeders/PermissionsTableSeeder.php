@@ -14,10 +14,10 @@ class PermissionsTableSeeder extends Seeder
     {
         // Define permissions
         $permissions = [
-            ['name' => 'user_management_read', 'guard_name' => 'web'],
-            ['name' => 'user_management_write', 'guard_name' => 'web'],
-            ['name' => 'user_management_create', 'guard_name' => 'web'],
-            ['name' => 'user_management_delete', 'guard_name' => 'web'],
+            ['name' => 'user_read', 'guard_name' => 'web'],
+            ['name' => 'user_write', 'guard_name' => 'web'],
+            ['name' => 'user_create', 'guard_name' => 'web'],
+            ['name' => 'user_delete', 'guard_name' => 'web'],
 
             ['name' => 'role_read', 'guard_name' => 'web'],
             ['name' => 'role_write', 'guard_name' => 'web'],

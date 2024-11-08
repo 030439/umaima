@@ -4,37 +4,24 @@
 @section('content')
 
 <div class="content-wrapper">
-
-        <!-- Content -->
-        
-          <div class="container-xxl flex-grow-1 container-p-y">
-            
-            
-
-
-<!-- Permission Table -->
-<div class="card">
-  <div class="card-datatable table-responsive">
-    <table class="datatables-permissions table border-top" id="permissions-table">
-      <thead>
-        <tr>
-          <th></th>
-          <th></th>
-          <th>Name</th>
-          <th>Assigned To</th>
-          <th>Created Date</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-    </table>
-  </div>
-</div>
-<!--/ Permission Table -->
-
-
-<!-- Modal -->
-<!-- Add Permission Modal -->
-<div class="modal fade" id="addPermissionModal" tabindex="-1" aria-hidden="true">
+  <div class="container-xxl flex-grow-1 container-p-y">
+    <div class="card">
+      <div class="card-datatable table-responsive">
+        <table class="table border-top"  id="permissions-table">
+          <thead>
+            <tr>
+              <th></th>
+              <th></th>
+              <th>Name</th>
+              <th>Created Date</th>
+              <th>Updated Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+    <div class="modal fade" id="addPermissionModal" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-simple">
         <div class="modal-content">
           <div class="modal-body">
@@ -103,22 +90,12 @@
         </div>
       </div>
     </div>
-<!--/ Edit Permission Modal -->
+  </div>
 
-<!-- /Modal -->
-          </div>
-          <!-- / Content -->
+@endsection
 
-          
-          
-        
-    
-    @endsection
-    @section('files')
-    <!-- Core JS -->
-    <!-- build:js assets/vendor/js/core.js -->
-    
-    <script src="../../assets/vendor/libs/jquery/jquery.js"></script>
+  @section('files')
+  <script src="../../assets/vendor/libs/jquery/jquery.js"></script>
     <script src="../../assets/vendor/libs/popper/popper.js"></script>
     <script src="../../assets/vendor/js/bootstrap.js"></script>
       <script src="../../assets/vendor/libs/node-waves/node-waves.js"></script>
@@ -133,18 +110,13 @@
     <!-- Vendors JS -->
     <script src="../../assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
 
-<script src="../../assets/vendor/libs/%40form-validation/popular.js"></script>
-<script src="../../assets/vendor/libs/%40form-validation/bootstrap5.js"></script>
-<script src="../../assets/vendor/libs/%40form-validation/auto-focus.js"></script>
+<script src="../../assets/vendor/libs/@form-validation/popular.js"></script>
+<script src="../../assets/vendor/libs/@form-validation/bootstrap5.js"></script>
+<script src="../../assets/vendor/libs/@form-validation/auto-focus.js"></script>
 
     <!-- Main JS -->
-    <script src="../../assets/js/main.js"></script>
-    
-
-    <!-- Page JS -->
-    <script src="../../assets/js/app-access-permission.js"></script>
-<script src="../../assets/js/modal-add-permission.js"></script>
-<script src="../../assets/js/modal-edit-permission.js"></script>
-    
-
+   <script src="../../assets/js/main.js"></script>
+   <script src="../../assets/js/app-access-permission.js"></script>
+  <script src="../../assets/js/modal-add-permission.js"></script>
+  <script src="../../assets/js/modal-edit-permission.js"></script>
 @endsection
