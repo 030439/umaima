@@ -10,19 +10,22 @@ use App\Services\PermissionsService;
 class RolePermissionController extends Controller
 {
     protected $permissionsService;
-
-    public function __construct(PermissionsService $permissionsService)
+   protected $role;
+    public function __construct(PermissionsService $permissionsService,Role $role)
     {
         $this->permissionsService = $permissionsService;
+        $this->role=$role;
     }
 
     public function index()
     {
+        $this->authorize('role_read', $this->role);
         return view('roles.index');
     }
 
     public function storeRole()
     {
+        $this->authorize('role_create', $this->role);
         $role = $this->permissionsService->createRoleWithPermissions();
         return $role;
     }
