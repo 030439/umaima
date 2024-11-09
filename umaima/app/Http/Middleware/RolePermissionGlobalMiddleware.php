@@ -8,36 +8,32 @@ class RolePermissionGlobalMiddleware
 {
     public function handle($request, Closure $next)
     {
-        
-        if (!Auth::check()) {
+        if (!Auth::guard('web')->check()) {
             return response()->json(['error' => 'Unauthenticated'], 401);
         }
+
         if (!$this->checkPermission($request)) {
-            return response()->json(['error' => 'Unauthorized'], 403);
+            return response()->json(['error' => 'Unauthorized permission'], 403);
         }
 
         return $next($request);
     }
 
-
     protected function checkPermission($request)
     {
-        if (!Auth::check()) {
-            return false;
-        }
-
         $routeName = $request->route()->getName();
-        $currentUser = Auth::user();
+        $currentUser = Auth::guard('web')->user();
 
         // Check dynamic roles and permissions
         foreach ($currentUser->roles as $role) {
+            // dd($role);
             foreach ($role->permissions as $permission) {
                 if ($permission->name == $routeName) {
-                    return true; // User has permission to access the route
+                    return true;
                 }
             }
         }
 
-        return false; // Access denied if no matching permission found
+        return false;
     }
 }

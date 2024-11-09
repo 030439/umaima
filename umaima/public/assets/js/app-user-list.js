@@ -1,4 +1,5 @@
 "use strict";
+const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
 $(function() {
     let e, a, s;
     s = (isDarkStyle ? (e = config.colors_dark.borderColor, a = config.colors_dark.bodyBg, config.colors_dark) : (e = config.colors.borderColor, a = config.colors.bodyBg, config.colors)).headingColor;
@@ -21,17 +22,19 @@ $(function() {
 
     if (n.length) {
         t = n.DataTable({
-            ajax: assetsPath + "json/go",
-            columns: [
-                { data: "id" },
-                { data: "id" },
-                { data: "full_name" },
-                { data: "role" },
-                { data: "current_plan" },
-                { data: "billing" },
-                { data: "status" },
-                { data: "action" }
-            ],
+            processing: true,
+            serverSide: true,
+            responsive: true,
+            scrollX: true,
+            pageLength: 10,
+            ajax: {
+                url: "/api/users",
+                headers: {
+                    "X-CSRF-TOKEN": csrfToken // Add CSRF token to request headers
+                },
+                type: "POST", // Ensure the correct HTTP method is used
+                dataSrc: "data" // Server response should contain the "data" key for rows
+            },
             columnDefs: [
                 {
                     className: "control",
@@ -39,7 +42,7 @@ $(function() {
                     orderable: false,
                     responsivePriority: 2,
                     targets: 0,
-                    render: function(t, e, a, s) { return ""; }
+                    render: function() { return '<td id="go" class="control" tabindex="0" style=""></td>'; },
                 },
                 {
                     targets: 1,
@@ -52,31 +55,46 @@ $(function() {
                     targets: 2,
                     responsivePriority: 4,
                     render: function(t, e, a, s) {
-                        var n = a.full_name,
+                        var n = a.fname+a.lname,
                             i = a.email,
-                            o = a.avatar;
-                        return '<div class="d-flex justify-content-start align-items-center user-name"><div class="avatar-wrapper"><div class="avatar avatar-sm me-4">' +
-                            (o ? '<img src="' + assetsPath + "img/avatars/" + o + '" alt="Avatar" class="rounded-circle">' : '<span class="avatar-initial rounded-circle bg-label-' + ["success", "danger", "warning", "info", "primary", "secondary"][Math.floor(6 * Math.random())] + '">' + (o = (((o = (n = a.full_name).match(/\b\w/g) || []).shift() || "") + (o.pop() || "")).toUpperCase()) + "</span>") +
-                            '</div></div><div class="d-flex flex-column"><a href="' + r + '" class="text-heading text-truncate"><span class="fw-medium">' + n + "</span></a><small>" + i + "</small></div></div>";
+                            o = a.status;
+                        return '<div class="d-flex justify-content-start align-items-center user-name">' +
+                            '<div class="d-flex flex-column"><a href="' + r + '" class="text-heading text-truncate"><span class="fw-medium">' + n + "</span></a></div></div>";
                     }
                 },
                 {
                     targets: 3,
                     render: function(t, e, a, s) {
-                        a = a.role;
-                        return "<span class='text-truncate d-flex align-items-center text-heading'>" + {
+                        // Use "Subscriber" as the default role if `a.name` is not set
+                        let role = a.name || "Subscriber";
+                        
+                        // Define the icons and colors associated with each role
+                        const roleIcons = {
                             Subscriber: '<i class="ti ti-crown ti-md text-primary me-2"></i>',
                             Author: '<i class="ti ti-edit ti-md text-warning me-2"></i>',
                             Maintainer: '<i class="ti ti-user ti-md text-success me-2"></i>',
                             Editor: '<i class="ti ti-chart-pie ti-md text-info me-2"></i>',
-                            Admin: '<i class="ti ti-device-desktop ti-md text-danger me-2"></i>'
-                        }[a] + a + "</span>";
+                            admin: '<i class="ti ti-device-desktop ti-md text-danger me-2"></i>'
+                        };
+                        
+                        // Render the HTML with the appropriate icon and role name
+                        return "<span class='text-truncate d-flex align-items-center text-heading'>" + 
+                            (roleIcons[role] || roleIcons['Subscriber']) + 
+                            role + 
+                            "</span>";
                     }
+                    
                 },
                 {
                     targets: 4,
                     render: function(t, e, a, s) {
-                        return '<span class="text-heading">' + a.current_plan + "</span>";
+                        return '<span class="text-heading">' + a.email + "</span>";
+                    }
+                },
+                {
+                    targets: 5,
+                    render: function(t, e, a, s) {
+                        return '<span class="text-heading">' + a.username + "</span>";
                     }
                 },
                 {
@@ -92,8 +110,23 @@ $(function() {
                     searchable: false,
                     orderable: false,
                     render: function(t, e, a, s) {
-                        return '<div class="d-flex align-items-center"><a href="javascript:;" class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill delete-record"><i class="ti ti-trash ti-md"></i></a><a href="' + r + '" class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill"><i class="ti ti-eye ti-md"></i></a><a href="javascript:;" class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="ti ti-dots-vertical ti-md"></i></a><div class="dropdown-menu dropdown-menu-end m-0"><a href="javascript:;" class="dropdown-item">Edit</a><a href="javascript:;" class="dropdown-item">Suspend</a></div></div>';
+                        return `
+                            <div class="d-flex align-items-center">
+                                <a href="javascript:;" 
+                                   class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill edit-record" 
+                                   data-id="${a.id}" 
+                                   onclick="showEditModal(${a.id})">
+                                    <i class="ti ti-eye ti-md"></i>
+                                </a>
+                                <a href="${r}" class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill">
+                                    <i class="ti ti-edit ti-md"></i>
+                                </a>
+                                <a href="javascript:;" class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill delete-record">
+                                    <i class="ti ti-trash ti-md"></i>
+                                </a>
+                            </div>`;
                     }
+                    
                 }
             ],
             order: [[2, "desc"]],
@@ -179,7 +212,7 @@ $(function() {
                 }],
             },
             {
-                text: '<i class="ti ti-plus ti-xs me-0 me-sm-2"></i><span class="d-none d-sm-inline-block">Add New Role</span>',
+                text: '<i class="ti ti-plus ti-xs me-0 me-sm-2"></i><span class="d-none d-sm-inline-block">Add New User</span>',
                 className: "add-new btn btn-primary mb-6 mb-md-0 waves-effect waves-light",
                 attr: {
                     "data-bs-toggle": "modal", 
@@ -205,10 +238,10 @@ $(function() {
 });
 
 function getRoles(){
-    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
+    
     $.ajax({
       method:"post",
-      url:"/fetch-roles",
+      url:"/api/roles-read",
       headers: {
           "X-CSRF-TOKEN": csrfToken // Add CSRF token to request headers
       },
@@ -258,7 +291,7 @@ function getRoles(){
     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
     $.ajax({
       method:"post",
-      url:"/user-register",
+      url:"/api/user-create",
       data:{user:user},
       headers: {
           "X-CSRF-TOKEN": csrfToken // Add CSRF token to request headers
@@ -369,3 +402,12 @@ function getRoles(){
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return re.test(email);
   }
+
+  function showEditModal(id) {
+    // Populate modal fields or perform actions based on the `id`
+    console.log("Editing record with ID:", id);
+    const addCCModal = new bootstrap.Modal(document.getElementById('addNewCCModal'));
+addCCModal.show();
+
+    
+}

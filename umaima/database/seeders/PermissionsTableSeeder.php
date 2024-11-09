@@ -14,25 +14,28 @@ class PermissionsTableSeeder extends Seeder
     {
         // Define permissions
         $permissions = [
-            ['name' => 'user_read', 'guard_name' => 'web'],
-            ['name' => 'user_write', 'guard_name' => 'web'],
-            ['name' => 'user_create', 'guard_name' => 'web'],
-            ['name' => 'user_delete', 'guard_name' => 'web'],
+            ['name' => 'user.read', 'guard_name' => 'web'],
+            ['name' => 'user.write', 'guard_name' => 'web'],
+            ['name' => 'user.create', 'guard_name' => 'web'],
+            ['name' => 'user.delete', 'guard_name' => 'web'],
 
-            ['name' => 'role_read', 'guard_name' => 'web'],
-            ['name' => 'role_write', 'guard_name' => 'web'],
-            ['name' => 'role_create', 'guard_name' => 'web'],
-            ['name' => 'role_delete', 'guard_name' => 'web'],
+            ['name' => 'roles.read', 'guard_name' => 'web'],
+            ['name' => 'roles.write', 'guard_name' => 'web'],
+            ['name' => 'roles.create', 'guard_name' => 'web'],
+            ['name' => 'roles.delete', 'guard_name' => 'web'],
 
-            ['name' => 'api_read', 'guard_name' => 'web'],
-            ['name' => 'api_write', 'guard_name' => 'web'],
-            ['name' => 'api_create', 'guard_name' => 'web'],
-            ['name' => 'api_delete', 'guard_name' => 'web'],
+            ['name' => 'api.read', 'guard_name' => 'web'],
+            ['name' => 'api.write', 'guard_name' => 'web'],
+            ['name' => 'api.create', 'guard_name' => 'web'],
+            ['name' => 'api.delete', 'guard_name' => 'web'],
 
-            ['name' => 'payroll_read', 'guard_name' => 'web'],
-            ['name' => 'payroll_write', 'guard_name' => 'web'],
-            ['name' => 'payroll_create', 'guard_name' => 'web'],
-            ['name' => 'payroll_delete', 'guard_name' => 'web'],
+            ['name' => 'payroll.read', 'guard_name' => 'web'],
+            ['name' => 'payroll.write', 'guard_name' => 'web'],
+            ['name' => 'payroll.create', 'guard_name' => 'web'],
+            ['name' => 'payroll.delete', 'guard_name' => 'web'],
+
+            ['name' => 'permissions.read', 'guard_name' => 'web'],
+            ['name' => 'permissions.list', 'guard_name' => 'web'],
         ];
 
         // Insert permissions

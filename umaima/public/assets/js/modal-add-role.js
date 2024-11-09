@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
 
-        fetch("/roles", {
+        fetch("/api/roles", {
             method: "POST",
             body: formData,
             headers: {

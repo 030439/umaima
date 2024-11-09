@@ -11,9 +11,10 @@ class RolePermissionController extends Controller
 {
     protected $permissionsService;
 
-    public function __construct()
+    public function __construct(PermissionsService $permissionsService)
     {
-        
+        $this->permissionsService = $permissionsService;
+       
     }
 
     public function index()

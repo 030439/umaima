@@ -14,15 +14,15 @@
       <div class="card">
         
         <div class="card-datatable table-responsive">
-                <table class="datatables-users table">
+                <table class="datatables-users table dataTable no-footer dtr-column collapsed">
                   <thead class="border-top">
                     <tr>
                       <th></th>
                       <th></th>
-                      <th>Users</th>
+                      <th>Full Name</th>
                       <th>Role</th>
-                      <th>Plan</th>
-                      <th>Billing</th>
+                      <th>Email</th>
+                      <th>Username</th>
                       <th>Status</th>
                       <th>Actions</th>
                     </tr>
@@ -44,68 +44,148 @@
               </style>
               <!-- Offcanvas to add new user -->
               <div class="modal fade" id="addUser" tabindex="-1" aria-modal="true" role="dialog" data-select2-id="editUser" style="padding-left: 0px;">
-              <div class="modal-dialog modal-lg modal-simple modal-edit-user" data-select2-id="90">
-                <div class="modal-content" data-select2-id="89">
-                  <div class="modal-body" data-select2-id="88">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    <div class="text-center ">
-                      <h4 class="mb-2">Enter User Information</h4>
-                    </div>
-                    <form id="editUserForm" class="row g-6 fv-plugins-bootstrap5 fv-plugins-framework" novalidate>
-                      <div class="col-12 col-md-6">
-                        <label class="form-label" for="modalEditUserFirstName">First Name</label>
-                        <input type="text" id="modalEditUserFirstName" name="fname" class="form-control" placeholder="John" required>
-                        <div class="fv-plugins-message-container invalid-feedbacks">Please enter your first name.</div>
+                <div class="modal-dialog modal-lg modal-simple modal-edit-user" data-select2-id="90">
+                  <div class="modal-content" data-select2-id="89">
+                    <div class="modal-body" data-select2-id="88">
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      <div class="text-center ">
+                        <h4 class="mb-2">Enter User Information</h4>
                       </div>
-                      
-                      <div class="col-12 col-md-6">
-                        <label class="form-label" for="modalEditUserLastName">Last Name</label>
-                        <input type="text" id="modalEditUserLastName" name="lname" class="form-control" placeholder="Doe" required>
-                        <div class="fv-plugins-message-container invalid-feedbacks">Please enter your last name.</div>
-                      </div>
-                      
-                      <div class="col-12 col-md-6">
-                        <label class="form-label" for="modalEditUserName">Username</label>
-                        <input type="text" id="modalEditUserName" name="username" class="form-control" placeholder="johndoe007" required>
-                        <div class="fv-plugins-message-container invalid-feedbacks">Please enter a username.</div>
-                      </div>
-                      
-                      <div class="col-12 col-md-6">
-                        <label class="form-label" for="user-role">User Role</label>
-                        <select id="user-roles" class="form-select" name="role" required>
-                        </select>
-                        <div class="fv-plugins-message-container invalid-feedbacks">Please select a user role.</div>
-                      </div>
-                      
-                      <div class="col-12 col-md-6">
-                        <label class="form-label" for="modalEditUserEmail">Email</label>
-                        <input type="email" id="modalEditUserEmail" name="email" class="form-control" placeholder="example@domain.com" required>
-                        <div class="fv-plugins-message-container invalid-feedbacks">Please enter a valid email.</div>
-                      </div>
-                      
-                      <div class="col-12 col-md-6">
-                        <label class="form-label" for="modalPassword">Password</label>
-                        <input type="password" id="modalPassword" name="password" class="form-control" required minlength="8">
-                        <div class="fv-plugins-message-container invalid-feedbacks">Password must be at least 8 characters.</div>
-                      </div>
-                      
-                      <div class="col-12">
-                        <div class="form-check form-switch">
-                          <input type="checkbox" name="status" class="form-check-input" id="editBillingAddress" checked>
-                          <label for="editBillingAddress" class="switch-label">Status (Active by default)</label>
+                      <form id="editUserForm" class="row g-6 fv-plugins-bootstrap5 fv-plugins-framework" novalidate>
+                        <div class="col-12 col-md-6">
+                          <label class="form-label" for="modalEditUserFirstName">First Name</label>
+                          <input type="text" id="modalEditUserFirstName" name="fname" class="form-control" placeholder="John" required>
+                          <div class="fv-plugins-message-container invalid-feedbacks">Please enter your first name.</div>
                         </div>
-                      </div>
-                      
-                      <div class="col-12 text-center">
-                        <button type="submit" class="btn btn-primary me-3">Submit</button>
-                        <button type="reset" class="btn btn-label-secondary" aria-label="Close">Cancel</button>
-                      </div>
-                    </form>
+                        
+                        <div class="col-12 col-md-6">
+                          <label class="form-label" for="modalEditUserLastName">Last Name</label>
+                          <input type="text" id="modalEditUserLastName" name="lname" class="form-control" placeholder="Doe" required>
+                          <div class="fv-plugins-message-container invalid-feedbacks">Please enter your last name.</div>
+                        </div>
+                        
+                        <div class="col-12 col-md-6">
+                          <label class="form-label" for="modalEditUserName">Username</label>
+                          <input type="text" id="modalEditUserName" name="username" class="form-control" placeholder="johndoe007" required>
+                          <div class="fv-plugins-message-container invalid-feedbacks">Please enter a username.</div>
+                        </div>
+                        
+                        <div class="col-12 col-md-6">
+                          <label class="form-label" for="user-role">User Role</label>
+                          <select id="user-roles" class="form-select" name="role" required>
+                          </select>
+                          <div class="fv-plugins-message-container invalid-feedbacks">Please select a user role.</div>
+                        </div>
+                        
+                        <div class="col-12 col-md-6">
+                          <label class="form-label" for="modalEditUserEmail">Email</label>
+                          <input type="email" id="modalEditUserEmail" name="email" class="form-control" placeholder="example@domain.com" required>
+                          <div class="fv-plugins-message-container invalid-feedbacks">Please enter a valid email.</div>
+                        </div>
+                        
+                        <div class="col-12 col-md-6">
+                          <label class="form-label" for="modalPassword">Password</label>
+                          <input type="password" id="modalPassword" name="password" class="form-control" required minlength="8">
+                          <div class="fv-plugins-message-container invalid-feedbacks">Password must be at least 8 characters.</div>
+                        </div>
+                        
+                        <div class="col-12">
+                          <div class="form-check form-switch">
+                            <input type="checkbox" name="status" class="form-check-input" id="editBillingAddress" checked>
+                            <label for="editBillingAddress" class="switch-label">Status (Active by default)</label>
+                          </div>
+                        </div>
+                        
+                        <div class="col-12 text-center">
+                          <button type="submit" class="btn btn-primary me-3">Submit</button>
+                          <button type="reset" class="btn btn-label-secondary" aria-label="Close">Cancel</button>
+                        </div>
+                      </form>
 
+                    </div>
                   </div>
                 </div>
               </div>
-              </div>
+            <div class="modal fade" id="addNewCCModal" tabindex="-1" aria-modal="true" role="dialog">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 class="modal-title">Details of Zsazsa McCleverty</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <table class="table">
+                      <tbody>
+                        <tr data-dt-row="14" data-dt-column="2">
+                          <td>User:</td>
+                          <td>
+                            <div class="d-flex justify-content-start align-items-center user-name">
+                              <div class="avatar-wrapper">
+                                <div class="avatar avatar-sm me-4">
+                                  <img src="../../assets/img/avatars/2.png" alt="Avatar" class="rounded-circle">
+                                </div>
+                              </div>
+                              <div class="d-flex flex-column">
+                                <a href="app-user-view-account.html" class="text-heading text-truncate">
+                                  <span class="fw-medium">Zsazsa McCleverty</span>
+                                </a>
+                                <small>zmcclevertye@soundcloud.com</small>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr data-dt-row="14" data-dt-column="3">
+                          <td>Role:</td>
+                          <td>
+                            <span class="text-truncate d-flex align-items-center text-heading">
+                              <i class="ti ti-user ti-md text-success me-2"></i>Maintainer
+                            </span>
+                          </td>
+                        </tr>
+                        <tr data-dt-row="14" data-dt-column="4">
+                          <td>Plan:</td>
+                          <td>
+                            <span class="text-heading">Enterprise</span>
+                          </td>
+                        </tr>
+                        <tr data-dt-row="14" data-dt-column="5">
+                          <td>Billing:</td>
+                          <td>Auto Debit</td>
+                        </tr>
+                        <tr data-dt-row="14" data-dt-column="6">
+                          <td>Status:</td>
+                          <td>
+                            <span class="badge bg-label-success" text-capitalized="">Active</span>
+                          </td>
+                        </tr>
+                        <tr data-dt-row="14" data-dt-column="7">
+                          <td>Actions:</td>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <a href="javascript:;" class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill delete-record">
+                                <i class="ti ti-trash ti-md"></i>
+                              </a>
+                              <a href="app-user-view-account.html" class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill">
+                                <i class="ti ti-eye ti-md"></i>
+                              </a>
+                              <a href="javascript:;" class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                <i class="ti ti-dots-vertical ti-md"></i>
+                              </a>
+                              <div class="dropdown-menu dropdown-menu-end m-0">
+                                <a href="javascript:;" class="dropdown-item">Edit</a>
+                                <a href="javascript:;" class="dropdown-item">Suspend</a>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+            </div>
+
+            </div>
+
       </div>
 
 

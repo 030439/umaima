@@ -299,7 +299,7 @@ $(function () {
 
 function fetchPermissions() {
     document.addEventListener('DOMContentLoaded', function() {
-        fetch('permissions-listing')
+        fetch('/api/permissions-listing')
             .then(response => response.json())
             .then(data => {
                 if (data.status === 'success') {
@@ -311,7 +311,7 @@ function fetchPermissions() {
                     const categories = {};
 
                     permissions.forEach(permission => {
-                        const [category, action] = permission.name.split('_');
+                        const [category, action] = permission.name.split('.');
                         if (!categories[category]) {
                             categories[category] = [];
                         }
@@ -322,7 +322,7 @@ function fetchPermissions() {
                     Object.keys(categories).forEach(category => {
                         const row = document.createElement('tr');
                         row.innerHTML = `
-                            <td class="text-nowrap fw-medium text-heading">${capitalize(category.replace(/_/g, ' '))}</td>
+                            <td class="text-nowrap fw-medium text-heading">${capitalize(category)}</td>
                             <td>
                                 <div class="d-flex justify-content-start">
                                     <!-- Select All Checkbox -->
