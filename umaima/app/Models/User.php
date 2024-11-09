@@ -45,4 +45,7 @@ class User extends Authenticatable
 
     public function hasRole($role)
     {
+        // Assuming a roles relationship, check for the role
+        return $this->roles->contains('name', $role);
+    }
 }
