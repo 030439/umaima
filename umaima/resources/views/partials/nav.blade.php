@@ -14,7 +14,7 @@
         <!-- Search -->
         <div class="navbar-nav align-items-center">
           <div class="nav-item navbar-search-wrapper mb-0">
-              <span class="d-none d-md-inline-block  fw-normal">Home / <span class="text-primary">Users</span>
+                  <i>home / <span class="text-primary">users</span></i>
             
           </div>
         </div>

@@ -28,7 +28,7 @@
 <link rel="stylesheet" href="../../assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css">
 <link rel="stylesheet" href="../../assets/vendor/libs/select2/select2.css" />
 <link rel="stylesheet" href="../../assets/vendor/libs/%40form-validation/form-validation.css" />
-
+<link rel="stylesheet" href="../../assets/vendor/libs/dropzone/dropzone.css" />
 <!-- Page CSS -->
 
 
