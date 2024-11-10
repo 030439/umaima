@@ -6,6 +6,7 @@ use App\Http\Controllers\RolePermissionController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\PlotController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -38,10 +39,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/users', [UsersController::class, 'index'])->name('users.index');
 // });
 // plost setupt routes in group with prefix
-    Route::controller(Plots::class)
+    Route::controller(PlotController::class)
         ->prefix('setup')
         ->group(function(){
             Route::get('plot-size','plotSize')->name('plot.size');
+            Route::get('plot-location','plotLocation')->name('plot.location');
     });
 
 require __DIR__.'/auth.php';
