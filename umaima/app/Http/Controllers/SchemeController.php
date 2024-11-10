@@ -10,4 +10,16 @@ class SchemeController extends Controller
     {
         return view('schemes.index');
     }
+    public function createScheme()
+    {
+        return view('schemes.add-scheme');
+    }
+    public function schemePlots()
+    {
+        return view('schemes.plots');
+    }
+    public function createSchemePlot()
+    {
+        return view('schemes.add-plot');
+    }
 }

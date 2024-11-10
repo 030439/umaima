@@ -12,4 +12,7 @@ class PlotController extends Controller
     public function plotLocation(){
         return view('plots.sizes');
     }
+    public function installments(){
+        return view('plots.installments');
+    }
 }

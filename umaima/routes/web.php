@@ -8,6 +8,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\PlotController;
 use App\Http\Controllers\SchemeController;
+use App\Http\Controllers\AlloteController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -45,12 +46,19 @@ Route::middleware('auth')->group(function () {
         ->group(function(){
             Route::get('plot-size','plotSize')->name('plot.size');
             Route::get('plot-location','plotLocation')->name('plot.location');
+            Route::get('plot.installments','installments')->name('plot.installments');
     });
 
     Route::controller(SchemeController::class)
         ->group(function(){
             Route::get('scheme-listing','index')->name('scheme.index');
+            Route::get('create-scheme','createScheme')->name('scheme.create');
             Route::get('scheme-plots','schemePlots')->name('scheme.plots');
+            Route::get('add-scheme-plot','createSchemePlot')->name('scheme.plot');
     });
+    Route::controller(AlloteController::class)
+    ->group(function(){
+        Route::get('allote-listing','index')->name('allote.index');
+});
 
 require __DIR__.'/auth.php';

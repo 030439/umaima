@@ -29,6 +29,8 @@
 <link rel="stylesheet" href="../../assets/vendor/libs/select2/select2.css" />
 <link rel="stylesheet" href="../../assets/vendor/libs/%40form-validation/form-validation.css" />
 <link rel="stylesheet" href="../../assets/vendor/libs/dropzone/dropzone.css" />
+<link rel="stylesheet" href="../../assets/vendor/libs/bs-stepper/bs-stepper.css" />
+<link rel="stylesheet" href="../../assets/vendor/libs/flatpickr/flatpickr.css" />
 <!-- Page CSS -->
 
 
