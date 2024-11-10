@@ -66,6 +66,39 @@
         </li>
       </ul>
     </li>
+
+    <!-- plot setup  -->
+    <li class="menu-item" style="">
+      <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons ti ti-users"></i>
+        <div data-i18n="Users">Plots</div>
+      </a>
+      <ul class="menu-sub">
+        <!-- <li class="menu-item">
+          <a href="app-user-list.html" class="menu-link">
+            <div data-i18n="List">List</div>
+          </a>
+        </li> -->
+
+        <li class="menu-item" style="">
+          <a href="javascript:void(0);" class="menu-link menu-toggle">
+            <div data-i18n="View">Setup</div>
+          </a>
+          <ul class="menu-sub">
+            <li class="menu-item">
+              <a href="{{ route('plot.size') }}" class="menu-link">
+                <div data-i18n="Account">Plot size</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="{{ route('plot.location') }}" class="menu-link">
+                <div data-i18n="Security">Location</div>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
   </ul>
   
   

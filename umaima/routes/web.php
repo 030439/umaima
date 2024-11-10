@@ -37,4 +37,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/permissions-list', [RolePermissionController::class, 'permissionsList'])->name('permissions.list');
     Route::get('/users', [UsersController::class, 'index'])->name('users.index');
 // });
+// plost setupt routes in group with prefix
+    Route::controller(Plots::class)
+        ->prefix('setup')
+        ->group(function(){
+            Route::get('plot-size','plotSize')->name('plot.size');
+    });
+
 require __DIR__.'/auth.php';
