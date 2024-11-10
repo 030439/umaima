@@ -24,6 +24,10 @@ class UsersController extends Controller
         $users = $this->usersService->getUsersWithRoles();
         return response()->json($users);
     }
+    public function getUser(){
+        $user= $this->usersService->getSingleUser();
+        return $user;
+    }
 
     public function login(Request $request)
     {

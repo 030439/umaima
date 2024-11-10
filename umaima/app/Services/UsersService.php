@@ -4,8 +4,7 @@ namespace App\Services;
 
 use App\Traits\QueryTrait;
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
+use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\JsonResponse;
@@ -73,6 +72,19 @@ class UsersService
         'recordsFiltered' => $result['recordsFiltered'],
         'draw' => $draw,
     ];
+}
+public function getSingleUser(){
+    $user = User::find($this->request->id);
+    if($user){
+        $userDetails = $user->toArray(); 
+        $roleNames = $user->getRoleNames();
+         $roleName = $roleNames->first();
+        $userDetails['roles'] = $roleName;
+        return response()->json(['success' => true, 'user' => $userDetails], 200);
+    }
+    return response()->json(['success' => false, 'user' => "User not Found"], 403);
+    
+
 }
 
 

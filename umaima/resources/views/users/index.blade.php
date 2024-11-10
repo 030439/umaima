@@ -129,27 +129,26 @@
                                 <a href="app-user-view-account.html" class="text-heading text-truncate">
                                   <span class="fw-medium">Zsazsa McCleverty</span>
                                 </a>
-                                <small>zmcclevertye@soundcloud.com</small>
                               </div>
                             </div>
+                          </td>
+                        </tr>
+                        <tr data-dt-row="14" data-dt-column="4">
+                          <td>Email:</td>
+                          <td>
+                            <span class="text-heading"></span>
                           </td>
                         </tr>
                         <tr data-dt-row="14" data-dt-column="3">
                           <td>Role:</td>
                           <td>
                             <span class="text-truncate d-flex align-items-center text-heading">
-                              <i class="ti ti-user ti-md text-success me-2"></i>Maintainer
+                              <i class=" ti-md text-success me-2"></i>
                             </span>
                           </td>
                         </tr>
-                        <tr data-dt-row="14" data-dt-column="4">
-                          <td>Plan:</td>
-                          <td>
-                            <span class="text-heading">Enterprise</span>
-                          </td>
-                        </tr>
                         <tr data-dt-row="14" data-dt-column="5">
-                          <td>Billing:</td>
+                          <td>Username:</td>
                           <td>Auto Debit</td>
                         </tr>
                         <tr data-dt-row="14" data-dt-column="6">

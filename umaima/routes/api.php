@@ -29,6 +29,11 @@ Route::middleware(['auth:sanctum','access'])->group(function () {
     Route::get('/permissions-listing', [RolePermissionController::class, 'getPermissions'])->name('permissions.read');
     Route::post('/assign-role', [RolePermissionController::class, 'assignRole'])->name('roles.assign');
 });
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:sanctum')->group(function(){
+    Route::post('/get-user', [UsersController::class, 'getUser'])->name('user.get');
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
+
 });
+

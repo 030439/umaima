@@ -101,7 +101,19 @@ $(function() {
                     targets: 6,
                     render: function(t, e, a, s) {
                         a = a.status;
-                        return '<span class="badge ' + o[a].class + '" text-capitalized>' + o[a].title + "</span>";
+                        var status_bg;
+                        var status_title;
+                        if (a === 1) {
+                            status_title="Active"
+                            status_bg='bg-label-success';
+                        } else if (a === 2) {
+                            status_title="Pending"
+                                   status_bg='bg-label-warning';
+                        } else if (a === 0) {
+                            status_title="Inactive"
+                            status_bg='bg-label-secondary';
+                        }
+                        return '<span class="badge ' + status_bg + '" text-capitalized>' +status_title+ "</span>";
                     }
                 },
                 {
@@ -246,7 +258,6 @@ function getRoles(){
           "X-CSRF-TOKEN": csrfToken // Add CSRF token to request headers
       },
       success: function(data) {
-        console.log(data);
         const roleSelect = $('#user-roles');
         roleSelect.empty(); // Clear existing options
         roleSelect.append('<option value="">Select a role</option>'); // Add placeholder
@@ -402,12 +413,59 @@ function getRoles(){
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return re.test(email);
   }
-
+  function getUser(id){
+    
+    $.ajax({
+      method:"post",
+      url:"/api/get-user",
+      data:{id:id},
+      headers: {
+          "X-CSRF-TOKEN": csrfToken // Add CSRF token to request headers
+      },
+      success: function(data) {
+        if(data.success){
+            const user = data.user;
+            // Update the table with user data
+            updateTableWithUserData(user);
+        }
+        else{
+            console.log(data.user);
+        }
+      },
+      error: function() {
+        console.error('Could not load roles.');
+      }
+    });
+  }
+  function updateTableWithUserData(user) {
+    // Update the table cells with the user data
+    $('.user-name .avatar img').attr('src', user.avatar_url); // Assuming you want to update the avatar image
+    $('.user-name .fw-medium').text(user.fname + ' ' + user.lname); 
+    $('tr td:contains("Role:")').next('td').find('span').text(user.roles); // Assuming you have a 'role' field in the response
+    $('tr td:contains("Email:")').next('td').find('span').text(user.email); // Assuming you have a 'plan' field in the response
+    $('tr td:contains("Username:")').next('td').text(user.username); // Billing info
+    $('tr td:contains("Status:")').next('td').find('.badge').each(function() {
+        // Update the text based on user status
+        $(this).text(user.status === 1 ? 'Active' : (user.status === 2 ? 'Inactive' : 'Unknown'));
+    
+        // Change the badge color based on user status
+        if (user.status === 1) {
+            $(this).removeClass('bg-label-warning bg-label-secondary')
+                   .addClass('bg-label-success');
+        } else if (user.status === 2) {
+            $(this).removeClass('bg-label-success bg-label-secondary')
+                   .addClass('bg-label-warning');
+        } else if (user.status === 0) {
+            $(this).removeClass('bg-label-success bg-label-warning')
+                   .addClass('bg-label-secondary');
+        }
+    });
+    
+  }
   function showEditModal(id) {
     // Populate modal fields or perform actions based on the `id`
     console.log("Editing record with ID:", id);
+    getUser(id);
     const addCCModal = new bootstrap.Modal(document.getElementById('addNewCCModal'));
-addCCModal.show();
-
-    
+    addCCModal.show();
 }
