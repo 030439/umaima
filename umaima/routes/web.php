@@ -7,6 +7,7 @@ use App\Http\Controllers\UsersController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\PlotController;
+use App\Http\Controllers\SchemeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -44,6 +45,12 @@ Route::middleware('auth')->group(function () {
         ->group(function(){
             Route::get('plot-size','plotSize')->name('plot.size');
             Route::get('plot-location','plotLocation')->name('plot.location');
+    });
+
+    Route::controller(SchemeController::class)
+        ->group(function(){
+            Route::get('scheme-listing','index')->name('scheme.index');
+            Route::get('scheme-plots','schemePlots')->name('scheme.plots');
     });
 
 require __DIR__.'/auth.php';
