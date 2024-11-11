@@ -50,16 +50,17 @@ class SchemeService
         // Fetch the records using QueryTrait's fetchRecords method
         $result = $this->fetchRecords(
             $this->table,
-            $perPage,
-            $page,
+            $columns = ['*'],
+            $conditions = [],
             $filters,
             $joins,
             $orderColumn,
             $orderDirection,
-            $groupBy,
-            $having,
-            $paginate,
-            $draw
+            $groupBy ,
+            $having ,
+            $perPage ,
+            $page ,
+            $paginate = true
         );
 
         // Return only the data if pagination is enabled, or full response if not paginated

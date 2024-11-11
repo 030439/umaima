@@ -40,7 +40,7 @@ class PlotService
             'plots.id as id',
             'plots.status as status',
             'plots.plot_number',
-            'schemes.name as scheme_name as scheme',
+            'schemes.name  as scheme',
             'plot_locations.location_name as location',
             'plot_sizes.size as size'
         ];
@@ -52,18 +52,21 @@ class PlotService
                 'first' => 'plots.scheme_id',
                 'operator' => '=',
                 'second' => 'schemes.id',
+                'type'=>'join'
             ],
             [
                 'table' => 'plot_locations',
                 'first' => 'plots.plot_location_id',
                 'operator' => '=',
                 'second' => 'plot_locations.id',
+                'type'=>'join'
             ],
             [
                 'table' => 'plot_sizes',
                 'first' => 'plots.plot_size_id',
                 'operator' => '=',
                 'second' => 'plot_sizes.id',
+                'type'=>'join'
             ],
         ];
         if (!empty($searchValue)) {
@@ -76,16 +79,16 @@ class PlotService
         $result = $this->fetchRecords(
             $this->table,
             $columns,
-            $perPage,
-            $page,
+            $conditions = [],
             $filters,
             $joins,
             $orderColumn,
             $orderDirection,
-            $groupBy,
-            $having,
-            $paginate,
-            $draw
+            $groupBy ,
+            $having ,
+            $perPage ,
+            $page ,
+            $paginate = true
         );
 
         // Return only the data if pagination is enabled, or full response if not paginated

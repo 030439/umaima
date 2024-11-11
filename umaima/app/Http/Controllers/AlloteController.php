@@ -17,7 +17,9 @@ class AlloteController extends Controller
     function index(){
         return view('allote.index');
     }
-    
+    public function alloteCreate(){
+        return view('allote.add');
+    }
     public function store(){
 
         $result = $this->alloteservice->addAllote();

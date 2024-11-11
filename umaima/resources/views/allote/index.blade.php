@@ -2,274 +2,223 @@
 
 @section('title', 'Home Page')
 @section('content')
-      <div class="content-wrapper">
+<div class="content-wrapper">
 
-        <!-- Content -->
+<!-- Content -->
+
+  <div class="container-xxl flex-grow-1 container-p-y">
+    
+    
+
+      <!-- Users List Table -->
+      <div class="card">
         
-          <div class="container-xxl flex-grow-1 container-p-y">
-            
-            
-<!-- Default -->
-<div class="row">
-
-
-  <!-- Validation Wizard -->
-  <div class="col-12 mb-6">
-    <div id="wizard-validation" class="bs-stepper mt-2">
-      <div class="bs-stepper-header">
-        <div class="step" data-target="#account-details-validation">
-          <button type="button" class="step-trigger">
-            <span class="bs-stepper-circle">1</span>
-            <span class="bs-stepper-label mt-1">
-              <span class="bs-stepper-title">Account Details</span>
-              <span class="bs-stepper-subtitle">Setup Account Details</span>
-            </span>
-          </button>
-        </div>
-        <div class="line">
-          <i class="ti ti-chevron-right"></i>
-        </div>
-        <div class="step" data-target="#personal-info-validation">
-          <button type="button" class="step-trigger">
-            <span class="bs-stepper-circle">2</span>
-            <span class="bs-stepper-label">
-              <span class="bs-stepper-title">Personal Info</span>
-              <span class="bs-stepper-subtitle">Add personal info</span>
-            </span>
-          </button>
-        </div>
-        <div class="line">
-          <i class="ti ti-chevron-right"></i>
-        </div>
-        <div class="step" data-target="#social-links-validation">
-          <button type="button" class="step-trigger">
-            <span class="bs-stepper-circle">3</span>
-            <span class="bs-stepper-label">
-              <span class="bs-stepper-title">Social Links</span>
-              <span class="bs-stepper-subtitle">Add social links</span>
-            </span>
-          </button>
-        </div>
-      </div>
-      <div class="bs-stepper-content">
-        <form id="wizard-validation-form" onSubmit="return false" method="post" action="{{route('allote.create')}}">
-          @csrf
-          <!-- Account Details -->
-          <div id="account-details-validation" class="content">
-            <div class="content-header mb-4">
-              <h6 class="mb-0">Account Details</h6>
-              <small>Enter  Account Details.</small>
-            </div>
-            <div class="row g-6">
-              <div class="col-sm-6">
-                <label class="form-label" for="formValidationUsername">Username</label>
-                <input type="text" name="formValidationUsername" id="formValidationUsername" class="form-control" placeholder="johndoe" />
+        <div class="card-datatable table-responsive">
+                <table class="datatables-users table dataTable no-footer dtr-column collapsed">
+                  <thead class="border-top">
+                    <tr>
+                      <th></th>
+                      <th></th>
+                      <th>Full Name</th>
+                      <th>Role</th>
+                      <th>Email</th>
+                      <th>Username</th>
+                      <th>Status</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                </table>
               </div>
-              <div class="col-sm-6">
-                <label class="form-label" for="formValidationEmail">Email</label>
-                <input type="email" name="formValidationEmail" id="formValidationEmail" class="form-control" placeholder="john.doe@email.com" aria-label="john.doe" />
-              </div>
-              <div class="col-sm-6 form-password-toggle">
-                <label class="form-label" for="formValidationcell">Cell No</label>
-                <div class="input-group input-group-merge">
-                  <input type="number" id="formValidationcell" name="formValidationcell" class="form-control" aria-describedby="formValidationPass2" />
+              <style>
+                /* Error messages hidden by default */
+                .invalid-feedbacks {
+                  display: none;
+                  color: #ff4d4f; /* Red color for error messages */
+                  font-size: 0.875em;
+                }
+
+                /* Highlight invalid fields */
+                .is-invalid {
+                  border-color: #ff4d4f;
+                }
+              </style>
+              <!-- Offcanvas to add new user -->
+              <div class="modal fade" id="addUser" tabindex="-1" aria-modal="true" role="dialog" data-select2-id="editUser" style="padding-left: 0px;">
+                <div class="modal-dialog modal-lg modal-simple modal-edit-user" data-select2-id="90">
+                  <div class="modal-content" data-select2-id="89">
+                    <div class="modal-body" data-select2-id="88">
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      <div class="text-center ">
+                        <h4 class="mb-2">Enter User Information</h4>
+                      </div>
+                      <form id="editUserForm" class="row g-6 fv-plugins-bootstrap5 fv-plugins-framework" novalidate>
+                        <div class="col-12 col-md-6">
+                          <label class="form-label" for="modalEditUserFirstName">First Name</label>
+                          <input type="text" id="modalEditUserFirstName" name="fname" class="form-control" placeholder="John" required>
+                          <div class="fv-plugins-message-container invalid-feedbacks">Please enter your first name.</div>
+                        </div>
+                        
+                        <div class="col-12 col-md-6">
+                          <label class="form-label" for="modalEditUserLastName">Last Name</label>
+                          <input type="text" id="modalEditUserLastName" name="lname" class="form-control" placeholder="Doe" required>
+                          <div class="fv-plugins-message-container invalid-feedbacks">Please enter your last name.</div>
+                        </div>
+                        
+                        <div class="col-12 col-md-6">
+                          <label class="form-label" for="modalEditUserName">Username</label>
+                          <input type="text" id="modalEditUserName" name="username" class="form-control" placeholder="johndoe007" required>
+                          <div class="fv-plugins-message-container invalid-feedbacks">Please enter a username.</div>
+                        </div>
+                        
+                        <div class="col-12 col-md-6">
+                          <label class="form-label" for="user-role">User Role</label>
+                          <select id="user-roles" class="form-select" name="role" required>
+                          </select>
+                          <div class="fv-plugins-message-container invalid-feedbacks">Please select a user role.</div>
+                        </div>
+                        
+                        <div class="col-12 col-md-6">
+                          <label class="form-label" for="modalEditUserEmail">Email</label>
+                          <input type="email" id="modalEditUserEmail" name="email" class="form-control" placeholder="example@domain.com" required>
+                          <div class="fv-plugins-message-container invalid-feedbacks">Please enter a valid email.</div>
+                        </div>
+                        
+                        <div class="col-12 col-md-6">
+                          <label class="form-label" for="modalPassword">Password</label>
+                          <input type="password" id="modalPassword" name="password" class="form-control" required minlength="8">
+                          <div class="fv-plugins-message-container invalid-feedbacks">Password must be at least 8 characters.</div>
+                        </div>
+                        
+                        <div class="col-12">
+                          <div class="form-check form-switch">
+                            <input type="checkbox" name="status" class="form-check-input" id="editBillingAddress" checked>
+                            <label for="editBillingAddress" class="switch-label">Status (Active by default)</label>
+                          </div>
+                        </div>
+                        
+                        <div class="col-12 text-center">
+                          <button type="submit" class="btn btn-primary me-3">Submit</button>
+                          <button type="reset" class="btn btn-label-secondary" aria-label="Close">Cancel</button>
+                        </div>
+                      </form>
+
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div class="col-sm-6 form-password-toggle">
-                <label class="form-label" for="formValidationoffice">Phone No:Office </label>
-                <div class="input-group input-group-merge">
-                  <input type="number" id="" name="formValidationoffice" class="form-control"   />
-                 
+            <div class="modal fade" id="addNewCCModal" tabindex="-1" aria-modal="true" role="dialog">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 class="modal-title">Details of Zsazsa McCleverty</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <table class="table">
+                      <tbody>
+                        <tr data-dt-row="14" data-dt-column="2">
+                          <td>User:</td>
+                          <td>
+                            <div class="d-flex justify-content-start align-items-center user-name">
+                              <div class="avatar-wrapper">
+                                <div class="avatar avatar-sm me-4">
+                                  <img src="../../assets/img/avatars/2.png" alt="Avatar" class="rounded-circle">
+                                </div>
+                              </div>
+                              <div class="d-flex flex-column">
+                                <a href="app-user-view-account.html" class="text-heading text-truncate">
+                                  <span class="fw-medium">Zsazsa McCleverty</span>
+                                </a>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr data-dt-row="14" data-dt-column="4">
+                          <td>Email:</td>
+                          <td>
+                            <span class="text-heading"></span>
+                          </td>
+                        </tr>
+                        <tr data-dt-row="14" data-dt-column="3">
+                          <td>Role:</td>
+                          <td>
+                            <span class="text-truncate d-flex align-items-center text-heading">
+                              <i class=" ti-md text-success me-2"></i>
+                            </span>
+                          </td>
+                        </tr>
+                        <tr data-dt-row="14" data-dt-column="5">
+                          <td>Username:</td>
+                          <td>Auto Debit</td>
+                        </tr>
+                        <tr data-dt-row="14" data-dt-column="6">
+                          <td>Status:</td>
+                          <td>
+                            <span class="badge bg-label-success" text-capitalized="">Active</span>
+                          </td>
+                        </tr>
+                        <tr data-dt-row="14" data-dt-column="7">
+                          <td>Actions:</td>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <a href="javascript:;" class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill delete-record">
+                                <i class="ti ti-trash ti-md"></i>
+                              </a>
+                              <a href="app-user-view-account.html" class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill">
+                                <i class="ti ti-eye ti-md"></i>
+                              </a>
+                              <a href="javascript:;" class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                <i class="ti ti-dots-vertical ti-md"></i>
+                              </a>
+                              <div class="dropdown-menu dropdown-menu-end m-0">
+                                <a href="javascript:;" class="dropdown-item">Edit</a>
+                                <a href="javascript:;" class="dropdown-item">Suspend</a>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
-              </div>
-              <div class="col-12 d-flex justify-content-between">
-                <button class="btn btn-label-secondary btn-prev" disabled> <i class="ti ti-arrow-left ti-xs me-sm-2 me-0"></i>
-                  <span class="align-middle d-sm-inline-block d-none">Previous</span>
-                </button>
-                <button class="btn btn-primary btn-next"> <span class="align-middle d-sm-inline-block d-none me-sm-2">Next</span> <i class="ti ti-arrow-right ti-xs"></i></button>
-              </div>
             </div>
-          </div>
-          <!-- Personal Info -->
-          <div id="personal-info-validation" class="content">
-            <div class="content-header mb-4">
-              <h6 class="mb-0">Personal Info</h6>
-              <small>Enter  Personal Info.</small>
+
             </div>
-            <div class="row g-6">
-              <div class="col-sm-6">
-                <label class="form-label" for="formValidationFirstName">Full Name</label>
-                <input type="text" id="formValidationFirstName" name="formValidationFirstName" class="form-control" placeholder="John" />
-              </div>
-              <div class="col-sm-6">
-                <label class="form-label" for="formValidationLastName">CNIC </label>
-                <input type="text" id="formValidationLastName" name="formValidationLastName" class="form-control" placeholder="Doe" />
-              </div>
-              <div class="col-sm-6">
-                <label class="form-label" for="formValidationFirstName">Father's/Husband Name</label>
-                <input type="text" id="formValidationFirstName" name="father" class="form-control" placeholder="John" />
-              </div>
-              <div class="col-sm-6">
-                <label class="form-label" for="formValidationLastName">CNIC </label>
-                <input type="text" id="formValidationLastName" name="fcnic" class="form-control" placeholder="Doe" />
-              </div>
-              <div class="col-sm-6">
-                <label class="form-label" for="formValidation">Guardian Name</label>
-                <input type="text" id="formValidation" name="guardian" class="form-control" placeholder="John" />
-              </div>
-              <div class="col-sm-6">
-                <label class="form-label" for="formValidation">CNIC </label>
-                <input type="text" id="formValidation" name="gcnic" class="form-control" placeholder="Doe" />
-              </div>
-              <div class="col-sm-6">
-                <label class="form-label" for="formValidationOccupation">Occupation </label>
-                <input type="text" id="formValidationOccupation" name="occupation" class="form-control" placeholder="Doe" />
-              </div>
-              <div class="col-md-6">
-                <label class="form-label" for="multicol-birthdate">Birth Date</label>
-                <input type="text" name="dob" id="multicol-birthdate" class="form-control dob-picker flatpickr-input active" placeholder="YYYY-MM-DD" readonly="readonly">
-              </div>
-              
-              
-              <div class="col-12 d-flex justify-content-between">
-                <button class="btn btn-label-secondary btn-prev"> <i class="ti ti-arrow-left ti-xs me-sm-2 me-0"></i>
-                  <span class="align-middle d-sm-inline-block d-none">Previous</span>
-                </button>
-                <button class="btn btn-primary btn-next"> <span class="align-middle d-sm-inline-block d-none me-sm-2">Next</span> <i class="ti ti-arrow-right ti-xs"></i></button>
-              </div>
-            </div>
-          </div>
-          <!-- Social Links -->
-          <div id="social-links-validation" class="content">
-            <div class="content-header mb-4">
-              <h6 class="mb-0">Residentail Details </h6>
-            </div>
-            <div class="row g-6">
-             
-             
-            
-            <div class="col-sm-6">
-                <label class="form-label" for="formValidationLastName">Nationality </label>
-                <input type="text" id="formValidationGoogle" name="nationality" class="form-control" placeholder="Doe" />
-              </div>
-              <!-- <div class="col-sm-6">
-                <label class="form-label" for="formValidationLastName">Occupation </label>
-                <input type="text" id="formValidationLastName" name="formValidationLastName" class="form-control" placeholder="Doe" />
-              </div> -->
-              <div class="col-sm-6">
-                <label class="form-label" for="formValidationLastName">Residence No </label>
-                <input type="text" id="formValidationLastName" name="residence" class="form-control" placeholder="Doe" />
-              </div>
-              <div class="mb-6">
-                <label class="form-label" for="bs-validation-bio">Address</label>
-                <textarea class="form-control" id="bs-validation-bio" name="address" rows="3" required=""></textarea>
-              </div>
-              <div class="col-12 d-flex justify-content-between">
-                <button class="btn btn-label-secondary btn-prev"> <i class="ti ti-arrow-left ti-xs me-sm-2 me-0"></i>
-                  <span class="align-middle d-sm-inline-block d-none">Previous</span>
-                </button>
-                <button class="btn btn-success btn-next btn-submit">Submit</button>
-              </div>
-            </div>
-          </div>
-        </form>
+
       </div>
-    </div>
+
+
   </div>
-</div>
-
-<hr class="container-m-nx mb-12">
+          
 @endsection
 @section('files')
-    
 <script src="../../assets/vendor/libs/jquery/jquery.js"></script>
-<script src="../../assets/vendor/libs/popper/popper.js"></script>
-<script src="../../assets/vendor/js/bootstrap.js"></script>
-<script src="../../assets/vendor/libs/node-waves/node-waves.js"></script>
-<script src="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
-<script src="../../assets/vendor/libs/hammer/hammer.js"></script>
-<script src="../../assets/vendor/libs/i18n/i18n.js"></script>
-<script src="../../assets/vendor/libs/typeahead-js/typeahead.js"></script>
-<script src="../../assets/vendor/js/menu.js"></script>
+    <script src="../../assets/vendor/libs/popper/popper.js"></script>
+    <script src="../../assets/vendor/js/bootstrap.js"></script>
+      <script src="../../assets/vendor/libs/node-waves/node-waves.js"></script>
+    <script src="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="../../assets/vendor/libs/hammer/hammer.js"></script>
+    <script src="../../assets/vendor/libs/i18n/i18n.js"></script>
+    <script src="../../assets/vendor/libs/typeahead-js/typeahead.js"></script>
+    <script src="../../assets/vendor/js/menu.js"></script>
+    
+    <!-- endbuild -->
 
-<!-- endbuild -->
-
-<!-- Vendors JS -->
-<script src="../../assets/vendor/libs/bs-stepper/bs-stepper.js"></script>
-<script src="../../assets/vendor/libs/bootstrap-select/bootstrap-select.js"></script>
+    <!-- Vendors JS -->
+    <script src="../../assets/vendor/libs/moment/moment.js"></script>
+<script src="../../assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
 <script src="../../assets/vendor/libs/select2/select2.js"></script>
-<script src="../../assets/vendor/libs/@form-validation/popular.js"></script>
-<script src="../../assets/vendor/libs/@form-validation/bootstrap5.js"></script>
-<script src="../../assets/vendor/libs/@form-validation/auto-focus.js"></script>
-<script src="../../assets/vendor/libs/moment/moment.js"></script>
-<script src="../../assets/vendor/libs/flatpickr/flatpickr.js"></script>
-<script src="../../assets/vendor/libs/select2/select2.js"></script>
+<script src="../../assets/vendor/libs/%40form-validation/popular.js"></script>
+<script src="../../assets/vendor/libs/%40form-validation/bootstrap5.js"></script>
+<script src="../../assets/vendor/libs/%40form-validation/auto-focus.js"></script>
+<script src="../../assets/vendor/libs/cleavejs/cleave.js"></script>
+<script src="../../assets/vendor/libs/cleavejs/cleave-phone.js"></script>
 
-<!-- Main JS -->
-<script src="../../assets/vendor/libs/sweetalert2/sweetalert2.js"></script>
+    <!-- Main JS -->
+    <script src="../../assets/js/main.js"></script>
+    
 
-<!-- Main JS -->
-<script src="../../assets/js/main.js"></script>
-
-
-<!-- Page JS -->
-<script src="../../assets/js/extended-ui-sweetalert2.js"></script>
-<script>
-  function submitdata() {
-    // Prevent form from submitting the traditional way
-    event.preventDefault();
-
-    // Get the form element
-    var form = document.getElementById('wizard-validation-form');
-
-    // Collect the form data
-    var formData = new FormData(form);
-
-    // Send the data via AJAX
-    $.ajax({
-        url: "{{ route('allote.create') }}",  // URL where the form data should be submitted
-        type: "POST",  // HTTP method
-        data: formData,  // Form data
-        processData: false,  // Disable processing the data (required for FormData)
-        contentType: false,  // Disable setting the content type (required for FormData)
-        success: function(response) {
-            // Handle the success response
-            if (response.success) {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Success!',
-                    text: 'Form data submitted successfully!',
-                    showConfirmButton: false,
-                    timer: 2000
-                });
-                // Optionally, you can redirect or reset the form here
-                window.location.href="allote-listing";
-                form.reset();  // Reset form after successful submission
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error!',
-                    text: 'There was an error submitting the form.',
-                    showConfirmButton: false,
-                    timer: 2000
-                });
-            }
-        },
-        error: function(xhr, status, error) {
-            // Handle the error response
-            Swal.fire({
-                icon: 'error',
-                title: 'Error!',
-                text: 'There was an error with the AJAX request.',
-                showConfirmButton: false,
-                timer: 2000
-            });
-        }
-    });
-}
-
-</script>
-<script src="../../assets/js/form-wizard-numbered.js"></script>
-<script src="../../assets/js/form-wizard-validation.js"></script>
-<script src="../../assets/js/form-layouts.js"></script>
+    <!-- Page JS -->
+    <script src="../../assets/js/app-user-list.js"></script>
 @endsection
+          

@@ -6,62 +6,62 @@ use Illuminate\Support\Facades\DB;
 trait QueryTrait
 {
     public function fetchRecords(
-        $table,
-        $columns=[],
-        $perPage = 10,
-        $page = 1,
-        $filters = [],
-        $joins = [],
-        $orderColumn = 'id',
-        $orderDirection = 'asc',
-        $groupBy = [],
-        $having = [],
-        $paginate = true,
-        // Accept null here but handle it within the function
-        ) {
-            
-            // Force $columns to be an array with '*' if not provided or empty
-            $columns = is_array($columns) && !empty($columns) ? $columns : ['*'];
+        string $table,
+        array $columns = ['*'],
+        array $conditions = [],
+        array $filters = [],
+        array $joins = [],
+        string $orderColumn = 'id',
+        string $orderDirection = 'asc',
+        array $groupBy = [],
+        array $having = [],
+        int $perPage = 10,
+        int $page = 1,
+        bool $paginate = true
+    ) {
+        $columns = is_array($columns) && !empty($columns) ? $columns : ['*'];
         
         
         
         $query = DB::table($table)->select($columns);
-        // Apply joins if provided
-        if (!empty($joins)) {
-            foreach ($joins as $join) {
-                $query->join($join['table'], $join['first'], $join['operator'], $join['second']);
+    
+        // Apply conditions
+        foreach ($conditions as $column => $value) {
+            $query->where($column, $value);
+        }
+    
+        // Apply filters
+        foreach ($filters as $column => $filterValue) {
+            if (is_array($filterValue)) {
+                $query->whereIn($column, $filterValue);
+            } else {
+                $query->where($column, $filterValue);
             }
         }
-
-        // Apply filters if provided
-        // Apply filters if provided
-        if (!empty($filters)) {
-            foreach ($filters as $column => $value) {
-                // Apply the like condition for each filter
-                $query->where($column, 'like', $value);
-            }
+    
+        // Apply joins
+        foreach ($joins as $join) {
+            $type = $join['type'] ?? 'join';
+            $query->$type($join['table'], $join['first'], '=', $join['second']);
         }
-
-
-        // Apply group by if provided
+    
+        // Apply group by
         if (!empty($groupBy)) {
             $query->groupBy($groupBy);
         }
-
-        // Apply having if provided
-        if (!empty($having)) {
-            foreach ($having as $condition) {
-                $query->having($condition['column'], $condition['operator'], $condition['value']);
-            }
+    
+        // Apply having
+        foreach ($having as $condition) {
+            $query->having($condition['column'], $condition['operator'], $condition['value']);
         }
-
+    
         // Apply ordering
         $query->orderBy($orderColumn, $orderDirection);
-
-        // Get the total count of records
+    
+        // Get total records count before pagination or filters
         $total = $query->count();
-
-        // Return paginated data or all records depending on $paginate flag
+    
+        // Handle pagination
         if ($paginate) {
             $records = $query->paginate($perPage, $columns, 'page', $page);
             $data = $records->items(); // Get paginated items
@@ -69,13 +69,14 @@ trait QueryTrait
             $records = $query->get();
             $data = $records; // Get all records
         }
-
+    
         // Return both paginated data and the total count
         return [
-            'data' => $records->items(),
+            'data' => $data,
             'recordsTotal' => $total,
             'recordsFiltered' => $total,
         ];
     }
+    
 }
 

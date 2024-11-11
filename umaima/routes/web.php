@@ -67,6 +67,7 @@ Route::middleware('auth')->group(function () {
     Route::controller(AlloteController::class)
     ->group(function(){
         Route::get('allote-listing','index')->name('allote.index');
+        Route::get('create-allote','alloteCreate');
     });
     Route::get('/logs', [LogController::class,'index'])->middleware('auth');
 });

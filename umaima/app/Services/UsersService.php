@@ -41,6 +41,7 @@ class UsersService
         [
             'table' => 'model_has_roles',
             'first' => 'users.id',
+            'type'=>'join',
             'operator' => '=',
             'second' => 'model_has_roles.model_id'
         ],
@@ -54,16 +55,17 @@ class UsersService
 
     $result = $this->fetchRecords(
         $this->table,
-        $perPage,
-        $page,
+        $columns = ['*'],
+        $conditions = [],
         $filters,
         $joins,
-        $orderColumn=!empty($orderColumn)?$orderColumn:"users.id",
-        $orderDirection,
-        [], // groupBy
-        [], // having
-        true, // paginate
-        $draw
+        $orderColumn = 'users.id',
+        $orderDirection = 'asc',
+        $groupBy = [],
+        $having = [],
+        $perPage ,
+        $page = 1,
+        $paginate = true        
     );
 
     return [

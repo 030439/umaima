@@ -48,7 +48,7 @@ $(function() {
                     targets: 1,
                     responsivePriority: 4,
                     render: function(t, e, a, s) {
-                        var n = a.scheme_name
+                        var n = a.scheme
                         return '<div class="d-flex justify-content-start align-items-center user-name">' +
                             '<div class="d-flex flex-column"><a href="' + r + '" class="text-heading text-truncate"><span class="fw-medium">' + n + "</span></a></div></div>";
                     }
