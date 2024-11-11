@@ -119,7 +119,8 @@
                       submitButton: new FormValidation.plugins.SubmitButton
                   }
               }).on("core.form.valid", function() {
-                  document.querySelector("#wizard-validation-form").submit();  // Submit form on last step validation
+                 submitdata();
+                //   document.querySelector("#wizard-validation-form").submit();  // Submit form on last step validation
               }));
 
         r.forEach(e => {

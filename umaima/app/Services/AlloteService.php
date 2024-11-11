@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\JsonResponse;
-use App\Models\Plot;
+use App\Models\Allote;
 use Exception;
 class AlloteService
 {
@@ -97,53 +97,65 @@ class AlloteService
         ];
     }
 
-    public function createPlot(){
-        {
-            try {
-                $validator = Validator::make($this->request->all(), [
-                    'plot.plotNumber' => 'required|string|unique:plots,plot_number',
-                    'plot.scheme' => 'required|integer',
-                    'plot.plotSize' => 'required|integer',
-                    'plot.plotLocation' => 'required|integer',
-                    'plot.plotCat' => 'required|integer',
-                ]);
-        
-                if ($validator->fails()) {
-                    // Format the error messages as a single string with line breaks
-                    $errorMessages = implode("\n", $validator->errors()->all());
-                
-                    return response()->json([
-                        'success' => false,
-                        'message' => "\n" . $errorMessages
-                    ], 422); // Unprocessable Entity
-                }
-        
-                // Insert into schemes table
-                $scheme = Plot::create([
-                    'plot_number' => $this->request->input('plot.plotNumber'),
-                    'scheme_id' => $this->request->input('plot.scheme'),
-                    'plot_size_id' => $this->request->input('plot.plotSize'),
-                    'plot_location_id' => $this->request->input('plot.plotLocation'),
-                    'plot_category_id'=>$this->request->input('plot.plotCat')
-                ]);
-        
-                // Log the action
-                logAction('Created Plot', $scheme->plot_numer.','.$scheme->scheme_id);
-        
-                // Success response
+    public function addAllote(){
+    {
+        try {
+            $validator = Validator::make($this->request->all(), [
+                'formValidationUsername' => 'required',
+                'formValidationEmail' => 'required',
+                'formValidationcell' => 'required',
+                'formValidationFirstName' => 'required',
+                'formValidationLastName' => 'required',
+            ]);
+    
+            if ($validator->fails()) {
+                // Format the error messages as a single string with line breaks
+                $errorMessages = implode("\n", $validator->errors()->all());
+            
                 return response()->json([
-                    'message' => 'Scheme Plot created successfully!',
-                    'success' => true
-                ]);
-            } catch (Exception $e) {
-                // Error response
-                
-                return response()->json([
-                    'message' =>  $e->getMessage(),
-                    'success' => false
-                ]);
+                    'success' => false,
+                    'message' => "\n" . $errorMessages
+                ], 422); // Unprocessable Entity
             }
+    
+            // Insert into schemes table
+            $arr = [
+                    'username' => $this->request->input('formValidationUsername'),
+                    'email' => $this->request->input('formValidationEmail'),
+                    'cellno' => $this->request->input('formValidationcell'),
+                    'phone' => $this->request->input('formValidationoffice'),
+                    'fullname' => $this->request->input('formValidationFirstName'),
+                    'cnic' => $this->request->input('formValidationLastName'),
+                    'guardian'=> $this->request->input('guardian'),
+                    'gcnic' => $this->request->input('gcnic'),
+                    'father' => $this->request->input('father'),
+                    'fcnic' => $this->request->input('fcnic'),
+                    'occupation' => $this->request->input('occupation'),
+                    'dob' => $this->request->input('dob'),
+                    'nationality' => $this->request->input('nationality'),
+                    'residence_no' => $this->request->input('residence'),
+                    'address' => $this->request->input('address')
+                ];
+            
+            $scheme = Allote::create($arr);
+    
+            // Log the action
+            logAction('Created Allote', $scheme->fullname.','.$scheme->username);
+    
+            // Success response
+            return response()->json([
+                'message' => 'Allote created successfully!',
+                'success' => true
+            ]);
+        } catch (Exception $e) {
+            // Error response
+            
+            return response()->json([
+                'message' =>  $e->getMessage(),
+                'success' => false
+            ]);
         }
+    }
     }
 
     public function createPlotSize()

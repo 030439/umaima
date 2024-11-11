@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Allote extends Model
 {
     use HasFactory;
+    protected $fillable = ['username', 'fullname','email','cellno','cnic'];
 }

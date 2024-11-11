@@ -36,6 +36,7 @@ Route::middleware(['auth:sanctum','access'])->group(function () {
     Route::post('/create-scheme-plot', [PlotController::class, 'store'])->name('plot.create');
     Route::post('/plots', [PlotController::class, 'listing'])->name('plot.read');
     Route::post("create-allote",[AlloteController::class,'store'])->name('allote.create');
+    Route::get("allote-list",[AlloteController::class,'listing'])->name('allote.read');
 });
 Route::middleware('auth:sanctum')->group(function(){
     Route::post('/get-scheme-details', [SchemeController::class, 'getSchemeDetails']);

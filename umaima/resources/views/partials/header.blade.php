@@ -31,6 +31,7 @@
 <link rel="stylesheet" href="../../assets/vendor/libs/dropzone/dropzone.css" />
 <link rel="stylesheet" href="../../assets/vendor/libs/bs-stepper/bs-stepper.css" />
 <link rel="stylesheet" href="../../assets/vendor/libs/flatpickr/flatpickr.css" />
+<link rel="stylesheet" href="../../assets/vendor/libs/sweetalert2/sweetalert2.css" />
 <!-- Page CSS -->
 
 
