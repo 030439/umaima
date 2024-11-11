@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 // Handle success (reset form, show success message, etc.)
                 showToast("Role created successfully!", "success");
                 setTimeout(() => {
-                    location.reload(); // Reload the page
+                     window.location.reload(); // Reload the page
                 }, 2000);
             } else {
                 // Handle failure

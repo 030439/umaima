@@ -314,7 +314,7 @@ function getRoles(){
                 // Handle success (you could reset the form, show success message, etc.)
                 showToast(data.message, "success");
                 setTimeout(() => {
-                    location.reload(); // Reload the page
+                     window.location.reload(); // Reload the page
                 }, 2000); 
             } else {
                 // Handle failure

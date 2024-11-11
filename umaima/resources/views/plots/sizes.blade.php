@@ -68,6 +68,19 @@
                     </div>
                 </div>
             </div>
+            <style>
+                /* Error messages hidden by default */
+                .invalid-feedbacks {
+                  display: none;
+                  color: #ff4d4f; /* Red color for error messages */
+                  font-size: 0.875em;
+                }
+
+                /* Highlight invalid fields */
+                .is-invalid {
+                  border-color: #ff4d4f;
+                }
+              </style>
             <!-- model for ploat location create -->
             <div class="modal fade" id="addPlotLocation" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-simple">
@@ -81,6 +94,7 @@
                         <div class="col-12 mb-4">
                             <label class="form-label" for="modalPermissionName">Location Name</label>
                             <input type="text" id="modalPermissionName" name="modalPermissionName" class="form-control" placeholder="location Name">
+                            <div class="fv-plugins-message-container invalid-feedbacks"></div>
                         </div>
                         <div class="col-12 text-center demo-vertical-spacing">
                             <button type="submit" class="btn btn-primary me-4">Create Location</button>
@@ -99,12 +113,12 @@
                         <button type="button" class="btn-close btn-pinned" data-bs-dismiss="modal" aria-label="Close"></button>
                         <div class="text-center mb-6">
                         <h4 class="mb-2">Add New Plot Size</h4>
-                        <p>add ploat size in number</p>
                         </div>
-                        <form id="addPermissionForm" class="row" onsubmit="return false">
+                        <form id="addsizeForm" class="row" onsubmit="return false">
                         <div class="col-12 mb-4">
                             <label class="form-label" for="modalPermissionName">Plot  Size</label>
-                            <input type="text" id="modalPermissionName" name="modalPermissionName" class="form-control" placeholder="plot size Name">
+                            <input type="text" id="plotsizefiled" name="modalPermissionName" class="form-control" placeholder="plot size Name">
+                            <div class="fv-plugins-message-container invalid-feedbacks"></div>
                         </div>
                         <div class="col-12 text-center demo-vertical-spacing">
                             <button type="submit" class="btn btn-primary me-4">Create Plot Size</button>
@@ -142,14 +156,166 @@
 <!-- Main JS -->
 <script src="../../assets/js/main.js"></script>
 <script>
-     function addPlotSize() {
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
+
+    function setError(input, message) {
+        input.classList.add("is-invalid");
+        const errorContainer = input.nextElementSibling;
+        if (errorContainer && errorContainer.classList.contains("invalid-feedbacks")) {
+            errorContainer.innerText = message;
+            errorContainer.style.display = "block";
+        }
+    }
+
+    function addPlotSize() {
         const addCCModal = new bootstrap.Modal(document.getElementById('addPlotSize'));
         addCCModal.show();
     }
+
     function addPlotLocation() {
         const addCCModal = new bootstrap.Modal(document.getElementById('addPlotLocation'));
         addCCModal.show();
     }
+    function showToast(message, type) {
+    const toastContainer = document.getElementById("toastContainer");
+
+    const toast = document.createElement("div");
+    toast.classList.add("toast", "fade", "show", `bg-${type}`);
+    toast.setAttribute("role", "alert");
+    toast.setAttribute("aria-live", "assertive");
+    toast.setAttribute("aria-atomic", "true");
+
+    toast.innerHTML = `
+        <div class="toast-body text-white">
+            ${message}
+        </div>
+    `;
+
+    // Append the toast to the container
+    toastContainer.appendChild(toast);
+
+    // Remove toast after 5 seconds
+    setTimeout(() => {
+        toast.classList.remove("show");
+        toast.classList.add("hide");
+        toast.addEventListener("transitionend", () => toast.remove());
+    }, 5000);
+}
+    function createLocation(location) {
+        $.ajax({
+            method: "POST",
+            url: "/setup/create-plot-location",
+            data: { location_: location },
+            headers: {
+                "X-CSRF-TOKEN": csrfToken // Add CSRF token to request headers
+            },
+            success: function(data) {
+                
+                if (data.success == true) {
+                    // Handle success (you could reset the form, show success message, etc.)
+                    showToast(data.message, "success");
+                    setTimeout(() => {
+                         window.location.reload(); // Reload the page
+                    }, 2000);
+                } else {
+                    // Handle failure
+                    showToast("Error: " + data.message, "danger");
+                }
+            },
+            error: function() {
+                console.error('Could not load roles.');
+            }
+        });
+    }
+
+    function createSize(plotsize) {
+        // Function to handle plot size creation logic
+        $.ajax({
+            method: "POST",
+            url: "/setup/create-plot-size",
+            data: { size: plotsize },
+            headers: {
+                "X-CSRF-TOKEN": csrfToken // Add CSRF token to request headers
+            },
+            success: function(data) {
+                
+                if (data.success == true) {
+                    // Handle success (you could reset the form, show success message, etc.)
+                    showToast(data.message, "success");
+                    setTimeout(() => {
+                         window.location.reload(); // Reload the page
+                    }, 2000);
+                } else {
+                    // Handle failure
+                    showToast("Error: " + data.message, "danger");
+                }
+            },
+            error: function() {
+                console.error('Could not load roles.');
+            }
+        });
+    }
+
+    // Handling Plot Size Form Submission
+    document.getElementById("addPlotSize").addEventListener("submit", function (e) {
+        e.preventDefault(); // Prevent default form submission
+        let isValid = true;
+
+        // Reset all fields to remove previous error states
+        const fields = document.querySelectorAll(".form-control, .form-select");
+        fields.forEach(field => {
+            field.classList.remove("is-invalid");
+            const errorContainer = field.nextElementSibling;
+            if (errorContainer && errorContainer.classList.contains("invalid-feedbacks")) {
+                errorContainer.style.display = "none";
+            }
+        });
+
+        // Validate Plot Size
+        const plotsizefiled = document.getElementById("plotsizefiled");
+        if (plotsizefiled.value.trim() === "") {
+            setError(plotsizefiled, "Plot size is required.");
+            isValid = false;
+        } else if (isNaN(plotsizefiled.value) || plotsizefiled.value <= 0) {
+            setError(plotsizefiled, "Plot size must be a valid number greater than 0.");
+            isValid = false;
+        }
+
+        // Submit the form if valid
+        if (isValid) {
+            createSize(plotsizefiled.value); // Pass the valid plot size to createSize function
+        }
+    });
+
+    // Handling Permission Form Submission
+    document.getElementById("addPermissionForm").addEventListener("submit", function (e) {
+        e.preventDefault(); // Prevent default form submission
+        let isValid = true;
+
+        // Reset all fields to remove previous error states
+        const fields = document.querySelectorAll(".form-control, .form-select");
+        fields.forEach(field => {
+            field.classList.remove("is-invalid");
+            const errorContainer = field.nextElementSibling;
+            if (errorContainer && errorContainer.classList.contains("invalid-feedbacks")) {
+                errorContainer.style.display = "none";
+            }
+        });
+
+        // Validate Plot Location
+        const location = document.getElementById("modalPermissionName");
+        if (location.value.trim() === "") {
+            setError(location, "Plot location is required.");
+            isValid = false;
+        }
+
+        // Submit the form if valid
+        if (isValid) {
+            $(".modal-backdrop").remove();
+            $("#addPlotLocation").hide();
+            createLocation(location.value); // Pass the valid location to createLocation function
+        }
+    });
 </script>
     
 

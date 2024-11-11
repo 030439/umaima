@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 // Handle success (you could reset the form, show success message, etc.)
                 showToast("Permission created successfully!", "success");
                 setTimeout(() => {
-                    location.reload(); // Reload the page
+                     window.location.reload(); // Reload the page
                 }, 2000); 
             } else {
                 // Handle failure

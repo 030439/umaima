@@ -35,19 +35,23 @@ Route::middleware('auth')->group(function () {
     
 });
 
-// Route::middleware(['auth', 'role:admin'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::get('/roles', [RolePermissionController::class, 'index'])->name('roles.index');
     Route::get('/permissions', [RolePermissionController::class, 'permissions'])->name('permissions.index');
     Route::get('/permissions-list', [RolePermissionController::class, 'permissionsList'])->name('permissions.list');
     Route::get('/users', [UsersController::class, 'index'])->name('users.index');
-// });
+   
+});
 // plost setupt routes in group with prefix
+Route::middleware('auth')->group(function () {
     Route::controller(PlotController::class)
         ->prefix('setup')
         ->group(function(){
             Route::get('plot-size','plotSize')->name('plot.size');
             Route::get('plot-location','plotLocation')->name('plot.location');
             Route::get('plot.installments','installments')->name('plot.installments');
+            Route::post('create-plot-location','createPlotLocation');
+            Route::post('create-plot-size','createPlotSize');
     });
 
     Route::controller(SchemeController::class)
@@ -62,6 +66,6 @@ Route::middleware('auth')->group(function () {
         Route::get('allote-listing','index')->name('allote.index');
     });
     Route::get('/logs', [LogController::class,'index'])->middleware('auth');
-
+});
 
 require __DIR__.'/auth.php';
