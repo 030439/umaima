@@ -80,13 +80,14 @@ class PlotService
             // If validation fails, return a response with errors
             if ($validator->fails()) {
                 return response()->json([
-                    'status' => 'error',
-                    'message' => 'Validation failed',
+                    'success' => false,
+                    'message' => $validator->errors()->size,
                     'errors' => $validator->errors(),
                 ], 422); // Unprocessable Entity
             }
         
             // Retrieve validated data
+
             $size = $this->request->input('size');
 
             // Step 1: Create the role
@@ -95,6 +96,7 @@ class PlotService
             ]);
 
             // Return success response
+             $this->logAction('Created Plot size', $size);
             
             $response = [
                 'message' => 'Plot size successfully !',
@@ -107,7 +109,7 @@ class PlotService
 
             // Return error response
             $response = [
-                'message' => $e->getMessage(),
+                'message' => 'An unexpected error occurred while creating the Plot size.',
                  'success' => false
             ];
 

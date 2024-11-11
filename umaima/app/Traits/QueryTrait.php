@@ -1,7 +1,6 @@
 <?php
 namespace App\Traits;
-use App\Models\Log;
-use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Support\Facades\DB;
 
 trait QueryTrait
@@ -70,14 +69,6 @@ trait QueryTrait
         ];
     }
 
-    function logAction($action, $details = null)
-    {
-        Log::create([
-            'user_id' => Auth::id(), // Logged-in user's ID, null if not logged in
-            'action' => $action,
-            'details' => $details,
-            'ip_address' => Request::ip(),
-        ]);
-    }
+    
 }
 
