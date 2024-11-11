@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\UsersService;
+use App\Models\Log;
 use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
@@ -57,6 +58,7 @@ class UsersController extends Controller
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
             $token = $user->createToken('API Token')->plainTextToken;
+            logAction('User Login', 'User ID: ' . Auth::id());
 
             return response()->json(['token' => $token, 'user' => $user], 200);
         }
@@ -68,7 +70,15 @@ class UsersController extends Controller
     {
         return response()->json($request->user());
     }
-
+    function logAction($action, $details = null)
+    {
+        Log::create([
+            'user_id' => Auth::id(), // Logged-in user's ID, null if not logged in
+            'action' => $action,
+            'details' => $details,
+            'ip_address' => Request::ip(),
+        ]);
+    }
 
     
 }
