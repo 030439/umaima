@@ -20,6 +20,10 @@ class AlloteController extends Controller
     public function alloteCreate(){
         return view('allote.add');
     }
+    public function getAlloties(){
+        $result = $this->alloteservice->getAlloties();
+        return ($result);
+    }
     public function store(){
 
         $result = $this->alloteservice->addAllote();

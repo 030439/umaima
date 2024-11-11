@@ -15,6 +15,10 @@ class PlotController extends Controller
         $this->plotservice = $plotservice;
     }
 
+    public function plotAllotment(){
+        return view('plots.allotment');
+    }
+
     public function listing()
     {
         $result = $this->plotservice->geAll();
@@ -58,6 +62,10 @@ class PlotController extends Controller
     public function installment()
     {
         $result = $this->plotservice->installment();
+        return ($result);
+    }
+    public function getplotByScheme(){
+        $result = $this->plotservice->getplotByScheme();
         return ($result);
     }
 

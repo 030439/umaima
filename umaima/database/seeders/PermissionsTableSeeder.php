@@ -49,6 +49,11 @@ class PermissionsTableSeeder extends Seeder
             ['name' => 'allote.create', 'guard_name' => 'web'],
             ['name' => 'allote.delete', 'guard_name' => 'web'],
 
+            ['name' => 'allotment.read', 'guard_name' => 'web'],
+            ['name' => 'allotment.write', 'guard_name' => 'web'],
+            ['name' => 'allotment.create', 'guard_name' => 'web'],
+            ['name' => 'allotment.delete', 'guard_name' => 'web'],
+
             ['name' => 'permissions.read', 'guard_name' => 'web'],
             ['name' => 'permissions.list', 'guard_name' => 'web'],
         ];
@@ -58,14 +63,14 @@ class PermissionsTableSeeder extends Seeder
             Permission::firstOrCreate($permission);
         }
 
-        DB::table('plot_categories')->insert([
-            'id' => 1,
-            'category_name'=>"Commercial"
-        ]);
-        DB::table('plot_categories')->insert([
-            'id' => 2,
-            'category_name'=>"Residentail"
-        ]);
+        // DB::table('plot_categories')->insert([
+        //     'id' => 1,
+        //     'category_name'=>"Commercial"
+        // ]);
+        // DB::table('plot_categories')->insert([
+        //     'id' => 2,
+        //     'category_name'=>"Residentail"
+        // ]);
 
         // Create admin role and assign permissions
         $adminRole = Role::firstOrCreate(['name' => 'admin']);

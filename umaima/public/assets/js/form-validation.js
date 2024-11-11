@@ -1,1 +1,217 @@
-"use strict";!function(){window.Helpers.initCustomOptionCheck();var e=[].slice.call(document.querySelectorAll(".flatpickr-validation")),e=(e&&e.forEach(e=>{e.flatpickr({allowInput:!0,monthSelectorType:"static"})}),document.querySelectorAll(".needs-validation"));Array.prototype.slice.call(e).forEach(function(a){a.addEventListener("submit",function(e){a.checkValidity()?alert("Submitted!!!"):(e.preventDefault(),e.stopPropagation()),a.classList.add("was-validated")},!1)})}(),document.addEventListener("DOMContentLoaded",function(e){{const t=document.getElementById("formValidationExamples"),o=jQuery(t.querySelector('[name="formValidationSelect2"]')),i=jQuery(t.querySelector('[name="formValidationTech"]')),l=t.querySelector('[name="formValidationLang"]'),s=jQuery(t.querySelector(".selectpicker")),r=FormValidation.formValidation(t,{fields:{formValidationName:{validators:{notEmpty:{message:"Please enter your name"},stringLength:{min:6,max:30,message:"The name must be more than 6 and less than 30 characters long"},regexp:{regexp:/^[a-zA-Z0-9 ]+$/,message:"The name can only consist of alphabetical, number and space"}}},formValidationEmail:{validators:{notEmpty:{message:"Please enter your email"},emailAddress:{message:"The value is not a valid email address"}}},formValidationPass:{validators:{notEmpty:{message:"Please enter your password"}}},formValidationConfirmPass:{validators:{notEmpty:{message:"Please confirm password"},identical:{compare:function(){return t.querySelector('[name="formValidationPass"]').value},message:"The password and its confirm are not the same"}}},formValidationFile:{validators:{notEmpty:{message:"Please select the file"}}},formValidationDob:{validators:{notEmpty:{message:"Please select your DOB"},date:{format:"YYYY/MM/DD",message:"The value is not a valid date"}}},formValidationSelect2:{validators:{notEmpty:{message:"Please select your country"}}},formValidationLang:{validators:{notEmpty:{message:"Please add your language"}}},formValidationTech:{validators:{notEmpty:{message:"Please select technology"}}},formValidationHobbies:{validators:{notEmpty:{message:"Please select your hobbies"}}},formValidationBio:{validators:{notEmpty:{message:"Please enter your bio"},stringLength:{min:100,max:500,message:"The bio must be more than 100 and less than 500 characters long"}}},formValidationGender:{validators:{notEmpty:{message:"Please select your gender"}}},formValidationPlan:{validators:{notEmpty:{message:"Please select your preferred plan"}}},formValidationSwitch:{validators:{notEmpty:{message:"Please select your preference"}}},formValidationCheckbox:{validators:{notEmpty:{message:"Please confirm our T&C"}}}},plugins:{trigger:new FormValidation.plugins.Trigger,bootstrap5:new FormValidation.plugins.Bootstrap5({eleValidClass:"",rowSelector:function(e,a){switch(e){case"formValidationName":case"formValidationEmail":case"formValidationPass":case"formValidationConfirmPass":case"formValidationFile":case"formValidationDob":case"formValidationSelect2":case"formValidationLang":case"formValidationTech":case"formValidationHobbies":case"formValidationBio":case"formValidationGender":return".col-md-6";case"formValidationPlan":return".col-xl-3";case"formValidationSwitch":case"formValidationCheckbox":return".col-12";default:return".row"}}}),submitButton:new FormValidation.plugins.SubmitButton,defaultSubmit:new FormValidation.plugins.DefaultSubmit,autoFocus:new FormValidation.plugins.AutoFocus},init:e=>{e.on("plugins.message.placed",function(e){e.element.parentElement.classList.contains("input-group")&&e.element.parentElement.insertAdjacentElement("afterend",e.messageElement),e.element.parentElement.parentElement.classList.contains("custom-option")&&e.element.closest(".row").insertAdjacentElement("afterend",e.messageElement)})}});var n,a=document.querySelector('[name="formValidationDob"]');a&&a.flatpickr({enableTime:!1,dateFormat:"Y/m/d",onChange:function(){r.revalidateField("formValidationDob")}}),o.length&&(o.wrap('<div class="position-relative"></div>'),o.select2({placeholder:"Select country",dropdownParent:o.parent()}).on("change",function(){r.revalidateField("formValidationSelect2")})),isRtl&&(a=[].slice.call(document.querySelectorAll(".typeahead")))&&a.forEach(e=>{e.setAttribute("dir","rtl")}),i.typeahead({hint:!isRtl,highlight:!0,minLength:1},{name:"tech",source:(n=["ReactJS","Angular","VueJS","Html","Css","Sass","Pug","Gulp","Php","Laravel","Python","Bootstrap","Material Design","NodeJS"],function(e,a){var t=[],o=new RegExp(e,"i");$.each(n,function(e,a){o.test(a)&&t.push(a)}),a(t)})}),new Tagify(l),l.addEventListener("change",function(){r.revalidateField("formValidationLang")}),s.on("changed.bs.select",function(e,a,t,o){r.revalidateField("formValidationHobbies")})}});
+"use strict";
+
+!function () {
+    window.Helpers.initCustomOptionCheck();
+
+    var flatpickrElements = [].slice.call(document.querySelectorAll(".flatpickr-validation"));
+    flatpickrElements && flatpickrElements.forEach(element => {
+        element.flatpickr({
+            allowInput: true,
+            monthSelectorType: "static"
+        });
+    });
+
+    var validationForms = document.querySelectorAll(".needs-validation");
+    Array.prototype.slice.call(validationForms).forEach(function (form) {
+        form.addEventListener("submit", function (event) {
+            if (form.checkValidity()) {
+                alert("Submitted!!!");
+            } else {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            form.classList.add("was-validated");
+        }, false);
+    });
+}();
+
+document.addEventListener("DOMContentLoaded", function (event) {
+    const form = document.getElementById("formValidationExamples"),
+        selectAllote = jQuery(form.querySelector('[name="allote"]')),
+        selectScheme = jQuery(form.querySelector('[name="scheme"]')),
+        selectPlot = jQuery(form.querySelector('[name="plot"]')),
+        formValidator = FormValidation.formValidation(form, {
+            fields: {
+                allote: {
+                    validators: {
+                        notEmpty: { message: "Please select an allote" }
+                    }
+                },
+                cnic: {
+                    validators: {
+                        notEmpty: { message: "Please enter your CNIC" },
+                        stringLength: { min: 13, max: 13, message: "CNIC must be 13 characters long" },
+                        regexp: { regexp: /^[0-9]+$/, message: "CNIC must consist of digits only" }
+                    }
+                },
+                scheme: {
+                    validators: {
+                        notEmpty: { message: "Please select a scheme" }
+                    }
+                },
+                plot: {
+                    validators: {
+                        notEmpty: { message: "Please select a plot" }
+                    }
+                },
+                category: {
+                    validators: {
+                        notEmpty: { message: "Please enter a category" }
+                    }
+                },
+                location: {
+                    validators: {
+                        notEmpty: { message: "Please enter a location" }
+                    }
+                },
+                'plot-size': {
+                    validators: {
+                        notEmpty: { message: "Please enter a plot size" }
+                    }
+                }
+            },
+            plugins: {
+                trigger: new FormValidation.plugins.Trigger,
+                bootstrap5: new FormValidation.plugins.Bootstrap5({
+                    eleValidClass: "",
+                    rowSelector: ".col-md-6"
+                }),
+                submitButton: new FormValidation.plugins.SubmitButton,
+                defaultSubmit: new FormValidation.plugins.DefaultSubmit,
+                autoFocus: new FormValidation.plugins.AutoFocus
+            },
+            init: validator => {
+                validator.on("plugins.message.placed", function (event) {
+                    if (event.element.parentElement.classList.contains("input-group")) {
+                        event.element.parentElement.insertAdjacentElement("afterend", event.messageElement);
+                    }
+                    if (event.element.parentElement.parentElement.classList.contains("custom-option")) {
+                        event.element.closest(".row").insertAdjacentElement("afterend", event.messageElement);
+                    }
+                });
+            }
+        });
+
+    selectAllote.length && (
+        selectAllote.wrap('<div class="position-relative"></div>'),
+        selectAllote.select2({
+            placeholder: "Select allote",
+            dropdownParent: selectAllote.parent()
+        }).on("change", function () {
+            formValidator.revalidateField("allote");
+        })
+    );
+
+    selectScheme.length && (
+        selectScheme.wrap('<div class="position-relative"></div>'),
+        selectScheme.select2({
+            placeholder: "Select scheme",
+            dropdownParent: selectScheme.parent()
+        }).on("change", function () {
+            formValidator.revalidateField("scheme");
+        })
+    );
+
+    selectPlot.length && (
+        selectPlot.wrap('<div class="position-relative"></div>'),
+        selectPlot.select2({
+            placeholder: "Select plot",
+            dropdownParent: selectPlot.parent()
+        }).on("change", function () {
+            formValidator.revalidateField("plot");
+        })
+    );
+});
+
+
+function populateDropdown(selectId, items) {
+    const selectElement = document.getElementById(selectId);
+    selectElement.innerHTML = "<option value=''>Select</option>"; // Reset options
+
+    items.forEach(item => {
+        const option = document.createElement("option");
+        option.value = item.value;
+        option.textContent = item.label;
+        selectElement.appendChild(option);
+    });
+}
+
+function fetchSchemeDetails() {
+    $.ajax({
+        method: "POST",
+        url: "/api/get-alloties",
+        headers: {
+            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+        },
+        success: function(data) {
+            if (data.success) {
+                populateDropdown("allote", data.allotes);
+                populateDropdown("scheme", data.scheme);
+            } else {
+                showToast("Error: " + data.message, "danger");
+            }
+        },
+        error: function(jqXHR) {
+            const errorResponse = jqXHR.responseJSON;
+            if (errorResponse && errorResponse.error) {
+                showToast("Error: " + errorResponse.message, "danger");
+            } else {
+                showToast("Failed to load scheme details.", "danger");
+            }
+        }
+    });
+}
+fetchSchemeDetails();
+
+    const selectScheme = document.getElementById("scheme");
+    const selectPlot = document.getElementById("plot");
+
+    // Event listener for scheme selection change
+    selectScheme.addEventListener("change", function () {
+        const schemeId = selectScheme.value;
+        if (schemeId) {
+            fetchPlots(schemeId);
+        } else {
+            resetPlots();
+        }
+    });
+
+    // Function to fetch and populate plots
+    function fetchPlots(schemeId) {
+        $.ajax({
+            method: "post",
+            url: `/api/get-plots-by-scheme`,
+            headers: {
+                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+            },
+            data:{id:schemeId}, // Your endpoint for fetching plots
+            success: function (response) {
+                if (response.success && response.plots) {
+                    populateDropdown(response.plots);
+                } else {
+                    showToast("Failed to fetch plots", "danger");
+                }
+            },
+            error: function () {
+                showToast("Error fetching plots", "danger");
+            }
+        });
+    }
+
+    // Function to populate plots dropdown
+    function populatePlots(plots) {
+        resetPlots(); // Clear existing options first
+        plots.forEach(plot => {
+            const option = document.createElement("option");
+            option.value = plot.id; // Assuming each plot has an `id`
+            option.text = plot.name; // Assuming each plot has a `name`
+            selectPlot.add(option);
+        });
+    }
+
+    // Function to reset plot dropdown to default
+    function resetPlots() {
+        selectPlot.innerHTML = '<option value="">Select</option>';
+    }
+
+

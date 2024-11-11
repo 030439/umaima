@@ -297,4 +297,19 @@ class PlotService
             return response()->json($response);
         }
     }
+
+    public function getplotByScheme(){
+        $id=$this->request->input('id');
+        $allotes = DB::table('plots')->select('plot_number', 'id')->where('scheme_id', $id)->where('status', 1)->get();
+        $allote=$allotes->map(function ($allote) {
+            return [
+                'value' => $allote->id, // assuming 'id' is a unique identifier
+                'label' => $allote->plot_number // assuming 'name' holds the display name
+            ];
+        });
+        return response()->json([
+            'success' => true,
+            'plots' => $allote
+        ]);
+    }
 }
