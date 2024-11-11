@@ -14,6 +14,7 @@ class CreatePlotsTable extends Migration
             $table->foreignId('plot_size_id')->constrained('plot_sizes')->onDelete('cascade');
             $table->foreignId('plot_location_id')->constrained('plot_locations')->onDelete('cascade');
             $table->foreignId('plot_category_id')->constrained('plot_categories')->onDelete('cascade');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

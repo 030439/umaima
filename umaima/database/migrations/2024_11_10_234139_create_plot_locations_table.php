@@ -10,6 +10,7 @@ class CreatePlotLocationsTable extends Migration
         Schema::create('plot_locations', function (Blueprint $table) {
             $table->id();
             $table->string('location_name')->unique();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

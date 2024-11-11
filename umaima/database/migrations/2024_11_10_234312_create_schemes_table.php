@@ -13,6 +13,7 @@ class CreateSchemesTable extends Migration
             $table->integer('no_of_plots');
             $table->decimal('area', 10, 2);
             $table->decimal('total_valuation', 15, 2);
+            $table->softDeletes();
             $table->timestamps();
         });
     }
