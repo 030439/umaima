@@ -42,7 +42,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::post("get-alloties",[AlloteController::class,'getAlloties']);
     Route::post('/get-scheme-details', [SchemeController::class, 'getSchemeDetails']);
     Route::post('/get-plots-by-scheme', [PlotController::class, 'getplotByScheme']);
-   
+    Route::post('/get-plots-detail', [PlotController::class, 'getplotDetails']);
     Route::post('/get-user', [UsersController::class, 'getUser'])->name('user.get');
     Route::get('/user', function (Request $request) {
         return $request->user();

@@ -312,4 +312,28 @@ class PlotService
             'plots' => $allote
         ]);
     }
+    public function  getplotDetails(){
+        $id=$this->request->input('id');
+            $allotes = DB::table('plots')
+            ->select('plot_categories.category_name','plot_sizes.size','plot_locations.location_name')
+            ->join('plot_sizes', 'plots.plot_size_id', '=', 'plot_sizes.id')
+            ->join('plot_locations', 'plots.plot_location_id', '=', 'plot_locations.id')
+            ->join('plot_categories', 'plots.plot_category_id', '=', 'plot_categories.id')
+            ->where('plots.id', $id)
+            ->where('plots.status', 1)
+            ->get();
+
+            $allote=$allotes->map(function ($allote) {
+            return [
+                'location' => $allote->location_name, // assuming 'id' is a unique identifier
+                'size' => $allote->size, // assuming 'name' holds the display name
+                'category' => $allote->category_name // assuming 'name' holds the display name
+            ];
+        });
+        $staus=!empty($allote)?true:false;
+        return response()->json([
+            'success' => $staus,
+            'detail' => $allote
+        ]);
+    }
 }

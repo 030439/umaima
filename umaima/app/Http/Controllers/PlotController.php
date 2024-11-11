@@ -68,5 +68,9 @@ class PlotController extends Controller
         $result = $this->plotservice->getplotByScheme();
         return ($result);
     }
+    public function getplotDetails(){
+        $result = $this->plotservice->getplotDetails();
+        return ($result);
+    }
 
 }

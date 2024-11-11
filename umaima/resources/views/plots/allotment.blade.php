@@ -15,68 +15,150 @@
 <div class="row">
   <!-- FormValidation -->
   <div class="col-12">
-    <div class="card">
-      <h5 class="card-header">FormValidation</h5>
+    <div class="">
+      <div class="">
+      <div class="col">
+    <div class="card mb-6">
+
+
       <div class="card-body">
-
-        <form id="formValidationExamples" class="row g-6">
-
-          <!-- Account Details -->
-          <div class="col-12">
-            <h6>1. Account Details</h6>
-            <hr class="mt-0">
-          </div>
-
-          <div class="col-md-12">
-            <label class="form-label" for="allote">Allote</label>
-            <select id="allote" name="allote" class="form-select select2" data-allow-clear="true">
-              <option value="">Select</option>
-            </select>
-          </div>
-
-
+        <div class="tab-content p-0">
           <!-- Personal Info -->
-
-          <div class="col-12">
-            <h6 class="mt-2">2. Personal Info</h6>
-            <hr class="mt-0" />
+          <div class="tab-pane fade active show" id="form-tabs-personal" role="tabpanel">
+     
+              <div class="row g-6">
+                <div class="col-md-12">
+                    <label class="form-label" for="allote">Allote</label>
+                    <select id="allote" name="allote" class="form-select select2" data-allow-clear="true">
+                    <option value="">Select</option>
+                    </select>
+                </div>
+              </div>
+         
           </div>
-
-          
-
-          <div class="col-md-6">
+          <!-- Account Details -->
+          <div class="tab-pane fade" id="form-tabs-account" role="tabpanel">
+         
+          <div class="row">
+          <div class="col-6">
             <label class="form-label" for="scheme">Scheme</label>
             <select id="scheme" name="scheme" class="form-select select2" data-allow-clear="true">
               <option value="">Select</option>
             </select>
           </div>
-          <div class="col-md-6">
+          <div class="col-6">
             <label class="form-label" for="plot">Plot</label>
             <select id="plot" name="plot" class="form-select select2" data-allow-clear="true">
               <option value="">Select</option>
             </select>
           </div>
 
-          <div class="col-md-6 fv-plugins-icon-container">
+          <div class="col-6 fv-plugins-icon-container">
             <label class="form-label" for="category">Category</label>
-            <input type="text" id="category" class="form-control" placeholder="John Doe" name="category">
+            <input type="text" id="category" class="form-control" placeholder="John Doe" name="category" readonly>
           <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
           <div class="col-md-6 fv-plugins-icon-container">
             <label class="form-label" for="location">Location</label>
-            <input type="text" id="location" class="form-control" placeholder="John Doe" name="location">
+            <input type="text" id="location" class="form-control" placeholder="John Doe" name="location" readonly>
           <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
           <div class="col-md-6 fv-plugins-icon-container">
             <label class="form-label" for="plot-size">Plot Size</label>
-            <input type="text" id="plot-size" class="form-control" placeholder="John Doe" name="plot-size">
+            <input type="text" id="plot-size" class="form-control" placeholder="John Doe" name="plot-size" readonly>
           <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
-          <div class="col-12">
-            <button type="submit" name="submitButton" class="btn btn-primary">Submit</button>
+          
+              
           </div>
-        </form>
+        
+          </div>
+          <!-- Social Links -->
+          <div class="tab-pane fade" id="form-tabs-social" role="tabpanel">
+          
+              <div class="row g-6">
+                <div class="col-md-6">
+                  <div class="row">
+                    <label class="col-sm-3 col-form-label text-sm-end" for="formtabs-twitter">Twitter</label>
+                    <div class="col-sm-9">
+                      <input type="text" id="formtabs-twitter" class="form-control" placeholder="https://twitter.com/abc">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="row">
+                    <label class="col-sm-3 col-form-label text-sm-end" for="formtabs-facebook">Facebook</label>
+                    <div class="col-sm-9">
+                      <input type="text" id="formtabs-facebook" class="form-control" placeholder="https://facebook.com/abc">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="row">
+                    <label class="col-sm-3 col-form-label text-sm-end" for="formtabs-google">Google+</label>
+                    <div class="col-sm-9">
+                      <input type="text" id="formtabs-google" class="form-control" placeholder="https://plus.google.com/abc">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="row">
+                    <label class="col-sm-3 col-form-label text-sm-end" for="formtabs-linkedin">Linkedin</label>
+                    <div class="col-sm-9">
+                      <input type="text" id="formtabs-linkedin" class="form-control" placeholder="https://linkedin.com/abc">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="row">
+                    <label class="col-sm-3 col-form-label text-sm-end" for="formtabs-instagram">Instagram</label>
+                    <div class="col-sm-9">
+                      <input type="text" id="formtabs-instagram" class="form-control" placeholder="https://instagram.com/abc">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="row">
+                    <label class="col-sm-3 col-form-label text-sm-end" for="formtabs-quora">Quora</label>
+                    <div class="col-sm-9">
+                      <input type="text" id="formtabs-quora" class="form-control" placeholder="https://quora.com/abc">
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-header px-0 pt-0">
+        <div class="nav-align-top">
+          <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button type="button" class="nav-link waves-effect active" data-bs-toggle="tab" data-bs-target="#form-tabs-personal" aria-controls="form-tabs-personal" role="tab" aria-selected="true"><span class="ti ti-user ti-lg d-sm-none"></span><span class="d-none d-sm-block">Personal Info</span></button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button type="button" class="nav-link waves-effect" data-bs-toggle="tab" data-bs-target="#form-tabs-account" aria-controls="form-tabs-account" role="tab" aria-selected="false" tabindex="-1"><span class="ti ti-user-cog ti-lg d-sm-none"></span><span class="d-none d-sm-block">Account Details</span></button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button type="button" class="nav-link waves-effect" data-bs-toggle="tab" data-bs-target="#form-tabs-social" aria-controls="form-tabs-social" role="tab" aria-selected="false" tabindex="-1"><span class="ti ti-link ti-lg d-sm-none"></span><span class="d-none d-sm-block">Social Links</span></button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
       </div>
     </div>
   </div>
   <!-- /FormValidation -->
+
+
+
+
+
+  
+
+
+
+
+
+
 </div>
 
           </div>

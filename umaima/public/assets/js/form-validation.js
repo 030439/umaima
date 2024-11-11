@@ -175,19 +175,28 @@ fetchSchemeDetails();
             resetPlots();
         }
     });
+    selectPlot.addEventListener("change", function () {
+        const plotId = selectPlot.value;
+        if (plotId) {
+            fetchPlotsDetails(plotId);
+        } else {
+            resetPlots();
+        }
+    });
 
     // Function to fetch and populate plots
-    function fetchPlots(schemeId) {
+    function fetchPlots(plotId) {
         $.ajax({
             method: "post",
             url: `/api/get-plots-by-scheme`,
             headers: {
                 "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
             },
-            data:{id:schemeId}, // Your endpoint for fetching plots
+            data:{id:plotId}, // Your endpoint for fetching plots
             success: function (response) {
                 if (response.success && response.plots) {
-                    populateDropdown(response.plots);
+                    populateDropdown('plot',response.plots);
+                    
                 } else {
                     showToast("Failed to fetch plots", "danger");
                 }
@@ -198,16 +207,29 @@ fetchSchemeDetails();
         });
     }
 
-    // Function to populate plots dropdown
-    function populatePlots(plots) {
-        resetPlots(); // Clear existing options first
-        plots.forEach(plot => {
-            const option = document.createElement("option");
-            option.value = plot.id; // Assuming each plot has an `id`
-            option.text = plot.name; // Assuming each plot has a `name`
-            selectPlot.add(option);
+    function fetchPlotsDetails(schemeId) {
+        $.ajax({
+            method: "post",
+            url: `/api/get-plots-detail`,
+            headers: {
+                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+            },
+            data:{id:schemeId}, // Your endpoint for fetching plots
+            success: function (response) {
+                if (response.success && response.detail) {
+                    $("#category").val(response.detail[0].category);
+                    $("#location").val(response.detail[0].location);
+                    $("#plot-size").val(response.detail[0].size);
+                } else {
+                    showToast("Failed to fetch plots", "danger");
+                }
+            },
+            error: function () {
+                showToast("Error fetching plots", "danger");
+            }
         });
     }
+
 
     // Function to reset plot dropdown to default
     function resetPlots() {
