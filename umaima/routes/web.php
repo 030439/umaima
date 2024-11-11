@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\PlotController;
 use App\Http\Controllers\SchemeController;
 use App\Http\Controllers\AlloteController;
+use App\Http\Controllers\LogController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -59,6 +60,8 @@ Route::middleware('auth')->group(function () {
     Route::controller(AlloteController::class)
     ->group(function(){
         Route::get('allote-listing','index')->name('allote.index');
-});
+    });
+    Route::get('/logs', [LogController::class,'index'])->middleware('auth');
+
 
 require __DIR__.'/auth.php';
