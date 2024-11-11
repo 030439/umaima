@@ -9,10 +9,9 @@
   <div class="container-xxl flex-grow-1 container-p-y">
       <div class="card">
         <div class="card-datatable table-responsive">
-                <table class="datatables-users table dataTable no-footer dtr-column collapsed">
+                <table class="datatables-users table dataTable no-footer collapsed">
                   <thead class="border-top">
                     <tr>
-                      <th></th>
                       <th></th>
                       <th> Scheme</th>
                       <th>Plot Number</th>
@@ -27,8 +26,6 @@
             </div>
       </div>
   </div>
-  7367f0 
-          
 @endsection
 @section('files')
 <script src="../../assets/vendor/libs/jquery/jquery.js"></script>
@@ -58,6 +55,6 @@
     
 
     <!-- Page JS -->
-    <script src="../../assets/js/app-user-list.js"></script>
+    <script src="../../assets/js/app-plot-list.js"></script>
 @endsection
           

@@ -52,7 +52,8 @@
         </div>
       </div>
       <div class="bs-stepper-content">
-        <form id="wizard-validation-form" onSubmit="return false">
+        <form id="wizard-validation-form" onSubmit="return false" method="post" action="{{route('allote.create')}}">
+          @csrf
           <!-- Account Details -->
           <div id="account-details-validation" class="content">
             <div class="content-header mb-4">
@@ -69,15 +70,15 @@
                 <input type="email" name="formValidationEmail" id="formValidationEmail" class="form-control" placeholder="john.doe@email.com" aria-label="john.doe" />
               </div>
               <div class="col-sm-6 form-password-toggle">
-                <label class="form-label" for="formValidationPass">Cell No</label>
+                <label class="form-label" for="formValidationcell">Cell No</label>
                 <div class="input-group input-group-merge">
-                  <input type="number" id="" name="formValidationPass" class="form-control" aria-describedby="formValidationPass2" />
+                  <input type="number" id="formValidationcell" name="formValidationcell" class="form-control" aria-describedby="formValidationPass2" />
                 </div>
               </div>
               <div class="col-sm-6 form-password-toggle">
-                <label class="form-label" for="formValidationConfirmPass">Phone No:Office </label>
+                <label class="form-label" for="formValidationoffice">Phone No:Office </label>
                 <div class="input-group input-group-merge">
-                  <input type="number" id="" name="" class="form-control"   />
+                  <input type="number" id="" name="formValidationoffice" class="form-control"   />
                  
                 </div>
               </div>
@@ -106,27 +107,27 @@
               </div>
               <div class="col-sm-6">
                 <label class="form-label" for="formValidationFirstName">Father's/Husband Name</label>
-                <input type="text" id="formValidationFirstName" name="formValidationFirstName" class="form-control" placeholder="John" />
+                <input type="text" id="formValidationFirstName" name="father" class="form-control" placeholder="John" />
               </div>
               <div class="col-sm-6">
                 <label class="form-label" for="formValidationLastName">CNIC </label>
-                <input type="text" id="formValidationLastName" name="formValidationLastName" class="form-control" placeholder="Doe" />
+                <input type="text" id="formValidationLastName" name="fcnic" class="form-control" placeholder="Doe" />
               </div>
               <div class="col-sm-6">
-                <label class="form-label" for="formValidationFirstName">Guardian Name</label>
-                <input type="text" id="formValidationFirstName" name="formValidationFirstName" class="form-control" placeholder="John" />
+                <label class="form-label" for="formValidation">Guardian Name</label>
+                <input type="text" id="formValidation" name="guardian" class="form-control" placeholder="John" />
               </div>
               <div class="col-sm-6">
-                <label class="form-label" for="formValidationLastName">CNIC </label>
-                <input type="text" id="formValidationLastName" name="formValidationLastName" class="form-control" placeholder="Doe" />
+                <label class="form-label" for="formValidation">CNIC </label>
+                <input type="text" id="formValidation" name="gcnic" class="form-control" placeholder="Doe" />
               </div>
               <div class="col-sm-6">
-                <label class="form-label" for="formValidationLastName">CNIC </label>
-                <input type="text" id="formValidationLastName" name="formValidationLastName" class="form-control" placeholder="Doe" />
+                <label class="form-label" for="formValidationOccupation">Occupation </label>
+                <input type="text" id="formValidationOccupation" name="occupation" class="form-control" placeholder="Doe" />
               </div>
               <div class="col-md-6">
                 <label class="form-label" for="multicol-birthdate">Birth Date</label>
-                <input type="text" id="multicol-birthdate" class="form-control dob-picker flatpickr-input active" placeholder="YYYY-MM-DD" readonly="readonly">
+                <input type="text" name="dob" id="multicol-birthdate" class="form-control dob-picker flatpickr-input active" placeholder="YYYY-MM-DD" readonly="readonly">
               </div>
               
               
@@ -149,19 +150,19 @@
             
             <div class="col-sm-6">
                 <label class="form-label" for="formValidationLastName">Nationality </label>
-                <input type="text" id="formValidationGoogle" name="formValidationLastName" class="form-control" placeholder="Doe" />
+                <input type="text" id="formValidationGoogle" name="nationality" class="form-control" placeholder="Doe" />
               </div>
-              <div class="col-sm-6">
+              <!-- <div class="col-sm-6">
                 <label class="form-label" for="formValidationLastName">Occupation </label>
                 <input type="text" id="formValidationLastName" name="formValidationLastName" class="form-control" placeholder="Doe" />
-              </div>
+              </div> -->
               <div class="col-sm-6">
                 <label class="form-label" for="formValidationLastName">Residence No </label>
-                <input type="text" id="formValidationLastName" name="formValidationLastName" class="form-control" placeholder="Doe" />
+                <input type="text" id="formValidationLastName" name="residence" class="form-control" placeholder="Doe" />
               </div>
               <div class="mb-6">
-                <label class="form-label" for="bs-validation-bio">Bio</label>
-                <textarea class="form-control" id="bs-validation-bio" name="bs-validation-bio" rows="3" required=""></textarea>
+                <label class="form-label" for="bs-validation-bio">Address</label>
+                <textarea class="form-control" id="bs-validation-bio" name="address" rows="3" required=""></textarea>
               </div>
               <div class="col-12 d-flex justify-content-between">
                 <button class="btn btn-label-secondary btn-prev"> <i class="ti ti-arrow-left ti-xs me-sm-2 me-0"></i>
@@ -177,16 +178,8 @@
   </div>
 </div>
 <hr class="container-m-nx mb-12">
-
-
-
-          </div>
-          <!-- / Content -->
-
-          
-          
-          @endsection
-          @section('files')
+@endsection
+@section('files')
     
 <script src="../../assets/vendor/libs/jquery/jquery.js"></script>
 <script src="../../assets/vendor/libs/popper/popper.js"></script>

@@ -70,7 +70,7 @@
     <!-- plot setup  -->
     <li class="menu-item" style="">
       <a href="javascript:void(0);" class="menu-link menu-toggle">
-        <i class="menu-icon tf-icons ti ti-users"></i>
+        <i class="menu-icon tf-icons ti ti-map"></i>
         <div>Plots</div>
       </a>
       <ul class="menu-sub">
@@ -128,6 +128,21 @@
                 <div>Scheme Plots</div>
               </a>
             </li>
+      </ul>
+    </li>
+
+    <!-- allote -->
+    <li class="menu-item  ">
+      <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons ti ti-id"></i>
+        <div >Alloties</div>
+      </a>
+      <ul class="menu-sub">
+        <li class="menu-item ">
+          <a href="{{ route('allote.index') }}" class="menu-link">
+            <div data-i18n="List">List</div>
+          </a>
+        </li>
       </ul>
     </li>
   </ul>

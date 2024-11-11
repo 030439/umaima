@@ -13,7 +13,7 @@ class RolePermissionGlobalMiddleware
         }
 
         if (!$this->checkPermission($request)) {
-            return response()->json(['error' => 'Unauthorized permission'], 403);
+            return response()->json(['error' => 'Unauthorized permission','success'=>false,'message'=>'Unauthorized permission'], 403);
         }
 
         return $next($request);

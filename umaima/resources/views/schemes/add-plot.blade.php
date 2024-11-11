@@ -6,65 +6,73 @@
 
   <div class="container-xxl flex-grow-1 container-p-y">
     
+  <style>
+      /* Error messages hidden by default */
+      .invalid-feedbacks {
+        display: none;
+        color: #ff4d4f; /* Red color for error messages */
+        font-size: 0.875em;
+      }
 
+      /* Highlight invalid fields */
+      .is-invalid {
+        border-color: #ff4d4f;
+      }
+  </style>
 <div class="row">
 <!-- FormValidation -->
 <div class="col-12">
 <div class="card">
-<h5 class="card-header">Create Scheme</h5>
+<h5 class="card-header">Create Scheme Plot</h5>
 <div class="card-body">
+    <form id="schemePlotForm" class="row g-6"  onsubmit="return false">
+        <div class="col-6">
+            <label class="form-label" for="schemeSelection">Scheme</label>
+            <select class="form-select" id="schemeSelection" name="schemeSelection" >
+                <option value="">Select Scheme</option>
+            </select>
+            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">Please select your scheme</div>
+        </div>
 
-<form id="formValidationExamples" class="row g-6">
-    <div class="col-6 ">
-        <label class="form-label" for="bs-validation-country">Scheme</label>
-        <select class="form-select" id="bs-validation-country" required="">
-            <option value="">Select Scheme</option>
-            <option value="usa">USA</option>
-            <option value="uk">UK</option>
-            <option value="france">France</option>
-            <option value="australia">Australia</option>
-            <option value="spain">Spain</option>
-        </select>
-        <div class="valid-feedback"> Looks good! </div>
-        <div class="invalid-feedback"> Please select your country </div>
-    </div>
-  <div class="col-md-6">
-    <label class="form-label" for="formValidationName">Plot Number</label>
-    <input type="text" id="formValidationName" class="form-control" placeholder="scheme name " name="formValidationName" />
-  </div>
-  <div class="col-6 ">
-        <label class="form-label" for="bs-validation-country">Plot Size</label>
-        <select class="form-select" id="bs-validation-country" required="">
-            <option value="">Select Scheme</option>
-            <option value="usa">USA</option>
-            <option value="uk">UK</option>
-            <option value="france">France</option>
-            <option value="australia">Australia</option>
-            <option value="spain">Spain</option>
-        </select>
-        <div class="valid-feedback"> Looks good! </div>
-        <div class="invalid-feedback"> Please select your country </div>
-    </div>
+        <div class="col-md-6">
+            <label class="form-label" for="plotNumber">Plot Number</label>
+            <input type="text" id="plotNumber" class="form-control" placeholder="Plot number" name="plotNumber"  />
+            <div class="invalid-feedback">Please enter the plot number.</div>
+        </div>
 
-    <div class="col-6 ">
-        <label class="form-label" for="bs-validation-country">Plot Location</label>
-        <select class="form-select" id="bs-validation-country" required="">
-            <option value="">Select Scheme</option>
-            <option value="usa">USA</option>
-            <option value="uk">UK</option>
-            <option value="france">France</option>
-            <option value="australia">Australia</option>
-            <option value="spain">Spain</option>
-        </select>
-        <div class="valid-feedback"> Looks good! </div>
-        <div class="invalid-feedback"> Please select your country </div>
-    </div>
-    <div class="col-12">
-    <button type="submit" name="submitButton" class="btn btn-primary">Submit</button>
-  </div>
-  </div>
-  
-</form>
+        <div class="col-6">
+            <label class="form-label" for="plotSize">Plot Size</label>
+            <select class="form-select" id="plotSize" name="plotSize" >
+                <option value="">Select Plot Size</option>
+            </select>
+            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">Please select the plot size.</div>
+        </div>
+        <div class="col-6">
+            <label class="form-label" for="plotCat">Plot Category</label>
+            <select class="form-select" id="plotCat" name="plotCat" >
+                <option value="">Select Plot Category</option>
+                <option value="1">Residential</option>
+                <option value="2">Commercial</option>
+            </select>
+            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">Please select the plot Category.</div>
+        </div>
+        <div class="col-12">
+            <label class="form-label" for="plotLocation">Plot Location</label>
+            <select class="form-select" id="plotLocation" name="plotLocation" >
+                <option value="">Select Plot Location</option>
+            </select>
+            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">Please select the plot location.</div>
+        </div>
+        
+
+        <div class="col-12">
+            <button type="submit" name="submitButton" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
 </div>
 </div>
 </div>
@@ -100,10 +108,7 @@
 
 <!-- Main JS -->
 <script src="../../assets/js/main.js"></script>
-
-
-<!-- Page JS -->
-<script src="../../assets/js/form-validation.js"></script>
+<script src="../../assets/js/app-add-scheme-plot.js"></script>
 
 
 @endsection

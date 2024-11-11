@@ -35,8 +35,8 @@ class RolePermissionController extends Controller
 
     public function permissionsList()
     {
-        $users = $this->permissionsService->getUsers();
-        return response()->json($users);
+        $all = $this->permissionsService->getAll();
+        return response()->json($all);
     }
 
     public function storePermission()

@@ -7,6 +7,7 @@ trait QueryTrait
 {
     public function fetchRecords(
         $table,
+        $columns=[],
         $perPage = 10,
         $page = 1,
         $filters = [],
@@ -15,10 +16,16 @@ trait QueryTrait
         $orderDirection = 'asc',
         $groupBy = [],
         $having = [],
-        $paginate = true
-    ) {
-        $query = DB::table($table)->select('*');
-
+        $paginate = true,
+        // Accept null here but handle it within the function
+        ) {
+            
+            // Force $columns to be an array with '*' if not provided or empty
+            $columns = is_array($columns) && !empty($columns) ? $columns : ['*'];
+        
+        
+        
+        $query = DB::table($table)->select($columns);
         // Apply joins if provided
         if (!empty($joins)) {
             foreach ($joins as $join) {
@@ -56,9 +63,11 @@ trait QueryTrait
 
         // Return paginated data or all records depending on $paginate flag
         if ($paginate) {
-            $records = $query->paginate($perPage, ['*'], 'page', $page);
+            $records = $query->paginate($perPage, $columns, 'page', $page);
+            $data = $records->items(); // Get paginated items
         } else {
             $records = $query->get();
+            $data = $records; // Get all records
         }
 
         // Return both paginated data and the total count
@@ -68,7 +77,5 @@ trait QueryTrait
             'recordsFiltered' => $total,
         ];
     }
-
-    
 }
 

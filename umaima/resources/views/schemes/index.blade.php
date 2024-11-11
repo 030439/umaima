@@ -14,10 +14,9 @@
       <div class="card">
         
         <div class="card-datatable table-responsive">
-                <table class="datatables-users table dataTable no-footer dtr-column collapsed">
+                <table class="datatables-users table dataTable no-footer collapsed">
                   <thead class="border-top">
                     <tr>
-                      <th></th>
                       <th></th>
                       <th> Scheme</th>
                       <th>Area</th>
@@ -65,6 +64,6 @@
     
 
     <!-- Page JS -->
-    <script src="../../assets/js/app-user-list.js"></script>
+    <script src="../../assets/js/app-scheme-list.js"></script>
 @endsection
           

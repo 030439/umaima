@@ -10,6 +10,7 @@ class CreatePlotSizesTable extends Migration
         Schema::create('plot_sizes', function (Blueprint $table) {
             $table->id();
             $table->string('size')->unique();
+            $table->string('status')->default('1'); 
             $table->softDeletes();
             $table->timestamps();
         });

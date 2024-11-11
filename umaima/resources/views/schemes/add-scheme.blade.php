@@ -6,7 +6,19 @@
 
   <div class="container-xxl flex-grow-1 container-p-y">
     
+  <style>
+      /* Error messages hidden by default */
+      .invalid-feedbacks {
+        display: none;
+        color: #ff4d4f; /* Red color for error messages */
+        font-size: 0.875em;
+      }
 
+      /* Highlight invalid fields */
+      .is-invalid {
+        border-color: #ff4d4f;
+      }
+  </style>
 <div class="row">
 <!-- FormValidation -->
 <div class="col-12">
@@ -14,39 +26,33 @@
 <h5 class="card-header">Create Scheme</h5>
 <div class="card-body">
 
-<form id="formValidationExamples" class="row g-6">
+<form id="schemeForm" class="row g-6" onsubmit="return false">
+  <div class="col-md-6">
+    <label class="form-label" for="schemeName">Scheme Name</label>
+    <input type="text" id="schemeName" class="form-control" placeholder="Scheme name" name="schemeName" />
+    <div class="invalid-feedback"></div>
+  </div>
+  
+  <div class="col-md-6">
+    <label class="form-label" for="schemeArea">Area</label>
+    <input class="form-control" type="number" id="schemeArea" name="schemeArea" placeholder="Scheme area" />
+  </div>
 
   <div class="col-md-6">
-    <label class="form-label" for="formValidationName">Scheme Name</label>
-    <input type="text" id="formValidationName" class="form-control" placeholder="scheme name " name="formValidationName" />
-  </div>
-  <div class="col-md-6">
-    <label class="form-label" for="formValidationEmail">Area</label>
-    <input class="form-control" type="number" id="formValidationEmail" name="formValidationEmail" placeholder="scheme area" />
+    <label class="form-label" for="numberOfPlots">No. of Plots</label>
+    <input class="form-control" type="number" id="numberOfPlots" name="numberOfPlots" placeholder="Number of plots" />
   </div>
 
   <div class="col-md-6">
-    <div class="form-password-toggle">
-      <label class="form-label" for="formValidationPass">No Plot</label>
-      <div class="input-group input-group-merge">
-        <input class="form-control" type="number" id="formValidationPass" name="formValidationPass" placeholder="number of plots"   />
-       
-      </div>
-    </div>
+    <label class="form-label" for="totalValuation">Total Valuation</label>
+    <input class="form-control" type="number" id="totalValuation" name="totalValuation" placeholder="Total valuation" />
   </div>
-  <div class="col-md-6">
-    <div class="form-password-toggle">
-      <label class="form-label" for="formValidationConfirmPass">Total Valuation</label>
-      <div class="input-group input-group-merge">
-        <input class="form-control" type="password" id="formValidationConfirmPass" name="formValidationConfirmPass" placeholder="total valuation" />
-        
-      </div>
-    </div>
-  </div>
+
   <div class="col-12">
     <button type="submit" name="submitButton" class="btn btn-primary">Submit</button>
   </div>
 </form>
+
 </div>
 </div>
 </div>
@@ -72,8 +78,6 @@
 <!-- Vendors JS -->
 <script src="../../assets/vendor/libs/select2/select2.js"></script>
 <script src="../../assets/vendor/libs/bootstrap-select/bootstrap-select.js"></script>
-<script src="../../assets/vendor/libs/moment/moment.js"></script>
-<script src="../../assets/vendor/libs/flatpickr/flatpickr.js"></script>
 <script src="../../assets/vendor/libs/typeahead-js/typeahead.js"></script>
 <script src="../../assets/vendor/libs/tagify/tagify.js"></script>
 <script src="../../assets/vendor/libs/@form-validation/popular.js"></script>
@@ -82,8 +86,7 @@
 
 <!-- Main JS -->
 <script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/app-scheme-list.js"></script>
 
 
-<!-- Page JS -->
-<script src="../../assets/js/form-validation.js"></script>
 @endsection

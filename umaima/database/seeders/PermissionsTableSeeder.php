@@ -34,6 +34,21 @@ class PermissionsTableSeeder extends Seeder
             ['name' => 'payroll.create', 'guard_name' => 'web'],
             ['name' => 'payroll.delete', 'guard_name' => 'web'],
 
+            ['name' => 'scheme.read', 'guard_name' => 'web'],
+            ['name' => 'scheme.write', 'guard_name' => 'web'],
+            ['name' => 'scheme.create', 'guard_name' => 'web'],
+            ['name' => 'scheme.delete', 'guard_name' => 'web'],
+
+            ['name' => 'plot.read', 'guard_name' => 'web'],
+            ['name' => 'plot.write', 'guard_name' => 'web'],
+            ['name' => 'plot.create', 'guard_name' => 'web'],
+            ['name' => 'plot.delete', 'guard_name' => 'web'],
+
+            ['name' => 'allote.read', 'guard_name' => 'web'],
+            ['name' => 'allote.write', 'guard_name' => 'web'],
+            ['name' => 'allote.create', 'guard_name' => 'web'],
+            ['name' => 'allote.delete', 'guard_name' => 'web'],
+
             ['name' => 'permissions.read', 'guard_name' => 'web'],
             ['name' => 'permissions.list', 'guard_name' => 'web'],
         ];
@@ -42,6 +57,15 @@ class PermissionsTableSeeder extends Seeder
         foreach ($permissions as $permission) {
             Permission::firstOrCreate($permission);
         }
+
+        DB::table('plot_categories')->insert([
+            'id' => 1,
+            'category_name'=>"Commercial"
+        ]);
+        DB::table('plot_categories')->insert([
+            'id' => 2,
+            'category_name'=>"Residentail"
+        ]);
 
         // Create admin role and assign permissions
         $adminRole = Role::firstOrCreate(['name' => 'admin']);

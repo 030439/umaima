@@ -4,6 +4,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\RolePermissionController;
+use App\Http\Controllers\SchemeController;
+use App\Http\Controllers\PlotController;
+use App\Http\Controllers\AlloteController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 
 /*
@@ -28,8 +31,14 @@ Route::middleware(['auth:sanctum','access'])->group(function () {
     Route::post('/permissions', [RolePermissionController::class, 'storePermission'])->name('permissions.store');
     Route::get('/permissions-listing', [RolePermissionController::class, 'getPermissions'])->name('permissions.read');
     Route::post('/assign-role', [RolePermissionController::class, 'assignRole'])->name('roles.assign');
+    Route::post('/create-scheme', [SchemeController::class, 'store'])->name('scheme.create');
+    Route::post('/schemes', [SchemeController::class, 'listing'])->name('scheme.read');
+    Route::post('/create-scheme-plot', [PlotController::class, 'store'])->name('plot.create');
+    Route::post('/plots', [PlotController::class, 'listing'])->name('plot.read');
+    Route::post("create-allote",[AlloteController::class,'store'])->name('allote.create');
 });
 Route::middleware('auth:sanctum')->group(function(){
+    Route::post('/get-scheme-details', [SchemeController::class, 'getSchemeDetails']);
     Route::post('/get-user', [UsersController::class, 'getUser'])->name('user.get');
     Route::get('/user', function (Request $request) {
         return $request->user();

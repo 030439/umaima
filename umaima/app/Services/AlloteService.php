@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\JsonResponse;
 use App\Models\Plot;
 use Exception;
-class PlotService
+class AlloteService
 {
     use QueryTrait;
 

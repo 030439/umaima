@@ -48,17 +48,20 @@ Route::middleware('auth')->group(function () {
         ->prefix('setup')
         ->group(function(){
             Route::get('plot-size','plotSize')->name('plot.size');
-            Route::get('plot-location','plotLocation')->name('plot.location');
+            Route::get('plot-location','plotSize')->name('plot.location');
             Route::get('plot.installments','installments')->name('plot.installments');
             Route::post('create-plot-location','createPlotLocation');
             Route::post('create-plot-size','createPlotSize');
+            Route::post('duration','duration');
+            Route::post('installment','installment');
     });
 
     Route::controller(SchemeController::class)
         ->group(function(){
             Route::get('scheme-listing','index')->name('scheme.index');
-            Route::get('create-scheme','createScheme')->name('scheme.create');
+            Route::get('create-scheme','createScheme')->name('scheme.add');
             Route::get('scheme-plots','schemePlots')->name('scheme.plots');
+            Route::get('plots','schemePlots');
             Route::get('add-scheme-plot','createSchemePlot')->name('scheme.plot');
     });
     Route::controller(AlloteController::class)

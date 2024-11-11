@@ -22,15 +22,19 @@
                     </div>
                     <div class="card-body">
                         <ul class="list-unstyled mb-0">
+                        @if ($locations->isNotEmpty())
+                        @foreach ($locations as $location)
                             <li class="mb-6">
                                 <div class="d-flex align-items-center">
                                 <div class="d-flex justify-content-between w-100 flex-wrap gap-2">
                                     <div class="me-2">
-                                    <h6 class="mb-0">Corner View</h6>
+                                        <h6 class="mb-0">{{ $location->location_name }}</h6>
                                     </div>
                                 </div>
                                 </div>
                             </li>
+                            @endforeach
+                            @endif
                         </ul>
                     </div>
                     </div>
@@ -51,18 +55,19 @@
                     </div>
                     <div class="card-body">
                         <ul class="list-unstyled mb-0">
+                        @if ($sizes->isNotEmpty())
+                        @foreach ($sizes as $size)
                             <li class="mb-6">
                                 <div class="d-flex align-items-center">
-                                <div class="d-flex justify-content-between w-100 flex-wrap gap-2">
-                                    <div class="me-2">
-                                    <h6 class="mb-0">Social Network</h6>
+                                    <div class="d-flex justify-content-between w-100 flex-wrap gap-2">
+                                        <div class="me-2">
+                                        <h6 class="mb-0">{{ $size->size }}</h6>
+                                        </div>
                                     </div>
-                                    <div class="d-flex align-items-center">
-                                    <p class="mb-0">5000 Foot</p>
-                                    </div>
-                                </div>
                                 </div>
                             </li>
+                        @endforeach
+                        @endif
                         </ul>
                     </div>
                     </div>
@@ -205,7 +210,7 @@
         $.ajax({
             method: "POST",
             url: "/setup/create-plot-location",
-            data: { location_: location },
+            data: { location_name: location },
             headers: {
                 "X-CSRF-TOKEN": csrfToken // Add CSRF token to request headers
             },

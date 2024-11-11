@@ -1,23 +1,25 @@
 <?php
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePlotLocationsTable extends Migration
+class CreateInstallmentsTable extends Migration
 {
     public function up()
     {
-        Schema::create('plot_locations', function (Blueprint $table) {
+        Schema::create('installments', function (Blueprint $table) {
             $table->id();
-            $table->string('location_name')->unique();
+            $table->Integer('installment');
             $table->string('status')->default('1'); 
             $table->softDeletes();
             $table->timestamps();
+
         });
     }
 
     public function down()
     {
-        Schema::dropIfExists('plot_locations');
+        Schema::dropIfExists('installments');
     }
 }

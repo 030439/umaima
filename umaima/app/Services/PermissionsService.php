@@ -23,7 +23,7 @@ class PermissionsService
         $this->request = $request; // Inject Request
     }
 
-    public function getUsers()
+    public function getAll()
     {
         // Use request parameters with fallback defaults
         $perPage = $this->request->input('perPage', 10);

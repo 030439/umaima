@@ -3,9 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Services\SchemeService;
 class SchemeController extends Controller
 {
+    protected $schemeservice;
+    public function __construct(SchemeService $schemeservice)
+    {
+        $this->schemeservice = $schemeservice; 
+    }
+
     public function index()
     {
         return view('schemes.index');
@@ -14,6 +20,11 @@ class SchemeController extends Controller
     {
         return view('schemes.add-scheme');
     }
+    public function store()
+    {
+        $result = $this->schemeservice->createScheme();
+        return ($result);
+    }
     public function schemePlots()
     {
         return view('schemes.plots');
@@ -21,5 +32,13 @@ class SchemeController extends Controller
     public function createSchemePlot()
     {
         return view('schemes.add-plot');
+    }
+    public function listing(){
+        $all = $this->schemeservice->getAll();
+        return response()->json($all);
+    }
+    public function getSchemeDetails(){
+        $all = $this->schemeservice->getSchemeDetails();
+        return $all;
     }
 }

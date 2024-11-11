@@ -11,6 +11,7 @@ class CreatePlotCategoriesTable extends Migration
         Schema::create('plot_categories', function (Blueprint $table) {
             $table->id();
             $table->string('category_name')->unique();
+            $table->string('status')->default('1'); 
             $table->softDeletes();
             $table->timestamps();
         });

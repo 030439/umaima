@@ -1,0 +1,17 @@
+{
+    "pages": [
+      {
+        "name": "Dashboard",
+        "icon": "ti-smart-home",
+        "url": "index.html"
+      }
+    ],
+    "members": [
+      {
+        "name": "Kp",
+        "subtitle": "Admin",
+        "src": "img/avatars/1.png",
+        "url": "app-user-view-account.html"
+      }
+    ]
+  }
