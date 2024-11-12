@@ -75,16 +75,21 @@
                 <div class="tab-pane fade" id="form-tabs-social" role="tabpanel">
                 
                     <div class="row g-6">
-                      <div class="col-sm-4">
+                      <div class="col-sm-6">
+                        <label class="form-label" for="alignment-birthdate">Booking Date</label>
+                        <input type="date" id="alignment-birthdate" class="form-control" name="bdate" placeholder="YYYY-MM-DD">
+                      </div>
+                      
+                      <div class="col-sm-6">
                         <label class="form-label" for="onbooking">On Booking</label>
                         <input type="number" id="onbooking" name="onbooking" class="form-control" placeholder="10000" />
                       </div>
-                      <div class="col-sm-4">
+                      <div class="col-sm-6">
                         <label class="form-label" for="allocation">Allocation </label>
                         <input type="number" id="allocation" name="allocation" class="form-control" placeholder="10000" />
                       </div>
                     
-                      <div class="col-sm-4">
+                      <div class="col-sm-6">
                         <label class="form-label" for="confirmation">Confirmation </label>
                         <input type="number" id="confirmation" name="confirmation" class="form-control" placeholder="10000" />
                       </div>
@@ -146,6 +151,15 @@
                           <tbody id="paymentDetailsTableBody">
                       
                           </tbody>
+                          <tfoot>
+                            <tr>
+                              <td  class="text-end"><strong>Total Amount:</strong></td>
+                              <td id="totalPlots">0</td>
+                              <td> <div class="col-12">
+                              <button id="confirm-btn" class="btn btn-primary waves-effect waves-light">Confirm</button>
+                            </div></td>
+                            </tr>
+                          </tfoot>
                       </table>
                     </div>
                   </div>
@@ -209,13 +223,14 @@
     <script src="../../assets/vendor/libs/typeahead-js/typeahead.js"></script>
     <script src="../../assets/vendor/js/menu.js"></script>
     
-    <!-- endbuild -->
+<!-- endbuild -->
 
-    <!-- Vendors JS -->
-    <script src="../../assets/vendor/libs/select2/select2.js"></script>
-<script src="../../assets/vendor/libs/bootstrap-select/bootstrap-select.js"></script>
+<!-- Vendors JS -->
 <script src="../../assets/vendor/libs/moment/moment.js"></script>
 <script src="../../assets/vendor/libs/flatpickr/flatpickr.js"></script>
+<script src="../../assets/vendor/libs/select2/select2.js"></script>
+<script src="../../assets/vendor/libs/bootstrap-select/bootstrap-select.js"></script>
+
 <script src="../../assets/vendor/libs/typeahead-js/typeahead.js"></script>
 <script src="../../assets/vendor/libs/tagify/tagify.js"></script>
 <script src="../../assets/vendor/libs/@form-validation/popular.js"></script>

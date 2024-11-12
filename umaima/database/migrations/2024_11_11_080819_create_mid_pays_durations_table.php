@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('mid_pays_durations', function (Blueprint $table) {
             $table->id();
+            $table->string('durationname'); 
             $table->Integer('durations');
             $table->string('status')->default('1'); 
             $table->softDeletes();

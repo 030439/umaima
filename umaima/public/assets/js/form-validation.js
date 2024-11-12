@@ -291,8 +291,6 @@ fetchSchemeDetails();
     function submitForm() {
         // Create a new FormData object from the form
         const formData = new FormData(document.getElementById("checkSchedule"));
-
-        // Perform AJAX request
         fetch("/api/show-payment-schedule", {
             method: "POST",
             body: formData,
@@ -303,7 +301,6 @@ fetchSchemeDetails();
         .then(response => response.json()) // Assuming JSON response
         .then(data => {
             // Pass the data to a function to render the table
-          
             renderTable(data);
         })
         .catch(error => console.error("Error:", error));
@@ -313,6 +310,7 @@ fetchSchemeDetails();
         if(response){
             
             let rows = '';
+            let totalPlots = 0;
             response.forEach(item => {
                 console.log(item);
               rows += `<tr>
@@ -320,12 +318,37 @@ fetchSchemeDetails();
                           <td>${item.amount}</td>
                           <td>${item.date}</td>
                        </tr>`;
+                       totalPlots += parseFloat(item.amount);
             });
             
             // Insert rows into the table body
             document.getElementById("paymentDetailsTableBody").innerHTML = rows;
+            document.getElementById("totalPlots").innerText = totalPlots;
         }else{
             document.getElementById("paymentDetailsTableBody").innerHTML = '<tr><td colspan="5">Error loading data.</td></tr>';
         }
        
     }
+
+    function confirmForm() {
+        // Create a new FormData object from the form
+        const formData = new FormData(document.getElementById("checkSchedule"));
+        fetch("/api/confirm-schedule", {
+            method: "POST",
+            body: formData,
+            headers: {
+                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+            },
+        })
+        .then(response => response.json()) // Assuming JSON response
+        .then(data => {
+            // Pass the data to a function to render the table
+            renderTable(data);
+        })
+        .catch(error => console.error("Error:", error));
+    }
+
+    const formButton = document.getElementById("confirm-btn");
+    formButton.addEventListener("click", function () {
+            confirmForm();
+    });

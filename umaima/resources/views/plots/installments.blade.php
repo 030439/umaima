@@ -57,13 +57,12 @@
                         <ul class="list-unstyled mb-0">
                         @if ($durations->isNotEmpty())
                         @foreach ($durations as $duration)
-                            <li class="mb-6">
-                                <div class="d-flex align-items-center">
-                                    <div class="d-flex justify-content-between w-100 flex-wrap gap-2">
-                                        <div class="me-2">
-                                        <h6 class="mb-0">{{ $duration->durations }}</h6>
-                                        </div>
-                                    </div>
+                            <li class="mb-6 d-flex justify-content-between align-items-center">
+                                <div class="d-flex justify-content-between w-100 flex-wrap">
+                                <h6 class="mb-0 ms-4 badge bg-label-info rounded">{{ $duration->durationname }}</h6>
+                                <div class="d-flex">
+                                    <p class="mb-0">{{ $duration->durations }}</p>
+                                </div>
                                 </div>
                             </li>
                         @endforeach
@@ -120,6 +119,11 @@
                         <h4 class="mb-2">Add New Duration </h4>
                         </div>
                         <form id="addsizeForm" class="row" onsubmit="return false">
+                        <div class="col-12 mb-4">
+                            <label class="form-label" for="durationname">Duration</label>
+                            <input type="text" id="durationname" name="durationname" class="form-control" placeholder="duration">
+                            <div class="fv-plugins-message-container invalid-feedbacks"></div>
+                        </div>
                         <div class="col-12 mb-4">
                             <label class="form-label" for="modalPermissionName">Duration</label>
                             <input type="text" id="plotsizefiled" name="modalPermissionName" class="form-control" placeholder="duration">
@@ -233,12 +237,12 @@
         });
     }
 
-    function createSize(plotsize) {
+    function createSize(plotsize,durationname) {
         // Function to handle plot size creation logic
         $.ajax({
             method: "POST",
             url: "/setup/duration",
-            data: { size: plotsize },
+            data: { size: plotsize,durationname:durationname },
             headers: {
                 "X-CSRF-TOKEN": csrfToken // Add CSRF token to request headers
             },
@@ -278,6 +282,7 @@
 
         // Validate Plot Size
         const plotsizefiled = document.getElementById("plotsizefiled");
+        const durationname = document.getElementById("durationname");
         if (plotsizefiled.value.trim() === "") {
             setError(plotsizefiled, "duratin  is required.");
             isValid = false;
@@ -288,7 +293,7 @@
 
         // Submit the form if valid
         if (isValid) {
-            createSize(plotsizefiled.value); // Pass the valid plot size to createSize function
+            createSize(plotsizefiled.value,durationname.value); // Pass the valid plot size to createSize function
         }
     });
 

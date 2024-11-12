@@ -237,6 +237,7 @@ class PlotService
         try {
             $validator = Validator::make($this->request->all(), [
                 'size' => 'required|integer|unique:mid_pays_durations,durations',
+                'durationname' => 'required|string',
             ]);
             if ($validator->fails()) {
                 return response()->json([
@@ -246,7 +247,9 @@ class PlotService
                 ], 422); // Unprocessable Entity
             }
             $size = $this->request->input('size');
+            $durationname = $this->request->input('durationname');
             DB::table('mid_pays_durations')->insert([
+                'durationname'=>$durationname,
                 'durations' => $size
             ]);
            logAction('created pay Duration', $size);
@@ -324,8 +327,8 @@ class PlotService
         });
         $duration=$durations->map(function ($duration) {
             return [
-                'value' => $duration->durations, // assuming 'id' is a unique identifier
-                'label' => $duration->durations // assuming 'name' holds the display name
+                'value' => $duration->id, // assuming 'id' is a unique identifier
+                'label' => $duration->durationname . ' - ' . $duration->durations." Months"// assuming 'name' holds the display name
             ];
         });
         return response()->json([
