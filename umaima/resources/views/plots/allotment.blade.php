@@ -18,131 +18,161 @@
     <div class="">
       <div class="">
       <div class="col">
-    <div class="card mb-6">
+        <div class="card mb-6">
 
 
-      <div class="card-body">
-        <div class="tab-content p-0">
-          <!-- Personal Info -->
-          <div class="tab-pane fade active show" id="form-tabs-personal" role="tabpanel">
-     
-              <div class="row g-6">
-                <div class="col-md-12">
-                    <label class="form-label" for="allote">Allote</label>
-                    <select id="allote" name="allote" class="form-select select2" data-allow-clear="true">
-                    <option value="">Select</option>
-                    </select>
-                </div>
-              </div>
-         
-          </div>
-          <!-- Account Details -->
-          <div class="tab-pane fade" id="form-tabs-account" role="tabpanel">
-         
-          <div class="row">
-          <div class="col-6">
-            <label class="form-label" for="scheme">Scheme</label>
-            <select id="scheme" name="scheme" class="form-select select2" data-allow-clear="true">
-              <option value="">Select</option>
-            </select>
-          </div>
-          <div class="col-6">
-            <label class="form-label" for="plot">Plot</label>
-            <select id="plot" name="plot" class="form-select select2" data-allow-clear="true">
-              <option value="">Select</option>
-            </select>
-          </div>
-
-          <div class="col-6 fv-plugins-icon-container">
-            <label class="form-label" for="category">Category</label>
-            <input type="text" id="category" class="form-control" placeholder="John Doe" name="category" readonly>
-          <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
-          <div class="col-md-6 fv-plugins-icon-container">
-            <label class="form-label" for="location">Location</label>
-            <input type="text" id="location" class="form-control" placeholder="John Doe" name="location" readonly>
-          <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
-          <div class="col-md-6 fv-plugins-icon-container">
-            <label class="form-label" for="plot-size">Plot Size</label>
-            <input type="text" id="plot-size" class="form-control" placeholder="John Doe" name="plot-size" readonly>
-          <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
+          <div class="card-body">
+            <form id="checkSchedule" class="row g-6"  onsubmit="return false">
+              <div class="tab-content p-0">
+                <!-- Personal Info -->
+                <div class="tab-pane fade active show" id="form-tabs-personal" role="tabpanel">
           
+                    <div class="row g-6">
+                      <div class="col-md-12">
+                          <label class="form-label" for="allote">Allote</label>
+                          <select id="allote" name="allote" class="form-select select2" data-allow-clear="true">
+                          <option value="">Select</option>
+                          </select>
+                      </div>
+                    </div>
               
-          </div>
-        
-          </div>
-          <!-- Social Links -->
-          <div class="tab-pane fade" id="form-tabs-social" role="tabpanel">
-          
-              <div class="row g-6">
-                <div class="col-md-6">
-                  <div class="row">
-                    <label class="col-sm-3 col-form-label text-sm-end" for="formtabs-twitter">Twitter</label>
-                    <div class="col-sm-9">
-                      <input type="text" id="formtabs-twitter" class="form-control" placeholder="https://twitter.com/abc">
-                    </div>
-                  </div>
                 </div>
-                <div class="col-md-6">
-                  <div class="row">
-                    <label class="col-sm-3 col-form-label text-sm-end" for="formtabs-facebook">Facebook</label>
-                    <div class="col-sm-9">
-                      <input type="text" id="formtabs-facebook" class="form-control" placeholder="https://facebook.com/abc">
-                    </div>
-                  </div>
+                <!-- Account Details -->
+                <div class="tab-pane fade" id="form-tabs-account" role="tabpanel">
+              
+                <div class="row">
+                <div class="col-6">
+                  <label class="form-label" for="scheme">Scheme</label>
+                  <select id="scheme" name="scheme" class="form-select select2" data-allow-clear="true">
+                    <option value="">Select</option>
+                  </select>
                 </div>
-                <div class="col-md-6">
-                  <div class="row">
-                    <label class="col-sm-3 col-form-label text-sm-end" for="formtabs-google">Google+</label>
-                    <div class="col-sm-9">
-                      <input type="text" id="formtabs-google" class="form-control" placeholder="https://plus.google.com/abc">
-                    </div>
+                <div class="col-6">
+                    <label class="form-label" for="plot">Plot</label>
+                    <select id="plot" name="plot" class="form-select select2" data-allow-clear="true">
+                      <option value="">Select</option>
+                    </select>
                   </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="row">
-                    <label class="col-sm-3 col-form-label text-sm-end" for="formtabs-linkedin">Linkedin</label>
-                    <div class="col-sm-9">
-                      <input type="text" id="formtabs-linkedin" class="form-control" placeholder="https://linkedin.com/abc">
-                    </div>
+
+                  <div class="col-6 fv-plugins-icon-container">
+                    <label class="form-label" for="category">Category</label>
+                    <input type="text" id="category" class="form-control" placeholder="John Doe" name="category" readonly>
+                    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
+                    <div class="col-md-6 fv-plugins-icon-container">
+                      <label class="form-label" for="location">Location</label>
+                      <input type="text" id="location" class="form-control" placeholder="John Doe" name="location" readonly>
+                    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
+                    <div class="col-md-6 fv-plugins-icon-container">
+                      <label class="form-label" for="plot-size">Plot Size</label>
+                      <input type="text" id="plot-size" class="form-control" placeholder="John Doe" name="plot-size" readonly>
+                    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
+                  
+                      
                   </div>
+              
                 </div>
-                <div class="col-md-6">
-                  <div class="row">
-                    <label class="col-sm-3 col-form-label text-sm-end" for="formtabs-instagram">Instagram</label>
-                    <div class="col-sm-9">
-                      <input type="text" id="formtabs-instagram" class="form-control" placeholder="https://instagram.com/abc">
+                <!-- Paymenys Schedule -->
+                <div class="tab-pane fade" id="form-tabs-social" role="tabpanel">
+                
+                    <div class="row g-6">
+                      <div class="col-sm-4">
+                        <label class="form-label" for="onbooking">On Booking</label>
+                        <input type="number" id="onbooking" name="onbooking" class="form-control" placeholder="10000" />
+                      </div>
+                      <div class="col-sm-4">
+                        <label class="form-label" for="allocation">Allocation </label>
+                        <input type="number" id="allocation" name="allocation" class="form-control" placeholder="10000" />
+                      </div>
+                    
+                      <div class="col-sm-4">
+                        <label class="form-label" for="confirmation">Confirmation </label>
+                        <input type="number" id="confirmation" name="confirmation" class="form-control" placeholder="10000" />
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label" for="installment">installment</label>
+                        <select id="installment" name="installment" class="form-select select2" data-allow-clear="true">
+                          <option value="">Select</option>
+                        </select>
+                      </div>
+                      <div class="col-sm-6">
+                        <label class="form-label" for="installment_amount">Amount</label>
+                        <input type="number" id="installment_amount" name="installment_amount" class="form-control" placeholder="John" />
+                      </div>
+                      <div class="col-6">
+                          <label class="form-label" for="duration">Mid Pay Durations</label>
+                          <select id="duration" name="duration" class="form-select select2" data-allow-clear="true">
+                            <option value="">Select</option>
+                          </select>
+                        </div>
+                        <div class="col-sm-6">
+                        <label class="form-label" for="duration_amount">Amount</label>
+                        <input type="number" id="duration_amount" name="duration_amount" class="form-control" placeholder="John" />
+                      </div>
+                      <div class="col-6">
+                          <label class="form-label" for="extra">Extra Charges</label>
+                          <select id="extra" name="extra" class="form-select select2" data-allow-clear="true">
+                            <option value="">Select</option>
+                            <option value="corner">Corner</option>
+                            <option value="west">West Open</option>
+                            <option value="road">Road Facing</option>
+                          </select>
+                        </div>
+                        <div class="col-sm-6">
+                        <label class="form-label" for="percentage">Percentage</label>
+                        <input type="number" id="percentage" name="percentage" class="form-control" placeholder="0.5" />
+                      </div>
+                      <div class="col-sm-6">
+                        <label class="form-label" for="possession">Possession </label>
+                        <input type="number" id="possession" name="possession" class="form-control" placeholder="10000" />
+                      </div>
+                      <div class="col-sm-6">
+                        <label class="form-label" for="demargation">Demargation </label>
+                        <input type="number" id="demargation" name="demargation" class="form-control" placeholder="10000" />
+                      </div>
                     </div>
-                  </div>
                 </div>
-                <div class="col-md-6">
+                <div class="tab-pane fade" id="form-tabs-detail" role="tabpanel">
                   <div class="row">
-                    <label class="col-sm-3 col-form-label text-sm-end" for="formtabs-quora">Quora</label>
-                    <div class="col-sm-9">
-                      <input type="text" id="formtabs-quora" class="form-control" placeholder="https://quora.com/abc">
+                    <div class="col-12">
+                    <table class="table table-bordered mt-4" id="table-detail">
+                          <thead>
+                              <tr>
+                                  <th>Payments</th>
+                                  <th>Due Amount</th>
+                                  <th>Due Date </th>
+                                  <!-- Add more headers as per your data structure -->
+                              </tr>
+                          </thead>
+                          <tbody id="paymentDetailsTableBody">
+                      
+                          </tbody>
+                      </table>
                     </div>
                   </div>
                 </div>
               </div>
+            </form>
+          </div>
+          <div class="card-header px-0 pt-0">
+            <div class="nav-align-top">
+              <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button type="button" class="nav-link waves-effect active" data-bs-toggle="tab" data-bs-target="#form-tabs-personal" aria-controls="form-tabs-personal" role="tab" aria-selected="true"><span class="ti ti-user ti-lg d-sm-none"></span><span class="d-none d-sm-block">Allote Info</span></button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button type="button" class="nav-link waves-effect" data-bs-toggle="tab" data-bs-target="#form-tabs-account" aria-controls="form-tabs-account" role="tab" aria-selected="false" tabindex="-1"><span class="ti ti-user-cog ti-lg d-sm-none"></span><span class="d-none d-sm-block">Property Details</span></button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button type="button" class="nav-link waves-effect" data-bs-toggle="tab" data-bs-target="#form-tabs-social" aria-controls="form-tabs-social" role="tab" aria-selected="false" tabindex="-1"><span class="ti ti-link ti-lg d-sm-none"></span><span class="d-none d-sm-block">Payments Schedule</span></button>
+                </li>
+                <li class="nav-item" role="presentation">
+                <button id="actionButton" type="submit"disabled  class="nav-link waves-effect" data-bs-toggle="tab" data-bs-target="#form-tabs-detail" aria-controls="form-tabs-social" role="tab" aria-selected="false" tabindex="-1"><span class="ti ti-link ti-lg d-sm-none"></span><span class="d-none d-sm-block">Payments Details</span></button>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
-      <div class="card-header px-0 pt-0">
-        <div class="nav-align-top">
-          <ul class="nav nav-tabs" role="tablist">
-            <li class="nav-item" role="presentation">
-              <button type="button" class="nav-link waves-effect active" data-bs-toggle="tab" data-bs-target="#form-tabs-personal" aria-controls="form-tabs-personal" role="tab" aria-selected="true"><span class="ti ti-user ti-lg d-sm-none"></span><span class="d-none d-sm-block">Personal Info</span></button>
-            </li>
-            <li class="nav-item" role="presentation">
-              <button type="button" class="nav-link waves-effect" data-bs-toggle="tab" data-bs-target="#form-tabs-account" aria-controls="form-tabs-account" role="tab" aria-selected="false" tabindex="-1"><span class="ti ti-user-cog ti-lg d-sm-none"></span><span class="d-none d-sm-block">Account Details</span></button>
-            </li>
-            <li class="nav-item" role="presentation">
-              <button type="button" class="nav-link waves-effect" data-bs-toggle="tab" data-bs-target="#form-tabs-social" aria-controls="form-tabs-social" role="tab" aria-selected="false" tabindex="-1"><span class="ti ti-link ti-lg d-sm-none"></span><span class="d-none d-sm-block">Social Links</span></button>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
       </div>
     </div>
   </div>

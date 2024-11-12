@@ -312,6 +312,28 @@ class PlotService
             'plots' => $allote
         ]);
     }
+    public function getInstallments(){
+        $installments = DB::table('installments')->get();
+        $durations = DB::table('mid_pays_durations')->get();
+
+        $installment=$installments->map(function ($installment) {
+            return [
+                'value' => $installment->installment, // assuming 'id' is a unique identifier
+                'label' => $installment->installment // assuming 'name' holds the display name
+            ];
+        });
+        $duration=$durations->map(function ($duration) {
+            return [
+                'value' => $duration->durations, // assuming 'id' is a unique identifier
+                'label' => $duration->durations // assuming 'name' holds the display name
+            ];
+        });
+        return response()->json([
+            'success' => true,
+            'duration' => $duration,
+            'installment'=>$installment
+        ]);
+    }
     public function  getplotDetails(){
         $id=$this->request->input('id');
             $allotes = DB::table('plots')

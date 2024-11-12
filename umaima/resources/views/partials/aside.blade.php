@@ -79,6 +79,11 @@
             <div data-i18n="List">List</div>
           </a>
         </li> -->
+        <li class="menu-item">
+              <a href="{{ route('allotment.form') }}" class="menu-link">
+                <div>Plot Allotment</div>
+              </a>
+            </li>
 
         <li class="menu-item" style="">
           <a href="javascript:void(0);" class="menu-link menu-toggle">

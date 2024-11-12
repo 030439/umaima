@@ -54,7 +54,7 @@ Route::middleware('auth')->group(function () {
             Route::post('create-plot-size','createPlotSize');
             Route::post('duration','duration');
             Route::post('installment','installment');
-            Route::get('plot-alltment','plotAllotment');
+            Route::get('plot-alltment','plotAllotment')->name('allotment.form');
     });
 
     Route::controller(SchemeController::class)

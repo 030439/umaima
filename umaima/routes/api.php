@@ -37,12 +37,15 @@ Route::middleware(['auth:sanctum','access'])->group(function () {
     Route::post('/plots', [PlotController::class, 'listing'])->name('plot.read');
     Route::post("create-allote",[AlloteController::class,'store'])->name('allote.create');
     Route::get("allote-list",[AlloteController::class,'listing'])->name('allote.read');
+    Route::post('/plot-allotment', [PlotController::class, 'listing'])->name('allotment.create');
 });
 Route::middleware('auth:sanctum')->group(function(){
     Route::post("get-alloties",[AlloteController::class,'getAlloties']);
     Route::post('/get-scheme-details', [SchemeController::class, 'getSchemeDetails']);
     Route::post('/get-plots-by-scheme', [PlotController::class, 'getplotByScheme']);
+    Route::post('get-installments',[PlotController::class,'getInstallments']);
     Route::post('/get-plots-detail', [PlotController::class, 'getplotDetails']);
+    Route::post('/show-payment-schedule', [PlotController::class, 'paymentSchedule']);
     Route::post('/get-user', [UsersController::class, 'getUser'])->name('user.get');
     Route::get('/user', function (Request $request) {
         return $request->user();

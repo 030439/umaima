@@ -219,6 +219,6 @@
     
 
     <!-- Page JS -->
-    <script src="../../assets/js/app-user-list.js"></script>
+    <script src="../../assets/js/app-allote-list.js"></script>
 @endsection
           
