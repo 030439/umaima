@@ -244,7 +244,6 @@
                 });
                 // Optionally, you can redirect or reset the form here
                 window.location.href="allote-listing";
-                form.reset();  // Reset form after successful submission
             } else {
                 Swal.fire({
                     icon: 'error',

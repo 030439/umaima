@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\JsonResponse;
 use App\Models\Plot;
+use App\Models\AllocationDetail;
+use Carbon\Carbon;
 use Exception;
 class PlotService
 {
@@ -127,7 +129,9 @@ class PlotService
                     'scheme_id' => $this->request->input('plot.scheme'),
                     'plot_size_id' => $this->request->input('plot.plotSize'),
                     'plot_location_id' => $this->request->input('plot.plotLocation'),
-                    'plot_category_id'=>$this->request->input('plot.plotCat')
+                    'plot_category_id'=>$this->request->input('plot.plotCat'),
+                    'created_at' => now(), // Set created_at to current timestamp
+                    'updated_at' => now(),
                 ]);
         
                 // Log the action
@@ -164,7 +168,9 @@ class PlotService
             }
             $size = $this->request->input('size');
             DB::table('plot_sizes')->insert([
-                'size' => $size
+                'size' => $size,
+                'created_at' => now(), // Set created_at to current timestamp
+                'updated_at' => now(),
             ]);
            logAction('Created Plot size', $size);
             $response = [
@@ -204,7 +210,9 @@ class PlotService
 
             // Step 1: Create the role
             DB::table('plot_locations')->insert([
-                'location_name' => $location_
+                'location_name' => $location_,
+                'created_at' => now(), // Set created_at to current timestamp
+                'updated_at' => now(),
             ]);
             logAction('Created Plot location', $location_);
 
@@ -361,4 +369,196 @@ class PlotService
             'detail' => $allote
         ]);
     }
+
+    //show payment schedule
+    public function paymentSchedule() {
+        $installmentCount = (int) $this->request->input('installment');  
+        $durationAmount = $this->request->input('duration_amount'); 
+        $installment_amount = $this->request->input('installment_amount');
+
+        $bdate = $this->request->input('bdate');
+        $convertedDate = Carbon::createFromFormat('Y-m-d', $bdate)->format('d-M-Y'); // String here
+
+        // Create new Carbon instance to format further
+        $carbonDate = Carbon::createFromFormat('d-M-Y', $convertedDate);
+        $month = $carbonDate->format('M');
+        $year = $carbonDate->format('Y');
+        $dateString = "15-{$month}-{$year}";
+        $startDate = Carbon::createFromFormat('d-M-Y', $dateString); 
+    
+        $did = (int) $this->request->input('duration'); 
+        $allotes = DB::table('mid_pays_durations')
+                    ->select('*')
+                    ->where('id', $did)
+                    ->first();
+        $duration = $allotes->durations;
+    
+        $bookingDate = $carbonDate->format('d-M-Y');
+        $date2 = $startDate->copy()->addMonths(1);
+        $allocationDate = $date2->format('d-M-Y');
+        $date3 = $startDate->copy()->addMonths(2);
+        $confirmationDate = $date3->format('d-M-Y');
+    
+        $response = [
+            [
+                "payment" => "Booking",
+                "amount" => $this->request->input('onbooking'),
+                "date" => $bookingDate
+            ],
+            [
+                "payment" => "Allocation",
+                "amount" => $this->request->input('allocation'),
+                "date" => $allocationDate
+            ],
+            [
+                "payment" => "Confirmation",
+                "amount" => $this->request->input('confirmation'),
+                "date" => $confirmationDate
+            ],
+        ];
+    
+        $durationCount = 0;
+        $counter = 0;
+        $installmentStartDate = Carbon::createFromFormat('d-M-Y', $confirmationDate); 
+    
+        for ($i = 1; $i <= $installmentCount; $i++) {
+            $counter++;
+            $installmentDate = $installmentStartDate->copy()->addMonths($i); 
+            $response[] = [
+                "payment" => "Installment " . $i,
+                "amount" => $installment_amount,
+                "date" => $installmentDate->format('d-M-Y')
+            ];
+    
+            if ($counter == $duration) {
+                $durationCount++;
+                $response[] = [
+                    "payment" => "Duration " . $durationCount,
+                    "amount" => $durationAmount,
+                    "date" => $installmentDate->format('d-M-Y')
+                ];
+                $counter = 0;
+            }
+    
+            $last_date = $installmentDate;
+        }
+    
+        $response[] = [
+            "payment" => "Demargation",
+            "amount" => $this->request->input('demargation'),
+            "date" => $last_date->copy()->addMonths(1)->format('d-M-Y')
+        ];
+        $response[] = [
+            "payment" => "Possession",
+            "amount" => $this->request->input('possession'),
+            "date" => $last_date->copy()->addMonths(2)->format('d-M-Y')
+        ];
+    
+        return ($response);
+    }
+    //store scheule on confirmation
+    public function confirmSchedule(){
+        $schedule=$this->paymentSchedule();
+       
+        try {
+
+            $validator = Validator::make($this->request->all(), [
+                'plot' => 'required|unique:allocation_details,plot',
+                'allote' => 'required|integer',
+                'scheme' => 'required|integer',
+                'bdate' => 'required|date',
+                'onbooking' => 'required|integer',
+                'allocation' => 'required|integer',
+                'confirmation' => 'required|integer',
+                'installment' => 'required|integer',
+                'duration' => 'required|integer',
+                'extra' => 'required|string',
+                'percentage' => 'required|numeric',
+                'possession' => 'required|integer',
+                'demargation' => 'required|integer',
+            ]);
+            
+            if ($validator->fails()) {
+                // Join all the error messages with a new line break
+                $errors = $validator->errors()->all(); // Get all errors as an array
+                $errorMessages = implode("\n", $errors); // Convert array to string with line breaks
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Validation failed',
+                    'errors' => $errorMessages, // Return the errors as a string with new lines
+                ]); // Unprocessable Entity
+            }
+                $plot = $this->request->input('plot');
+                $allote = $this->request->input('allote');
+                $data = [
+                    'allote' => $this->request->input('allote'),
+                    'scheme' => $this->request->input('scheme'),
+                    'status' => '1', // Default status or get it from input if needed
+                    'plot' => $this->request->input('plot'),
+                    'bdate' => $this->request->input('bdate'),
+                    'onbooking' => $this->request->input('onbooking'),
+                    'allocation' => $this->request->input('allocation'),
+                    'confirmation' => $this->request->input('confirmation'),
+                    'installment' => $this->request->input('installment'),
+                    'duration' => $this->request->input('duration'),
+                    'extra' => $this->request->input('extra'),
+                    'percentage' => $this->request->input('percentage'),
+                    'possession' => $this->request->input('possession'),
+                    'demargation' => $this->request->input('demargation'),
+                    'created_at' => now(), // Set created_at to current timestamp
+                    'updated_at' => now(),
+                ];
+            
+                // Begin transaction to handle rollbacks on error
+                DB::beginTransaction();
+                $allocationDetail = AllocationDetail::create($data);
+                $status=['status'=>0];
+                Plot::where('id', $plot)->update($status);     
+                if ($allocationDetail) {
+                    $aid = $allocationDetail->id;
+                    foreach ($schedule as $pay) {
+                        $Q = DB::table('payment_schedule')->insert([
+                            'allocation_details_id' => $aid,
+                            'payment' => $pay['payment'],
+                            'amount' => $pay['amount'],
+                            'pay_date' => $pay['date'],
+                            'created_at' => now(), // Set created_at to current timestamp
+                            'updated_at' => now(),
+                        ]);
+            
+                        // Check if the insertion failed
+                        if (!$Q) {
+                            throw new Exception('Failed to insert payment schedule data.');
+                        }
+                    }
+            
+                    // If all inserts succeed, commit the transaction and return success response
+                    DB::commit();
+                    logAction('Plot Allocation Created', "Plot no ". $plot ." to Allote".$allote);
+                    $response = [
+                        'message' => 'Plot Allocated successfully!',
+                        'success' => true,
+                    ];
+                } else {
+                    // If AllocationDetail creation fails
+                    DB::rollBack();
+                    $response = [
+                        'errors' => 'Failed to create Plot Location.',
+                        'success' => false
+                    ];
+                }
+            
+                return response()->json($response);
+            } catch (Exception $e) {
+                DB::rollBack();
+            
+                $response = [
+                    'errors' => $e->getMessage(),
+                    'success' => false
+                ];
+                return response()->json($response);
+            }
+            
+    }
+
 }

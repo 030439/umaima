@@ -64,6 +64,7 @@ Route::middleware('auth')->group(function () {
             Route::get('scheme-plots','schemePlots')->name('scheme.plots');
             Route::get('plots','schemePlots');
             Route::get('add-scheme-plot','createSchemePlot')->name('scheme.plot');
+            Route::get('alloted-plot-listing','allotedPlotListing')->name('alloted.index');
     });
     Route::controller(AlloteController::class)
     ->group(function(){

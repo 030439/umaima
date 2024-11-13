@@ -33,6 +33,10 @@ class SchemeController extends Controller
     {
         return view('schemes.add-plot');
     }
+    public function allotedPlotListing(){
+        $groupedPlots = $this->schemeservice->allotedPlotListing();
+        return view('plots.alloted-plot', compact('groupedPlots'));
+    }
     public function listing(){
         $all = $this->schemeservice->getAll();
         return response()->json($all);

@@ -237,12 +237,19 @@
 <script src="../../assets/vendor/libs/@form-validation/bootstrap5.js"></script>
 <script src="../../assets/vendor/libs/@form-validation/auto-focus.js"></script>
 
-    <!-- Main JS -->
-    <script src="../../assets/js/main.js"></script>
-    
+<script src="../../assets/vendor/libs/sweetalert2/sweetalert2.js"></script>
 
-    <!-- Page JS -->
-    <script src="../../assets/js/form-validation.js"></script>
+<!-- Main JS -->
+<script src="../../assets/js/main.js"></script>
+
+
+<!-- Page JS -->
+<script src="../../assets/js/extended-ui-sweetalert2.js"></script>
+
+
+
+<!-- Page JS -->
+<script src="../../assets/js/form-validation.js"></script>
     
     @endsection
 

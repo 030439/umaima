@@ -149,6 +149,44 @@ class SchemeService
             ]);
         }
     }
+
+     public function allotedPlotListing()
+    {
+        // Fetch plots with related scheme details
+            // Query to fetch plots and related scheme information
+            $plots = DB::table('plots')
+            ->join('schemes', 'plots.scheme_id', '=', 'schemes.id')
+            ->select(
+                'plots.id as id',
+                'plots.status as status',
+                'plots.plot_number',
+                'schemes.name as scheme'
+            )
+            ->get();
+
+            // Group plots by scheme name
+            $groupedPlots = $plots->groupBy('scheme');
+
+            // Format the response as desired
+            $response = [];
+            foreach ($groupedPlots as $schemeName => $plots) {
+                $response[] = [
+                    'scheme' => $schemeName,
+                    'plots' => $plots->mapWithKeys(function ($plot) {
+                        return [
+                            $plot->id => [
+                                'status' => $plot->status,
+                                'plot_number' => $plot->plot_number,
+                            ],
+                        ];
+                    })->all(),
+                ];
+            }
+
+            // Output the response
+            return ($response);
+
+    }
      
     
 }

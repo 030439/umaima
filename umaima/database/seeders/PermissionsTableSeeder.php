@@ -54,6 +54,41 @@ class PermissionsTableSeeder extends Seeder
             ['name' => 'allotment.create', 'guard_name' => 'web'],
             ['name' => 'allotment.delete', 'guard_name' => 'web'],
 
+            ['name' => 'schedule.read', 'guard_name' => 'web'],
+            ['name' => 'schedule.write', 'guard_name' => 'web'],
+            ['name' => 'schedule.create', 'guard_name' => 'web'],
+            ['name' => 'schedule.delete', 'guard_name' => 'web'],
+
+            ['name' => 'bank.read', 'guard_name' => 'web'],
+            ['name' => 'bank.write', 'guard_name' => 'web'],
+            ['name' => 'bank.create', 'guard_name' => 'web'],
+            ['name' => 'bank.delete', 'guard_name' => 'web'],
+
+            ['name' => 'payment.read', 'guard_name' => 'web'],
+            ['name' => 'payment.write', 'guard_name' => 'web'],
+            ['name' => 'payment.create', 'guard_name' => 'web'],
+            ['name' => 'payment.delete', 'guard_name' => 'web'],
+
+            ['name' => 'voucher.read', 'guard_name' => 'web'],
+            ['name' => 'voucher.write', 'guard_name' => 'web'],
+            ['name' => 'voucher.create', 'guard_name' => 'web'],
+            ['name' => 'voucher.delete', 'guard_name' => 'web'],
+
+            ['name' => 'ledger.read', 'guard_name' => 'web'],
+            ['name' => 'ledger.write', 'guard_name' => 'web'],
+            ['name' => 'ledger.create', 'guard_name' => 'web'],
+            ['name' => 'ledger.delete', 'guard_name' => 'web'],
+
+            ['name' => 'account-head.read', 'guard_name' => 'web'],
+            ['name' => 'account-head.write', 'guard_name' => 'web'],
+            ['name' => 'account-head.create', 'guard_name' => 'web'],
+            ['name' => 'account-head.delete', 'guard_name' => 'web'],
+
+            ['name' => 'invoice.read', 'guard_name' => 'web'],
+            ['name' => 'invoice.write', 'guard_name' => 'web'],
+            ['name' => 'invoice.create', 'guard_name' => 'web'],
+            ['name' => 'invoice.delete', 'guard_name' => 'web'],
+
             ['name' => 'permissions.read', 'guard_name' => 'web'],
             ['name' => 'permissions.list', 'guard_name' => 'web'],
         ];
@@ -63,14 +98,14 @@ class PermissionsTableSeeder extends Seeder
             Permission::firstOrCreate($permission);
         }
 
-        // DB::table('plot_categories')->insert([
-        //     'id' => 1,
-        //     'category_name'=>"Commercial"
-        // ]);
-        // DB::table('plot_categories')->insert([
-        //     'id' => 2,
-        //     'category_name'=>"Residentail"
-        // ]);
+        DB::table('plot_categories')->insert([
+            'id' => 1,
+            'category_name'=>"Commercial"
+        ]);
+        DB::table('plot_categories')->insert([
+            'id' => 2,
+            'category_name'=>"Residentail"
+        ]);
 
         // Create admin role and assign permissions
         $adminRole = Role::firstOrCreate(['name' => 'admin']);

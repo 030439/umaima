@@ -330,9 +330,11 @@ fetchSchemeDetails();
        
     }
 
-    function confirmForm() {
+    function confirmForm(event) {
+    
         // Create a new FormData object from the form
         const formData = new FormData(document.getElementById("checkSchedule"));
+    
         fetch("/api/confirm-schedule", {
             method: "POST",
             body: formData,
@@ -340,13 +342,43 @@ fetchSchemeDetails();
                 "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
             },
         })
-        .then(response => response.json()) // Assuming JSON response
-        .then(data => {
-            // Pass the data to a function to render the table
-            renderTable(data);
+        .then(response => {
+            if (!response.ok) { // Check for HTTP errors
+                throw new Error("Network response was not ok");
+            }
+            return response.json(); // Assuming JSON response
         })
-        .catch(error => console.error("Error:", error));
+        .then(data => {
+            if (data.success) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success!',
+                    text: data.message,
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+    
+                // Redirect after success
+                setTimeout(function() {
+                    window.location.href = "/alloted-plot-listing";
+                }, 2000); 
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: data.errors,
+                });
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            Swal.fire({
+                icon: 'error',
+                text: error,
+            });
+        });
     }
+    
 
     const formButton = document.getElementById("confirm-btn");
     formButton.addEventListener("click", function () {

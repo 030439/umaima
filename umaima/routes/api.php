@@ -38,6 +38,7 @@ Route::middleware(['auth:sanctum','access'])->group(function () {
     Route::post("create-allote",[AlloteController::class,'store'])->name('allote.create');
     Route::get("allote-list",[AlloteController::class,'listing'])->name('allote.read');
     Route::post('/plot-allotment', [PlotController::class, 'listing'])->name('allotment.create');
+    Route::post('/confirm-schedule', [PlotController::class, 'confirmSchedule'])->name('schedule.create');
 });
 Route::middleware('auth:sanctum')->group(function(){
     Route::post("get-alloties",[AlloteController::class,'getAlloties']);
