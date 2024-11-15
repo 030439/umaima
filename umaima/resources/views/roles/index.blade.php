@@ -1,6 +1,6 @@
 
 @extends('layout.app')
-
+<?php $breadCrumb=' <span class="text-primary">Roles</span></i>'?>
 @section('title', 'Home Page')
 @section('content')
 <div class="content-wrapper">
@@ -193,7 +193,6 @@
         <table class="datatables-users table border-top">
           <thead>
             <tr>
-              <th></th>
               <th></th>
               <th>User</th>
               <th>Role</th>

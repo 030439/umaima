@@ -6,6 +6,7 @@ use App\Http\Controllers\UsersController;
 use App\Http\Controllers\RolePermissionController;
 use App\Http\Controllers\SchemeController;
 use App\Http\Controllers\PlotController;
+use App\Http\Controllers\BankController;
 use App\Http\Controllers\AlloteController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 
@@ -31,6 +32,7 @@ Route::middleware(['auth:sanctum','access'])->group(function () {
     Route::post('/permissions', [RolePermissionController::class, 'storePermission'])->name('permissions.store');
     Route::get('/permissions-listing', [RolePermissionController::class, 'getPermissions'])->name('permissions.read');
     Route::post('/assign-role', [RolePermissionController::class, 'assignRole'])->name('roles.assign');
+    //Schemes and allotments
     Route::post('/create-scheme', [SchemeController::class, 'store'])->name('scheme.create');
     Route::post('/schemes', [SchemeController::class, 'listing'])->name('scheme.read');
     Route::post('/create-scheme-plot', [PlotController::class, 'store'])->name('plot.create');
@@ -39,6 +41,13 @@ Route::middleware(['auth:sanctum','access'])->group(function () {
     Route::get("allote-list",[AlloteController::class,'listing'])->name('allote.read');
     Route::post('/plot-allotment', [PlotController::class, 'listing'])->name('allotment.create');
     Route::post('/confirm-schedule', [PlotController::class, 'confirmSchedule'])->name('schedule.create');
+    //accounts
+    Route::controller(BankController::class)
+        ->prefix('banks')
+        ->group(function(){
+            Route::post('listing','listing')->name('bank.read');
+            Route::post('store','store')->name('bank.create');
+    });
 });
 Route::middleware('auth:sanctum')->group(function(){
     Route::post("get-alloties",[AlloteController::class,'getAlloties']);

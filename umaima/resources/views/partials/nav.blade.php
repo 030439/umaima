@@ -14,7 +14,7 @@
         <!-- Search -->
         <div class="navbar-nav align-items-center">
           <div class="nav-item navbar-search-wrapper mb-0">
-                  <i>home / <span class="text-primary">users</span></i>
+                  <i>home / <?php echo $breadCrumb;?></i>
             
           </div>
         </div>

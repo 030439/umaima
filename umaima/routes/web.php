@@ -7,6 +7,7 @@ use App\Http\Controllers\UsersController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\PlotController;
+use App\Http\Controllers\BankController;
 use App\Http\Controllers\SchemeController;
 use App\Http\Controllers\AlloteController;
 use App\Http\Controllers\LogController;
@@ -72,6 +73,15 @@ Route::middleware('auth')->group(function () {
         Route::get('create-allote','alloteCreate');
     });
     Route::get('/logs', [LogController::class,'index'])->middleware('auth');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::controller(BankController::class)
+        ->prefix('banks')
+        ->group(function(){
+            Route::get('list','index')->name('bank.index');
+            Route::get('create','create');
+    });
 });
 
 require __DIR__.'/auth.php';
