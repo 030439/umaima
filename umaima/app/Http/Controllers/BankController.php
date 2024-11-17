@@ -72,6 +72,7 @@ class BankController extends Controller
      */
     public function destroy(Bank $bank)
     {
-        //
+        $result = $this->bankservice->destroy();
+        return ($result);
     }
 }

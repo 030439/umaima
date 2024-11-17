@@ -47,6 +47,7 @@ Route::middleware(['auth:sanctum','access'])->group(function () {
         ->group(function(){
             Route::post('listing','listing')->name('bank.read');
             Route::post('store','store')->name('bank.create');
+            Route::post('delete','destroy')->name('bank.delete');
     });
 });
 Route::middleware('auth:sanctum')->group(function(){

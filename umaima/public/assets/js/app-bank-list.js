@@ -37,15 +37,9 @@ $(function() {
             },
             columnDefs: [
                
+
                 {
                     targets: 0,
-                    orderable: false,
-                    checkboxes: { selectAllRender: '<input type="checkbox" class="form-check-input">' },
-                    render: function() { return '<input type="checkbox" class="dt-checkboxes form-check-input" >'; },
-                    searchable: false
-                },
-                {
-                    targets: 1,
                     responsivePriority: 4,
                     render: function(t, e, a, s) {
                         var n = a.bank_name
@@ -54,32 +48,32 @@ $(function() {
                     }
                 },
                 {
-                    targets: 2,
+                    targets: 1,
                     render: function(t, e, a, s) {
                         return '<span class="text-heading">' + a.branch + "</span>";
                     }
                     
                 },
                 {
-                    targets: 3,
+                    targets: 2,
                     render: function(t, e, a, s) {
                         return '<span class="text-heading">' + a.account_holder + "</span>";
                     }
                 },
                 {
-                    targets: 4,
+                    targets: 3,
                     render: function(t, e, a, s) {
                         return '<span class="text-heading">' + a.account_no + "</span>";
                     }
                 },
                 {
-                    targets: 5,
+                    targets: 4,
                     render: function(t, e, a, s) {
                         return '<span class="text-heading">' + a.initial_balance + "</span>";
                     }
                 },
                 {
-                    targets: 6,
+                    targets: 5,
                     render: function(t, e, a, s) {
                         a = a.status;
                         var status_bg;
@@ -114,9 +108,11 @@ $(function() {
                                 <a href="${r}" class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill">
                                     <i class="ti ti-edit ti-md"></i>
                                 </a>
-                                <a href="javascript:;" class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill delete-record">
+                                <a href="javascript:;" class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill"
+                                    onclick="deleteFunction('/api/banks/delete', ${a.id})">
                                     <i class="ti ti-trash ti-md"></i>
                                 </a>
+
                             </div>`;
                     }
                     
@@ -368,4 +364,3 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Example function to handle valid scheme data
 });
-

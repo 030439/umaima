@@ -1,5 +1,5 @@
  <!-- Favicon -->
- <link rel="icon" type="image/x-icon" href="https://demos.pixinvent.com/vuexy-html-admin-template/assets/img/favicon/favicon.ico" />
+ <link rel="icon" type="image/x-icon" href="../../assets/mini-logo.png" />
 
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com/">

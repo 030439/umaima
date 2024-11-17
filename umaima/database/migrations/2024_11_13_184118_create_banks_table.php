@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('account_no');
             $table->string('initial_balance');
             $table->string('status')->default('1'); 
+            $table->softDeletes();
             $table->timestamps();
         });
     }

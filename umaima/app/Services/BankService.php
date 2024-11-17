@@ -123,5 +123,28 @@ class BankService
         }
     }
 
+    public function destroy()
+    {
+        $id = $this->request->id;
+
+        // Validate the ID
+        if (!$id) {
+            return response()->json(['error' => 'ID is required'], 400);
+        }
+
+        // Find and delete the record
+     
+        $bank = Bank::find($id);
+        if ($bank) {
+            $bank->status = 0;
+            $bank->save();
+            
+            logAction('Bank Deleted ',$id);
+            return response()->json(['success' => 'Record deleted successfully'], 200);
+        }
+
+        return response()->json(['error' => 'Record not found'], 404);
+    }
+
     
 }

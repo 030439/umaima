@@ -1,6 +1,6 @@
 @extends('layout.app')
-
-@section('title', 'Home Page')
+<?php $breadCrumb='Plots / <span class="text-primary">Allotemnt</span></i>'?>
+@section('title', 'plot Allotement')
 @section('content')
 
       <!-- Content wrapper -->
