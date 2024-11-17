@@ -1,5 +1,5 @@
  <!-- Favicon -->
- <link rel="icon" type="image/x-icon" href="../../assets/mini-logo.png" />
+ <link rel="icon" type="image/x-icon" href="../../assets/img/icons/brands/laravel-logo.png" />
 
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com/">
