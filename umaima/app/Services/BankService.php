@@ -11,6 +11,7 @@ use Illuminate\Http\JsonResponse;
 use Exception;
 class BankService
 {
+    //
     use QueryTrait;
 
     protected $table;
