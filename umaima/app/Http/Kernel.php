@@ -67,4 +67,9 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'access' => \App\Http\Middleware\RolePermissionGlobalMiddleware::class,
     ];
+    protected function schedule(\Illuminate\Console\Scheduling\Schedule $schedule)
+    {
+        $schedule->command('backup:db')->dailyAt('02:00'); // Adjust time as needed
+    }
+
 }
