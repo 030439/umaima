@@ -113,6 +113,7 @@ return [
         'English' => 'en',
         'Russian' => 'ru',
         'French' => 'fr',
+        'Khoshu' => 'kh',
     ],
 
     /*

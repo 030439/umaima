@@ -14,7 +14,7 @@
         <!-- Search -->
         <div class="navbar-nav align-items-center">
           <div class="nav-item navbar-search-wrapper mb-0">
-                  <i>home / <?php echo $breadCrumb;?></i>
+                  <i>{{ __('Welcome!') }} / <?php echo $breadCrumb;?></i>
             
           </div>
         </div>
@@ -27,31 +27,24 @@
         <ul class="navbar-nav flex-row align-items-center ms-auto">
         <li class="nav-item dropdown-language dropdown">
             <a class="nav-link btn btn-text-secondary btn-icon rounded-pill dropdown-toggle hide-arrow waves-effect waves-light" href="javascript:void(0);" data-bs-toggle="dropdown">
-              <i class="ti ti-language rounded-circle ti-md"></i>
+                <i class="ti ti-language rounded-circle ti-md"></i>
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
-              <li>
-                <a class="dropdown-item waves-effect active" href="javascript:void(0);" data-language="en" data-text-direction="ltr">
-                  <span>English</span>
+            @foreach($available_locales as $locale_name => $available_locale)
+               <li>
+                <a class="dropdown-item waves-effect <?php if($available_locale === $current_locale){echo 'active';}?>" href="language/{{ $available_locale }}">
+                <span>{{ $locale_name }}</span>
                 </a>
               </li>
-              <li>
-                <a class="dropdown-item waves-effect" href="javascript:void(0);" data-language="fr" data-text-direction="ltr">
-                  <span>French</span>
-                </a>
-              </li>
-              <li>
-                <a class="dropdown-item waves-effect" href="javascript:void(0);" data-language="ar" data-text-direction="rtl">
-                  <span>Arabic</span>
-                </a>
-              </li>
-              <li>
-                <a class="dropdown-item waves-effect" href="javascript:void(0);" data-language="de" data-text-direction="ltr">
-                  <span>German</span>
-                </a>
-              </li>
+              @endforeach
+
+
+               <li>
+           
+               </li>
             </ul>
-          </li>
+        </li>
+
           <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-2">
             <a class="nav-link btn btn-text-secondary btn-icon rounded-pill dropdown-toggle hide-arrow waves-effect waves-light" href="javascript:void(0);" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
               <span class="position-relative">
