@@ -120,10 +120,10 @@
         </div>
         
         <form action="{{ route('bulk.store') }}" method="POST" class="dropzone" id="dropzone-multi">
-    <div class="dz-message">
-        Drop files here or click to upload.
-    </div>
-</form>
+            <div class="dz-message">
+                Drop files here or click to upload.
+            </div>
+        </form>
 
       </div>
     </div>
