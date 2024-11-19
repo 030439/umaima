@@ -17,6 +17,6 @@ class DashboardController extends Controller
         return view('dashboard.index');
     }
     public function bulk(){
-        dd("ASDF");
+        return false;
     }
 }

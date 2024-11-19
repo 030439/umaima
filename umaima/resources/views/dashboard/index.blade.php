@@ -119,7 +119,8 @@
           <p>Add new card to complete payment</p>
         </div>
         
-        <form action="{{ route('bulk.store') }}" method="POST" class="dropzone" id="dropzone-multi">
+        <form  method="POST" class="dropzone"  id="dropzone-multi">
+          @csrf
             <div class="dz-message">
                 Drop files here or click to upload.
             </div>
@@ -162,6 +163,29 @@
  <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.min.js"></script>
  <script src="../../assets/js/forms-file-upload.js"></script>
 
+ <script>
+    Dropzone.autoDiscover = false; // Prevent Dropzone auto-binding
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const dropzone = new Dropzone("#dropzone-multi", {
+            url: "{{ route('bulk.store') }}", // Set your Laravel route here
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') // Include CSRF token
+            },
+            paramName: "file", // Name of the file parameter
+            maxFilesize: 2, // Max file size in MB
+            acceptedFiles: ".jpg,.jpeg,.png,.gif", // Accepted file types
+            init: function () {
+                this.on("success", function (file, response) {
+                    console.log("File uploaded successfully:", response);
+                });
+                this.on("error", function (file, errorMessage) {
+                    console.error("File upload error:", errorMessage);
+                });
+            }
+        });
+    });
+</script>
 
 
 @endsection
