@@ -8,6 +8,7 @@ use App\Http\Controllers\SchemeController;
 use App\Http\Controllers\PlotController;
 use App\Http\Controllers\BankController;
 use App\Http\Controllers\AlloteController;
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 
 /*
@@ -48,6 +49,12 @@ Route::middleware(['auth:sanctum','access'])->group(function () {
             Route::post('listing','listing')->name('bank.read');
             Route::post('store','store')->name('bank.create');
             Route::post('delete','destroy')->name('bank.delete');
+    });
+    Route::controller(AccountController::class)
+    ->group(function(){
+        Route::POST('fetch-accounts','fetchAccounts')->name('cash.create');
+        Route::POST('cash/store','storePayment')->name('cash.store');
+        Route::POST('account-heads','addAccountHead')->name('account-head.create');
     });
 });
 Route::middleware('auth:sanctum')->group(function(){

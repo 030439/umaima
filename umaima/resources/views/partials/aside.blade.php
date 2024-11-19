@@ -158,8 +158,8 @@
       </a>
       <ul class="menu-sub">
         <li class="menu-item">
-              <a href="{{ route('allotment.form') }}" class="menu-link">
-                <div>Plot Allotment</div>
+              <a href="{{ route('cashbook.read') }}" class="menu-link">
+                <div>Cash Book</div>
               </a>
             </li>
 
@@ -169,7 +169,7 @@
           </a>
           <ul class="menu-sub">
             <li class="menu-item">
-              <a href="{{ route('plot.size') }}" class="menu-link">
+              <a href="{{ route('account-head.read') }}" class="menu-link">
                 <div>Account Heads</div>
               </a>
             </li>

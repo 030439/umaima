@@ -10,6 +10,7 @@ use App\Http\Controllers\PlotController;
 use App\Http\Controllers\BankController;
 use App\Http\Controllers\SchemeController;
 use App\Http\Controllers\AlloteController;
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\LogController;
 /*
 |--------------------------------------------------------------------------
@@ -71,6 +72,12 @@ Route::middleware('auth')->group(function () {
     ->group(function(){
         Route::get('allote-listing','index')->name('allote.index');
         Route::get('create-allote','alloteCreate');
+    });
+    Route::controller(AccountController::class)
+    ->group(function(){
+        Route::get('account-heads','accountHead')->name('account-head.read');
+        Route::get('cashbook','cashbook')->name('cashbook.read');
+        Route::get('add-payment','payment')->name('payment.create');
     });
     Route::get('/logs', [LogController::class,'index'])->middleware('auth');
 });

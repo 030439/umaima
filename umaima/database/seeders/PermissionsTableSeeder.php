@@ -97,6 +97,13 @@ class PermissionsTableSeeder extends Seeder
             ['name' => 'permissions.create', 'guard_name' => 'web'],
             ['name' => 'permissions.delete', 'guard_name' => 'web'],
             ['name' => 'permissions.list', 'guard_name' => 'web'],
+
+            ['name' => 'cash.read', 'guard_name' => 'web'],
+            ['name' => 'cash.write', 'guard_name' => 'web'],
+            ['name' => 'cash.create', 'guard_name' => 'web'],
+            ['name' => 'cash.delete', 'guard_name' => 'web'],
+            ['name' => 'cash.list', 'guard_name' => 'web'],
+            
         ];
 
         // Insert permissions
