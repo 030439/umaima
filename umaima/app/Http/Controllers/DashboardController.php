@@ -25,7 +25,8 @@ class DashboardController extends Controller
                 
                 // Move the file to the 'uploads' folder in the public directory
                 $file->move(public_path('uploads'), $filename);
-    
+                return response()->json(["Error"
+                ], 400);
                 return response()->json([
                     'success' => true,
                     'message' => 'File uploaded successfully',
