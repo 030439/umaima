@@ -119,7 +119,7 @@
           <p>Add new card to complete payment</p>
         </div>
         
-        <form action="{{ route('bulk.store') }}" method="POST" class="dropzone"  id="dropzone-multi">
+        <form action="{{ route('bulk.store') }}" method="POST" class="dropzone"  id="dropzone-basic">
           @csrf
             <div class="dz-message">
                 Drop files here or click to upload.
