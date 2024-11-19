@@ -16,7 +16,27 @@ class DashboardController extends Controller
     {
         return view('dashboard.index');
     }
-    public function bulk(){
-        return "0";
+    public function bulk(Request $request){
+        {
+            // Check if a file was uploaded
+            if ($request->hasFile('file')) {
+                $file = $request->file('file');
+                $filename = time() . '_' . $file->getClientOriginalName();
+                
+                // Move the file to the 'uploads' folder in the public directory
+                $file->move(public_path('uploads'), $filename);
+    
+                return response()->json([
+                    'success' => true,
+                    'message' => 'File uploaded successfully',
+                    'filename' => $filename
+                ]);
+            }
+    
+            return response()->json([
+                'success' => false,
+                'message' => 'No file uploaded'
+            ], 400);
+        }
     }
 }
