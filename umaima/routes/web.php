@@ -31,6 +31,7 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/',[DashboardController::class,'index'])->name('dashboard.index');
+    Route::post('upload/bilk',[DashboardController::class,'bulk'])->name('bulk.store');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -95,7 +96,11 @@ Route::middleware('auth')->group(function () {
 Route::get('language/{locale}', function ($locale) {
     app()->setLocale($locale);
     session()->put('locale', $locale);
-
+    return redirect()->back();
+});
+Route::get('{any}/language/{locale}', function ($locale) {
+    app()->setLocale($locale);
+    session()->put('locale', $locale);
     return redirect()->back();
 });
 require __DIR__.'/auth.php';

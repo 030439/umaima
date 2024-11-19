@@ -209,6 +209,16 @@ class AccountService
         $draw=$this->request->get('draw');
         $searchValue = $this->request->get('search')['value']; // This is the value you want to search for
         
+
+        $columns = [
+            'payments.*',
+            'banks.bank_name  as bank',
+            'banks.account_no  as account',
+            'allotes.fullname',
+            'allotes.phone',
+            'account_heads.name as expense'
+        ];
+
         // Initialize an array for the conditions
         $filters = [];
         $conditions=[];
@@ -247,6 +257,8 @@ class AccountService
             $filters['from_account'] = '%' . $searchValue . '%';
             $filters['amount'] = '%' . $searchValue . '%';
             $filters['narration'] = '%' . $searchValue . '%';
+            $filters['account_heads.name'] = '%' . $searchValue . '%';
+            $filters['allotes.fullname'] = '%' . $searchValue . '%';
         }
         if (!empty($startDate) && !empty($endDate)) {
             $conditions[] = ['paydate', '>=', $startDate]; // start date condition
@@ -256,14 +268,7 @@ class AccountService
         // Fetch the records using QueryTrait's fetchRecords method
         $result = $this->fetchRecords(
             'payments',
-            $columns = [
-                'payments.*',
-                'banks.bank_name  as bank',
-                'banks.account_no  as account',
-                'allotes.fullname',
-                'allotes.phone',
-                'account_heads.name as expense'
-            ],
+            $columns,
             $conditions,
             $filters,
             $joins,
