@@ -53,8 +53,9 @@ Route::middleware(['auth:sanctum','access'])->group(function () {
     Route::controller(AccountController::class)
     ->group(function(){
         Route::POST('fetch-accounts','fetchAccounts')->name('cash.create');
-        Route::POST('cash/store','storePayment')->name('cash.store');
+        Route::POST('cash/store','storePayment')->name('payment.create');
         Route::POST('account-heads','addAccountHead')->name('account-head.create');
+        Route::POST('getPayments','getPayments')->name('payment.read');
     });
 });
 Route::middleware('auth:sanctum')->group(function(){

@@ -77,7 +77,8 @@ Route::middleware('auth')->group(function () {
     ->group(function(){
         Route::get('account-heads','accountHead')->name('account-head.read');
         Route::get('cashbook','cashbook')->name('cashbook.read');
-        Route::get('add-payment','payment')->name('payment.create');
+        Route::get('add-payment','payment')->name('payment.read');
+        Route::post('get-account-heads','getAccountHeads');
     });
     Route::get('/logs', [LogController::class,'index'])->middleware('auth');
 });

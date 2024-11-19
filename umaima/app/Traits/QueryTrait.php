@@ -26,9 +26,16 @@ trait QueryTrait
         $query = DB::table($table)->select($columns);
     
         // Apply conditions
-        foreach ($conditions as $column => $value) {
-            $query->where($column, $value);
+        foreach ($conditions as $condition) {
+            // Ensure the condition is an array with column, operator, and value
+            if (is_array($condition) && count($condition) === 3) {
+                $query->where($condition[0], $condition[1], $condition[2]);
+            } else {
+                // Handle simple conditions for backward compatibility
+                $query->where($condition);
+            }
         }
+        
     
         // Apply filters
         foreach ($filters as $column => $filterValue) {

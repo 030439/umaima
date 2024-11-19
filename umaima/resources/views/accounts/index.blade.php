@@ -71,17 +71,21 @@
 <!-- Order List Table -->
 <div class="card">
   <div class="card-datatable table-responsive">
+    
+          <div class="col-md-6 col-12 mt-5">
+            <input type="text" class="form-control flatpickr-input" placeholder="YYYY-MM-DD to YYYY-MM-DD" id="flatpickr-range" readonly="readonly">
+          </div>
     <table class="datatables-order table border-top">
       <thead>
         <tr>
           <th></th>
           <th></th>
-          <th>order</th>
-          <th>date</th>
-          <th>customers</th>
-          <th>payment</th>
-          <th>status</th>
-          <th>method</th>
+          <th>Date</th>
+          <th>Payment</th>
+          <th>Account</th>
+          <th>Amount</th>
+          <th>Allote</th>
+          <th>Expense</th>
           <th>actions</th>
         </tr>
       </thead>
@@ -121,9 +125,20 @@
     <script src="../../assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
 
     <!-- Main JS -->
+<script src="../../assets/vendor/libs/moment/moment.js"></script>
+<script src="../../assets/vendor/libs/flatpickr/flatpickr.js"></script> 
+<script src="../../assets/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.js"></script>
+<script src="../../assets/vendor/libs/bootstrap-daterangepicker/bootstrap-daterangepicker.js"></script>
+<script src="../../assets/vendor/libs/jquery-timepicker/jquery-timepicker.js"></script>
+<script src="../../assets/vendor/libs/pickr/pickr.js"></script>
+
+    <!-- Main JS -->
     <script src="../../assets/js/main.js"></script>
     
 
+    <!-- Page JS -->
+    <script src="../../assets/js/forms-pickers.js"></script>
+    
     <!-- Page JS -->
     <script src="../../assets/js/accounts.js"></script>
     @endsection

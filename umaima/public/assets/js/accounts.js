@@ -1,4 +1,6 @@
 "use strict";
+
+const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
 $(function () {
     let e, a, s;
     s = (
@@ -26,18 +28,30 @@ $(function () {
         };
     n.length &&
         ((t = n.DataTable({
-            ajax: assetsPath + "json/ecommerce-customer-order.json",
-            columns: [
-                { data: "id" },
-                { data: "id" },
-                { data: "order" },
-                { data: "date" },
-                { data: "customer" },
-                { data: "payment" },
-                { data: "status" },
-                { data: "method" },
-                { data: "" },
-            ],
+            processing: true,
+            serverSide: true,
+            responsive: true,
+            scrollX: true,
+            pageLength: 10,
+            ajax: {
+                url: "/api/getPayments",
+                headers: {
+                    "X-CSRF-TOKEN": csrfToken // Add CSRF token to request headers
+                },
+                data: function(d) {
+                    // Check if the date range input has a value
+                    var dateRange = $('#flatpickr-range').val(); // Get the value of the date range input
+                    if (dateRange) {
+                        // Split the date range into start and end dates
+                        var dates = dateRange.split(' to ');
+                        d.startDate = dates[0]; // From date
+                        d.endDate = dates[1];   // To date
+                    }
+                    // You can also add other data here as needed
+                },
+                type: "POST", // Ensure the correct HTTP method is used
+                dataSrc: "data" // Server response should contain the "data" key for rows
+            },
             columnDefs: [
                 {
                     className: "control",
@@ -64,116 +78,75 @@ $(function () {
                 {
                     targets: 2,
                     render: function (t, e, a, s) {
-                        return (
-                            '<a href="app-ecommerce-order-details.html"><span>#' +
-                            a.order +
-                            "</span></a>"
+                        return (a.paydate
                         );
                     },
+                    
                 },
                 {
                     targets: 3,
                     render: function (t, e, a, s) {
-                        var n = new Date(a.date),
-                            a = a.time.substring(0, 5);
-                        return (
-                            '<span class="text-nowrap">' +
-                            n.toLocaleDateString("en-US", {
-                                month: "short",
-                                day: "numeric",
-                                year: "numeric",
-                                time: "numeric",
-                            }) +
-                            ", " +
-                            a +
-                            "</span>"
-                        );
+                        a = a.payment_type;
+                        if(a==1){
+                            return ('<span class="badge px-2 bg-label-success" text-capitalized="">credit</span>');
+                        }else{
+                            return ('<span class="badge px-2 bg-label-primary" text-capitalized="">Debit</span>');
+                        }
                     },
                 },
                 {
                     targets: 4,
+                    render: function (t, e, a, s) {
+                        return'<h6 class="mb-0 align-items-center d-flex w-px-100 ' +
+                                  a.bank +
+                                  '">' +
+                                  a.account +
+                                  "</h6>";
+                    },
+                   
+                },
+                {
+                    targets: 5,
                     responsivePriority: 1,
                     render: function (t, e, a, s) {
-                        var n = a.customer,
-                            r = a.email,
-                            o = a.avatar;
                         return (
-                            '<div class="d-flex justify-content-start align-items-center order-name text-nowrap"><div class="avatar-wrapper"><div class="avatar avatar-sm me-3">' +
-                            (o
-                                ? '<img src="' +
-                                  assetsPath +
-                                  "img/avatars/" +
-                                  o +
-                                  '" alt="Avatar" class="rounded-circle">'
-                                : '<span class="avatar-initial rounded-circle bg-label-' +
-                                  [
-                                      "success",
-                                      "danger",
-                                      "warning",
-                                      "info",
-                                      "dark",
-                                      "primary",
-                                      "secondary",
-                                  ][Math.floor(6 * Math.random())] +
-                                  '">' +
-                                  (o = (
-                                      ((o =
-                                          (n = a.customer).match(/\b\w/g) ||
-                                          []).shift() || "") + (o.pop() || "")
-                                  ).toUpperCase()) +
-                                  "</span>") +
-                            '</div></div><div class="d-flex flex-column"><h6 class="m-0"><a href="pages-profile-user.html" class="text-heading">' +
+                            a.amount 
+                        );
+                    }
+                },
+                {
+                    targets: 6,
+                    responsivePriority: 1,
+                    render: function (t, e, a, s) {
+                        var n = a.fullname,
+                            r = a.phone
+                            if(!r){r="";}
+                            if(n){
+                        return (
+                            '<div class="d-flex justify-content-start align-items-center order-name text-nowrap">' +
+                           
+                            '<div class="d-flex flex-column"><h6 class="m-0"><a href="pages-profile-user.html" class="text-heading">' +
                             n +
                             "</a></h6><small>" +
                             r +
                             "</small></div></div>"
                         );
+                    }else{
+                        return("-");
+                    }
                     },
                 },
                 {
-                    targets: 5,
+                    targets: 7,
                     render: function (t, e, a, s) {
-                        (a = a.payment), (a = o[a]);
-                        return a
-                            ? '<h6 class="mb-0 align-items-center d-flex w-px-100 ' +
-                                  a.class +
-                                  '"><i class="ti ti-circle-filled fs-tiny me-1"></i>' +
-                                  a.title +
-                                  "</h6>"
-                            : t;
+                        if(a.expense){
+                            return (a.expense
+                            );
+                        }else{
+                            return ("-");
+                        }
                     },
-                },
-                {
-                    targets: -3,
-                    render: function (t, e, a, s) {
-                        a = a.status;
-                        return (
-                            '<span class="badge px-2 ' +
-                            r[a].class +
-                            '" text-capitalized>' +
-                            r[a].title +
-                            "</span>"
-                        );
-                    },
-                },
-                {
-                    targets: -2,
-                    render: function (t, e, a, s) {
-                        var n = a.method,
-                            a = a.method_number;
-                        return (
-                            "paypal" == n && (a = "@gmail.com"),
-                            '<div class="d-flex align-items-center text-nowrap"><img src="' +
-                                assetsPath +
-                                "img/icons/payments/" +
-                                n +
-                                '.png" alt="' +
-                                n +
-                                '" width="29"><span><i class="ti ti-dots me-1 mt-1"></i>' +
-                                a +
-                                "</span></div>"
-                        );
-                    },
+                    
                 },
                 {
                     targets: -1,
@@ -383,7 +356,7 @@ $(function () {
                     init: function (e, a, t) {
                         $(a).removeClass("btn-secondary");
                     }
-                }
+                },
             ],
             responsive: {
                 details: {
@@ -429,4 +402,22 @@ $(function () {
                     "form-select-sm"
                 );
         }, 300);
+
+        var flatpickrInstance = flatpickr("#flatpickr-range", {
+            mode: "range",
+            dateFormat: "Y-m-d",
+            onClose: function(selectedDates, dateStr, instance) {
+                if (selectedDates.length === 2) {
+                    var fromDate = selectedDates[0].toISOString().split('T')[0];  // Get 'from' date
+                    var toDate = selectedDates[1].toISOString().split('T')[0];    // Get 'to' date
+        
+                    // Refresh the DataTable with the selected date range
+                    t.ajax.reload(function(json) {
+                        // If you want to modify the data after reload (optional)
+                        console.log('Data reloaded with date range:', fromDate, toDate);
+                    }, false); // Set to false to avoid resetting paging
+                }
+            }
+        });
 });
+

@@ -13,13 +13,13 @@
             <div class="col-xxl">
                 <div class="card mb-6">
                 <h5 class="card-header">Form Label Alignment</h5>
-                <form class="card-body">
+                <form class="card-body" id="pay-form" onsubmit="return false">
                     <hr class="my-6 mx-n4" />
                     <div class="row mb-6">
 
                         <div class="col-6">
-                            <label class="col-form-label text-sm-end" for="birthdate">Birth Date</label>
-                            <input type="text" id="birthdate" name="birthdate" class="form-control dob-picker" placeholder="YYYY-MM-DD" />
+                            <label class="col-form-label text-sm-end" for="birthdate">Payment Date</label>
+                            <input type="text" id="paydate" name="paydate" class="form-control dob-picker" placeholder="YYYY-MM-DD" />
                         </div>
 
                         <div class="col-6">
@@ -108,9 +108,16 @@
 <script src="../../assets/vendor/libs/flatpickr/flatpickr.js"></script>
 <script src="../../assets/vendor/libs/select2/select2.js"></script>
 
-    <!-- Main JS -->
-    <script src="../../assets/js/main.js"></script>
-    
+<!-- Main JS -->
+<script src="../../assets/vendor/libs/sweetalert2/sweetalert2.js"></script>
+
+<!-- Main JS -->
+<script src="../../assets/js/main.js"></script>
+
+
+<!-- Page JS -->
+<script src="../../assets/js/extended-ui-sweetalert2.js"></script>
+
 
     <!-- Page JS -->
     <script src="../../assets/js/form-layouts.js"></script>
@@ -157,13 +164,13 @@
             function fetchExpenseHeads() {
                 $.ajax({
                     method: "POST",
-                    url: "/api/get-alloties",
+                    url: "/get-account-heads",
                     headers: {
                         "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
                     },
                     success: function(data) {
                         if (data.success) {
-                            populateDropdown("allotees", data.allotes);
+                            populateDropdown("expense_heads", data.expenses);
                         } else {
                             showToast("Error: " + data.message, "danger");
                         }
@@ -210,6 +217,7 @@
                     $("#allote_section").removeClass('d-none');
                 } else if (selectedOption == 2) {
                     $("#allote_section").addClass('d-none');
+                    fetchExpenseHeads();
                     $("#expense_section").removeClass('d-none');
                 }
             });
@@ -218,77 +226,77 @@
     </script>
     <script>
         const formButton = document.getElementById("add-btn");
-    formButton.addEventListener("click", function () {
-    confirmForm();
-});
-
-function confirmForm(event) {
-    // Show loading dialog for 1 second before submitting the form
-    Swal.fire({
-        title: "Processing...",
-        text: "Please wait",
-        icon: "info",
-        showConfirmButton: false,
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        willOpen: () => {
-            Swal.showLoading(); // Show the loading spinner
-        },
-    });
-
-    // Wait for 1 second before submitting the form
-    setTimeout(function () {
-        // Create a new FormData object from the form
-        const formData = new FormData(document.getElementById("bankform"));
-
-        fetch("/api/cash/store", {
-            method: "POST",
-            body: formData,
-            headers: {
-                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
-            },
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("Network response was not ok");
-            }
-            return response.json(); // Assuming JSON response
-        })
-        .then(data => {
-            Swal.close(); // Close the loading dialog
-            
-            if (data.success) {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Success!',
-                    text: data.message,
-                    showConfirmButton: false,
-                    timer: 2000
-                });
-
-                // Redirect after success
-                setTimeout(function() {
-                    // window.location.href = "/banks/list";
-                }, 2000); 
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: data.message,
-                });
-            }
-        })
-        .catch(error => {
-            Swal.close(); // Close the loading dialog
-            
-            console.error("Error:", error);
-            Swal.fire({
-                icon: 'error',
-                text: error,
-            });
+            formButton.addEventListener("click", function () {
+            confirmForm();
         });
-    }, 1000); // Delay of 1 second (1000 milliseconds)
-}
+
+        function confirmForm(event) {
+            // Show loading dialog for 1 second before submitting the form
+            Swal.fire({
+                title: "Processing...",
+                text: "Please wait",
+                icon: "info",
+                showConfirmButton: false,
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                willOpen: () => {
+                    Swal.showLoading(); // Show the loading spinner
+                },
+            });
+
+            // Wait for 1 second before submitting the form
+            setTimeout(function () {
+                // Create a new FormData object from the form
+                const formData = new FormData(document.getElementById("pay-form"));
+
+                fetch("/api/cash/store", {
+                    method: "POST",
+                    body: formData,
+                    headers: {
+                        "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+                    },
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+                    return response.json(); // Assuming JSON response
+                })
+                .then(data => {
+                    Swal.close(); // Close the loading dialog
+                    
+                    if (data.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success!',
+                            text: data.message,
+                            showConfirmButton: false,
+                            timer: 2000
+                        });
+
+                        // Redirect after success
+                        setTimeout(function() {
+                            window.location.href = "/cashbook";
+                        }, 2000); 
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: data.message,
+                        });
+                    }
+                })
+                .catch(error => {
+                    Swal.close(); // Close the loading dialog
+                    
+                    console.error("Error:", error);
+                    Swal.fire({
+                        icon: 'error',
+                        text: error,
+                    });
+                });
+            }, 100); // Delay of 1 second (1000 milliseconds)
+        }
     </script>
     
     @endsection

@@ -32,7 +32,15 @@ class AccountController extends Controller
         return ($result);
     }
     public function storePayment(){
-        $result = $this->accountservice->addAccountHead();
+        $result = $this->accountservice->storePayment();
+        return ($result);
+    }
+    public function getPayments(){
+        $result = $this->accountservice->getPayments();
+        return ($result);
+    }
+    public function getAccountHeads(){
+        $result = $this->accountservice->getAccountHeads();
         return ($result);
     }
 }
