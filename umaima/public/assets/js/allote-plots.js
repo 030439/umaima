@@ -28,7 +28,7 @@ $(function() {
             scrollX: true,
             pageLength: 10,
             ajax: {
-                url: "/api/getAllotees",
+                url: "/api/allote/plots",
                 headers: {
                     "X-CSRF-TOKEN": csrfToken // Add CSRF token to request headers
                 },
@@ -36,58 +36,61 @@ $(function() {
                 dataSrc: "data" // Server response should contain the "data" key for rows
             },
             columns: [   // Map to 'name' in the returned JSON
-                { data: 'id',title:"Name" },       // Map to 'id' in the returned JSON
-                { data: 'id',title:"Contact-No" },     // Map to 'name' in the returned JSON
-                { data: 'id',title:"Email" },       // Map to 'id' in the returned JSON
-                { data: 'id',title:"CNIC" }, 
+                { data: 'id',title:"SCHEME" },       // Map to 'id' in the returned JSON
+                { data: 'id',title:"Plot-no" },     // Map to 'name' in the returned JSON
+                { data: 'id',title:"plot-size" },       // Map to 'id' in the returned JSON
+                { data: 'id',title:"plot-location" }, 
+                { data: 'id',title:"installments" }, 
                 { data: 'id',title:"status" },  
                 { data: 'id',title:"actions" },  
             ],
             columnDefs: [
-             
+               
                 {
                     targets: 0,
-                    responsivePriority: 4,
                     render: function(t, e, a, s) {
-                        var n = a.fullname,
-                            i = a.email,
-                            o = a.status;
-                        return '<div class="d-flex justify-content-start align-items-center user-name">' +
-                            '<div class="d-flex flex-column"><a  class="text-heading text-truncate"><span class="fw-medium">' + n + "</span></a></div></div>";
+                        return '<span class="text-heading">' + a.scheme + "</span>";
                     }
+                    
                 },
                 {
                     targets: 1,
                     render: function(t, e, a, s) {
-                        return '<span class="text-heading">' + a.cellno + "</span>";
+                        return '<span class="text-heading">' + a.plot_number + "</span>";
                     }
                     
                 },
                 {
                     targets: 2,
                     render: function(t, e, a, s) {
-                        return '<span class="text-heading">' + a.email + "</span>";
+                        return '<span class="text-heading">' + a.size + "</span>";
                     }
                 },
                 {
                     targets: 3,
                     render: function(t, e, a, s) {
-                        return '<span class="text-heading">' + a.cnic + "</span>";
+                        return '<span class="text-heading">' + a.location + "</span>";
                     }
                 },
                 {
                     targets: 4,
                     render: function(t, e, a, s) {
+                        return '<span class="text-heading">' + a.installment + "</span>";
+                    }
+                },
+                {
+                    targets: 5,
+                    render: function(t, e, a, s) {
                         a = a.status;
                         var status_bg;
                         var status_title;
-                        if (a == 1) {
+                        if (a === 1) {
                             status_title="Active"
                             status_bg='bg-label-success';
-                        } else if (a ==2) {
+                        } else if (a === 2) {
                             status_title="Pending"
                                    status_bg='bg-label-warning';
-                        } else if (a == 0) {
+                        } else if (a === 0) {
                             status_title="Inactive"
                             status_bg='bg-label-secondary';
                         }
@@ -96,27 +99,16 @@ $(function() {
                 },
                 {
                     targets: -1,
-                    title: "Actions",
+                    title: "Plot-Payments",
                     searchable: false,
                     orderable: false,
                     render: function(t, e, a, s) {
                         return `
                             <div class="d-flex align-items-center">
-                            
-                                <a href="allote-plotes/${a.id}" class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill">
-                                    <i class="ti ti-map ti-md"></i>
-                                </a>
-                                <a href="javascript:;" 
+                                <a href="/plot-payment/${a.id}" 
                                    class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill edit-record" 
-                                   data-id="${a.id}" 
-                                   onclick="showEditModal(${a.id})">
-                                    <i class="ti ti-eye ti-md"></i>
-                                </a>
-                                <a href="${r}" class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill">
-                                    <i class="ti ti-edit ti-md"></i>
-                                </a>
-                                <a href="javascript:;" class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill delete-record">
-                                    <i class="ti ti-trash ti-md"></i>
+                                   data-id="${a.id}">
+                                    <i class="ti ti-file-dollar ti-md"></i>
                                 </a>
                             </div>`;
                     }
@@ -206,10 +198,10 @@ $(function() {
                 }],
             },
             {
-                text: '<i class="ti ti-plus ti-xs me-0 me-sm-2"></i><span class="d-none d-sm-inline-block">Add New Allote</span>',
+                text: '<i class="ti ti-plus ti-xs me-0 me-sm-2"></i><span class="d-none d-sm-inline-block">Add Scheme Plot</span>',
                 className: "add-new btn btn-primary mb-6 mb-md-0 waves-effect waves-light",
                 attr: {
-                    onclick: "window.location.href='/create-allote'"
+                    onclick: "window.location.href='/add-scheme-plot'"
                 },
                 init: function (e, a, t) {
                     $(a).removeClass("btn-secondary");
@@ -230,29 +222,7 @@ $(function() {
     });
 });
 
-function getRoles(){
-    
-    $.ajax({
-      method:"post",
-      url:"/api/roles-read",
-      headers: {
-          "X-CSRF-TOKEN": csrfToken // Add CSRF token to request headers
-      },
-      success: function(data) {
-        const roleSelect = $('#user-roles');
-        roleSelect.empty(); // Clear existing options
-        roleSelect.append('<option value="">Select a role</option>'); // Add placeholder
 
-        // Loop through roles and add them to the select dropdown
-        data.forEach(function(role) {
-          roleSelect.append(`<option value="${role.name}">${role.name}</option>`);
-        });
-      },
-      error: function() {
-        console.error('Could not load roles.');
-      }
-    });
-  }
   function showToast(message, type) {
     const toastContainer = document.getElementById("toastContainer");
 
@@ -278,175 +248,6 @@ function getRoles(){
         toast.addEventListener("transitionend", () => toast.remove());
     }, 5000);
 }
-  getRoles();
-  function saveUsers(user){
-    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
-    $.ajax({
-      method:"post",
-      url:"/api/user-create",
-      data:{user:user},
-      headers: {
-          "X-CSRF-TOKEN": csrfToken // Add CSRF token to request headers
-      },
-      success: function(data) {
-        $(".modal-backdrop").hide();
-        $("#addUser").hide();
-            if (data.success==true) {
-                // Handle success (you could reset the form, show success message, etc.)
-                showToast(data.message, "success");
-                setTimeout(() => {
-                     window.location.reload(); // Reload the page
-                }, 2000); 
-            } else {
-                // Handle failure
-                showToast("Error: " + data.message, "danger");
+ 
 
-            }
-      },
-      error: function() {
-        console.error('Could not load roles.');
-      }
-    });
-  }
-  document.getElementById("editUserForm").addEventListener("submit", function (e) {
-    e.preventDefault(); // Prevent default form submission
-    let isValid = true;
 
-    // Reset all fields to remove previous error states
-    const fields = document.querySelectorAll(".form-control, .form-select");
-    fields.forEach(field => {
-      field.classList.remove("is-invalid");
-      const errorContainer = field.nextElementSibling;
-      if (errorContainer && errorContainer.classList.contains("invalid-feedbacks")) {
-        errorContainer.style.display = "none";
-      }
-    });
-
-    // Validate First Name
-    const firstName = document.getElementById("modalEditUserFirstName");
-    if (firstName.value.trim() === "") {
-      setError(firstName, "Please enter your first name.");
-      isValid = false;
-    }
-
-    // Validate Last Name
-    const lastName = document.getElementById("modalEditUserLastName");
-    if (lastName.value.trim() === "") {
-      setError(lastName, "Please enter your last name.");
-      isValid = false;
-    }
-
-    // Validate Username
-    const username = document.getElementById("modalEditUserName");
-    if (username.value.trim() === "") {
-      setError(username, "Please enter a username.");
-      isValid = false;
-    }
-
-    // Validate User Role
-    const userRole = document.getElementById("user-roles");
-    if (userRole.value === "") {
-      setError(userRole, "Please select a user role.");
-      isValid = false;
-    }
-
-    // Validate Email
-    const email = document.getElementById("modalEditUserEmail");
-    if (!validateEmail(email.value)) {
-      setError(email, "Please enter a valid email.");
-      isValid = false;
-    }
-
-    // Validate Password
-    const password = document.getElementById("modalPassword");
-    if (password.value.trim().length < 8) {
-      setError(password, "Password must be at least 8 characters.");
-      isValid = false;
-    }
-
-    if (isValid) {
-      if (isValid) {
-      const user = {
-        firstName: firstName.value,
-        lastName: lastName.value,
-        username: username.value,
-        role: userRole.value,
-        email: email.value,
-        password: password.value,
-        status: document.getElementById("editBillingAddress").checked,
-      };
-
-      saveUsers(user);
-    }
-  }
-  });
-
-  function setError(input, message) {
-    input.classList.add("is-invalid");
-    const errorContainer = input.nextElementSibling;
-    if (errorContainer && errorContainer.classList.contains("invalid-feedbacks")) {
-      errorContainer.innerText = message;
-      errorContainer.style.display = "block";
-    }
-  }
-
-  function validateEmail(email) {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(email);
-  }
-  function getUser(id){
-    
-    $.ajax({
-      method:"post",
-      url:"/api/get-user",
-      data:{id:id},
-      headers: {
-          "X-CSRF-TOKEN": csrfToken // Add CSRF token to request headers
-      },
-      success: function(data) {
-        if(data.success){
-            const user = data.user;
-            // Update the table with user data
-            updateTableWithUserData(user);
-        }
-        else{
-            console.log(data.user);
-        }
-      },
-      error: function() {
-        console.error('Could not load roles.');
-      }
-    });
-  }
-  function updateTableWithUserData(user) {
-    // Update the table cells with the user data
-    $('.user-name .avatar img').attr('src', user.avatar_url); // Assuming you want to update the avatar image
-    $('.user-name .fw-medium').text(user.fname + ' ' + user.lname); 
-    $('tr td:contains("Role:")').next('td').find('span').text(user.roles); // Assuming you have a 'role' field in the response
-    $('tr td:contains("Email:")').next('td').find('span').text(user.email); // Assuming you have a 'plan' field in the response
-    $('tr td:contains("Username:")').next('td').text(user.username); // Billing info
-    $('tr td:contains("Status:")').next('td').find('.badge').each(function() {
-        // Update the text based on user status
-        $(this).text(user.status === 1 ? 'Active' : (user.status === 2 ? 'Inactive' : 'Unknown'));
-    
-        // Change the badge color based on user status
-        if (user.status === 1) {
-            $(this).removeClass('bg-label-warning bg-label-secondary')
-                   .addClass('bg-label-success');
-        } else if (user.status === 2) {
-            $(this).removeClass('bg-label-success bg-label-secondary')
-                   .addClass('bg-label-warning');
-        } else if (user.status === 0) {
-            $(this).removeClass('bg-label-success bg-label-warning')
-                   .addClass('bg-label-secondary');
-        }
-    });
-    
-  }
-  function showEditModal(id) {
-    // Populate modal fields or perform actions based on the `id`
-    console.log("Editing record with ID:", id);
-    getUser(id);
-    const addCCModal = new bootstrap.Modal(document.getElementById('addNewCCModal'));
-    addCCModal.show();
-}

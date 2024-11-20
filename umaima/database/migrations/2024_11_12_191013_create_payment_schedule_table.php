@@ -12,6 +12,9 @@ class CreatePaymentScheduleTable extends Migration
             $table->foreignId('allocation_details_id')->constrained('allocation_details')->onDelete('cascade');
             $table->string('payment');
             $table->integer('amount');
+            $table->integer('amount_paid');
+            $table->string('paid_on');
+            $table->integer('surcharge')->default(0);
             $table->string('pay_date');
             $table->timestamps();  // created_at and updated_at
         });

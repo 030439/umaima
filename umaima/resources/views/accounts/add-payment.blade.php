@@ -38,6 +38,13 @@
                             </select>
                         </div>
 
+                        <div class="col-6 d-none" id="plot_section">
+                            <label class="col-form-label text-sm-end" for="allotees">Plots</label>
+                            <select id="plot" name="plot" class="select2 form-select" data-allow-clear="true">
+                                <option value="">Select Plot</option>
+                            </select>
+                        </div>
+
                         <div class="col-6 d-none" id="expense_section">
                             <label class="col-form-label text-sm-end" for="expense_heads">Expense Heads</label>
                             <select id="expense_heads" name="expense_heads" class="select2 form-select" data-allow-clear="true">
@@ -209,13 +216,44 @@
                     }
                 });
             }
+            function fetchPlots(allote) {
+                $.ajax({
+                    method: "POST",
+                    url: "/api/get-plots",
+                    data:{allote:allote},
+                    headers: {
+                        "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+                    },
+                    success: function(data) {
+                        if (data.success) {
+                            populateDropdown("plot", data.plots);
+                        } else {
+                            showToast("Error: " + data.message, "danger");
+                        }
+                    },
+                    error: function(jqXHR) {
+                        const errorResponse = jqXHR.responseJSON;
+                        if (errorResponse && errorResponse.error) {
+                            showToast("Error: " + errorResponse.message, "danger");
+                        } else {
+                            showToast("Failed to load scheme details.", "danger");
+                        }
+                    }
+                });
+            }
+            $('#allotees').on('change', function () {
+                const selectedOption_ = $(this).val();
+                fetchPlots(selectedOption_);
+            });
             $('#payment_type').on('change', function () {
                 const selectedOption = $(this).val();
                 if (selectedOption == 1) {
                     $("#expense_section").addClass('d-none');
                     fetchalloties();
+                    $("#plot_section").removeClass('d-none');
                     $("#allote_section").removeClass('d-none');
                 } else if (selectedOption == 2) {
+                    $("#plot_section").addClass('d-none');
                     $("#allote_section").addClass('d-none');
                     fetchExpenseHeads();
                     $("#expense_section").removeClass('d-none');
@@ -276,7 +314,7 @@
 
                         // Redirect after success
                         setTimeout(function() {
-                            window.location.href = "/cashbook";
+                            //window.location.href = "/cashbook";
                         }, 2000); 
                     } else {
                         Swal.fire({

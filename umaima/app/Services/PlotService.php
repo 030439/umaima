@@ -117,12 +117,13 @@ class PlotService
 
         // Initialize an array for the conditions
         $columns = [
-            'plots.id as id',
+            'allocation_details.id as id',
             'plots.status as status',
             'plots.plot_number',
             'schemes.name  as scheme',
             'plot_locations.location_name as location',
-            'plot_sizes.size as size'
+            'plot_sizes.size as size',
+            'allocation_details.installment'
         ];
 
         $filters = [];
@@ -132,28 +133,28 @@ class PlotService
                 'first' => 'allocation_details.plot',
                 'operator' => '=',
                 'second' => 'plots.id',
-                'type'=>'join'
+                'type'=>'leftjoin'
             ],
             [
                 'table' => 'schemes',
                 'first' => 'allocation_details.scheme',
                 'operator' => '=',
                 'second' => 'schemes.id',
-                'type'=>'join'
+                'type'=>'leftjoin'
             ],
             [
                 'table' => 'plot_locations',
                 'first' => 'plots.plot_location_id',
                 'operator' => '=',
                 'second' => 'plot_locations.id',
-                'type'=>'join'
+                'type'=>'leftjoin'
             ],
             [
                 'table' => 'plot_sizes',
                 'first' => 'plots.plot_size_id',
                 'operator' => '=',
                 'second' => 'plot_sizes.id',
-                'type'=>'join'
+                'type'=>'leftjoin'
             ],
         ];
         if (!empty($searchValue)) {
@@ -166,7 +167,7 @@ class PlotService
         // Fetch the records using QueryTrait's fetchRecords method
     
         $result = $this->fetchRecords(
-            $this->table,
+            "allocation_details",
             $columns,
             $conditions,
             $filters,
@@ -645,6 +646,20 @@ class PlotService
                 return response()->json($response);
             }
             
+    }
+    public function getPlotsByAllote(){
+        $id=$this->request->input('allote');
+        $allotes = DB::table('allocation_details')->select('plot', 'id')->where('allote', $id)->where('status', 1)->get();
+        $allote=$allotes->map(function ($allote) {
+            return [
+                'value' => $allote->id, // assuming 'id' is a unique identifier
+                'label' => $allote->plot // assuming 'name' holds the display name
+            ];
+        });
+        return response()->json([
+            'success' => true,
+            'plots' => $allote
+        ]);
     }
 
 }

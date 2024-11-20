@@ -15,18 +15,7 @@
         
         <div class="card-datatable table-responsive">
                 <table class="datatables-users table dataTable no-footer dtr-column collapsed">
-                  <thead class="border-top">
-                    <tr>
-                      <th></th>
-                      <th></th>
-                      <th>Full Name</th>
-                      <th>Role</th>
-                      <th>Email</th>
-                      <th>Username</th>
-                      <th>Status</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
+                 
                 </table>
               </div>
               <style>

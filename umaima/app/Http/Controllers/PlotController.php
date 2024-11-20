@@ -21,7 +21,6 @@ class PlotController extends Controller
     }
 
     public function alloteePlotes(){
-        return view('allote.plotes');
         $result = $this->plotservice->alloteePlotes();
         return ($result);
     }
@@ -93,6 +92,11 @@ class PlotController extends Controller
 
     public function confirmSchedule(){
         $result = $this->plotservice->confirmSchedule();
+        return ($result);
+    }
+
+    public function getPlotsByAllote(){
+        $result = $this->plotservice->getPlotsByAllote();
         return ($result);
     }
     

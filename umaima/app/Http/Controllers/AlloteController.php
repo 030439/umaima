@@ -20,6 +20,10 @@ class AlloteController extends Controller
     public function alloteCreate(){
         return view('allote.add');
     }
+    public function geAll(){
+        $result = $this->alloteservice->geAll();
+        return ($result);
+    }
     public function getAlloties(){
         $result = $this->alloteservice->getAlloties();
         return ($result);
@@ -31,5 +35,12 @@ class AlloteController extends Controller
     }
     public function alloteePlotes(){
         return view('allote.plotes');
+    }
+    public function plotePayments(){
+        return view('allote.plot-payments');
+    }
+    public function plotPaymet(){
+        $result = $this->alloteservice->plotPaymet();
+        return ($result);
     }
 }

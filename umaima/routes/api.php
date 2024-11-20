@@ -37,11 +37,15 @@ Route::middleware(['auth:sanctum','access'])->group(function () {
     Route::post('/create-scheme', [SchemeController::class, 'store'])->name('scheme.create');
     Route::post('/schemes', [SchemeController::class, 'listing'])->name('scheme.read');
     Route::post('/create-scheme-plot', [PlotController::class, 'store'])->name('plot.create');
+    Route::post('/allote/plots',[PlotController::Class,'alloteePlotes'])->name('allotment.read');
     Route::post('/plots', [PlotController::class, 'listing'])->name('plot.read');
     Route::post("create-allote",[AlloteController::class,'store'])->name('allote.create');
     Route::get("allote-list",[AlloteController::class,'listing'])->name('allote.read');
+    Route::post("allote/plot/payments",[AlloteController::class,'plotPaymet'])->name('payment.read');
     Route::post('/plot-allotment', [PlotController::class, 'listing'])->name('allotment.create');
     Route::post('/confirm-schedule', [PlotController::class, 'confirmSchedule'])->name('schedule.create');
+    Route::post('get-plots',[PlotController::class, 'getPlotsByAllote'])->name('plot.read');
+    Route::post("getAllotees",[AlloteController::class,'geAll'])->name('allote.read');
     //accounts
     Route::controller(BankController::class)
         ->prefix('banks')

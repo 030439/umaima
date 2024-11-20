@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use App\Models\Bank;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Exception;
 class AccountService
@@ -128,7 +129,7 @@ class AccountService
     {
         try {
             $payment_type = $this->request->input('payment_type');
-        
+
             // Validation rules
             $rules = [
                 'paydate' => 'required|date',
@@ -137,26 +138,27 @@ class AccountService
                 'amount' => 'required|numeric',
                 'narration' => 'required|string',
             ];
-        
+
             // Conditional validation rules
             if ($payment_type == 1) {
                 $rules['allotees'] = 'required|integer';
+                $rules['plot'] = 'required|integer';
             } else {
                 $rules['expense_heads'] = 'required|integer';
             }
-        
+
             // Validate request data
             $validator = Validator::make($this->request->all(), $rules);
-        
+
             if ($validator->fails()) {
-                // Format the error messages as a single string with line breaks
-                $errorMessages = implode("\n", $validator->errors()->all());
                 return response()->json([
                     'success' => false,
-                    'message' => "\n" . $errorMessages
-                ]); // Unprocessable Entity
+                    'message' => implode("\n", $validator->errors()->all())
+                ]);
             }
-        
+
+            DB::beginTransaction();
+
             // Prepare data for insertion
             $data = [
                 'paydate' => $this->request->input('paydate'),
@@ -164,35 +166,90 @@ class AccountService
                 'from_account' => $this->request->input('from_account'),
                 'amount' => $this->request->input('amount'),
                 'narration' => $this->request->input('narration'),
-                'allotees' => (int) $this->request->input('allotees', 0),
-                'expense_heads' => (int) $this->request->input('expense_heads', 0),
+                'allotees' => (int)$this->request->input('allotees', 0),
+                'expense_heads' => (int)$this->request->input('expense_heads', 0),
                 'created_at' => now(),
                 'updated_at' => now(),
             ];
-        
+
             // Insert data and get the last inserted ID
             $lastInsertedId = DB::table('payments')->insertGetId($data);
-        
+            $success=true;
+            if ($payment_type == 1) {
+                $pay = $this->payAmount();
+                switch ($pay) {
+                    case 1:
+                        $msg = "Payment schedule updated successfully!";
+                        break;
+                    case 2:
+                        $success=false;
+                        $msg = "Failed to update payment schedule!";
+                        break;
+                    case 3:
+                        $success=false;
+                        $msg = "No matching payment schedule found.";
+                        
+                        break;
+                    default:
+                    $success=false;
+                        $msg = $pay; // Return the exception message
+                }
+            } else {
+                $msg = "Payment created successfully!";
+            }
+
             // Log the action
             logAction('Created Payment', $lastInsertedId);
-        
-            // Success response
+
+            DB::commit();
+
             return response()->json([
-                'success' => true,
-                'message' => 'Payment created successfully!',
+                'success' => $success,
+                'message' => $msg,
             ]);
         } catch (\Exception $e) {
-            // Log the exception for debugging purposes
-            \Log::error('Error creating payment: ' . $e->getMessage());
-        
-            // Error response
+            DB::rollBack();
             return response()->json([
                 'success' => false,
-                'message' => 'An unexpected error occurred while creating the Payment.',
+                'message' => $e->getMessage(),
             ]);
         }
-        
     }
+
+
+    public function payAmount()
+    {
+        try {
+            $allocationId = $this->request->input('plot');
+            $amountPaid = $this->request->input('amount');
+            $paidOn = $this->request->input('paydate');
+
+            $payDate = Carbon::parse($paidOn)->format('15-M-Y');
+
+            $paymentSchedule = DB::table('payment_schedule')
+            ->where('allocation_details_id', $allocationId)
+            ->whereRaw("pay_date = ?", [$payDate])
+            ->first();
+            
+            if (!$paymentSchedule) {
+                return 3;
+            }
+
+            $updated = DB::table('payment_schedule')
+                ->where('allocation_details_id', $allocationId)
+                ->where('pay_date', $payDate)
+                ->update([
+                    'amount_paid' => $amountPaid,
+                    'paid_on' => $paidOn,
+                    'updated_at' => now(),
+                ]);
+
+            return $updated ? 1 : 2;
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
 
 
     public function getPaymentsVoucher()

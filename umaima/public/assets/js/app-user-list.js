@@ -35,6 +35,16 @@ $(function() {
                 type: "POST", // Ensure the correct HTTP method is used
                 dataSrc: "data" // Server response should contain the "data" key for rows
             },
+            columns: [
+                { data: 'id' },       // Map to 'id' in the returned JSON
+                { data: 'fname' },     // Map to 'name' in the returned JSON
+                { data: 'id',title:"Name" },       // Map to 'id' in the returned JSON
+                { data: 'id',title:"ROLE" },     // Map to 'name' in the returned JSON
+                { data: 'id',title:"Email" },       // Map to 'id' in the returned JSON
+                { data: 'id',title:"USERNAME" },   // Map to 'email' in the returned JSON
+                { data: 'id',title:"Status" },
+                { data: 'id',title:"ACTION" }
+            ],
             columnDefs: [
                 {
                     className: "control",

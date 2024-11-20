@@ -74,14 +74,13 @@
                 <table class="datatables-users table dataTable no-footer collapsed">
                   <!-- <thead class="border-top">
                     <tr>
-                      <th></th>
-                      <th> Scheme</th>
-                      <th>Plot Number</th>
-                      <th>Plot Size</th>
-                      <th>Plot Location</th>
-                      <th>Installments</th>
-                      <th>Status</th>
-                      <th>Actions</th>
+                      <th>Payment</th>
+                      <th>Due Amount</th>
+                      <th>Due Date</th>
+                      <th>Amount Paid</th>
+                      <th>Paid On</th>
+                      <th>Outstanding</th>
+                      <th>Surcharge</th>
                     </tr>
                   </thead> -->
                 </table>
@@ -118,6 +117,6 @@
     
 
     <!-- Page JS -->
-    <script src="../../assets/js/allote-plots.js"></script>
+    <script src="../../assets/js/allote-plot-payments.js"></script>
 @endsection
           

@@ -74,6 +74,7 @@ Route::middleware('auth')->group(function () {
         Route::get('allote-listing','index')->name('allote.index');
         Route::get('create-allote','alloteCreate');
         Route::get('allote-plotes/{id}','alloteePlotes');
+        Route::get('plot-payment/{id}','plotePayments')->name('payment.read');
     });
     Route::controller(AccountController::class)
     ->group(function(){
