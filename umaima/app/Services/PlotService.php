@@ -102,6 +102,92 @@ class PlotService
         ];
     }
 
+    public function alloteePlotes()
+    {
+        // Use request parameters with fallback defaults
+        $perPage = $this->request->input('perPage', 10);
+        $page = $this->request->input('page', 1);
+        $orderColumn = $this->request->input('orderColumn', 'plots.id');
+        $orderDirection = $this->request->input('orderDirection', 'asc');
+        $groupBy = $this->request->input('groupBy', []);
+        $having = $this->request->input('having', []);
+        $paginate = $this->request->input('paginate', true);
+        $draw=$this->request->get('draw');
+        $searchValue = $this->request->get('search')['value']; // This is the value you want to search for
+
+        // Initialize an array for the conditions
+        $columns = [
+            'plots.id as id',
+            'plots.status as status',
+            'plots.plot_number',
+            'schemes.name  as scheme',
+            'plot_locations.location_name as location',
+            'plot_sizes.size as size'
+        ];
+
+        $filters = [];
+        $joins = [
+            [
+                'table' => 'plots',
+                'first' => 'allocation_details.plot',
+                'operator' => '=',
+                'second' => 'plots.id',
+                'type'=>'join'
+            ],
+            [
+                'table' => 'schemes',
+                'first' => 'allocation_details.scheme',
+                'operator' => '=',
+                'second' => 'schemes.id',
+                'type'=>'join'
+            ],
+            [
+                'table' => 'plot_locations',
+                'first' => 'plots.plot_location_id',
+                'operator' => '=',
+                'second' => 'plot_locations.id',
+                'type'=>'join'
+            ],
+            [
+                'table' => 'plot_sizes',
+                'first' => 'plots.plot_size_id',
+                'operator' => '=',
+                'second' => 'plot_sizes.id',
+                'type'=>'join'
+            ],
+        ];
+        if (!empty($searchValue)) {
+            // Using an associative array instead of a nested array
+            $filters['allocation_details.allote'] = '%' . $searchValue . '%'; // This will be like 'name' => '%searchValue%'
+        }
+
+        $conditions[] = ['allocation_details.allote', '=', 1];
+
+        // Fetch the records using QueryTrait's fetchRecords method
+    
+        $result = $this->fetchRecords(
+            $this->table,
+            $columns,
+            $conditions,
+            $filters,
+            $joins,
+            $orderColumn,
+            $orderDirection,
+            $groupBy ,
+            $having ,
+            $perPage ,
+            $page ,
+            $paginate = true
+        );
+
+        // Return only the data if pagination is enabled, or full response if not paginated
+        return[
+            'data' => $result['data'],
+            'recordsTotal' => $result['recordsTotal'],
+            'recordsFiltered' => $result['recordsFiltered'],
+            'draw' => $draw,
+        ];
+    }
     public function createPlot(){
         {
             try {

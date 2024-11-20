@@ -29,4 +29,7 @@ class AlloteController extends Controller
         $result = $this->alloteservice->addAllote();
         return ($result);
     }
+    public function alloteePlotes(){
+        return view('allote.plotes');
+    }
 }

@@ -161,7 +161,7 @@
                           <td>Actions:</td>
                           <td>
                             <div class="d-flex align-items-center">
-                              <a href="javascript:;" class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill delete-record">
+                              <a id="plot-detail"class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill delete-record">
                                 <i class="ti ti-trash ti-md"></i>
                               </a>
                               <a href="app-user-view-account.html" class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill">

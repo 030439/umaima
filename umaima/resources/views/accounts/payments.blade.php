@@ -18,20 +18,20 @@
           <div class="col-md-6 col-12 mt-5">
             <input type="text" class="form-control flatpickr-input" placeholder="YYYY-MM-DD to YYYY-MM-DD" id="flatpickr-range" readonly="readonly">
           </div>
-            <table class="datatables-order table border-top">
-            <thead>
-                <tr>
-                <th></th>
-                <th></th>
-                <th>Date</th>
-                <th>Account</th>
-                <th>Amount</th>
-                <th>Expense</th>
-                </tr>
-            </thead>
-            </table>
-        </div>
-        </div>
+    <table class="datatables-order table border-top">
+      <thead>
+        <tr>
+          <th></th>
+          <th></th>
+          <th>Date</th>
+          <th>Account</th>
+          <th>Amount</th>
+          <th>Allote</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+</div>
 
 
           </div>
@@ -80,6 +80,6 @@
     <script src="../../assets/js/forms-pickers.js"></script>
     
     <!-- Page JS -->
-    <script src="../../assets/js/expenses.js"></script>
+    <script src="../../assets/js/payments.js"></script>
     @endsection
 

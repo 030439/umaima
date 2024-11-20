@@ -19,6 +19,12 @@ class AccountController extends Controller
     public function payment(){
         return view('accounts.add-payment');
     }
+    public function payments(){
+        return view('accounts.payments');
+    }
+    public function expenses(){
+        return view('accounts.expenses');
+    }
     public function accountHead(){
         $accounts = DB::table('account_heads')->get();
         return view('accounts.account-head',['accounts' => $accounts]);
@@ -35,12 +41,20 @@ class AccountController extends Controller
         $result = $this->accountservice->storePayment();
         return ($result);
     }
-    public function getPayments(){
-        $result = $this->accountservice->getPayments();
+    public function getPaymentsVoucher(){
+        $result = $this->accountservice->getPaymentsVoucher();
+        return ($result);
+    }
+    public function getExpenses(){
+        $result = $this->accountservice->getExpenses();
         return ($result);
     }
     public function getAccountHeads(){
         $result = $this->accountservice->getAccountHeads();
+        return ($result);
+    }
+    public function getPayments(){
+        $result = $this->accountservice->getPayments();
         return ($result);
     }
 }

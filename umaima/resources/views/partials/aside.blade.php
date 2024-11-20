@@ -158,10 +158,20 @@
       </a>
       <ul class="menu-sub">
         <li class="menu-item">
-              <a href="{{ route('cashbook.read') }}" class="menu-link">
-                <div>Cash Book</div>
-              </a>
-            </li>
+          <a href="{{ route('cashbook.read') }}" class="menu-link">
+            <div>Cash Book</div>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="{{ route('expense.show') }}" class="menu-link">
+            <div>Expenses</div>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="{{ route('payments.show') }}" class="menu-link">
+            <div>Payments</div>
+          </a>
+        </li>
 
         <li class="menu-item" style="">
           <a href="javascript:void(0);" class="menu-link menu-toggle">

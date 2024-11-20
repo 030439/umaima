@@ -73,6 +73,7 @@ Route::middleware('auth')->group(function () {
     ->group(function(){
         Route::get('allote-listing','index')->name('allote.index');
         Route::get('create-allote','alloteCreate');
+        Route::get('allote-plotes/{id}','alloteePlotes');
     });
     Route::controller(AccountController::class)
     ->group(function(){
@@ -80,6 +81,8 @@ Route::middleware('auth')->group(function () {
         Route::get('cashbook','cashbook')->name('cashbook.read');
         Route::get('add-payment','payment')->name('payment.read');
         Route::post('get-account-heads','getAccountHeads');
+        Route::get('expense','expenses')->name('expense.show');
+        Route::get('payments','payments')->name('payments.show');
     });
     Route::get('/logs', [LogController::class,'index'])->middleware('auth');
 });

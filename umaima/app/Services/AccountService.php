@@ -195,7 +195,7 @@ class AccountService
     }
 
 
-    public function getPayments()
+    public function getPaymentsVoucher()
     {
         // Use request parameters with fallback defaults
         $perPage = $this->request->input('perPage', 10);
@@ -304,5 +304,199 @@ class AccountService
             'expenses' => $bank
         ]);
     }
+    //get all expenses
+    public function getExpenses()
+    {
+        // Use request parameters with fallback defaults
+        $perPage = $this->request->input('perPage', 10);
+        $page = $this->request->input('page', 1);
+        $joins = $this->request->input('joins', []);
+        $orderColumn = $this->request->input('orderColumn', 'id');
+        $orderDirection = $this->request->input('orderDirection', 'asc');
+        $groupBy = $this->request->input('groupBy', []);
+        $having = $this->request->input('having', []);
+        $paginate = $this->request->input('paginate', true);
+        $draw=$this->request->get('draw');
+        $searchValue = $this->request->get('search')['value']; // This is the value you want to search for
+        
+
+        $columns = [
+            'payments.*',
+            'banks.bank_name  as bank',
+            'banks.account_no  as account',
+            'allotes.fullname',
+            'allotes.phone',
+            'account_heads.name as expense'
+        ];
+
+        // Initialize an array for the conditions
+        $filters = [];
+        $conditions=[];
+        $startDate = $this->request->input('startDate');
+        $endDate = $this->request->input('endDate');
+    
+        // Add startDate and endDate to the filters if they are provided
+        
+        $joins = [
+            [
+                'table' => 'allotes',
+                'first' => 'payments.allotees',
+                'operator' => '=',
+                'second' => 'allotes.id',
+                'type'=>'leftJoin'
+            ],
+            [
+                'table' => 'account_heads',
+                'first' => 'payments.expense_heads',
+                'operator' => '=',
+                'second' => 'account_heads.id',
+                'type'=>'leftJoin'
+            ],
+            [
+                'table' => 'banks',
+                'first' => 'payments.from_account',
+                'operator' => '=',
+                'second' => 'banks.id',
+                'type'=>'leftJoin'
+            ],
+        ];
+
+        if (!empty($searchValue)) {
+            // Using an associative array instead of a nested array
+            $filters['paydate'] = '%' . $searchValue . '%'; // This will be like 'name' => '%searchValue%'
+            $filters['from_account'] = '%' . $searchValue . '%';
+            $filters['amount'] = '%' . $searchValue . '%';
+            $filters['narration'] = '%' . $searchValue . '%';
+            $filters['account_heads.name'] = '%' . $searchValue . '%';
+            $filters['allotes.fullname'] = '%' . $searchValue . '%';
+        }
+        if (!empty($startDate) && !empty($endDate)) {
+            $conditions[] = ['paydate', '>=', $startDate]; // start date condition
+            $conditions[] = ['paydate', '<=', $endDate]; // end date condition
+        }
+        $conditions[] = ['payment_type', '=', 2];
+
+        // Fetch the records using QueryTrait's fetchRecords method
+        $result = $this->fetchRecords(
+            'payments',
+            $columns,
+            $conditions,
+            $filters,
+            $joins,
+            $orderColumn,
+            $orderDirection,
+            $groupBy ,
+            $having ,
+            $perPage ,
+            $page ,
+            $paginate = true
+        );
+
+        // Return only the data if pagination is enabled, or full response if not paginated
+        return[
+            'data' => $result['data'],
+            'recordsTotal' => $result['recordsTotal'],
+            'recordsFiltered' => $result['recordsFiltered'],
+            'draw' => $draw,
+        ];
+    }
+
+    //get payment listing
+    public function getPayments()
+    {
+        // Use request parameters with fallback defaults
+        $perPage = $this->request->input('perPage', 10);
+        $page = $this->request->input('page', 1);
+        $joins = $this->request->input('joins', []);
+        $orderColumn = $this->request->input('orderColumn', 'id');
+        $orderDirection = $this->request->input('orderDirection', 'asc');
+        $groupBy = $this->request->input('groupBy', []);
+        $having = $this->request->input('having', []);
+        $paginate = $this->request->input('paginate', true);
+        $draw=$this->request->get('draw');
+        $searchValue = $this->request->get('search')['value']; // This is the value you want to search for
+        
+
+        $columns = [
+            'payments.*',
+            'banks.bank_name  as bank',
+            'banks.account_no  as account',
+            'allotes.fullname',
+            'allotes.phone',
+            'account_heads.name as expense'
+        ];
+
+        // Initialize an array for the conditions
+        $filters = [];
+        $conditions=[];
+        $startDate = $this->request->input('startDate');
+        $endDate = $this->request->input('endDate');
+    
+        // Add startDate and endDate to the filters if they are provided
+        
+        $joins = [
+            [
+                'table' => 'allotes',
+                'first' => 'payments.allotees',
+                'operator' => '=',
+                'second' => 'allotes.id',
+                'type'=>'leftJoin'
+            ],
+            [
+                'table' => 'account_heads',
+                'first' => 'payments.expense_heads',
+                'operator' => '=',
+                'second' => 'account_heads.id',
+                'type'=>'leftJoin'
+            ],
+            [
+                'table' => 'banks',
+                'first' => 'payments.from_account',
+                'operator' => '=',
+                'second' => 'banks.id',
+                'type'=>'leftJoin'
+            ],
+        ];
+
+        if (!empty($searchValue)) {
+            // Using an associative array instead of a nested array
+            $filters['paydate'] = '%' . $searchValue . '%'; // This will be like 'name' => '%searchValue%'
+            $filters['from_account'] = '%' . $searchValue . '%';
+            $filters['amount'] = '%' . $searchValue . '%';
+            $filters['narration'] = '%' . $searchValue . '%';
+            $filters['account_heads.name'] = '%' . $searchValue . '%';
+            $filters['allotes.fullname'] = '%' . $searchValue . '%';
+        }
+        if (!empty($startDate) && !empty($endDate)) {
+            $conditions[] = ['paydate', '>=', $startDate]; // start date condition
+            $conditions[] = ['paydate', '<=', $endDate]; // end date condition
+        }
+        $conditions[] = ['payment_type', '=', 1];
+
+        // Fetch the records using QueryTrait's fetchRecords method
+        $result = $this->fetchRecords(
+            'payments',
+            $columns,
+            $conditions,
+            $filters,
+            $joins,
+            $orderColumn,
+            $orderDirection,
+            $groupBy ,
+            $having ,
+            $perPage ,
+            $page ,
+            $paginate = true
+        );
+
+        // Return only the data if pagination is enabled, or full response if not paginated
+        return[
+            'data' => $result['data'],
+            'recordsTotal' => $result['recordsTotal'],
+            'recordsFiltered' => $result['recordsFiltered'],
+            'draw' => $draw,
+        ];
+    }
+
     
 }

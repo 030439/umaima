@@ -440,6 +440,7 @@ function getRoles(){
     // Update the table cells with the user data
     $('.user-name .avatar img').attr('src', user.avatar_url); // Assuming you want to update the avatar image
     $('.user-name .fw-medium').text(user.fname + ' ' + user.lname); 
+    $("#plot-detail").attr('href','allote-plotes/'+user.id);
     $('tr td:contains("Role:")').next('td').find('span').text(user.roles); // Assuming you have a 'role' field in the response
     $('tr td:contains("Email:")').next('td').find('span').text(user.email); // Assuming you have a 'plan' field in the response
     $('tr td:contains("Username:")').next('td').text(user.username); // Billing info

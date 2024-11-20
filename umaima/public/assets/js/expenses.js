@@ -34,7 +34,7 @@ $(function () {
             scrollX: true,
             pageLength: 10,
             ajax: {
-                url: "/api/getPaymentsVoucher",
+                url: "/api/getExpenses",
                 headers: {
                     "X-CSRF-TOKEN": csrfToken // Add CSRF token to request headers
                 },
@@ -86,17 +86,6 @@ $(function () {
                 {
                     targets: 3,
                     render: function (t, e, a, s) {
-                        a = a.payment_type;
-                        if(a==1){
-                            return ('<span class="badge px-2 bg-label-success" text-capitalized="">credit</span>');
-                        }else{
-                            return ('<span class="badge px-2 bg-label-primary" text-capitalized="">Debit</span>');
-                        }
-                    },
-                },
-                {
-                    targets: 4,
-                    render: function (t, e, a, s) {
                         return'<h6 class="mb-0 align-items-center d-flex w-px-100 ' +
                                   a.bank +
                                   '">' +
@@ -106,7 +95,7 @@ $(function () {
                    
                 },
                 {
-                    targets: 5,
+                    targets: 4,
                     responsivePriority: 1,
                     render: function (t, e, a, s) {
                         return (
@@ -115,29 +104,7 @@ $(function () {
                     }
                 },
                 {
-                    targets: 6,
-                    responsivePriority: 1,
-                    render: function (t, e, a, s) {
-                        var n = a.fullname,
-                            r = a.phone
-                            if(!r){r="";}
-                            if(n){
-                        return (
-                            '<div class="d-flex justify-content-start align-items-center order-name text-nowrap">' +
-                           
-                            '<div class="d-flex flex-column"><h6 class="m-0"><a href="pages-profile-user.html" class="text-heading">' +
-                            n +
-                            "</a></h6><small>" +
-                            r +
-                            "</small></div></div>"
-                        );
-                    }else{
-                        return("-");
-                    }
-                    },
-                },
-                {
-                    targets: 7,
+                    targets: 5,
                     render: function (t, e, a, s) {
                         if(a.expense){
                             return (a.expense
@@ -147,15 +114,6 @@ $(function () {
                         }
                     },
                     
-                },
-                {
-                    targets: -1,
-                    title: "Actions",
-                    searchable: !1,
-                    orderable: !1,
-                    render: function (t, e, a, s) {
-                        return '<div class="d-flex justify-content-sm-start align-items-sm-center"><button class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="ti ti-dots-vertical"></i></button><div class="dropdown-menu dropdown-menu-end m-0"><a href="app-ecommerce-order-details.html" class="dropdown-item">View</a><a href="javascript:0;" class="dropdown-item delete-record">Delete</a></div></div>';
-                    },
                 },
             ],
             order: [3, "asc"],

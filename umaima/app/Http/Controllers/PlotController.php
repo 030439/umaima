@@ -20,6 +20,12 @@ class PlotController extends Controller
         return view('plots.allotment');
     }
 
+    public function alloteePlotes(){
+        return view('allote.plotes');
+        $result = $this->plotservice->alloteePlotes();
+        return ($result);
+    }
+
     public function listing()
     {
         $result = $this->plotservice->geAll();
