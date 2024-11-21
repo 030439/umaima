@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Services\UsersService;
+use App\Services\SchemeService;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\BulkDataImport;
 use Illuminate\Support\Facades\Validator;
@@ -15,9 +16,10 @@ class DashboardController extends Controller
         $this->usersService = $usersService;
     }
 
-    public function index()
+    public function index(SchemeService $schemeservice)
     {
-        return view('dashboard.index');
+        $groupedPlots = $schemeservice->allotedPlotListing();
+        return view('dashboard.index', compact('groupedPlots'));
     }
     public function bulk(Request $request){
         $validator = Validator::make($request->all(), [

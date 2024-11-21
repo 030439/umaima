@@ -1,12 +1,11 @@
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
 
   
-  <div class="app-brand demo ">
+  <div class="app-brand demo" style="height:90px">
     <a href="{{route('dashboard.index')}}" class="app-brand-link">
-      <span class="app-brand-logo demo">
-      <img src="../../assets/img/icons/brands/laravel-logo.png" height="22" width="32">
+      <span class="">
+      <img src="../../assets/deluxe.jpg" height="120" width="150">
 </span>
-      <span class="app-brand-text demo menu-text fw-bold">Laravel Admin</span>
     </a>
 
     <!-- <a href="{{route('dashboard.index')}}" class="app-brand-link">

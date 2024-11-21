@@ -35,17 +35,18 @@ $(function() {
                 type: "POST", // Ensure the correct HTTP method is used
                 dataSrc: "data" // Server response should contain the "data" key for rows
             },
+            columns: [   // Map to 'name' in the returned JSON
+                { data: 'id',title:"Scheme" },       // Map to 'id' in the returned JSON
+                { data: 'id',title:"Plot-number" },     // Map to 'name' in the returned JSON
+                { data: 'id',title:"plot-size" },       // Map to 'id' in the returned JSON
+                { data: 'id',title:"plot-location" }, 
+                { data: 'id',title:"status" }, 
+                { data: 'id',title:"actions" },    
+            ],
             columnDefs: [
                
                 {
                     targets: 0,
-                    orderable: false,
-                    checkboxes: { selectAllRender: '<input type="checkbox" class="form-check-input">' },
-                    render: function() { return '<input type="checkbox" class="dt-checkboxes form-check-input" >'; },
-                    searchable: false
-                },
-                {
-                    targets: 1,
                     responsivePriority: 4,
                     render: function(t, e, a, s) {
                         var n = a.scheme
@@ -54,26 +55,26 @@ $(function() {
                     }
                 },
                 {
-                    targets: 2,
+                    targets: 1,
                     render: function(t, e, a, s) {
                         return '<span class="text-heading">' + a.plot_number + "</span>";
                     }
                     
                 },
                 {
-                    targets: 3,
+                    targets: 2,
                     render: function(t, e, a, s) {
                         return '<span class="text-heading">' + a.size + "</span>";
                     }
                 },
                 {
-                    targets: 4,
+                    targets: 3,
                     render: function(t, e, a, s) {
                         return '<span class="text-heading">' + a.location + "</span>";
                     }
                 },
                 {
-                    targets: 5,
+                    targets: 4,
                     render: function(t, e, a, s) {
                         a = a.status;
                         var status_bg;

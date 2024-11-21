@@ -15,7 +15,7 @@
   
  
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="../../assets/img/icons/brands/laravel-logo.png" />
+    <link rel="icon" type="image/x-icon" href="../../assets/deluxe.jpg" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com/">
@@ -59,9 +59,8 @@
           <div class="app-brand justify-content-center mb-6">
           <a href="{{route('dashboard.index')}}" class="app-brand-link">
       <span class="app-brand-logo ">
-      <img src="../../assets/img/icons/brands/laravel-logo.png" height="32" width="52">
+      <img src="../../assets/deluxe.jpg" height="150" >
 </span>
-      <span class="app-brand-text demo menu-text fw-bold">Laravel Admin</span>
     </a>
           </div>
           <form id="login-form" class="mb-4" method="post">

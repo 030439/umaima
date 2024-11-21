@@ -10,17 +10,7 @@
       <div class="card">
         <div class="card-datatable table-responsive">
                 <table class="datatables-users table dataTable no-footer collapsed">
-                  <thead class="border-top">
-                    <tr>
-                      <th></th>
-                      <th> Scheme</th>
-                      <th>Plot Number</th>
-                      <th>Plot Size</th>
-                      <th>Plot Location</th>
-                      <th>Status</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
+                 
                 </table>
               </div>
             </div>

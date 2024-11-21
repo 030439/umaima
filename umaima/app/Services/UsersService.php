@@ -24,7 +24,7 @@ class UsersService
 
     public function getUsersWithRoles()
 {
-    $perPage = $this->request->input('perPage', 10);
+    $perPage = $this->request->input('length', 10);
     $page = $this->request->input('page', 1);
     $orderColumn = $this->request->input('orderColumn');
     $orderDirection = $this->request->input('orderDirection', 'asc');

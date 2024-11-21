@@ -120,7 +120,7 @@
                         </div>
                         <form id="addsizeForm" class="row" onsubmit="return false">
                         <div class="col-12 mb-4">
-                            <label class="form-label" for="durationname">Duration</label>
+                            <label class="form-label" for="durationname">Duration Name</label>
                             <input type="text" id="durationname" name="durationname" class="form-control" placeholder="duration">
                             <div class="fv-plugins-message-container invalid-feedbacks"></div>
                         </div>

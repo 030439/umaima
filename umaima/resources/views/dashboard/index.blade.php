@@ -75,20 +75,59 @@
 
 <!-- Revenue Growth -->
 
+<div class="row">
+            <div class="col">
+                <h6 class="mt-6">Scheme-Wise-Plots</h6>
+                <div class="card mb-6">
+                <div class="card-header px-0 pt-0">
+                    <div class="nav-align-top">
+                      
+                    <ul class="nav nav-tabs" role="tablist">
+                        @if(!empty($groupedPlots))
+                        
+                        @foreach($groupedPlots as $schemeName => $plots)
+                        <li class="nav-item" role="presentation">
+                        <button type="button" class="nav-link waves-effect <?php if($schemeName==0){echo 'active';}?>" data-bs-toggle="tab" data-bs-target="#t{{$schemeName}}" aria-controls="form-tabs-personal" role="tab" aria-selected="true"><span class="ti ti-user ti-lg d-sm-none"></span><span class="d-none d-sm-block">{{$plots['scheme']}}</span></button>
+                        </li>
+                        @endforeach
+                        @endif
+                    </ul>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <div class="tab-content p-0">
+                    <!-- Personal Info -->
+                    @if(!empty($groupedPlots))
+                    @foreach($groupedPlots as $schemeName => $plots)
+
+                    <div class="tab-pane fade <?php if($schemeName==0){echo 'active';}?> show" id="t{{$schemeName}}" role="tabpanel">
+                        <div class="row">    
+                    @if(!empty($plots))
+                    @foreach ($plots['plots'] as $plot) 
+                    
+                    <?php $status = $plot['status'] == 0 ? "success" : ($plot['status'] == 1 ? "primary" : "warning");?>
+                            <div class="col-3 col-md-2 col-lg-1 text-white  bg-{{$status}} text-center p-4" style="margin:2px"  data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="tooltip-{{$status}}" data-bs-original-title="Success tooltip">
+                                    {{$plot['plot_number']}}
+                                
+                            </div>
+                    @endforeach
+                     @endif
+                     </div>
+                    </div>
+
+                    @endforeach
+                    @endif
+                 </div>
+                </div>
+                </div>
+            </div>
+            </div>
 
 
+          </div>
 
-
-
-<!-- Sales By Country -->
-
-
-
-
-<!--/ Activity Timeline -->
 </div>
-
-  </div>
   <!-- / Content -->
 
   

@@ -7,7 +7,7 @@
 <!-- Content -->
 
   <div class="container-xxl flex-grow-1 container-p-y">
-    <div class="row mb-5">
+    <!-- <div class="row mb-5">
         <div class="col-lg-3 col-sm-6">
             <div class="card h-100">
             <div class="card-body d-flex justify-content-between align-items-center">
@@ -68,7 +68,7 @@
             </div>
             </div>
         </div>
-    </div>
+    </div> -->
       <div class="card">
         <div class="card-datatable table-responsive">
                 <table class="datatables-users table dataTable no-footer collapsed">

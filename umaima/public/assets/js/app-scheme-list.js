@@ -35,46 +35,48 @@ $(function() {
                 type: "POST", // Ensure the correct HTTP method is used
                 dataSrc: "data" // Server response should contain the "data" key for rows
             },
+            columns: [   // Map to 'name' in the returned JSON
+                { data: 'id',title:"Scheme" },       // Map to 'id' in the returned JSON
+                { data: 'id',title:"area" },     // Map to 'name' in the returned JSON
+                { data: 'id',title:"no-of-plots" },       // Map to 'id' in the returned JSON
+                { data: 'id',title:"total-valuation" }, 
+                { data: 'id',title:"status" }, 
+                { data: 'id',title:"actions" },    
+            ],
             columnDefs: [
+               
                
                 {
                     targets: 0,
-                    orderable: false,
-                    checkboxes: { selectAllRender: '<input type="checkbox" class="form-check-input">' },
-                    render: function() { return '<input type="checkbox" class="dt-checkboxes form-check-input" >'; },
-                    searchable: false
-                },
-                {
-                    targets: 1,
                     responsivePriority: 4,
                     render: function(t, e, a, s) {
                         var n = a.name,
                             i = a.email
                         return '<div class="d-flex justify-content-start align-items-center user-name">' +
-                            '<div class="d-flex flex-column"><a href="' + r + '" class="text-heading text-truncate"><span class="fw-medium">' + n + "</span></a></div></div>";
+                            '<div class="d-flex flex-column"><a  class="text-heading text-truncate"><span class="fw-medium">' + n + "</span></a></div></div>";
                     }
                 },
                 {
-                    targets: 2,
+                    targets: 1,
                     render: function(t, e, a, s) {
                         return '<span class="text-heading">' + a.area + "</span>";
                     }
                     
                 },
                 {
-                    targets: 3,
+                    targets: 2,
                     render: function(t, e, a, s) {
                         return '<span class="text-heading">' + a.no_of_plots + "</span>";
                     }
                 },
                 {
-                    targets: 4,
+                    targets: 3,
                     render: function(t, e, a, s) {
                         return '<span class="text-heading">' + a.total_valuation + "</span>";
                     }
                 },
                 {
-                    targets: 5,
+                    targets: 4,
                     render: function(t, e, a, s) {
                         a = a.status;
                         var status_bg;

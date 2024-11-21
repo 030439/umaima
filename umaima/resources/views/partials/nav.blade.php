@@ -45,7 +45,7 @@
             </ul>
         </li>
 
-          <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-2">
+          <!-- <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-2">
             <a class="nav-link btn btn-text-secondary btn-icon rounded-pill dropdown-toggle hide-arrow waves-effect waves-light" href="javascript:void(0);" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
               <span class="position-relative">
                 <i class="ti ti-bell ti-md"></i>
@@ -236,7 +236,7 @@
                 </div>
               </li>
             </ul>
-          </li>
+          </li> -->
           <!-- User -->
           <li class="nav-item navbar-dropdown dropdown-user dropdown">
             <a class="nav-link dropdown-toggle hide-arrow p-0" href="javascript:void(0);" data-bs-toggle="dropdown">
@@ -246,7 +246,7 @@
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
               <li>
-                <a class="dropdown-item mt-0" href="pages-account-settings-account.html">
+                <a class="dropdown-item mt-0" href="#">
                   <div class="d-flex align-items-center">
                     <div class="flex-shrink-0 me-2">
                       <div class="avatar avatar-online">
@@ -255,7 +255,7 @@
                       </div>
                     </div>
                     <div class="flex-grow-1">
-                      <h6 class="mb-0">John Doe</h6>
+                      <!-- <h6 class="mb-0">John Doe</h6> -->
                       <small class="text-muted">Admin</small>
                     </div>
                   </div>
@@ -264,7 +264,7 @@
               <li>
                 <div class="dropdown-divider my-1 mx-n2"></div>
               </li>
-              <li>
+              <!-- <li>
                 <a class="dropdown-item" href="pages-profile-user.html">
                   <i class="ti ti-user me-3 ti-md"></i><span class="align-middle">My Profile</span>
                 </a>
@@ -273,15 +273,19 @@
                 <a class="dropdown-item" href="pages-account-settings-account.html">
                   <i class="ti ti-settings me-3 ti-md"></i><span class="align-middle">Settings</span>
                 </a>
-              </li>
+              </li> -->
               <li>
                 <div class="d-grid px-2 pt-2 pb-1">
-                  <a class="btn btn-sm btn-danger d-flex" href="auth-login-cover.html" target="_blank">
-                    <small class="align-middle">Logout</small>
-                    <i class="ti ti-logout ms-2 ti-14px"></i>
-                  </a>
+                  <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button style="width:100%" type="submit" class="btn btn-sm btn-danger d-flex">
+                      Logout
+                      <i class="ti ti-logout ms-2 ti-14px"></i>
+                    </button>
+                  </form>
                 </div>
               </li>
+
             </ul>
           </li>
           <!--/ User -->

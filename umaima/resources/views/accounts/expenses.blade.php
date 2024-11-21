@@ -19,16 +19,7 @@
             <input type="text" class="form-control flatpickr-input" placeholder="YYYY-MM-DD to YYYY-MM-DD" id="flatpickr-range" readonly="readonly">
           </div>
             <table class="datatables-order table border-top">
-            <thead>
-                <tr>
-                <th></th>
-                <th></th>
-                <th>Date</th>
-                <th>Account</th>
-                <th>Amount</th>
-                <th>Expense</th>
-                </tr>
-            </thead>
+          
             </table>
         </div>
         </div>

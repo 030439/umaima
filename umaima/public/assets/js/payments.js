@@ -52,31 +52,16 @@ $(function () {
                 type: "POST", // Ensure the correct HTTP method is used
                 dataSrc: "data" // Server response should contain the "data" key for rows
             },
+            columns: [   // Map to 'name' in the returned JSON
+                { data: 'id',title:"Date" },       // Map to 'name' in the returned JSON
+                { data: 'id',title:"account" },       // Map to 'id' in the returned JSON
+                { data: 'id',title:"amount" },  
+                { data: 'id',title:"allotee" },    
+            ],
             columnDefs: [
+               
                 {
-                    className: "control",
-                    searchable: !1,
-                    orderable: !1,
-                    responsivePriority: 2,
                     targets: 0,
-                    render: function (t, e, a, s) {
-                        return "";
-                    },
-                },
-                {
-                    targets: 1,
-                    orderable: !1,
-                    checkboxes: {
-                        selectAllRender:
-                            '<input type="checkbox" class="form-check-input">',
-                    },
-                    render: function () {
-                        return '<input type="checkbox" class="dt-checkboxes form-check-input" >';
-                    },
-                    searchable: !1,
-                },
-                {
-                    targets: 2,
                     render: function (t, e, a, s) {
                         return (a.paydate
                         );
@@ -84,7 +69,7 @@ $(function () {
                     
                 },
                 {
-                    targets: 3,
+                    targets: 1,
                     render: function (t, e, a, s) {
                         return'<h6 class="mb-0 align-items-center d-flex w-px-100 ' +
                                   a.bank +
@@ -95,7 +80,7 @@ $(function () {
                    
                 },
                 {
-                    targets: 4,
+                    targets: 2,
                     responsivePriority: 1,
                     render: function (t, e, a, s) {
                         return (
@@ -104,7 +89,7 @@ $(function () {
                     }
                 },
                 {
-                    targets: 5,
+                    targets: 3,
                     responsivePriority: 1,
                     render: function (t, e, a, s) {
                         var n = a.fullname,

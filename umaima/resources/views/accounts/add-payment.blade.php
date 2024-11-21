@@ -26,8 +26,8 @@
                             <label class="col-form-label text-sm-end" for="payment_type">Payment Type</label>
                             <select id="payment_type" name="payment_type" class="select2 form-select" data-allow-clear="true">
                                 <option value="">Select Payment Type</option>
-                                <option value="1">Payment</option>
-                                <option value="2">Expense</option>
+                                <option value="1">Receive</option>
+                                <option value="2">Payment</option>
                             </select>
                         </div>
 
@@ -53,7 +53,7 @@
                         </div>
 
                         <div class="col-6">
-                            <label class="col-form-label text-sm-end" for="from_account">From Account</label>
+                            <label class="col-form-label text-sm-end" for="from_account"> Account</label>
                             <select id="from_account" name="from_account" class="select2 form-select" data-allow-clear="true">
                                 <option value="">Select Account</option>
                             </select>

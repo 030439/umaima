@@ -25,7 +25,7 @@ class SchemeService
     public function getAll()
     {
         // Use request parameters with fallback defaults
-        $perPage = $this->request->input('perPage', 10);
+        $perPage = $this->request->input('length', 10);
         $page = $this->request->input('page', 1);
         $joins = $this->request->input('joins', []);
         $orderColumn = $this->request->input('orderColumn', 'id');

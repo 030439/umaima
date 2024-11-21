@@ -25,7 +25,7 @@ class AlloteService
     public function geAll()
     {
         // Use request parameters with fallback defaults
-        $perPage = $this->request->input('perPage', 10);
+        $perPage = $this->request->input('length', 10);
         $page = $this->request->input('page', 1);
         $orderColumn = $this->request->input('orderColumn', 'id');
         $orderDirection = $this->request->input('orderDirection', 'asc');
