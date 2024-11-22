@@ -566,6 +566,68 @@ class AccountService
             'draw' => $draw,
         ];
     }
+    public function applySurcharge()
+    {
+        try {
+            DB::beginTransaction(); // Start the transaction
 
-    
+            $currentMonth = Carbon::now()->startOfMonth(); // First day of the current month
+            $currentMonthDate = $currentMonth->format('Y-m-15'); // Use the 15th of the current month
+            $currentMonthLastDate = $currentMonth->endOfMonth()->format('Y-m-d'); // Dynamically get the last day
+
+            // Fetch payment schedules where no payment is made and due within the current month
+            $paymentSchedules = DB::table('payment_schedule')
+                ->where('amount_paid', '=', 0)
+                ->where('pay_date', '>=', $currentMonthDate)
+                ->where('pay_date', '<=', $currentMonthLastDate)
+                ->lockForUpdate() // Prevent other transactions from modifying these rows
+                ->get();
+
+            // Define surcharge rate
+            $surchargeRate = 0.15;
+
+            foreach ($paymentSchedules as $schedule) {
+                $outstanding = $schedule->amount - $schedule->amount_paid;
+
+                // Calculate surcharge if payment is not made
+                $surcharge = 0;
+                if ($schedule->amount_paid == 0) {
+                    $surcharge = $this->calculateSurcharge($outstanding, $surchargeRate);
+                    $outstanding += $surcharge; // Add surcharge to outstanding balance
+                }
+
+                // Update the database with surcharge and outstanding
+                $updated = PaymentSchedule::where('id', $schedule->id)->update([
+                    'surcharge' => $surcharge, 
+                    'outstanding' => $outstanding,
+                    'updated_at' => now(),
+                ]);
+
+                if ($updated === 0) { // If no rows were updated, rollback
+                    DB::rollBack();
+                    return response()->json([
+                        'success' => false,
+                        'message' => "Failed to update record with ID {$schedule->id}",
+                    ]);
+                }
+            }
+
+            DB::commit(); // Commit the transaction
+
+            // Log action
+            logAction('Surcharge applied for payment month ' . $currentMonthDate);
+
+            return response()->json([
+                'success' => true,
+                'message' => "Surcharge successfully applied.",
+            ]);
+        } catch (Exception $e) {
+            DB::rollBack(); // Rollback the transaction on error
+            return response()->json([
+                'success' => false,
+                'message' => "Something went wrong: " . $e->getMessage(),
+            ]);
+        }
+    }
+
 }
