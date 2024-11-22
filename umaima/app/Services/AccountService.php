@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use App\Models\Bank;
 use Carbon\Carbon;
+use App\Models\PaymentSchedule;
 use Illuminate\Http\JsonResponse;
 use Exception;
 class AccountService
@@ -234,15 +235,26 @@ class AccountService
             if (!$paymentSchedule) {
                 return 3;
             }
-
-            $updated = DB::table('payment_schedule')
-                ->where('allocation_details_id', $allocationId)
+            $record =  PaymentSchedule::where('allocation_details_id', $allocationId)
                 ->where('pay_date', $payDate)
-                ->update([
+                ->first();
+
+            if ($record) {
+                $updated =$record->update([
                     'amount_paid' => $amountPaid,
                     'paid_on' => $paidOn,
                     'updated_at' => now(),
                 ]);
+            }
+
+            // $updated = DB::table('payment_schedule')
+            //     ->where('allocation_details_id', $allocationId)
+            //     ->where('pay_date', $payDate)
+            //     ->update([
+            //         'amount_paid' => $amountPaid,
+            //         'paid_on' => $paidOn,
+            //         'updated_at' => now(),
+            //     ]);
 
             return $updated ? 1 : 2;
         } catch (Exception $e) {

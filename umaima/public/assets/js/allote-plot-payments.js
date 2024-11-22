@@ -1,4 +1,5 @@
 "use strict";
+var pid=$("#pid").attr('title');
 const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
 $(function() {
     let e, a, s;
@@ -26,9 +27,9 @@ $(function() {
             serverSide: true,
             responsive: true,
             scrollX: true,
-            pageLength: 10,
+            pageLength: 100,
             ajax: {
-                url: "/api/allote/plot/payments",
+                url: "/api/allote/plot/payments/"+pid,
                 headers: {
                     "X-CSRF-TOKEN": csrfToken // Add CSRF token to request headers
                 },
@@ -88,6 +89,32 @@ $(function() {
                     }
                 },
             ],
+            "footerCallback": function (row, data, start, end, display) {
+    var api = this.api();
+
+    // Initialize totals
+    var total = 0;
+    var total_debit = 0;
+    var total_deduction = 0;
+
+    // Calculate totals for the specific fields
+    data.forEach(function(row) {
+        var quantity = parseFloat(row.amount) || 0; // Default to 0 if invalid
+        total += quantity;
+
+        var debit = parseFloat(row.amount_paid) || 0; // Default to 0 if invalid
+        total_debit += debit;
+
+        var deduction = parseFloat(row.amount) || 0; // Default to 0 if invalid
+        total_deduction += deduction;
+    });
+
+    // Update the footer cells
+    $(api.column(1).footer()).html(total_deduction.toFixed(2)); // Column for 'deduction'
+    $(api.column(3).footer()).html(total_debit.toFixed(2)); // Column for 'total_amount'
+    // $(api.column(6).footer()).html(total_debit.toFixed(2)); // Column for 'amount_'
+}
+,
             order: [[2, "desc"]],
             dom: '<"row"<"col-md-2"<"ms-n2"l>><"col-md-10"<"dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-6 mb-md-0 mt-n6 mt-md-0"fB>>>t<"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
             language: {

@@ -3,7 +3,7 @@
 @section('title', 'Scheme Plot')
 @section('content')
 <div class="content-wrapper">
-
+<span id="pid" title="<?php echo $pid?>"></span>
 <!-- Content -->
 
   <div class="container-xxl flex-grow-1 container-p-y">
@@ -69,6 +69,7 @@
             </div>
         </div>
     </div> -->
+   
       <div class="card">
         <div class="card-datatable table-responsive">
                 <table class="datatables-users table dataTable no-footer collapsed">
@@ -83,6 +84,17 @@
                       <th>Surcharge</th>
                     </tr>
                   </thead> -->
+                    <tfoot class="bg-info" id="footer-total">
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
                 </table>
               </div>
             </div>

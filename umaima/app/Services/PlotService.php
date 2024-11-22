@@ -102,7 +102,7 @@ class PlotService
         ];
     }
 
-    public function alloteePlotes()
+    public function alloteePlotes($id)
     {
         // Use request parameters with fallback defaults
         $perPage = $this->request->input('length', 10);
@@ -162,7 +162,7 @@ class PlotService
             $filters['allocation_details.allote'] = '%' . $searchValue . '%'; // This will be like 'name' => '%searchValue%'
         }
 
-        $conditions[] = ['allocation_details.allote', '=', 1];
+        $conditions[] = ['allocation_details.allote', '=', $id];
 
         // Fetch the records using QueryTrait's fetchRecords method
     
@@ -604,11 +604,16 @@ class PlotService
                 if ($allocationDetail) {
                     $aid = $allocationDetail->id;
                     foreach ($schedule as $pay) {
+                        $inputDate = $pay['date']; // e.g., '1-Jun-2024'
+
+                        // Convert the date to 'Y-m-d' format for insertion into the database
+                        $formattedDate = Carbon::createFromFormat('d-M-Y', $inputDate)->format('Y-m-d');
+
                         $Q = DB::table('payment_schedule')->insert([
                             'allocation_details_id' => $aid,
                             'payment' => $pay['payment'],
                             'amount' => $pay['amount'],
-                            'pay_date' => $pay['date'],
+                            'pay_date' => $formattedDate,
                             'created_at' => now(), // Set created_at to current timestamp
                             'updated_at' => now(),
                         ]);

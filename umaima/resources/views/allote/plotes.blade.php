@@ -3,7 +3,7 @@
 @section('title', 'Scheme Plot')
 @section('content')
 <div class="content-wrapper">
-
+<span id="pid" title="<?php echo $pid?>"></span>
 <!-- Content -->
 
   <div class="container-xxl flex-grow-1 container-p-y">

@@ -71,7 +71,7 @@ class AlloteService
             'draw' => $draw,
         ];
     }
-    public function plotPaymet()
+    public function plotPaymet($id)
     {
         // Use request parameters with fallback defaults
         $perPage = $this->request->input('length', 10);
@@ -131,7 +131,7 @@ class AlloteService
             $filters['allocation_details.allote'] = '%' . $searchValue . '%'; // This will be like 'name' => '%searchValue%'
         }
 
-        $conditions[] = ['payment_schedule.allocation_details_id', '=', 1];
+        $conditions[] = ['payment_schedule.allocation_details_id', '=', $id];
 
         // Fetch the records using QueryTrait's fetchRecords method
     

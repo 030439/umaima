@@ -20,8 +20,8 @@ class PlotController extends Controller
         return view('plots.allotment');
     }
 
-    public function alloteePlotes(){
-        $result = $this->plotservice->alloteePlotes();
+    public function alloteePlotes($id){
+        $result = $this->plotservice->alloteePlotes($id);
         return ($result);
     }
 
