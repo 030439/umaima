@@ -109,14 +109,9 @@
                           <td>User:</td>
                           <td>
                             <div class="d-flex justify-content-start align-items-center user-name">
-                              <div class="avatar-wrapper">
-                                <div class="avatar avatar-sm me-4">
-                                <i class="ti ti-menu-2 ti-user"></i>
-                                  <img src="../../assets/img/avatars/2.png" alt="Avatar" class="rounded-circle">
-                                </div>
-                              </div>
+                              
                               <div class="d-flex flex-column">
-                                <a href="app-user-view-account.html" class="text-heading text-truncate">
+                                <a href="#" class="text-heading text-truncate">
                                   <span class="fw-medium"></span>
                                 </a>
                               </div>

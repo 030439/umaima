@@ -11,7 +11,9 @@
  
     
 <div class="row g-6">
-
+<button class="btn btn-secondary add-new btn-primary waves-effect waves-light"  onclick="applySurcharge()">
+Apply Surcharge
+    </button>
 <!-- Sales last year -->
 <div class="col-xxl-2 col-md-4 col-sm-6">
 <div class="card h-100">
@@ -171,7 +173,14 @@
     <script src="../../assets/vendor/libs/apex-charts/apexcharts.js"></script>
 
     <!-- Main JS -->
-    <script src="../../assets/js/main.js"></script>
+    <script src="../../assets/vendor/libs/sweetalert2/sweetalert2.js"></script>
+
+<!-- Main JS -->
+<script src="../../assets/js/main.js"></script>
+
+
+<!-- Page JS -->
+<script src="../../assets/js/extended-ui-sweetalert2.js"></script>
     
 
     <!-- Page JS -->
@@ -186,6 +195,77 @@
  <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.min.js"></script>
  <script src="../../assets/js/forms-file-upload.js"></script>
 
+ <script>
+        const formButton = document.getElementById("add-btn");
+            formButton.addEventListener("click", function () {
+            confirmForm();
+        });
 
+        function applySurcharge(event) {
+            // Show loading dialog for 1 second before submitting the form
+            Swal.fire({
+                title: "Processing...",
+                text: "Please wait",
+                icon: "info",
+                showConfirmButton: false,
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                willOpen: () => {
+                    Swal.showLoading(); // Show the loading spinner
+                },
+            });
+
+            // Wait for 1 second before submitting the form
+            setTimeout(function () {
+                // Create a new FormData object from the form
+
+                fetch("/api/apply/surcharge", {
+                    method: "POST",
+                    headers: {
+                        "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+                    },
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+                    return response.json(); // Assuming JSON response
+                })
+                .then(data => {
+                    Swal.close(); // Close the loading dialog
+                    
+                    if (data.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success!',
+                            text: data.message,
+                            showConfirmButton: false,
+                            timer: 2000
+                        });
+
+                        // Redirect after success
+                        setTimeout(function() {
+                            //window.location.href = "/cashbook";
+                        }, 2000); 
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: data.message,
+                        });
+                    }
+                })
+                .catch(error => {
+                    Swal.close(); // Close the loading dialog
+                    
+                    console.error("Error:", error);
+                    Swal.fire({
+                        icon: 'error',
+                        text: error,
+                    });
+                });
+            }, 100); // Delay of 1 second (1000 milliseconds)
+        }
+    </script>
 
 @endsection

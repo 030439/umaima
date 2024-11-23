@@ -56,6 +56,7 @@ Route::middleware(['auth:sanctum','access'])->group(function () {
     });
     Route::controller(AccountController::class)
     ->group(function(){
+        Route::POST('apply/surcharge','applyCharge')->name('payment.create');
         Route::POST('fetch-accounts','fetchAccounts')->name('cash.create');
         Route::POST('cash/store','storePayment')->name('payment.create');
         Route::POST('account-heads','addAccountHead')->name('account-head.create');

@@ -88,6 +88,12 @@ $(function() {
                         return '<span class="text-heading">' + a.paid_on + "</span>";
                     }
                 },
+                {
+                    targets: 6,
+                    render: function(t, e, a, s) {
+                        return '<span class="text-heading">' + a.surcharge + "</span>";
+                    }
+                },
             ],
             "footerCallback": function (row, data, start, end, display) {
     var api = this.api();

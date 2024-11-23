@@ -15,6 +15,7 @@ class CreatePaymentScheduleTable extends Migration
             $table->integer('amount_paid')->default(0);;
             $table->string('paid_on')->default(0);;
             $table->integer('surcharge')->default(0);
+            $table->integer('outstanding')->default(0);
             $table->string('pay_date')->default(0);;
             $table->timestamps();  // created_at and updated_at
         });

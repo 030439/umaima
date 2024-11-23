@@ -30,19 +30,15 @@ class AlloteController extends Controller
         return ($result);
     }
     public function store(){
-
         $result = $this->alloteservice->addAllote();
         return ($result);
     }
     public function alloteePlotes($id){
         return view('allote.plotes',['pid'=>$id]);
     }
-    public function applySurcharge(){
-
-    }
     public function plotePayments($id)
     {
-       
+        return view('allote.plot-payments',['pid'=>$id]);
     }
     
   

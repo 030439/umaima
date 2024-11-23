@@ -566,7 +566,7 @@ class AccountService
             'draw' => $draw,
         ];
     }
-    public function applySurcharge()
+    public function applyCharge()
     {
         try {
             DB::beginTransaction(); // Start the transaction
@@ -585,6 +585,7 @@ class AccountService
 
             // Define surcharge rate
             $surchargeRate = 0.15;
+            $previousOutstanding = 0;
 
             foreach ($paymentSchedules as $schedule) {
                 $outstanding = $schedule->amount - $schedule->amount_paid;
@@ -595,7 +596,7 @@ class AccountService
                     $surcharge = $this->calculateSurcharge($outstanding, $surchargeRate);
                     $outstanding += $surcharge; // Add surcharge to outstanding balance
                 }
-
+                $outstanding += $previousOutstanding;
                 // Update the database with surcharge and outstanding
                 $updated = PaymentSchedule::where('id', $schedule->id)->update([
                     'surcharge' => $surcharge, 
@@ -628,6 +629,11 @@ class AccountService
                 'message' => "Something went wrong: " . $e->getMessage(),
             ]);
         }
+    }
+    private function calculateSurcharge($outstanding, $rate)
+    {
+        // Example: Apply surcharge for each month missed
+        return $outstanding * $rate; // Simple surcharge calculation, can be adjusted based on your business logic
     }
 
 }

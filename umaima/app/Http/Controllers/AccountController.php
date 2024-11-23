@@ -57,4 +57,8 @@ class AccountController extends Controller
         $result = $this->accountservice->getPayments();
         return ($result);
     }
+    public function applyCharge(){
+        $result = $this->accountservice->applyCharge();
+        return ($result);
+    }
 }
