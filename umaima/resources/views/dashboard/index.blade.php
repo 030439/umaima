@@ -8,8 +8,29 @@
 <!-- Content -->
 
   <div class="container-xxl flex-grow-1 container-p-y">
- 
-    
+    <div class="card">
+      <div class="card-body">
+        <div class="card-title">Schemes</div>
+        <div class="row mb-5">
+        <div class="col-lg-3 col-sm-6">
+          <div class="card h-100">
+            <div class="card-body d-flex justify-content-between align-items-center">
+              <div class="card-title mb-0">
+                <h5 class="mb-1 me-2">128</h5>
+                <p class="mb-0">Issues Found</p>
+              </div>
+              <div class="card-icon">
+                <span class="badge bg-label-warning rounded p-2">
+                  <i class='ti ti-alert-octagon ti-26px'></i>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+      </div>
+    </div>
+  
 <div class="row g-6">
 <button class="btn btn-secondary add-new btn-primary waves-effect waves-light"  onclick="applySurcharge()">
 Apply Surcharge
