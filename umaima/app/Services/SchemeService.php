@@ -75,19 +75,20 @@ class SchemeService
     {
         // Fetch plots with related scheme details
         $plots = DB::table('schemes')
-            ->join('plots', 'plots.scheme_id', '=', 'schemes.id')
-            ->select(
-                'schemes.name as scheme',
-                'schemes.no_of_plots',
-                'schemes.total_valuation',
-                DB::raw('SUM(CASE WHEN plots.status = 0 THEN 1 ELSE 0 END) as vacant'),   // Count of active plots
-                DB::raw('SUM(CASE WHEN plots.status = 1 THEN 1 ELSE 0 END) as allotted'), // Count of allotted plots
-                DB::raw('SUM(CASE WHEN plots.status = 2 THEN 1 ELSE 0 END) as fill')    // Count of vacant plots
-            )
-            ->where('plots.scheme_id', '=', $id) // Filter by scheme ID
-            ->groupBy('schemes.id', 'schemes.name', 'schemes.no_of_plots', 'schemes.total_valuation') // Group by scheme details
-            ->first();
-             return $plots;
+        ->leftJoin('plots', 'plots.scheme_id', '=', 'schemes.id') // Use LEFT JOIN to include schemes without plots
+        ->select(
+            'schemes.name as scheme',
+            'schemes.no_of_plots',
+            'schemes.total_valuation',
+            DB::raw('COALESCE(SUM(CASE WHEN plots.status = 0 THEN 1 ELSE 0 END), 0) as vacant'),   // Count of active plots or 0
+            DB::raw('COALESCE(SUM(CASE WHEN plots.status = 1 THEN 1 ELSE 0 END), 0) as allotted'), // Count of allotted plots or 0
+            DB::raw('COALESCE(SUM(CASE WHEN plots.status = 2 THEN 1 ELSE 0 END), 0) as fill')     // Count of vacant plots or 0
+        )
+        ->where('schemes.id', '=', $id) // Filter by scheme ID
+        ->groupBy('schemes.id', 'schemes.name', 'schemes.no_of_plots', 'schemes.total_valuation') // Group by scheme details
+        ->first();
+        return $plots;
+    
     }
 
     public function getSchemeDetails(){
@@ -210,7 +211,7 @@ class SchemeService
     {
             $plotsCountByScheme = DB::table('schemes')
             ->select(
-                'schemes.name as scheme','schemes.no_of_plots as total_plots',
+                'schemes.name as scheme','schemes.id as sid','schemes.no_of_plots as total_plots',
             )
             ->get();
             return $plotsCountByScheme;

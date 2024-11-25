@@ -15,7 +15,7 @@
             @if($totalPlotsSchemeWise)
             @foreach($totalPlotsSchemeWise as $sp)
               <div class="col-lg-3 col-sm-6">
-              <a href="scheme-plots/{{$sp->scheme}}">
+              <a href="scheme-plots/{{$sp->sid}}">
                 <div class="card h-100">
                   <div class="card-body d-flex justify-content-between align-items-center">
                     <div class="card-title mb-0">

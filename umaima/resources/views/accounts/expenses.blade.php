@@ -4,33 +4,31 @@
 @section('content')
       <div class="content-wrapper">
 
-        <!-- Content -->
-        
-          <div class="container-xxl flex-grow-1 container-p-y">
-            
-            
 
+        <div class="container-xxl flex-grow-1 container-p-y">
+          <div class="card">
 
-<!-- Order List Table -->
-<div class="card">
-  <div class="card-datatable table-responsive">
-    
-          <div class="col-md-6 col-12 mt-5">
-            <input type="text" class="form-control flatpickr-input" placeholder="YYYY-MM-DD to YYYY-MM-DD" id="flatpickr-range" readonly="readonly">
+            <div class="card-header">
+              <h5 class="card-title">Filter</h5>
+            </div>
+
+            <div class="card-datatable card-body table-responsive">
+              <div class="row">
+                <div class="col-md-6">
+                    <select id="subcat" class="form-select text-capitalize">
+                    </select>
+                </div>
+                <div class="col-md-6">
+                  <input type="text" class="form-control flatpickr-input" placeholder="YYYY-MM-DD to YYYY-MM-DD" id="flatpickr-range" readonly="readonly">
+                </div>
+              </div>
+              <table class="datatables-order table border-top">
+          
+              </table>
+
+            </div>
           </div>
-            <table class="datatables-order table border-top">
-          
-            </table>
         </div>
-        </div>
-
-
-          </div>
-          <!-- / Content -->
-
-          
-          
-
 
 
           
