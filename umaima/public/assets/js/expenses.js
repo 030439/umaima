@@ -47,6 +47,10 @@ $(function () {
                         d.startDate = dates[0]; // From date
                         d.endDate = dates[1];   // To date
                     }
+                    var subcat = $('#subcat').val(); 
+                    if(subcat){
+                        d.subcat=subcat;
+                    }
                     // You can also add other data here as needed
                 },
                 type: "POST", // Ensure the correct HTTP method is used
@@ -361,6 +365,10 @@ $(function () {
                     }, false); // Set to false to avoid resetting paging
                 }
             }
+        });
+        $('#subcat').on('change', function () {
+            t.ajax.reload(function (json) {
+            });
         });
 });
 
