@@ -441,7 +441,6 @@ class AccountService
         ];
 
         if (!empty($searchValue)) {
-            dd($searchValue);
             // Using an associative array instead of a nested array
             $filters['paydate'] = '%' . $searchValue . '%'; // This will be like 'name' => '%searchValue%'
             $filters['from_account'] = '%' . $searchValue . '%';
