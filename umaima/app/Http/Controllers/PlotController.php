@@ -35,6 +35,11 @@ class PlotController extends Controller
         $result = $this->plotservice->schemePlots($id);
         return ($result);
     }
+    public function schemeAllotedPlots($id)
+    {
+        $result = $this->plotservice->schemeAllotedPlots($id);
+        return ($result);
+    }
 
     public function store()
     {

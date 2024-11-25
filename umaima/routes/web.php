@@ -44,6 +44,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/permissions-list', [RolePermissionController::class, 'permissionsList'])->name('permissions.list');
     Route::get('/users', [UsersController::class, 'index'])->name('users.index');
     Route::get('scheme-plots/{id}',[SchemeController::class,'schemeWisePlot'])->name('plot-read');
+    Route::get('/alloted-plots/scheme/{id}',[SchemeController::class,'allotePlotByScheme'])->name('plot-read');
     
    
 });

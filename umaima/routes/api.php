@@ -40,6 +40,7 @@ Route::middleware(['auth:sanctum','access'])->group(function () {
     Route::post('/allote/plots/{id}',[PlotController::Class,'alloteePlotes'])->name('allotment.read');
     Route::post('/plots', [PlotController::class, 'listing'])->name('plot.read');
     Route::post('/scheme-plots/{id}', [PlotController::class, 'schemePlots'])->name('plot.read');
+    Route::post('/alloted-scheme-plots/{id}', [PlotController::class, 'schemeAllotedPlots'])->name('plot.read');
     Route::post("create-allote",[AlloteController::class,'store'])->name('allote.create');
     Route::get("allote-list",[AlloteController::class,'listing'])->name('allote.read');
     Route::post("allote/plot/payments/{id}",[AlloteController::class,'plotPaymet'])->name('payment.read');

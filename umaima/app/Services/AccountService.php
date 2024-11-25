@@ -333,6 +333,10 @@ class AccountService
             $conditions[] = ['paydate', '>=', $startDate]; // start date condition
             $conditions[] = ['paydate', '<=', $endDate]; // end date condition
         }
+        $paymentType=$this->request->get('paymentType');
+        if(!empty($paymentType)){
+            $conditions[] = ['payment_type', '=', $paymentType];
+        }
 
         // Fetch the records using QueryTrait's fetchRecords method
         $result = $this->fetchRecords(
