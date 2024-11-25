@@ -19,7 +19,8 @@ class DashboardController extends Controller
     public function index(SchemeService $schemeservice)
     {
         $totalPlotsSchemeWise = $schemeservice->totalPlotsSchemeWise();
-        return view('dashboard.index', compact('totalPlotsSchemeWise'));
+        $expensesByHeads = $schemeservice->totalExpenseHeadWise();
+        return view('dashboard.index', compact('totalPlotsSchemeWise','expensesByHeads'));
     }
     public function bulk(Request $request){
         $validator = Validator::make($request->all(), [

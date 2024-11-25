@@ -42,29 +42,29 @@
               <h5 class="mb-1">Expense By Expense Heads</h5>
               <!-- <p class="card-subtitle">Monthly Sales Overview</p> -->
             </div>
+            <i class="menu-icon tf-icons ti ti-file-description"></i>
           </div>
           <div class="card-body">
             <ul class="p-0 m-0">
-              <li class="d-flex align-items-center mb-4">
-                <div class="avatar flex-shrink-0 me-4">
-                  <i class="fis fi fi-us rounded-circle fs-2"></i>
-                </div>
-                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                  <div class="me-2">
-                    <div class="d-flex align-items-center">
-                      <h6 class="mb-0 me-1">$8,567k</h6>
-
+              @if($expensesByHeads)
+              @foreach($expensesByHeads as $expense)
+                <li class="d-flex align-items-center mb-4">
+                
+                  <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                    <div class="me-2">
+                      <div class="d-flex align-items-center">
+                        <h6 class="mb-0 me-1">{{$expense->expense}}</h6>
+                      </div>
                     </div>
-                    <small class="text-body">United states</small>
+                    <div class="user-progress">
+                      <p class="text-info fw-medium mb-0 d-flex align-items-center gap-1">
+                        {{$expense->total_amount}}
+                      </p>
+                    </div>
                   </div>
-                  <div class="user-progress">
-                    <p class="text-success fw-medium mb-0 d-flex align-items-center gap-1">
-                      <i class="ti ti-chevron-up"></i>
-                      25.8%
-                    </p>
-                  </div>
-                </div>
-              </li>
+                </li>
+              @endforeach
+              @endif
             </ul>
           </div>
         </div>
@@ -79,26 +79,25 @@
           </div>
           <div class="card-body">
             <ul class="p-0 m-0">
-              <li class="d-flex align-items-center mb-4">
-                <div class="avatar flex-shrink-0 me-4">
-                  <i class="fis fi fi-us rounded-circle fs-2"></i>
-                </div>
-                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                  <div class="me-2">
-                    <div class="d-flex align-items-center">
-                      <h6 class="mb-0 me-1">$8,567k</h6>
-
+              @if($expensesByHeads)
+              @foreach($expensesByHeads as $expense)
+                <li class="d-flex align-items-center mb-4">
+                
+                  <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                    <div class="me-2">
+                      <div class="d-flex align-items-center">
+                        <h6 class="mb-0 me-1">{{$expense->expense}}</h6>
+                      </div>
                     </div>
-                    <small class="text-body">United states</small>
+                    <div class="user-progress">
+                      <p class="text-info fw-medium mb-0 d-flex align-items-center gap-1">
+                        {{$expense->total_amount}}
+                      </p>
+                    </div>
                   </div>
-                  <div class="user-progress">
-                    <p class="text-success fw-medium mb-0 d-flex align-items-center gap-1">
-                      <i class="ti ti-chevron-up"></i>
-                      25.8%
-                    </p>
-                  </div>
-                </div>
-              </li>
+                </li>
+              @endforeach
+              @endif
             </ul>
           </div>
         </div>
