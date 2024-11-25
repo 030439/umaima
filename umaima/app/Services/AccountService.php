@@ -450,6 +450,7 @@ class AccountService
             $filters['account_heads.name'] = '%' . $searchValue . '%';
             $filters['allotes.fullname'] = '%' . $searchValue . '%';
         }
+        //date to from range filter
         if (!empty($startDate) && !empty($endDate)) {
             $conditions[] = ['paydate', '>=', $startDate]; // start date condition
             $conditions[] = ['paydate', '<=', $endDate]; // end date condition
@@ -460,7 +461,7 @@ class AccountService
             $conditions[] = ['expense_heads', '=', $subcat];
         }
         $conditions[] = ['payment_type', '=', 2];
-
+        
         // Fetch the records using QueryTrait's fetchRecords method
         $result = $this->fetchRecords(
             'payments',
