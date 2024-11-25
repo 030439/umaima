@@ -398,8 +398,7 @@ class AccountService
         $paginate = $this->request->input('paginate', true);
         $draw=$this->request->get('draw');
         $searchValue = $this->request->get('search')['value']; // This is the value you want to search for
-        
-dd($searchValue);
+
         $columns = [
             'payments.*',
             'banks.bank_name  as bank',
@@ -442,6 +441,7 @@ dd($searchValue);
         ];
 
         if (!empty($searchValue)) {
+            dd($searchValue);
             // Using an associative array instead of a nested array
             $filters['paydate'] = '%' . $searchValue . '%'; // This will be like 'name' => '%searchValue%'
             $filters['from_account'] = '%' . $searchValue . '%';
