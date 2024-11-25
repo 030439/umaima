@@ -368,7 +368,19 @@ class AlloteService
             return response()->json($response);
         }
     }
-
+    public function  getAllotiesNames(){
+        $allotes = DB::table('allotes')->get();
+        $allote=$allotes->map(function ($allote) {
+            return [
+                'value' => $allote->id, // assuming 'id' is a unique identifier
+                'label' => $allote->fullname.':'.$allote->cnic // assuming 'name' holds the display name
+            ];
+        });
+        return response()->json([
+            'success' => true,
+            'alloties' => $allote,
+        ]);
+    }
     public function  getAlloties(){
         $allotes = DB::table('allotes')->get();
         $allote=$allotes->map(function ($allote) {

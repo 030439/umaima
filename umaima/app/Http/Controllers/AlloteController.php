@@ -29,6 +29,10 @@ class AlloteController extends Controller
         $result = $this->alloteservice->getAlloties();
         return ($result);
     }
+    public function getAllotiesNames(){
+        $result = $this->alloteservice->getAllotiesNames();
+        return ($result);
+    }
     public function store(){
         $result = $this->alloteservice->addAllote();
         return ($result);

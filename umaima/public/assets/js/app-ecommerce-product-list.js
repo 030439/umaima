@@ -425,7 +425,9 @@ $(function () {
 
         $('#paymentType').on('change', function () {
             t.ajax.reload(function (json) {
-                fetchExpenseHeads();
+                $("#subcat").val('');
+                var paymentType = $('#paymentType').val(); 
+                paymentType==1?fetchAlloties():fetchExpenseHeads();
             });
         });
         $('#subcat').on('change', function () {
@@ -456,6 +458,31 @@ function fetchExpenseHeads() {
         success: function(data) {
             if (data.success) {
                 populateDropdown("subcat", data.expenses);
+            } else {
+                showToast("Error: " + data.message, "danger");
+            }
+        },
+        error: function(jqXHR) {
+            const errorResponse = jqXHR.responseJSON;
+            if (errorResponse && errorResponse.error) {
+                showToast("Error: " + errorResponse.message, "danger");
+            } else {
+                showToast("Failed to load scheme details.", "danger");
+            }
+        }
+    });
+}
+
+function fetchAlloties() {
+    $.ajax({
+        method: "POST",
+        url: "/api/getAllotiesNames",
+        headers: {
+            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+        },
+        success: function(data) {
+            if (data.success) {
+                populateDropdown("subcat", data.alloties);
             } else {
                 showToast("Error: " + data.message, "danger");
             }

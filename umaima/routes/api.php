@@ -68,6 +68,7 @@ Route::middleware(['auth:sanctum','access'])->group(function () {
     });
 });
 Route::middleware('auth:sanctum')->group(function(){
+    Route::post("getAllotiesNames",[AlloteController::class,'getAllotiesNames']);
     Route::post("get-alloties",[AlloteController::class,'getAlloties']);
     Route::post('/get-scheme-details', [SchemeController::class, 'getSchemeDetails']);
     Route::post('/get-plots-by-scheme', [PlotController::class, 'getplotByScheme']);
