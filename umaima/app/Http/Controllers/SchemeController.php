@@ -35,7 +35,8 @@ class SchemeController extends Controller
     }
     public function schemeWisePlot($id)
     {
-        return view('schemes.scheme-plots',['sid'=>$id]);
+        $plots = $this->schemeservice->schemePlotsDetail($id);
+        return view('schemes.scheme-plots',['sid'=>$id,'scheme'=>$plots]);
     }
     public function allotedPlotListing(){
         $groupedPlots = $this->schemeservice->allotedPlotListing();

@@ -1,5 +1,5 @@
 @extends('layout.app')
-<?php $breadCrumb='Scheme / <span class="text-primary">Plots</span></i>'?>
+<?php $breadCrumb='Scheme / <span class="text-primary">'.$scheme->scheme.'</span></i>'?>
 @section('title', 'Scheme Plot')
 @section('content')
 <div class="content-wrapper">
@@ -7,6 +7,71 @@
 <!-- Content -->
 
   <div class="container-xxl flex-grow-1 container-p-y">
+    <div class="row mb-3">
+        <!-- Cards with few info -->
+        <div class="col-lg-3 col-sm-6">
+            <div class="card h-100">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div class="card-title mb-0">
+                <h5 class="mb-1 me-2">{{$scheme->no_of_plots}}</h5>
+                <p class="mb-0">Total Plots</p>
+                </div>
+                <div class="card-icon">
+                <span class="badge bg-label-primary rounded p-2">
+                    <i class='ti ti-cpu ti-26px'></i>
+                </span>
+                </div>
+            </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-6">
+            <div class="card h-100">
+                <a href="/alloted-plots/scheme/{{$sid}}">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div class="card-title mb-0">
+                        <h5 class="mb-1 me-2">{{$scheme->allotted}}</h5>
+                        <p class="mb-0">Alloted plots</p>
+                        </div>
+                        <div class="card-icon">
+                        <span class="badge bg-label-success rounded p-2">
+                            <i class='ti ti-server ti-26px'></i>
+                        </span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-6">
+            <div class="card h-100">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div class="card-title mb-0">
+                <h5 class="mb-1 me-2">{{$scheme->vacant}}</h5>
+                <p class="mb-0">Vacant Plots</p>
+                </div>
+                <div class="card-icon">
+                <span class="badge bg-label-danger rounded p-2">
+                    <i class='ti ti-chart-pie-2 ti-26px'></i>
+                </span>
+                </div>
+            </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-6">
+            <div class="card h-100">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div class="card-title mb-0">
+                <h5 class="mb-1 me-2">128</h5>
+                <p class="mb-0">Issues Found</p>
+                </div>
+                <div class="card-icon">
+                <span class="badge bg-label-warning rounded p-2">
+                    <i class='ti ti-alert-octagon ti-26px'></i>
+                </span>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
       <div class="card">
         <div class="card-datatable table-responsive">
                 <table class="datatables-users table dataTable no-footer collapsed">

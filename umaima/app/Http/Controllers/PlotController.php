@@ -30,6 +30,11 @@ class PlotController extends Controller
         $result = $this->plotservice->geAll();
         return ($result);
     }
+    public function schemePlots($id)
+    {
+        $result = $this->plotservice->schemePlots($id);
+        return ($result);
+    }
 
     public function store()
     {

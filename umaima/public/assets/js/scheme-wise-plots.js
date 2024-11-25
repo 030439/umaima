@@ -1,4 +1,5 @@
 "use strict";
+var sid=$("#sid").attr('title');
 const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
 $(function() {
     let e, a, s;
@@ -28,7 +29,7 @@ $(function() {
             scrollX: true,
             pageLength: 10,
             ajax: {
-                url: "/api/plots",
+                url: "/api/scheme-plots/"+sid,
                 headers: {
                     "X-CSRF-TOKEN": csrfToken // Add CSRF token to request headers
                 },
