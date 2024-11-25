@@ -364,3 +364,41 @@ $(function () {
         });
 });
 
+function populateDropdown(selectId, items) {
+    const selectElement = document.getElementById(selectId);
+    selectElement.innerHTML = "<option value=''>Select</option>"; // Reset options
+
+    items.forEach(item => {
+        const option = document.createElement("option");
+        option.value = item.value;
+        option.textContent = item.label;
+        selectElement.appendChild(option);
+    });
+}
+
+function fetchExpenseHeads() {
+    $.ajax({
+        method: "POST",
+        url: "/get-account-heads",
+        headers: {
+            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+        },
+        success: function(data) {
+            if (data.success) {
+                populateDropdown("subcat", data.expenses);
+            } else {
+                showToast("Error: " + data.message, "danger");
+            }
+        },
+        error: function(jqXHR) {
+            const errorResponse = jqXHR.responseJSON;
+            if (errorResponse && errorResponse.error) {
+                showToast("Error: " + errorResponse.message, "danger");
+            } else {
+                showToast("Failed to load scheme details.", "danger");
+            }
+        }
+    });
+}
+
+fetchExpenseHeads();
