@@ -399,7 +399,7 @@ class AccountService
         $draw=$this->request->get('draw');
         $searchValue = $this->request->get('search')['value']; // This is the value you want to search for
         
-
+dd($searchValue);
         $columns = [
             'payments.*',
             'banks.bank_name  as bank',
@@ -450,7 +450,7 @@ class AccountService
             $filters['account_heads.name'] = '%' . $searchValue . '%';
             $filters['allotes.fullname'] = '%' . $searchValue . '%';
         }
-        //date to from range filter
+        //date to from range filter for date filter
         if (!empty($startDate) && !empty($endDate)) {
             $conditions[] = ['paydate', '>=', $startDate]; // start date condition
             $conditions[] = ['paydate', '<=', $endDate]; // end date condition
