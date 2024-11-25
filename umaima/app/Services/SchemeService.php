@@ -218,13 +218,13 @@ class SchemeService
         // Fetch plots with related scheme details
             // Query to fetch plots and related scheme information
             $expensesByHead = DB::table('payments')
-            ->join('account_heads', 'payments.expense_heads', '=', 'account_heads.id')
+            ->join('allotes', 'payments.allotees', '=', 'allotes.id')
             ->select(
-                'account_heads.name as expense', // Expense head name
+                'allotes.fullname as allote', // Expense head name
                 DB::raw('SUM(payments.amount) as total_amount') // Total amount per expense head
             )
-            ->where('payments.payment_type', '=', 2) // Filter by payment type
-            ->groupBy('payments.expense_heads', 'account_heads.name') // Group by expense head ID and name
+            ->where('payments.payment_type', '=', 1) // Filter by payment type
+            ->groupBy('payments.allotees', 'allotes.fullname') // Group by expense head ID and name
             ->get();
         
             return $expensesByHead;

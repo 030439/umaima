@@ -17,10 +17,12 @@ class DashboardController extends Controller
     }
 
     public function index(SchemeService $schemeservice)
-    {
+    {   
+        $groupedPlots = $schemeservice->allotedPlotListing();
         $totalPlotsSchemeWise = $schemeservice->totalPlotsSchemeWise();
         $expensesByHeads = $schemeservice->totalExpenseHeadWise();
-        return view('dashboard.index', compact('totalPlotsSchemeWise','expensesByHeads'));
+        $totalPaymentsByAllote = $schemeservice->totalPaymentsByAllote();
+        return view('dashboard.index', compact('groupedPlots','totalPlotsSchemeWise','expensesByHeads','totalPaymentsByAllote'));
     }
     public function bulk(Request $request){
         $validator = Validator::make($request->all(), [

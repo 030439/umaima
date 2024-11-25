@@ -76,22 +76,23 @@
               <h5 class="mb-1">Received Payments</h5>
               <!-- <p class="card-subtitle">Monthly Sales Overview</p> -->
             </div>
+            <i class="menu-icon tf-icons ti ti-checkbox"></i>
           </div>
           <div class="card-body">
             <ul class="p-0 m-0">
-              @if($expensesByHeads)
-              @foreach($expensesByHeads as $expense)
+              @if($totalPaymentsByAllote)
+              @foreach($totalPaymentsByAllote as $ap)
                 <li class="d-flex align-items-center mb-4">
                 
                   <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                     <div class="me-2">
                       <div class="d-flex align-items-center">
-                        <h6 class="mb-0 me-1">{{$expense->expense}}</h6>
+                        <h6 class="mb-0 me-1">{{$ap->allote}}</h6>
                       </div>
                     </div>
                     <div class="user-progress">
                       <p class="text-info fw-medium mb-0 d-flex align-items-center gap-1">
-                        {{$expense->total_amount}}
+                        {{$ap->total_amount}}
                       </p>
                     </div>
                   </div>
