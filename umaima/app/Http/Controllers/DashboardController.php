@@ -18,8 +18,8 @@ class DashboardController extends Controller
 
     public function index(SchemeService $schemeservice)
     {
-        $groupedPlots = $schemeservice->allotedPlotListing();
-        return view('dashboard.index', compact('groupedPlots'));
+        $totalPlotsSchemeWise = $schemeservice->totalPlotsSchemeWise();
+        return view('dashboard.index', compact('totalPlotsSchemeWise'));
     }
     public function bulk(Request $request){
         $validator = Validator::make($request->all(), [

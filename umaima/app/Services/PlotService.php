@@ -189,54 +189,53 @@ class PlotService
             'draw' => $draw,
         ];
     }
-    public function createPlot(){
-        {
-            try {
-                $validator = Validator::make($this->request->all(), [
-                    'plot.plotNumber' => 'required|string|unique:plots,plot_number',
-                    'plot.scheme' => 'required|integer',
-                    'plot.plotSize' => 'required|integer',
-                    'plot.plotLocation' => 'required|integer',
-                    'plot.plotCat' => 'required|integer',
-                ]);
-        
-                if ($validator->fails()) {
-                    // Format the error messages as a single string with line breaks
-                    $errorMessages = implode("\n", $validator->errors()->all());
-                
-                    return response()->json([
-                        'success' => false,
-                        'message' => "\n" . $errorMessages
-                    ], 422); // Unprocessable Entity
-                }
-        
-                // Insert into schemes table
-                $scheme = Plot::create([
-                    'plot_number' => $this->request->input('plot.plotNumber'),
-                    'scheme_id' => $this->request->input('plot.scheme'),
-                    'plot_size_id' => $this->request->input('plot.plotSize'),
-                    'plot_location_id' => $this->request->input('plot.plotLocation'),
-                    'plot_category_id'=>$this->request->input('plot.plotCat'),
-                    'created_at' => now(), // Set created_at to current timestamp
-                    'updated_at' => now(),
-                ]);
-        
-                // Log the action
-                logAction('Created Plot', $scheme->plot_numer.','.$scheme->scheme_id);
-        
-                // Success response
+    public function createPlot()
+    {
+        try {
+            $validator = Validator::make($this->request->all(), [
+                'plot.plotNumber' => 'required|string|unique:plots,plot_number',
+                'plot.scheme' => 'required|integer',
+                'plot.plotSize' => 'required|integer',
+                'plot.plotLocation' => 'required|integer',
+                'plot.plotCat' => 'required|integer',
+            ]);
+
+            if ($validator->fails()) {
+                // Format the error messages as a single string with line breaks
+                $errorMessages = implode("\n", $validator->errors()->all());
+            
                 return response()->json([
-                    'message' => 'Scheme Plot created successfully!',
-                    'success' => true
-                ]);
-            } catch (Exception $e) {
-                // Error response
-                
-                return response()->json([
-                    'message' =>  $e->getMessage(),
-                    'success' => false
-                ]);
+                    'success' => false,
+                    'message' => "\n" . $errorMessages
+                ], 422); // Unprocessable Entity
             }
+
+            // Insert into schemes table
+            $scheme = Plot::create([
+                'plot_number' => $this->request->input('plot.plotNumber'),
+                'scheme_id' => $this->request->input('plot.scheme'),
+                'plot_size_id' => $this->request->input('plot.plotSize'),
+                'plot_location_id' => $this->request->input('plot.plotLocation'),
+                'plot_category_id'=>$this->request->input('plot.plotCat'),
+                'created_at' => now(), // Set created_at to current timestamp
+                'updated_at' => now(),
+            ]);
+
+            // Log the action
+            logAction('Created Plot', $scheme->plot_numer.','.$scheme->scheme_id);
+
+            // Success response
+            return response()->json([
+                'message' => 'Scheme Plot created successfully!',
+                'success' => true
+            ]);
+        } catch (Exception $e) {
+            // Error response
+            
+            return response()->json([
+                'message' =>  $e->getMessage(),
+                'success' => false
+            ]);
         }
     }
 

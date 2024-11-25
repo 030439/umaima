@@ -187,6 +187,31 @@ class SchemeService
             return ($response);
 
     }
+
+    public function totalPlotsSchemeWise()
+    {
+            $plotsCountByScheme = DB::table('schemes')
+            ->select(
+                'schemes.name as scheme','schemes.no_of_plots as total_plots',
+            )
+            ->get();
+            return $plotsCountByScheme;
+    }
+    public function totalExpenseHeadWise()
+    {
+        // Fetch plots with related scheme details
+            // Query to fetch plots and related scheme information
+            $plotsCountByScheme = DB::table('payments')
+            ->join('account_heads', 'payments.expense_heads', '=', 'account_heads.id')
+            ->select(
+                'account_heads.name as expense',
+                DB::raw('COUNT(payments.amount) as total') // Count plots per scheme
+            )
+            ->where('payments.payment_type','=',2)
+            ->groupBy('payments.expense_heads', 'account_heads.name') // Group by scheme ID and name
+            ->get();
+            return $plotsCountByScheme;
+    }
      
     
 }

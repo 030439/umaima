@@ -182,7 +182,7 @@
                 <div>Account Heads</div>
               </a>
             </li>
-            <li class="menu-item active">
+            <li class="menu-item ">
               <a href="{{ route('bank.index') }}" class="menu-link">
                 <div>Banks</div>
               </a>
