@@ -454,8 +454,8 @@ class AccountService
             $conditions[] = ['paydate', '>=', $startDate]; // start date condition
             $conditions[] = ['paydate', '<=', $endDate]; // end date condition
         }
+        //expense cat
         $subcat = $this->request->get('subcat');
-       
         if (!empty($subcat)) {
             $conditions[] = ['expense_heads', '=', $subcat];
         }
