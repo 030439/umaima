@@ -53,6 +53,10 @@ $(function () {
                     if(paymentType){
                         d.payment=paymentType;
                     }
+                    var subcat = $('#subcat').val(); 
+                    if(subcat){
+                        d.subcat=subcat;
+                    }
                 // You can also add other data here as needed
             },
             type: "POST", // Ensure the correct HTTP method is used
@@ -421,7 +425,48 @@ $(function () {
 
         $('#paymentType').on('change', function () {
             t.ajax.reload(function (json) {
-                console.log('Table data reloaded for payment type:', $('#ProductStatus').val());
+                fetchExpenseHeads();
+            });
+        });
+        $('#subcat').on('change', function () {
+            t.ajax.reload(function (json) {
             });
         });
 });
+
+function populateDropdown(selectId, items) {
+    const selectElement = document.getElementById(selectId);
+    selectElement.innerHTML = "<option value=''>Select</option>"; // Reset options
+
+    items.forEach(item => {
+        const option = document.createElement("option");
+        option.value = item.value;
+        option.textContent = item.label;
+        selectElement.appendChild(option);
+    });
+}
+
+function fetchExpenseHeads() {
+    $.ajax({
+        method: "POST",
+        url: "/get-account-heads",
+        headers: {
+            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+        },
+        success: function(data) {
+            if (data.success) {
+                populateDropdown("subcat", data.expenses);
+            } else {
+                showToast("Error: " + data.message, "danger");
+            }
+        },
+        error: function(jqXHR) {
+            const errorResponse = jqXHR.responseJSON;
+            if (errorResponse && errorResponse.error) {
+                showToast("Error: " + errorResponse.message, "danger");
+            } else {
+                showToast("Failed to load scheme details.", "danger");
+            }
+        }
+    });
+}

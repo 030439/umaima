@@ -333,10 +333,17 @@ class AccountService
             $conditions[] = ['paydate', '>=', $startDate]; // start date condition
             $conditions[] = ['paydate', '<=', $endDate]; // end date condition
         }
-        $paymentType=$this->request->get('paymentType');
-        if(!empty($paymentType)){
+        $paymentType = $this->request->get('payment');
+        $subcat = $this->request->get('subcat');
+        //code for filter of payment by type and sub category
+        if (!empty($paymentType)) {
             $conditions[] = ['payment_type', '=', $paymentType];
+        
+            if (!empty($subcat)) {
+                $conditions[] = [$paymentType == 1 ? 'allotees' : 'expense_heads', '=', $subcat];
+            }
         }
+        
 
         // Fetch the records using QueryTrait's fetchRecords method
         $result = $this->fetchRecords(
