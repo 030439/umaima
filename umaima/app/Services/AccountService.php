@@ -454,15 +454,10 @@ class AccountService
             $conditions[] = ['paydate', '>=', $startDate]; // start date condition
             $conditions[] = ['paydate', '<=', $endDate]; // end date condition
         }
-        $paymentType = $this->request->get('payment');
         $subcat = $this->request->get('subcat');
-        //code for filter of payment by type and sub cat
-        if (!empty($paymentType)) {
-            $conditions[] = ['payment_type', '=', $paymentType];
-        
-            if (!empty($subcat)) {
-                $conditions[] = [$paymentType == 1 ? 'allotees' : 'expense_heads', '=', $subcat];
-            }
+       
+        if (!empty($subcat)) {
+            $conditions[] = ['expense_heads', '=', $subcat];
         }
         $conditions[] = ['payment_type', '=', 2];
 
