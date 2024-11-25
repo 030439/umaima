@@ -39,13 +39,14 @@ trait QueryTrait
     
         // Apply filters
         foreach ($filters as $column => $filterValue) {
-            dd($filterValue);
+           
             if (is_array($filterValue)) {
                 $query->whereIn($column, $filterValue);
             } else {
                 $query->where($column, $filterValue);
             }
         }
+        dd($query);
     
         // Apply joins
         foreach ($joins as $join) {
