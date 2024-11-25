@@ -64,7 +64,8 @@ trait QueryTrait
     
         // Apply ordering
         $query->orderBy($orderColumn, $orderDirection);
-    
+        $sql = $query->toSql();
+        dd($sql);
         // Get total records count before pagination or filters
         $total = $query->count();
     
