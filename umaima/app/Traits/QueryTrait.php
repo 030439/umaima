@@ -56,6 +56,7 @@ trait QueryTrait
         if (!empty($groupBy)) {
             $query->groupBy($groupBy);
         }
+    //still same issue
     
         // Apply having
         foreach ($having as $condition) {
