@@ -225,7 +225,7 @@ class AccountService
             $amountPaid = $this->request->input('amount');
             $paidOn = $this->request->input('paydate');
 
-            $payDate = Carbon::parse($paidOn)->format('15-M-Y');
+            $payDate = Carbon::parse($paidOn)->format('Y-m-15');
 
             $paymentSchedule = DB::table('payment_schedule')
             ->where('allocation_details_id', $allocationId)

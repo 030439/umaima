@@ -8,6 +8,7 @@
 <!-- Content -->
 
   <div class="container-xxl flex-grow-1 container-p-y">
+    
     <div class="card">
       <div class="card-body">
         <div class="card-title">Schemes</div>
@@ -15,21 +16,21 @@
             @if($totalPlotsSchemeWise)
             @foreach($totalPlotsSchemeWise as $sp)
               <div class="col-lg-3 col-sm-6">
-              <a href="scheme-plots/{{$sp->sid}}">
-                <div class="card h-100">
-                  <div class="card-body d-flex justify-content-between align-items-center">
-                    <div class="card-title mb-0">
-                      <h5 class="mb-1 me-2">{{$sp->total_plots}}</h5>
-                      <p class="mb-0">{{$sp->scheme}}</p>
-                    </div>
-                    <div class="card-icon">
-                      <span class="badge bg-label-warning rounded p-2">
-                        <i class='ti ti-alert-octagon ti-26px'></i>
-                      </span>
+                <a href="scheme-plots/{{$sp->sid}}">
+                  <div class="card h-100">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                      <div class="card-title mb-0">
+                        <h5 class="mb-1 me-2">{{$sp->total_plots}}</h5>
+                        <p class="mb-0">{{$sp->scheme}}</p>
+                      </div>
+                      <div class="card-icon">
+                        <span class="badge bg-label-warning rounded p-2">
+                          <i class='ti ti-alert-octagon ti-26px'></i>
+                        </span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </a>
+                </a>
               </div>
             @endforeach
             @endif
@@ -37,11 +38,11 @@
         </div>
      </div>
     <div class="row mt-3 mb-3">
-      <div class="col-xxl-4 col-md-6">
+      <div class="col-xxl-3 col-md-4">
         <div class="card h-100">
-          <div class="card-header d-flex justify-content-between">
+          <div class="card-header d-flex justify-content-between badge bg-info mb-3">
             <div class="card-title mb-0">
-              <h5 class="mb-1">Expense By Expense Heads</h5>
+              <h6 class="mb-1 text-white">Expense By Expense Heads</h6>
               <!-- <p class="card-subtitle">Monthly Sales Overview</p> -->
             </div>
             <i class="menu-icon tf-icons ti ti-file-description"></i>
@@ -50,7 +51,8 @@
             <ul class="p-0 m-0">
               @if($expensesByHeads)
               @foreach($expensesByHeads as $expense)
-                <li class="d-flex align-items-center mb-4">
+              <a href="/expense">
+                <li class="d-flex align-items-center mb-4 badge bg-label-gray p-2">
                 
                   <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                     <div class="me-2">
@@ -65,20 +67,55 @@
                     </div>
                   </div>
                 </li>
+              </a>
               @endforeach
               @endif
             </ul>
           </div>
         </div>
       </div>
-      <div class="col-xxl-4 col-md-6">
+      <div class="col-xxl-3 col-md-4">
         <div class="card h-100">
-          <div class="card-header d-flex justify-content-between">
+          <div class="card-header d-flex justify-content-between badge bg-success mb-3">
             <div class="card-title mb-0">
-              <h5 class="mb-1">Received Payments</h5>
+              <h6 class="mb-1 text-white">Received Payments</h6>
               <!-- <p class="card-subtitle">Monthly Sales Overview</p> -->
             </div>
             <i class="menu-icon tf-icons ti ti-checkbox"></i>
+          </div>
+          <div class="card-body">
+            <ul class="p-0 m-0">
+              @if($totalPaymentsByAllote)
+              @foreach($totalPaymentsByAllote as $ap)
+                <li class="d-flex align-items-center mb-4">
+                
+                  <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                    <div class="me-2">
+                      <div class="d-flex align-items-center">
+                        <h6 class="mb-0 me-1">{{$ap->allote}}</h6>
+                      </div>
+                    </div>
+                    <div class="user-progress">
+                      <p class="text-info fw-medium mb-0 d-flex align-items-center gap-1">
+                        {{$ap->total_amount}}
+                      </p>
+                    </div>
+                  </div>
+                </li>
+              @endforeach
+              @endif
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-xxl-3 col-md-4">
+        <div class="card h-100">
+          <div class="card-header d-flex justify-content-between badge bg-info mb-3">
+            <div class="card-title mb-0">
+              <h6 class="mb-1 text-white">Expense By Expense Heads</h6>
+              <!-- <p class="card-subtitle">Monthly Sales Overview</p> -->
+            </div>
+            <i class="menu-icon tf-icons ti ti-file-description"></i>
           </div>
           <div class="card-body">
             <ul class="p-0 m-0">
