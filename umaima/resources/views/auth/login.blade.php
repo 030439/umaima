@@ -48,13 +48,15 @@
 
   <body>
 
-]
+
 <div class="container-xxl">
+
   <div class="authentication-wrapper authentication-basic container-p-y">
     <div class="authentication-inner py-6">
       <!-- Login -->
       <div class="card">
         <div class="card-body">
+        <div class="toast-container position-fixed top-0 end-0 p-3" id="toastContainer" style="color:#fff !important"></div>
           <!-- Logo -->
           <div class="app-brand justify-content-center mb-6">
           <a href="{{route('dashboard.index')}}" class="app-brand-link">
@@ -137,6 +139,32 @@
 <script>
 // Ensure jQuery is loaded
 $(document).ready(function() {
+  function showToast(message, type) {
+    const toastContainer = document.getElementById("toastContainer");
+
+    const toast = document.createElement("div");
+    toast.classList.add("toast", "fade", "show", `bg-${type}`);
+    toast.setAttribute("role", "alert");
+    toast.setAttribute("aria-live", "assertive");
+    toast.setAttribute("aria-atomic", "true");
+
+    toast.innerHTML = `
+        <div class="toast-body text-white">
+            ${message}
+        </div>
+    `;
+
+    // Append the toast to the container
+    toastContainer.appendChild(toast);
+
+    // Remove toast after 5 seconds
+    setTimeout(() => {
+        toast.classList.remove("show");
+        toast.classList.add("hide");
+        toast.addEventListener("transitionend", () => toast.remove());
+    }, 1000);
+}
+
     $('#signInButton').click(function(e) {
         e.preventDefault();
 
@@ -156,11 +184,15 @@ $(document).ready(function() {
             type: 'POST',
             data: formData,
             success: function(response) {
-                console.log('Sign in successful', response);
+              if(response.success){
+                showToast("Sign in successful", "success");
                 window.location.href = '/';
-                // Handle successful response
+              }else{
+                showToast(response.error, "danger");
+              };
             },
             error: function(xhr) {
+              showToast(xhr.responseText.error, "danger");
                 console.error('Error during sign in', xhr.responseText);
                 // Handle error
             }

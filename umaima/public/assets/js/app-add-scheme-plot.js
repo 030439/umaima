@@ -37,6 +37,8 @@ function fetchSchemeDetails() {
                 populateDropdown("plotSize", data.plotSizes);
                 populateDropdown("plotLocation", data.plotLocations);
                 populateDropdown("schemeSelection", data.scheme);
+                populateDropdown("plotCategories", data.cate);
+
             } else {
                 showToast("Error: " + data.message, "danger");
             }
@@ -138,6 +140,11 @@ document.getElementById("schemePlotForm").addEventListener("submit", function (e
         setError(plotSize, "Please select the plot size.");
         isValid = false;
     }
+    const plotCategories = document.getElementById("plotCategories");
+    if (plotCategories.value === "") {
+        setError(plotCategories, "Please select the plot size.");
+        isValid = false;
+    }
 
     // Validate Plot Location
     const plotLocation = document.getElementById("plotLocation");
@@ -147,7 +154,7 @@ document.getElementById("schemePlotForm").addEventListener("submit", function (e
     }
     const plotCat = document.getElementById("plotCat");
     if (plotCat.value === "") {
-        setError(plotCat, "Please select the plot plot Category.");
+        setError(plotCat, "Please select the  plot SUB Category.");
         isValid = false;
     }
 
@@ -157,7 +164,8 @@ document.getElementById("schemePlotForm").addEventListener("submit", function (e
             plotNumber: plotNumber.value,
             plotSize: plotSize.value,
             plotLocation: plotLocation.value,
-            plotCat:plotCat.value
+            plotCat:plotCat.value,
+            category:plotCategories.value
         };
 
         saveSchemePlot(scheme); // Call save function to handle form submission

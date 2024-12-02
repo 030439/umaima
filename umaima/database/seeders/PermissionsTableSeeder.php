@@ -111,14 +111,14 @@ class PermissionsTableSeeder extends Seeder
             Permission::firstOrCreate($permission);
         }
 
-        // DB::table('plot_categories')->insert([
-        //     'id' => 1,
-        //     'category_name'=>"Commercial"
-        // ]);
-        // DB::table('plot_categories')->insert([
-        //     'id' => 2,
-        //     'category_name'=>"Residentail"
-        // ]);
+        DB::table('plot_categories')->insert([
+            'id' => 1,
+            'category_name'=>"Commercial"
+        ]);
+        DB::table('plot_categories')->insert([
+            'id' => 2,
+            'category_name'=>"Residentail"
+        ]);
 
         // Create admin role and assign permissions
         $adminRole = Role::firstOrCreate(['name' => 'admin']);

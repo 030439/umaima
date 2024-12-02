@@ -39,7 +39,7 @@
      </div>
     <div class="row mt-3 mb-3">
       <div class="col-xxl-3 col-md-4">
-        <div class="card h-100">
+        <div class="card h-100" >
           <div class="card-header d-flex justify-content-between badge bg-info mb-3">
             <div class="card-title mb-0">
               <h6 class="mb-1 text-white">Expense By Expense Heads</h6>
@@ -89,7 +89,7 @@
               @foreach($totalPaymentsByAllote as $ap)
                 <li class="d-flex align-items-center mb-4">
                 
-                  <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                  <div class="d-flex w-100 flex-wrap align-items-center badge bg-label-gray justify-content-between gap-2">
                     <div class="me-2">
                       <div class="d-flex align-items-center">
                         <h6 class="mb-0 me-1">{{$ap->allote}}</h6>
@@ -123,7 +123,7 @@
               @foreach($totalPaymentsByAllote as $ap)
                 <li class="d-flex align-items-center mb-4">
                 
-                  <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                  <div class="d-flex w-100 badge bg-label-gray flex-wrap align-items-center justify-content-between gap-2">
                     <div class="me-2">
                       <div class="d-flex align-items-center">
                         <h6 class="mb-0 me-1">{{$ap->allote}}</h6>

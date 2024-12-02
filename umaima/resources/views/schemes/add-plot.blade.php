@@ -50,7 +50,15 @@
             <div class="invalid-feedback">Please select the plot size.</div>
         </div>
         <div class="col-6">
-            <label class="form-label" for="plotCat">Plot Category</label>
+            <label class="form-label" for="plotCategories">Plot Category</label>
+            <select class="form-select" id="plotCategories" name="plotCategories" >
+                <option value="">Select Plot Category</option>
+            </select>
+            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">Please select the plot Category.</div>
+        </div>
+        <div class="col-6">
+            <label class="form-label" for="plotCat">Plot Sub Category</label>
             <select class="form-select" id="plotCat" name="plotCat" >
                 <option value="">Select Plot Category</option>
                 <option value="1">Residential</option>
@@ -59,7 +67,7 @@
             <div class="valid-feedback">Looks good!</div>
             <div class="invalid-feedback">Please select the plot Category.</div>
         </div>
-        <div class="col-12">
+        <div class="col-6">
             <label class="form-label" for="plotLocation">Plot Location</label>
             <select class="form-select" id="plotLocation" name="plotLocation" >
                 <option value="">Select Plot Location</option>

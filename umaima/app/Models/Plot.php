@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Plot extends Model
 {
-    protected $fillable = ['plot_number', 'scheme_id', 'plot_size_id', 'plot_location_id', 'plot_category_id'];
+    protected $fillable = ['plot_number','category_id', 'scheme_id', 'plot_size_id', 'plot_location_id', 'plot_category_id'];
 
     public function scheme()
     {

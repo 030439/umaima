@@ -50,7 +50,8 @@ class PlotController extends Controller
     public function plotSize(){
         $sizes = DB::table('plot_sizes')->get();
         $locations = DB::table('plot_locations')->get();
-        return view('plots.sizes',compact('sizes','locations'));
+        $categories = DB::table('categories')->get();
+        return view('plots.sizes',compact('sizes','locations','categories'));
     }
 
     public function installments(){
@@ -66,6 +67,11 @@ class PlotController extends Controller
     public function createPlotLocation()
     {
         $result = $this->plotservice->createPlotLocation();
+        return ($result);
+    }
+    public function createPlotCategory()
+    {
+        $result = $this->plotservice->createPlotCategory();
         return ($result);
     }
 

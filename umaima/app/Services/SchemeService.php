@@ -96,6 +96,7 @@ class SchemeService
         $sizes = DB::table('plot_sizes')->get();
         $locations = DB::table('plot_locations')->get();
         $schemes = DB::table('schemes')->get();
+        $categories = DB::table('categories')->get();
         $scheme=$schemes->map(function ($scheme) {
             return [
                 'value' => $scheme->id, // assuming 'id' is a unique identifier
@@ -114,11 +115,18 @@ class SchemeService
                 'label' => $location->location_name // assuming 'name' holds the display name
             ];
         });
+        $cate=$categories->map(function ($category) {
+            return [
+                'value' => $category->id, // assuming 'id' is a unique identifier
+                'label' => $category->name // assuming 'name' holds the display name
+            ];
+        });
         return response()->json([
             'success' => true,
             'plotSizes' => $size,
             'plotLocations' =>$location,
-            'scheme'=>$scheme
+            'scheme'=>$scheme,
+            'cate'=>$cate
         ]);
         
     }

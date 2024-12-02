@@ -23,7 +23,13 @@ use App\Http\Controllers\LogController;
 |
 */
 
-
+Route::get("clearData",function(){
+    \Artisan::call('cache:clear');
+     \Artisan::call('route:clear');
+     \Artisan::call('config:cache');
+           \Artisan::call('optimize:clear');
+       return "Route cache cleared successfully!"; 
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -57,6 +63,7 @@ Route::middleware('auth')->group(function () {
             Route::get('plot-location','plotSize')->name('plot.location');
             Route::get('plot.installments','installments')->name('plot.installments');
             Route::post('create-plot-location','createPlotLocation');
+            Route::post('create-plot-category','createPlotCategory');
             Route::post('create-plot-size','createPlotSize');
             Route::post('duration','duration');
             Route::post('installment','installment');

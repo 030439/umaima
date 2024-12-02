@@ -37,7 +37,7 @@ class UsersController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             logAction('User Login', 'User ID: ' . Auth::id());
-            return redirect()->intended('/dashboard'); // Redirect to intended page
+            return redirect()->intended('/'); // Redirect to intended page
         }
 
         return back()->withErrors(['email' => 'The provided credentials do not match our records.']);
@@ -61,10 +61,10 @@ class UsersController extends Controller
             $token = $user->createToken('API Token')->plainTextToken;
             logAction('User Login', 'User ID: ' . Auth::id());
 
-            return response()->json(['token' => $token, 'user' => $user], 200);
+            return response()->json(['token' => $token, 'user' => $user,'success'=>true], 200);
         }
 
-        return response()->json(['error' => 'Unauthorized'], 401);
+        return response()->json(['error' => 'Credentials did not matched','success'=>false], 401);
     }
 
     public function user(Request $request)

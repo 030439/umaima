@@ -356,6 +356,8 @@ class PlotService
                 'plot.plotSize' => 'required|integer',
                 'plot.plotLocation' => 'required|integer',
                 'plot.plotCat' => 'required|integer',
+                'plot.category' => 'required|integer',
+                
             ]);
 
             if ($validator->fails()) {
@@ -375,6 +377,7 @@ class PlotService
                 'plot_size_id' => $this->request->input('plot.plotSize'),
                 'plot_location_id' => $this->request->input('plot.plotLocation'),
                 'plot_category_id'=>$this->request->input('plot.plotCat'),
+                'category_id'=>$this->request->input('plot.category'),
                 'created_at' => now(), // Set created_at to current timestamp
                 'updated_at' => now(),
             ]);
@@ -464,6 +467,58 @@ class PlotService
             
             $response = [
                 'message' => 'Plot Location created succesfully!',
+                 'success' => true
+            ];
+            // Return success response in DataTable format
+            return response()->json($response);
+        } catch (Exception $e) {
+            // Rollback transaction in case of error
+            
+
+            // Return error response
+            $response = [
+                'message' => $e->getMessage(),
+                 'success' => false
+            ];
+
+            // Return success response in DataTable format
+            return response()->json($response);
+
+        }
+    }
+
+    public function createPlotCategory()
+    {
+        try {
+            // The incoming request is already validated by StoreRoleRequest
+            $validator = Validator::make($this->request->all(), [
+                'name' => 'required|unique:categories,name',
+            ]);
+        
+            // If validation fails, return a response with errors
+            if ($validator->fails()) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Validation failed',
+                    'errors' => $validator->errors()->name,
+                ], 422); // Unprocessable Entity
+            }
+        
+            // Retrieve validated data
+            $location_ = $this->request->input('name');
+
+            // Step 1: Create the role
+            DB::table('categories')->insert([
+                'name' => $location_,
+                'created_at' => now(), // Set created_at to current timestamp
+                'updated_at' => now(),
+            ]);
+            logAction('Created Plot Category', $location_);
+
+            // Return success response
+            
+            $response = [
+                'message' => 'Plot Category created succesfully!',
                  'success' => true
             ];
             // Return success response in DataTable format

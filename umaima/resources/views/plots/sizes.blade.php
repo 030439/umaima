@@ -6,7 +6,7 @@
     <div class="content-wrapper">
         <div class="container-xxl flex-grow-1 container-p-y">
             <div class="row">
-                <div class="col-xxl-4 col-xl-6 col-lg-12">
+                <div class="col-xxl-4 col-xl-4 col-lg-12">
                     <div class="card h-100">
                     <div class="card-header d-flex justify-content-between">
                         <div class="card-title mb-0">
@@ -15,7 +15,7 @@
                         <div class="dropdown">
                         <button class="btn btn-secondary add-new btn-primary waves-effect waves-light"  type="button" onclick="addPlotLocation()">
                                 <span><i class="ti ti-plus me-0 me-sm-1 ti-xs"></i>
-                                    <span class="d-none d-sm-inline-block">Add New Location</span>
+                                    <span class="d-none d-sm-inline-block">Add New </span>
                                 </span>
                             </button>
                         </div>
@@ -39,16 +39,16 @@
                     </div>
                     </div>
                 </div>
-                <div class="col-xxl-4 col-xl-6 col-lg-12">
+                <div class="col-xxl-4 col-xl-4 col-lg-12">
                     <div class="card h-100">
                     <div class="card-header d-flex justify-content-between">
                         <div class="card-title mb-0">
-                        <h5 class="mb-1">Plots Sizes Lists</h5>
+                        <h5 class="mb-1">Plots Sizes </h5>
                         </div>
                         <div class="dropdown">
                             <button class="btn btn-secondary add-new btn-primary waves-effect waves-light"  type="button" onclick="addPlotSize()">
                                 <span><i class="ti ti-plus me-0 me-sm-1 ti-xs"></i>
-                                    <span class="d-none d-sm-inline-block">Add New Ploat Size</span>
+                                    <span class="d-none d-sm-inline-block">Add New  </span>
                                 </span>
                             </button>
                         </div>
@@ -62,6 +62,39 @@
                                     <div class="d-flex justify-content-between w-100 flex-wrap gap-2">
                                         <div class="me-2">
                                         <h6 class="mb-0">{{ $size->size }}</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        @endforeach
+                        @endif
+                        </ul>
+                    </div>
+                    </div>
+                </div>
+                <div class="col-xxl-4 col-xl-4 col-lg-12">
+                    <div class="card h-100">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="card-title mb-0">
+                        <h5 class="mb-1">Plots Category </h5>
+                        </div>
+                        <div class="dropdown">
+                            <button class="btn btn-secondary add-new btn-primary waves-effect waves-light"  type="button" onclick="addPlotCat()">
+                                <span><i class="ti ti-plus me-0 me-sm-1 ti-xs"></i>
+                                    <span class="d-none d-sm-inline-block">Add New  </span>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled mb-0">
+                        @if ($categories->isNotEmpty())
+                        @foreach ($categories as $category)
+                            <li class="mb-6">
+                                <div class="d-flex align-items-center">
+                                    <div class="d-flex justify-content-between w-100 flex-wrap gap-2">
+                                        <div class="me-2">
+                                        <h6 class="mb-0">{{ $category->name }}</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -103,6 +136,29 @@
                         </div>
                         <div class="col-12 text-center demo-vertical-spacing">
                             <button type="submit" class="btn btn-primary me-4">Create Location</button>
+                            <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">Discard</button>
+                        </div>
+                        </form>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="addPlotCat" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-simple">
+                    <div class="modal-content">
+                    <div class="modal-body">
+                        <button type="button" class="btn-close btn-pinned" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <div class="text-center mb-6">
+                        <h4 class="mb-2">Add New Category</h4>
+                        </div>
+                        <form id="addCatForm" class="row" onsubmit="return false">
+                        <div class="col-12 mb-4">
+                            <label class="form-label" for="modalcategoryName">Category Name</label>
+                            <input type="text" id="modalcategoryName" name="category" class="form-control" placeholder="category Name">
+                            <div class="fv-plugins-message-container invalid-feedbacks"></div>
+                        </div>
+                        <div class="col-12 text-center demo-vertical-spacing">
+                            <button type="submit" class="btn btn-primary me-4">Create Category</button>
                             <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">Discard</button>
                         </div>
                         </form>
@@ -176,6 +232,10 @@
         const addCCModal = new bootstrap.Modal(document.getElementById('addPlotSize'));
         addCCModal.show();
     }
+    function addPlotCat() {
+        const addCCModal = new bootstrap.Modal(document.getElementById('addPlotCat'));
+        addCCModal.show();
+    }
 
     function addPlotLocation() {
         const addCCModal = new bootstrap.Modal(document.getElementById('addPlotLocation'));
@@ -211,6 +271,32 @@
             method: "POST",
             url: "/setup/create-plot-location",
             data: { location_name: location },
+            headers: {
+                "X-CSRF-TOKEN": csrfToken // Add CSRF token to request headers
+            },
+            success: function(data) {
+                
+                if (data.success == true) {
+                    // Handle success (you could reset the form, show success message, etc.)
+                    showToast(data.message, "success");
+                    setTimeout(() => {
+                         window.location.reload(); // Reload the page
+                    }, 2000);
+                } else {
+                    // Handle failure
+                    showToast("Error: " + data.message, "danger");
+                }
+            },
+            error: function() {
+                console.error('Could not load roles.');
+            }
+        });
+    }
+    function createCategory(location) {
+        $.ajax({
+            method: "POST",
+            url: "/setup/create-plot-category",
+            data: { name: location },
             headers: {
                 "X-CSRF-TOKEN": csrfToken // Add CSRF token to request headers
             },
@@ -319,6 +405,34 @@
             $(".modal-backdrop").remove();
             $("#addPlotLocation").hide();
             createLocation(location.value); // Pass the valid location to createLocation function
+        }
+    });
+    document.getElementById("addCatForm").addEventListener("submit", function (e) {
+        e.preventDefault(); // Prevent default form submission
+        let isValid = true;
+
+        // Reset all fields to remove previous error states
+        const fields = document.querySelectorAll(".form-control, .form-select");
+        fields.forEach(field => {
+            field.classList.remove("is-invalid");
+            const errorContainer = field.nextElementSibling;
+            if (errorContainer && errorContainer.classList.contains("invalid-feedbacks")) {
+                errorContainer.style.display = "none";
+            }
+        });
+
+        // Validate Plot Location
+        const location = document.getElementById("modalcategoryName");
+        if (location.value.trim() === "") {
+            setError(location, "Category Name is required.");
+            isValid = false;
+        }
+
+        // Submit the form if valid
+        if (isValid) {
+            $(".modal-backdrop").remove();
+            $("#addPlotLocation").hide();
+            createCategory(location.value); // Pass the valid location to createLocation function
         }
     });
 </script>

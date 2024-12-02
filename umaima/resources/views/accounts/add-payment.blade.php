@@ -314,7 +314,7 @@
 
                         // Redirect after success
                         setTimeout(function() {
-                            //window.location.href = "/cashbook";
+                            window.location.href = "/cashbook";
                         }, 2000); 
                     } else {
                         Swal.fire({
