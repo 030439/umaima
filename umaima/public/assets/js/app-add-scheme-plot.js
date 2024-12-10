@@ -134,6 +134,15 @@ document.getElementById("schemePlotForm").addEventListener("submit", function (e
         isValid = false;
     }
 
+
+
+
+
+
+
+
+    
+
     // Validate Plot Size
     const plotSize = document.getElementById("plotSize");
     if (plotSize.value === "") {

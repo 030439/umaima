@@ -376,11 +376,12 @@ class PlotService
                 'scheme_id' => $this->request->input('plot.scheme'),
                 'plot_size_id' => $this->request->input('plot.plotSize'),
                 'plot_location_id' => $this->request->input('plot.plotLocation'),
-                'plot_category_id'=>$this->request->input('plot.plotCat'),
-                'category_id'=>$this->request->input('plot.category'),
+                'plot_category_id'=>$this->request->input('plot.category'),
+                'category_id'=>$this->request->input('plot.plotCat'),
                 'created_at' => now(), // Set created_at to current timestamp
                 'updated_at' => now(),
             ]);
+            dd($scheme);
 
             // Log the action
             logAction('Created Plot', $scheme->plot_numer.','.$scheme->scheme_id);

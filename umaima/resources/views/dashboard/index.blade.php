@@ -15,7 +15,7 @@
           <div class="row mb-5">
             @if($totalPlotsSchemeWise)
             @foreach($totalPlotsSchemeWise as $sp)
-              <div class="col-lg-3 col-sm-6">
+              <div class="col-lg-6 col-sm-6">
                 <a href="scheme-plots/{{$sp->sid}}">
                   <div class="card h-100">
                     <div class="card-body d-flex justify-content-between align-items-center">
@@ -242,7 +242,7 @@ Apply Surcharge
                     @if(!empty($plots))
                     @foreach ($plots['plots'] as $plot) 
                     
-                    <?php $status = $plot['status'] == 0 ? "success" : ($plot['status'] == 1 ? "primary" : "warning");?>
+                    <?php $status = $plot['status'] == 0 ? "info" : ($plot['status'] == 1 ? "primary" : "info");?>
                             <div class="col-3 col-md-2 col-lg-1 text-white  bg-{{$status}} text-center p-4" style="margin:2px"  data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="tooltip-{{$status}}" data-bs-original-title="Success tooltip">
                                     {{$plot['plot_number']}}
                                 
