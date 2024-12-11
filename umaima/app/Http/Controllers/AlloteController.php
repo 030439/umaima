@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Services\AlloteService;
 use Illuminate\Http\Request;
+use App\Models\Allote;
 use DB;
 use Carbon\Carbon;
 class AlloteController extends Controller
@@ -45,7 +46,8 @@ class AlloteController extends Controller
         return view('allote.plot-payments',['pid'=>$id]);
     }
     public function edit($id){
-        return view('allote.plotes',['pid'=>$id]);
+        $allote=Allote::find($id);
+        return view('allote.edit',['allote'=>$allote]);
     }
     //     return view('allote.plot-payments',['pid'=>$id]);
     // }
