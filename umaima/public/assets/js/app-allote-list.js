@@ -105,13 +105,7 @@ $(function() {
                                 <a href="allote-plotes/${a.id}" class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill">
                                     <i class="ti ti-map ti-md"></i>
                                 </a>
-                                <a href="javascript:;" 
-                                   class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill edit-record" 
-                                   data-id="${a.id}" 
-                                   onclick="showEditModal(${a.id})">
-                                    <i class="ti ti-eye ti-md"></i>
-                                </a>
-                                <a href="${r}" class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill">
+                                <a href="allote/edit/${a.id}" class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill">
                                     <i class="ti ti-edit ti-md"></i>
                                 </a>
                                 <a href="javascript:;" class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill delete-record">

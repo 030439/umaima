@@ -44,10 +44,9 @@ class AlloteController extends Controller
     {
         return view('allote.plot-payments',['pid'=>$id]);
     }
-    
-  
-    
-
+    public function edit($id){
+        return view('allote.plotes',['pid'=>$id]);
+    }
     //     return view('allote.plot-payments',['pid'=>$id]);
     // }
     public function plotPaymet($id){
