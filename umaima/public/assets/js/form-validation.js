@@ -134,6 +134,7 @@ function populateDropdown(selectId, items) {
         option.textContent = item.label;
         selectElement.appendChild(option);
     });
+    
 }
 
 function fetchSchemeDetails() {
@@ -247,6 +248,7 @@ fetchSchemeDetails();
                     $("#category").val(response.detail[0].category);
                     $("#location").val(response.detail[0].location);
                     $("#plot-size").val(response.detail[0].size);
+                    $("#cat").val(response.detail[0].cat);
                 } else {
                     showToast("Failed to fetch plots", "danger");
                 }

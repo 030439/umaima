@@ -24,7 +24,6 @@ $(function() {
         t = n.DataTable({
             processing: true,
             serverSide: true,
-            responsive: true,
             scrollX: true,
             pageLength: 10,
             ajax: {

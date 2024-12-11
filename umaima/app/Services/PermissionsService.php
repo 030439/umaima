@@ -35,6 +35,8 @@ class PermissionsService
         $having = $this->request->input('having', []);
         $paginate = $this->request->input('paginate', true);
         $draw=$this->request->get('draw');
+        $start = $this->request->input('start', 0);
+        $length = $this->request->input('length', 10);
         $searchValue = $this->request->get('search')['value']; // This is the value you want to search for
 
         // Initialize an array for the conditions
@@ -57,7 +59,7 @@ class PermissionsService
             $groupBy ,
             $having ,
             $perPage ,
-            $page ,
+            $page = ($start / $length) + 1 ,
             $paginate = true
         );
 

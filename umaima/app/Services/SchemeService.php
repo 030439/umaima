@@ -26,6 +26,8 @@ class SchemeService
     {
         // Use request parameters with fallback defaults
         $perPage = $this->request->input('length', 10);
+        $start = $this->request->input('start', 0);
+        $length = $this->request->input('length', 10);
         $page = $this->request->input('page', 1);
         $joins = $this->request->input('joins', []);
         $orderColumn = $this->request->input('orderColumn', 'id');
@@ -59,7 +61,7 @@ class SchemeService
             $groupBy ,
             $having ,
             $perPage ,
-            $page ,
+            $page = ($start / $length) + 1 ,
             $paginate = true
         );
 
@@ -183,11 +185,14 @@ class SchemeService
             // Query to fetch plots and related scheme information
             $plots = DB::table('plots')
             ->join('schemes', 'plots.scheme_id', '=', 'schemes.id')
+            ->leftjoin('allocation_details', 'allocation_details.plot', '=', 'plots.id')
+            ->leftjoin('allotes', 'allocation_details.allote', '=', 'allotes.id')
             ->select(
                 'plots.id as id',
                 'plots.status as status',
                 'plots.plot_number',
-                'schemes.name as scheme'
+                'schemes.name as scheme',
+                'allotes.fullname as allote'
             )
             ->get();
 
@@ -202,6 +207,7 @@ class SchemeService
                     'plots' => $plots->mapWithKeys(function ($plot) {
                         return [
                             $plot->id => [
+                                'allote'=>$plot->allote,
                                 'status' => $plot->status,
                                 'plot_number' => $plot->plot_number,
                             ],

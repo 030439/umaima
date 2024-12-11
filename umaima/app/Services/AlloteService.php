@@ -27,6 +27,8 @@ class AlloteService
         // Use request parameters with fallback defaults
         $perPage = $this->request->input('length', 10);
         $page = $this->request->input('page', 1);
+        $start = $this->request->input('start', 0);
+        $length = $this->request->input('length', 10);
         $orderColumn = $this->request->input('orderColumn', 'id');
         $orderDirection = $this->request->input('orderDirection', 'asc');
         $groupBy = $this->request->input('groupBy', []);
@@ -36,14 +38,25 @@ class AlloteService
         $searchValue = $this->request->get('search')['value']; // This is the value you want to search for
 
         // Initialize an array for the conditions
-        $columns = ['*'
+        
+        $columns = [
+            'allotes.id as id',
+            'allotes.fullname',
+            'allotes.cellno',
+            'allotes.email',
+            'allotes.cnic',
+            'allotes.status'
         ];
 
         $filters = [];
         $joins = [];
         if (!empty($searchValue)) {
             // Using an associative array instead of a nested array
-            $filters['name'] = '%' . $searchValue . '%'; // This will be like 'name' => '%searchValue%'
+            $filters['fullname'] = '%' . $searchValue . '%'; // This will be like 'name' => '%searchValue%'
+            $filters['cellno'] = '%' . $searchValue . '%'; 
+            $filters['email'] = '%' . $searchValue . '%'; 
+            $filters['cnic'] = '%' . $searchValue . '%'; 
+            $filters['address'] = '%' . $searchValue . '%'; 
         }
 
         // Fetch the records using QueryTrait's fetchRecords method
@@ -59,7 +72,7 @@ class AlloteService
             $groupBy ,
             $having ,
             $perPage ,
-            $page ,
+            $page = ($start / $length) + 1 ,
             $paginate = true
         );
 
@@ -76,6 +89,8 @@ class AlloteService
         // Use request parameters with fallback defaults
         $perPage = $this->request->input('length', 10);
         $page = $this->request->input('page', 1);
+        $start = $this->request->input('start', 0);
+        $length = $this->request->input('length', 10);
         $orderColumn = $this->request->input('orderColumn', 'payment_schedule.id');
         $orderDirection = $this->request->input('orderDirection', 'asc');
         $groupBy = $this->request->input('groupBy', []);
@@ -146,7 +161,7 @@ class AlloteService
             $groupBy ,
             $having ,
             $perPage ,
-            $page ,
+            $page = ($start / $length) + 1 ,
             $paginate = true
         );
 

@@ -186,7 +186,7 @@ $(document).ready(function() {
             success: function(response) {
               if(response.success){
                 showToast("Sign in successful", "success");
-                window.location.href = 'dashboard';
+                window.location.href = '/';
               }else{
                 showToast(response.error, "danger");
               };

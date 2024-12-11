@@ -28,6 +28,8 @@ class PlotService
     {
         // Use request parameters with fallback defaults
         $perPage = $this->request->input('length', 10);
+        $start = $this->request->input('start', 0);
+        $length = $this->request->input('length', 10);
         $page = $this->request->input('page', 1);
         $orderColumn = $this->request->input('orderColumn', 'plots.id');
         $orderDirection = $this->request->input('orderDirection', 'asc');
@@ -89,7 +91,7 @@ class PlotService
             $groupBy ,
             $having ,
             $perPage ,
-            $page ,
+            $page = ($start / $length) + 1 ,
             $paginate = true
         );
 
@@ -106,6 +108,8 @@ class PlotService
     {
         // Use request parameters with fallback defaults
         $perPage = $this->request->input('length', 10);
+        $start = $this->request->input('start', 0);
+        $length = $this->request->input('length', 10);
         $page = $this->request->input('page', 1);
         $orderColumn = $this->request->input('orderColumn', 'plots.id');
         $orderDirection = $this->request->input('orderDirection', 'asc');
@@ -168,7 +172,7 @@ class PlotService
             $groupBy ,
             $having ,
             $perPage ,
-            $page ,
+            $page = ($start / $length) + 1 ,
             $paginate = true
         );
 
@@ -189,6 +193,8 @@ class PlotService
         $orderColumn = $this->request->input('orderColumn', 'plots.id');
         $orderDirection = $this->request->input('orderDirection', 'asc');
         $groupBy = $this->request->input('groupBy', []);
+        $start = $this->request->input('start', 0);
+        $length = $this->request->input('length', 10);
         $having = $this->request->input('having', []);
         $paginate = $this->request->input('paginate', true);
         $draw=$this->request->get('draw');
@@ -248,7 +254,7 @@ class PlotService
             $groupBy ,
             $having ,
             $perPage ,
-            $page ,
+            $page = ($start / $length) + 1 ,
             $paginate = true
         );
 
@@ -264,6 +270,8 @@ class PlotService
     {
         // Use request parameters with fallback defaults
         $perPage = $this->request->input('length', 10);
+        $start = $this->request->input('start', 0);
+        $length = $this->request->input('length', 10);
         $page = $this->request->input('page', 1);
         $orderColumn = $this->request->input('orderColumn', 'plots.id');
         $orderDirection = $this->request->input('orderDirection', 'asc');
@@ -335,7 +343,7 @@ class PlotService
             $groupBy ,
             $having ,
             $perPage ,
-            $page ,
+            $page = ($start / $length) + 1 ,
             $paginate = true
         );
 
@@ -376,8 +384,8 @@ class PlotService
                 'scheme_id' => $this->request->input('plot.scheme'),
                 'plot_size_id' => $this->request->input('plot.plotSize'),
                 'plot_location_id' => $this->request->input('plot.plotLocation'),
-                'plot_category_id'=>$this->request->input('plot.category'),
-                'category_id'=>$this->request->input('plot.plotCat'),
+                'plot_category_id'=>$this->request->input('plot.plotCat'),
+                'category_id'=>$this->request->input('plot.category'),
                 'created_at' => now(), // Set created_at to current timestamp
                 'updated_at' => now(),
             ]);
@@ -648,16 +656,18 @@ class PlotService
     public function  getplotDetails(){
         $id=$this->request->input('id');
             $allotes = DB::table('plots')
-            ->select('plot_categories.category_name','plot_sizes.size','plot_locations.location_name')
+            ->select('plot_categories.category_name','categories.name as cat','plot_sizes.size','plot_locations.location_name')
             ->join('plot_sizes', 'plots.plot_size_id', '=', 'plot_sizes.id')
             ->join('plot_locations', 'plots.plot_location_id', '=', 'plot_locations.id')
             ->join('plot_categories', 'plots.plot_category_id', '=', 'plot_categories.id')
+            ->join('categories', 'plots.category_id', '=', 'categories.id')
             ->where('plots.id', $id)
             ->where('plots.status', 1)
             ->get();
 
             $allote=$allotes->map(function ($allote) {
             return [
+                'cat'=>$allote->cat,
                 'location' => $allote->location_name, // assuming 'id' is a unique identifier
                 'size' => $allote->size, // assuming 'name' holds the display name
                 'category' => $allote->category_name // assuming 'name' holds the display name

@@ -1,4 +1,5 @@
 <IfModule mod_rewrite.c>
+    Options -Indexes
     RewriteEngine On
 
     # Redirect all requests to the public folder
@@ -12,5 +13,3 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^ public/index.php [L]
 </IfModule>
-
-

@@ -54,14 +54,22 @@
                     </select>
                   </div>
 
-                  <div class="col-6 fv-plugins-icon-container">
-                    <label class="form-label" for="category">Category</label>
-                    <input type="text" id="category" class="form-control" placeholder="John Doe" name="category" readonly>
-                    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
+                    <div class="col-6 fv-plugins-icon-container">
+                      <label class="form-label" for="category">Category</label>
+                      <input type="text" id="category" class="form-control" placeholder="John Doe" name="category" readonly>
+                      <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+                    </div>
+                    <div class="col-6 fv-plugins-icon-container">
+                      <label class="form-label" for="cat">Sub Category</label>
+                      <input type="text" id="cat" class="form-control" placeholder="plot sub cat" name="cat" readonly>
+                      <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+                    </div>
+                   
                     <div class="col-md-6 fv-plugins-icon-container">
                       <label class="form-label" for="location">Location</label>
                       <input type="text" id="location" class="form-control" placeholder="John Doe" name="location" readonly>
                     <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
+                    
                     <div class="col-md-6 fv-plugins-icon-container">
                       <label class="form-label" for="plot-size">Plot Size</label>
                       <input type="text" id="plot-size" class="form-control" placeholder="John Doe" name="plot-size" readonly>
@@ -250,6 +258,11 @@
 
 <!-- Page JS -->
 <script src="../../assets/js/form-validation.js"></script>
-    
-    @endsection
+<script>
+    $(document).ready(function(){ 
+            // Initialize select2
+                $("#allote").select2();
+            });
+</script>
+@endsection
 
