@@ -49,8 +49,10 @@ class AlloteController extends Controller
         $allote=Allote::find($id);
         return view('allote.edit',['allote'=>$allote]);
     }
-    //     return view('allote.plot-payments',['pid'=>$id]);
-    // }
+    public function editStore(){
+        $result = $this->alloteservice->updateAllote();
+        return ($result);
+    }
     public function plotPaymet($id){
         $result = $this->alloteservice->plotPaymet($id);
         return ($result);

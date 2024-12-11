@@ -83,6 +83,7 @@ Route::middleware('auth')->group(function () {
     ->group(function(){
         Route::get('allote-listing','index')->name('allote.index');
         Route::get('create-allote','alloteCreate');
+        Route::POST('edit-allote','editStore')->name('allote.edit');
         Route::get('allote-plotes/{id}','alloteePlotes');
         Route::get('plot-payment/{id}','plotePayments')->name('payment.read');
         Route::get('allote/edit/{id}','edit')->name('allote.write');

@@ -52,8 +52,9 @@
         </div>
       </div>
       <div class="bs-stepper-content">
-        <form id="wizard-validation-form" onSubmit="return false" method="post" action="{{route('allote.create')}}">
+        <form id="wizard-validation-form" onSubmit="return false" method="post" action="{{route('allote.edit')}}">
           @csrf
+          <input type="hidden" name="id" value="{{$allote->id}}">
           <!-- Account Details -->
           <div id="account-details-validation" class="content">
             <div class="content-header mb-4">
@@ -227,7 +228,7 @@
 
     // Send the data via AJAX
     $.ajax({
-        url: "{{ route('allote.create') }}",  // URL where the form data should be submitted
+        url: "{{ route('allote.edit') }}",  // URL where the form data should be submitted
         type: "POST",  // HTTP method
         data: formData,  // Form data
         processData: false,  // Disable processing the data (required for FormData)

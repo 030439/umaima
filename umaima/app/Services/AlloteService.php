@@ -174,7 +174,7 @@ class AlloteService
         ];
     }
 
-    public function addAllote(){
+    public function addAllote()
     {
         try {
             $validator = Validator::make($this->request->all(), [
@@ -233,7 +233,80 @@ class AlloteService
             ]);
         }
     }
+
+    public function updateAllote()
+{
+    $id=$this->request->input("id");
+    try {
+        // Validate the request inputs
+        $validator = Validator::make($this->request->all(), [
+            'formValidationUsername' => 'required',
+            'formValidationEmail' => 'required',
+            'formValidationcell' => 'required',
+            'formValidationFirstName' => 'required',
+            'formValidationLastName' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            // Format the error messages as a single string with line breaks
+            $errorMessages = implode("\n", $validator->errors()->all());
+
+            return response()->json([
+                'success' => false,
+                'message' => "\n" . $errorMessages
+            ], 422); // Unprocessable Entity
+        }
+
+        // Find the existing Allote record by its ID
+        $allote = Allote::find($id);
+
+        if (!$allote) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Allote record not found.'
+            ], 404); // Not Found
+        }
+
+        // Prepare the data for updating
+        $arr = [
+            'username' => $this->request->input('formValidationUsername'),
+            'email' => $this->request->input('formValidationEmail'),
+            'cellno' => $this->request->input('formValidationcell'),
+            'phone' => $this->request->input('formValidationoffice'),
+            'fullname' => $this->request->input('formValidationFirstName'),
+            'cnic' => $this->request->input('formValidationLastName'),
+            'guardian' => $this->request->input('guardian'),
+            'gcnic' => $this->request->input('gcnic'),
+            'father' => $this->request->input('father'),
+            'fcnic' => $this->request->input('fcnic'),
+            'occupation' => $this->request->input('occupation'),
+            'dob' => $this->request->input('dob'),
+            'nationality' => $this->request->input('nationality'),
+            'residence_no' => $this->request->input('residence'),
+            'address' => $this->request->input('address')
+        ];
+
+        // Update the Allote record
+        $allote->update($arr);
+
+        // Log the action
+        logAction('Updated Allote', $allote->fullname . ',' . $allote->username);
+
+        // Success response
+        return response()->json([
+            'message' => 'Allote updated successfully!',
+            'success' => true
+        ]);
+    } catch (Exception $e) {
+        // Error response
+        return response()->json([
+            'message' => $e->getMessage(),
+            'success' => false
+        ]);
     }
+}
+
+    
 
     public function createPlotSize()
     {
