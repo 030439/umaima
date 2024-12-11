@@ -127,7 +127,7 @@
               </div>
               <div class="col-md-6">
                 <label class="form-label" for="multicol-birthdate">Birth Date</label>
-                <input type="text" name="dob" id="multicol-birthdate" class="form-control dob-picker flatpickr-input active" placeholder="YYYY-MM-DD" readonly="readonly">
+                <input type="text" name="dob" value="{{$allote->dob}}" id="multicol-birthdate" class="form-control dob-picker flatpickr-input active" placeholder="YYYY-MM-DD" readonly="readonly">
               </div>
               
               
@@ -150,7 +150,7 @@
             
             <div class="col-sm-6">
                 <label class="form-label" for="formValidationLastName">Nationality </label>
-                <input type="text" id="formValidationGoogle" name="nationality" class="form-control" placeholder="Doe" />
+                <input type="text" id="formValidationGoogle" value="{{$allote->nationality}}" name="nationality" class="form-control" placeholder="Doe" />
               </div>
               <!-- <div class="col-sm-6">
                 <label class="form-label" for="formValidationLastName">Occupation </label>
@@ -158,11 +158,11 @@
               </div> -->
               <div class="col-sm-6">
                 <label class="form-label" for="formValidationLastName">Residence No </label>
-                <input type="text" id="formValidationLastName" name="residence" class="form-control" placeholder="Doe" />
+                <input type="text" id="formValidationLastName" value="{{$allote->residance_no}}" name="residence" class="form-control" placeholder="Doe" />
               </div>
               <div class="mb-6">
                 <label class="form-label" for="bs-validation-bio">Address</label>
-                <textarea class="form-control" id="bs-validation-bio" name="address" rows="3" required=""></textarea>
+                <textarea class="form-control" id="bs-validation-bio" name="address" rows="3" required="">{{$allote->address}}</textarea>
               </div>
               <div class="col-12 d-flex justify-content-between">
                 <button class="btn btn-label-secondary btn-prev"> <i class="ti ti-arrow-left ti-xs me-sm-2 me-0"></i>

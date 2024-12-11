@@ -49,6 +49,7 @@ class PermissionsTableSeeder extends Seeder
 
             ['name' => 'allote.read', 'guard_name' => 'web'],
             ['name' => 'allote.write', 'guard_name' => 'web'],
+            ['name' => 'allote.edit', 'guard_name' => 'web'],
             ['name' => 'allote.create', 'guard_name' => 'web'],
             ['name' => 'allote.delete', 'guard_name' => 'web'],
 
