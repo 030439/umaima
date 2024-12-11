@@ -243,7 +243,8 @@ Apply Surcharge
                     @foreach ($plots['plots'] as $plot) 
                     
                     <?php $status = $plot['status'] == 0 ? "info" : ($plot['status'] == 1 ? "primary" : "info");?>
-                            <div class="col-3 col-md-2 col-lg-1 text-white  bg-{{$status}} text-center p-4" style="margin:2px"  data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="tooltip-{{$status}}" data-bs-original-title=" tooltip">
+                    <?php $title = $plot['status'] == 0 ? $plot['allote'] : ($plot['status'] == 1 ? "Available" : $plot['allote']);?>
+                            <div class="col-3 col-md-2 col-lg-1 text-white  bg-{{$status}} text-center p-4" style="margin:2px"  data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="tooltip-{{$status}}" data-bs-original-title="{{$title}}">
                                     {{$plot['plot_number']}}
                                 
                             </div>
