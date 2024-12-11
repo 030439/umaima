@@ -244,7 +244,7 @@
                     timer: 2000
                 });
                 // Optionally, you can redirect or reset the form here
-                window.location.href="allote-listing";
+                window.location.href="/allote-listing";
             } else {
                 Swal.fire({
                     icon: 'error',
