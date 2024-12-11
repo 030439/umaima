@@ -2,7 +2,6 @@
 <?php $breadCrumb='Allote / <span class="text-primary">Add</span></i>'?>
 @section('title', 'Home Page')
 @section('content')
-{{dd($allote)}}
       <div class="content-wrapper">
 
         <!-- Content -->
@@ -64,22 +63,22 @@
             <div class="row g-6">
               <div class="col-sm-6">
                 <label class="form-label" for="formValidationUsername">Username</label>
-                <input type="text" name="formValidationUsername" id="formValidationUsername" class="form-control" placeholder="johndoe" />
+                <input type="text" name="formValidationUsername" id="formValidationUsername" value="{{$allote->username}}" class="form-control" placeholder="johndoe" />
               </div>
               <div class="col-sm-6">
                 <label class="form-label" for="formValidationEmail">Email</label>
-                <input type="email" name="formValidationEmail" id="formValidationEmail" class="form-control" placeholder="john.doe@email.com" aria-label="john.doe" />
+                <input type="email" name="formValidationEmail" value="{{$allote->email}}" id="formValidationEmail" class="form-control" placeholder="john.doe@email.com" aria-label="john.doe" />
               </div>
               <div class="col-sm-6 form-password-toggle">
                 <label class="form-label" for="formValidationcell">Cell No</label>
                 <div class="input-group input-group-merge">
-                  <input type="number" id="formValidationcell" name="formValidationcell" class="form-control" aria-describedby="formValidationPass2" />
+                  <input type="number" id="formValidationcell" value="{{$allote->cellno}}" name="formValidationcell" class="form-control" aria-describedby="formValidationPass2" />
                 </div>
               </div>
               <div class="col-sm-6 form-password-toggle">
                 <label class="form-label" for="formValidationoffice">Phone No:Office </label>
                 <div class="input-group input-group-merge">
-                  <input type="number" id="" name="formValidationoffice" class="form-control"   />
+                  <input type="number" id="" value="{{$allote->phone}}" name="formValidationoffice" class="form-control"   />
                  
                 </div>
               </div>
@@ -100,31 +99,31 @@
             <div class="row g-6">
               <div class="col-sm-6">
                 <label class="form-label" for="formValidationFirstName">Full Name</label>
-                <input type="text" id="formValidationFirstName" name="formValidationFirstName" class="form-control" placeholder="John" />
+                <input type="text" id="formValidationFirstName" value="{{$allote->fullnmae}}" name="formValidationFirstName" class="form-control" placeholder="John" />
               </div>
               <div class="col-sm-6">
                 <label class="form-label" for="formValidationLastName">CNIC </label>
-                <input type="text" id="formValidationLastName" name="formValidationLastName" class="form-control" placeholder="Doe" />
+                <input type="text" id="formValidationLastName" value="{{$allote->cnic}}" name="formValidationLastName" class="form-control" placeholder="Doe" />
               </div>
               <div class="col-sm-6">
                 <label class="form-label" for="formValidationFirstName">Father's/Husband Name</label>
-                <input type="text" id="formValidationFirstName" name="father" class="form-control" placeholder="John" />
+                <input type="text" id="formValidationFirstName" value="{{$allote->father}}" name="father" class="form-control" placeholder="John" />
               </div>
               <div class="col-sm-6">
                 <label class="form-label" for="formValidationLastName">CNIC </label>
-                <input type="text" id="formValidationLastName" name="fcnic" class="form-control" placeholder="Doe" />
+                <input type="text" id="formValidationLastName" value="{{$allote->fcnic}}" name="fcnic" class="form-control" placeholder="Doe" />
               </div>
               <div class="col-sm-6">
                 <label class="form-label" for="formValidation">Guardian Name</label>
-                <input type="text" id="formValidation" name="guardian" class="form-control" placeholder="John" />
+                <input type="text" id="formValidation" value="{{$allote->guardian}}" name="guardian" class="form-control" placeholder="John" />
               </div>
               <div class="col-sm-6">
                 <label class="form-label" for="formValidation">CNIC </label>
-                <input type="text" id="formValidation" name="gcnic" class="form-control" placeholder="Doe" />
+                <input type="text" id="formValidation" value="{{$allote->gnic}}" name="gcnic" class="form-control" placeholder="Doe" />
               </div>
               <div class="col-sm-6">
                 <label class="form-label" for="formValidationOccupation">Occupation </label>
-                <input type="text" id="formValidationOccupation" name="occupation" class="form-control" placeholder="Doe" />
+                <input type="text" id="formValidationOccupation" value="{{$allote->occupation}}" name="occupation" class="form-control" placeholder="Doe" />
               </div>
               <div class="col-md-6">
                 <label class="form-label" for="multicol-birthdate">Birth Date</label>
