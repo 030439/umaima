@@ -402,6 +402,8 @@ class AccountService
         $having = $this->request->input('having', []);
         $paginate = $this->request->input('paginate', true);
         $draw=$this->request->get('draw');
+        $start = $this->request->input('start', 0);
+        $length = $this->request->input('length', 10);
         $searchValue = $this->request->get('search')['value']; // This is the value you want to search for
 
         $columns = [
