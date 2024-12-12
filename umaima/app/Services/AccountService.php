@@ -607,7 +607,7 @@ class AccountService
                 ->get();
 
             // Define surcharge rate
-            $surchargeRate = 0.15;
+            $surchargeRate = 15;
             $previousOutstanding = 0;
 
             foreach ($paymentSchedules as $schedule) {

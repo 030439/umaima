@@ -42,7 +42,7 @@ $(function() {
                 { data: 'id',title:"plot-size" },       // Map to 'id' in the returned JSON
                 { data: 'id',title:"plot-location" }, 
                 { data: 'id',title:"installments" }, 
-                { data: 'id',title:"status" },  
+                { data: 'id',title:"Booking Date" },  
                 { data: 'id',title:"actions" },  
             ],
             columnDefs: [
@@ -82,22 +82,28 @@ $(function() {
                 {
                     targets: 5,
                     render: function(t, e, a, s) {
-                        a = a.status;
-                        var status_bg;
-                        var status_title;
-                        if (a === 1) {
-                            status_title="Active"
-                            status_bg='bg-label-success';
-                        } else if (a === 2) {
-                            status_title="Pending"
-                                   status_bg='bg-label-warning';
-                        } else if (a === 0) {
-                            status_title="Inactive"
-                            status_bg='bg-label-secondary';
-                        }
-                        return '<span class="badge ' + status_bg + '" text-capitalized>' +status_title+ "</span>";
+                        return '<span class="text-heading">' + a.bdate + "</span>";
                     }
                 },
+                // {
+                //     targets: 5,
+                //     render: function(t, e, a, s) {
+                //         a = a.status;
+                //         var status_bg;
+                //         var status_title;
+                //         if (a === 1) {
+                //             status_title="Active"
+                //             status_bg='bg-label-success';
+                //         } else if (a === 2) {
+                //             status_title="Pending"
+                //                    status_bg='bg-label-warning';
+                //         } else if (a === 0) {
+                //             status_title="Inactive"
+                //             status_bg='bg-label-secondary';
+                //         }
+                //         return '<span class="badge ' + status_bg + '" text-capitalized>' +status_title+ "</span>";
+                //     }
+                // },
                 {
                     targets: -1,
                     title: "Plot-Payments",

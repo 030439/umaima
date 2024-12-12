@@ -331,12 +331,9 @@ Apply Surcharge
  <script src="../../assets/js/forms-file-upload.js"></script>
 
  <script>
-        const formButton = document.getElementById("add-btn");
-            formButton.addEventListener("click", function () {
-            confirmForm();
-        });
+       
 
-        function applySurcharge(event) {
+        function applySurcharge() {
             // Show loading dialog for 1 second before submitting the form
             Swal.fire({
                 title: "Processing...",
@@ -401,6 +398,7 @@ Apply Surcharge
                 });
             }, 100); // Delay of 1 second (1000 milliseconds)
         }
+        applySurcharge();
     </script>
 
 @endsection

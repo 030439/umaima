@@ -289,7 +289,8 @@ class PlotService
             'schemes.name  as scheme',
             'plot_locations.location_name as location',
             'plot_sizes.size as size',
-            'allocation_details.installment'
+            'allocation_details.installment',
+            'allocation_details.bdate'
         ];
 
         $filters = [];
@@ -622,7 +623,7 @@ class PlotService
         $allotes = DB::table('plots')->select('plot_number', 'id')->where('scheme_id', $id)->where('status', 1)->get();
         $allote=$allotes->map(function ($allote) {
             return [
-                'value' => $allote->id, // assuming 'id' is a unique identifier
+                'value' => $allote->plot_number, // assuming 'id' is a unique identifier
                 'label' => $allote->plot_number // assuming 'name' holds the display name
             ];
         });
@@ -713,7 +714,7 @@ class PlotService
             [
                 "payment" => "Booking",
                 "amount" => $this->request->input('onbooking'),
-                "date" => $bookingDate
+                "date" => $dateString
             ],
             [
                 "payment" => "Allocation",
@@ -799,6 +800,7 @@ class PlotService
                 ]); // Unprocessable Entity
             }
                 $plot = $this->request->input('plot');
+                $scheme = $this->request->input('scheme');
                 $allote = $this->request->input('allote');
                 $data = [
                     'allote' => $this->request->input('allote'),
@@ -823,7 +825,7 @@ class PlotService
                 DB::beginTransaction();
                 $allocationDetail = AllocationDetail::create($data);
                 $status=['status'=>0];
-                Plot::where('id', $plot)->update($status);     
+                Plot::where('plot_number', $plot)->where('scheme_id', $scheme)->update($status);     
                 if ($allocationDetail) {
                     $aid = $allocationDetail->id;
                     foreach ($schedule as $pay) {
