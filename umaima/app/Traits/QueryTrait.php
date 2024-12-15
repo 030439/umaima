@@ -38,13 +38,20 @@ trait QueryTrait
         
     
         // Apply filters
-        foreach ($filters as $column => $filterValue) {
-            if (is_array($filterValue)) {
-                $query->whereIn($column, $filterValue);
-            } else {
-                $query->where($column, $filterValue);
+        // Apply filters dynamically
+        $query->where(function ($q) use ($filters) {
+            foreach ($filters as $column => $filterValue) {
+                if (is_array($filterValue)) {
+                    $q->orWhereIn($column, $filterValue); // Handle array values (IN clause)
+                } elseif (is_string($filterValue) && str_contains($filterValue, '%')) {
+                    $q->orWhere($column, 'LIKE', $filterValue); // Handle LIKE clause for strings with wildcards
+                } else {
+                    $q->orWhere($column, $filterValue); // Standard equality check
+                }
             }
-        }
+        });
+        
+
     
         // Apply joins
         foreach ($joins as $join) {
@@ -56,6 +63,7 @@ trait QueryTrait
         if (!empty($groupBy)) {
             $query->groupBy($groupBy);
         }
+    //still same issue
     
         // Apply having
         foreach ($having as $condition) {
@@ -64,7 +72,11 @@ trait QueryTrait
     
         // Apply ordering
         $query->orderBy($orderColumn, $orderDirection);
-    
+        //check /debug query
+        // $sql = $query->toSql();
+        // $bindings = $query->getBindings();
+        // dd(vsprintf(str_replace('?', '%s', $sql), array_map(fn($value) => is_string($value) ? "'$value'" : $value, $bindings)));
+        
         // Get total records count before pagination or filters
         $total = $query->count();
     
@@ -86,4 +98,3 @@ trait QueryTrait
     }
     
 }
-

@@ -125,6 +125,10 @@ class AccountService
             'acccounts' => $bank
         ]);
     }
+    
+    public function isAmounntPaidOnDate($date,$allocation_details_id){
+
+    }
 
     public function storePayment()
     {
@@ -192,6 +196,10 @@ class AccountService
                         $success=false;
                         $msg = "No matching payment schedule found.";
                         
+                    case 5:
+                        $success=false;
+                        $msg = "Payment already Paidn on this scheduled date.";
+                        
                         break;
                     default:
                     $success=false;
@@ -241,8 +249,15 @@ class AccountService
             $record =  PaymentSchedule::where('allocation_details_id', $allocationId)
                 ->where('pay_date', $payDate)
                 ->first();
+                $record =  PaymentSchedule::where('allocation_details_id', $allocationId)
+                ->where('pay_date', $payDate)
+                ->first();
 
             if ($record) {
+                //check if amount is already paid on this date 
+                if($record->amount_paid){
+                    return 5;
+                }
                 $updated =$record->update([
                     'amount_paid' => $amountPaid,
                     'paid_on' => $paidOn,
