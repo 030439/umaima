@@ -784,7 +784,18 @@ class AccountService
         return ($outstanding*$rate)/100; // Simple surcharge calculation, can be adjusted based on your business logic
     }
     public function getPaymentById($id){
-        
+        return  DB::table('payments')
+        ->leftjoin('allotes', 'payments.allote', '=', 'allotes.id')
+        ->leftjoin('banks', 'banks.id', '=', 'payments.from_account')
+        ->select(
+            'payments.paydate as pdate',
+            'payments.amount as amount',
+            'payments.narration as narration',
+            'banks.bank_name as account',
+            'allotes.fullname as allote'
+        )
+        ->where('payments.id','=',$id)
+        ->first();
     }
 
 }
