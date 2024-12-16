@@ -37,13 +37,13 @@ $(function() {
                 dataSrc: "data" // Server response should contain the "data" key for rows
             },
             columns: [   // Map to 'name' in the returned JSON
-                { data: 'id',title:"SCHEME" },       // Map to 'id' in the returned JSON
-                { data: 'id',title:"Plot-no" },     // Map to 'name' in the returned JSON
-                { data: 'id',title:"plot-size" },       // Map to 'id' in the returned JSON
-                { data: 'id',title:"plot-location" }, 
-                { data: 'id',title:"installments" }, 
-                { data: 'id',title:"Booking Date" },  
-                { data: 'id',title:"actions" },  
+                { data: 'id',title:"SCHEME"},       // Map to 'id' in the returned JSON
+                { data: 'id',title:"Plot-no"},     // Map to 'name' in the returned JSON
+                { data: 'id',title:"Booking Date"},       // Map to 'id' in the returned JSON
+                { data: 'id',title:"Total Paid"}, 
+                { data: 'id',title:"Due" }, 
+                { data: 'id',title:"Total Due"},  
+                { data: 'id',title:"actions"},  
             ],
             columnDefs: [
                
