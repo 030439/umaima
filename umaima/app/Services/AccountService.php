@@ -361,12 +361,18 @@ class AccountService
                     
                     $outStd = (int)round($outstanding + $surcharge);
                     $updation=[
-                        'surcharge' => $outStd,
-                        'outstanding' =>$surcharge,
+                        'surcharge' => $surcharge,
+                        'outstanding' =>$outStd,
                         'updated_at' => now(),
                     ];
                     $schedule->update($updation);
+                    $schedule->update($updation);
+$schedule->refresh(); // Refresh the model instance from the database
+dd($schedule->toArray(), $updation);
+
+                    dd($schedule->toArray(), $updation);
                 }
+                dd("SDFSDF");
                 $updated =$record->update([
                     'amount_paid' => $amountPaid,
                     'paid_on' => $paidOn,

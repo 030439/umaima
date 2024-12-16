@@ -14,6 +14,7 @@ class PaymentSchedule extends Model
         'allocation_details_id',
         'payment',
         'amount',
+        'outstanding',
         'amount_paid',
         'paid_on',
         'surcharge',
