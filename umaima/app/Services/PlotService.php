@@ -833,15 +833,17 @@ class PlotService
 
                         // Convert the date to 'Y-m-d' format for insertion into the database
                         $formattedDate = Carbon::createFromFormat('d-M-Y', $inputDate)->format('Y-m-d');
-
-                        $Q = DB::table('payment_schedule')->insert([
-                            'allocation_details_id' => $aid,
-                            'payment' => $pay['payment'],
-                            'amount' => $pay['amount'],
-                            'pay_date' => $formattedDate,
-                            'created_at' => now(), // Set created_at to current timestamp
-                            'updated_at' => now(),
-                        ]);
+                        if($pay['amount']>0){
+                            $Q = DB::table('payment_schedule')->insert([
+                                'allocation_details_id' => $aid,
+                                'payment' => $pay['payment'],
+                                'amount' => $pay['amount'],
+                                'pay_date' => $formattedDate,
+                                'created_at' => now(), // Set created_at to current timestamp
+                                'updated_at' => now(),
+                            ]);
+                        }
+                        
             
                         // Check if the insertion failed
                         if (!$Q) {
