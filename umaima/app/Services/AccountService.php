@@ -228,6 +228,94 @@ class AccountService
         }
     }
 
+    public function payAmount_()
+{
+    try {
+        $allocationId = $this->request->input('plot');
+        $amountPaid = $this->request->input('amount');
+        $paidOn = $this->request->input('paydate');
+
+        // Validate inputs
+        if (!$allocationId || !$amountPaid || !$paidOn) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Invalid input provided.',
+            ], 400);
+        }
+
+        $payDate = Carbon::parse($paidOn)->format('Y-m-15');
+        $currentMonth = Carbon::now()->startOfMonth();
+
+        // Apply surcharge to overdue payment schedules with zero surcharge
+        $overdueSchedules = PaymentSchedule::where('allocation_details_id', $allocationId)
+            ->where('pay_date', '<', $currentMonth)
+            ->where('surcharge', 0)
+            ->get();
+
+        $surchargeRate = 15; // Define surcharge rate
+        foreach ($overdueSchedules as $schedule) {
+            $outstanding = $schedule->amount - $schedule->amount_paid;
+
+            // Calculate surcharge
+            $surcharge = $this->calculateSurcharge($outstanding, $surchargeRate);
+
+            // Update surcharge and outstanding for overdue schedules
+            $schedule->update([
+                'surcharge' => $surcharge,
+                'outstanding' => $schedule->outstanding + $surcharge,
+                'updated_at' => now(),
+            ]);
+        }
+
+        // Fetch payment schedule for the specified date
+        $record = PaymentSchedule::where('allocation_details_id', $allocationId)
+            ->where('pay_date', $payDate)
+            ->first();
+
+        if (!$record) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Payment schedule not found for the given date.',
+            ], 404);
+        }
+
+        // Check if the amount is already paid
+        if ($record->amount_paid > 0) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Payment has already been recorded for this date.',
+            ], 409);
+        }
+
+        // Update payment schedule with the new payment details
+        $updated = $record->update([
+            'amount_paid' => $amountPaid,
+            'paid_on' => $paidOn,
+            'updated_at' => now(),
+        ]);
+
+        if ($updated) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Payment successfully recorded, and surcharge applied for overdue schedules.',
+            ], 200);
+        }
+
+        return response()->json([
+            'success' => false,
+            'message' => 'Failed to update the payment schedule.',
+        ], 500);
+    } catch (Exception $e) {
+        // Log the error
+        Log::error('Payment processing failed: ' . $e->getMessage());
+
+        return response()->json([
+            'success' => false,
+            'message' => 'An error occurred: ' . $e->getMessage(),
+        ], 500);
+    }
+}
+
 
     public function payAmount()
     {
@@ -249,14 +337,35 @@ class AccountService
             $record =  PaymentSchedule::where('allocation_details_id', $allocationId)
                 ->where('pay_date', $payDate)
                 ->first();
-                $record =  PaymentSchedule::where('allocation_details_id', $allocationId)
-                ->where('pay_date', $payDate)
-                ->first();
+               
 
             if ($record) {
                 //check if amount is already paid on this date 
                 if($record->amount_paid){
                     return 5;
+                }
+                $overdueSchedules = PaymentSchedule::where('allocation_details_id', $allocationId)
+                ->where('pay_date', '<', $payDate)
+                ->where('surcharge', 0)
+                ->where('amount_paid', 0)
+                ->get();
+                $surchargeRate = 15; // Define surcharge rate
+                foreach ($overdueSchedules as $schedule) {
+                    $outstanding = $schedule->amount - $schedule->amount_paid;
+                    // print_r($outstanding);
+                    // Calculate surcharge
+                    $surcharge = $this->calculateSurcharge($outstanding, $surchargeRate);
+        
+                    // Update surcharge and outstanding for overdue schedules
+                    $outStd= (int)($outstanding + $surcharge);//change outstanding value to decimal two points
+                    
+                    $outStd = (int)round($outstanding + $surcharge);
+                    $updation=[
+                        'surcharge' => $outStd,
+                        'outstanding' =>$surcharge,
+                        'updated_at' => now(),
+                    ];
+                    $schedule->update($updation);
                 }
                 $updated =$record->update([
                     'amount_paid' => $amountPaid,
@@ -670,8 +779,9 @@ class AccountService
     }
     private function calculateSurcharge($outstanding, $rate)
     {
+
         // Example: Apply surcharge for each month missed
-        return $outstanding * $rate; // Simple surcharge calculation, can be adjusted based on your business logic
+        return ($outstanding*$rate)/100; // Simple surcharge calculation, can be adjusted based on your business logic
     }
 
 }

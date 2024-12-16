@@ -85,7 +85,7 @@ $(function() {
                 {
                     targets: 5,
                     render: function(t, e, a, s) {
-                        return '<span class="text-heading">' + a.paid_on + "</span>";
+                        return '<span class="text-heading">' + a.outstanding + "</span>";
                     }
                 },
                 {

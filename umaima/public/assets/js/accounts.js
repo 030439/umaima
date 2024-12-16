@@ -143,7 +143,7 @@ $(function () {
                     searchable: !1,
                     orderable: !1,
                     render: function (t, e, a, s) {
-                        return '<div class="d-flex justify-content-sm-start align-items-sm-center"><button class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="ti ti-dots-vertical"></i></button><div class="dropdown-menu dropdown-menu-end m-0"><a href="app-ecommerce-order-details.html" class="dropdown-item">View</a><a href="javascript:0;" class="dropdown-item delete-record">Delete</a></div></div>';
+                        return '<div class="d-flex justify-content-sm-start align-items-sm-center"><button class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="ti ti-dots-vertical"></i></button><div class="dropdown-menu dropdown-menu-end m-0"><a href="payment-detail/'+a.id+'" class="dropdown-item">View</a><a href="javascript:0;" class="dropdown-item delete-record">Delete</a></div></div>';
                     },
                 },
             ],
@@ -347,35 +347,6 @@ $(function () {
                     }
                 },
             ],
-            responsive: {
-                details: {
-                    display: $.fn.dataTable.Responsive.display.modal({
-                        header: function (t) {
-                            return "Details of " + t.data().customer;
-                        },
-                    }),
-                    type: "column",
-                    renderer: function (t, e, a) {
-                        a = $.map(a, function (t, e) {
-                            return "" !== t.title
-                                ? '<tr data-dt-row="' +
-                                      t.rowIndex +
-                                      '" data-dt-column="' +
-                                      t.columnIndex +
-                                      '"><td>' +
-                                      t.title +
-                                      ":</td> <td>" +
-                                      t.data +
-                                      "</td></tr>"
-                                : "";
-                        }).join("");
-                        return (
-                            !!a &&
-                            $('<table class="table"/><tbody />').append(a)
-                        );
-                    },
-                },
-            },
         })),
         $(".dataTables_length").addClass("ms-n2"),
         $(".dt-action-buttons").addClass("pt-0"),
