@@ -19,7 +19,24 @@
       <div class="">
       <div class="col">
         <div class="card mb-6">
-
+        <div class="card-header px-0 pt-3">
+            <div class="nav-align-top">
+              <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button type="button" class="nav-link waves-effect active" data-bs-toggle="tab" data-bs-target="#form-tabs-personal" aria-controls="form-tabs-personal" role="tab" aria-selected="true"><span class="ti ti-user ti-lg d-sm-none"></span><span class="d-none d-sm-block">Allote Info</span></button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button type="button" class="nav-link waves-effect" data-bs-toggle="tab" data-bs-target="#form-tabs-account" aria-controls="form-tabs-account" role="tab" aria-selected="false" tabindex="-1"><span class="ti ti-user-cog ti-lg d-sm-none"></span><span class="d-none d-sm-block">Property Details</span></button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button type="button" class="nav-link waves-effect" data-bs-toggle="tab" data-bs-target="#form-tabs-social" aria-controls="form-tabs-social" role="tab" aria-selected="false" tabindex="-1"><span class="ti ti-link ti-lg d-sm-none"></span><span class="d-none d-sm-block">Payments Schedule</span></button>
+                </li>
+                <li class="nav-item" role="presentation">
+                <button id="actionButton" type="submit"disabled  class="nav-link waves-effect" data-bs-toggle="tab" data-bs-target="#form-tabs-detail" aria-controls="form-tabs-social" role="tab" aria-selected="false" tabindex="-1"><span class="ti ti-link ti-lg d-sm-none"></span><span class="d-none d-sm-block">Payments Details</span></button>
+                </li>
+              </ul>
+            </div>
+          </div>
 
           <div class="card-body">
             <form id="checkSchedule" class="row g-6"  onsubmit="return false">
@@ -175,24 +192,7 @@
               </div>
             </form>
           </div>
-          <div class="card-header px-0 pt-0">
-            <div class="nav-align-top">
-              <ul class="nav nav-tabs" role="tablist">
-                <li class="nav-item" role="presentation">
-                  <button type="button" class="nav-link waves-effect active" data-bs-toggle="tab" data-bs-target="#form-tabs-personal" aria-controls="form-tabs-personal" role="tab" aria-selected="true"><span class="ti ti-user ti-lg d-sm-none"></span><span class="d-none d-sm-block">Allote Info</span></button>
-                </li>
-                <li class="nav-item" role="presentation">
-                  <button type="button" class="nav-link waves-effect" data-bs-toggle="tab" data-bs-target="#form-tabs-account" aria-controls="form-tabs-account" role="tab" aria-selected="false" tabindex="-1"><span class="ti ti-user-cog ti-lg d-sm-none"></span><span class="d-none d-sm-block">Property Details</span></button>
-                </li>
-                <li class="nav-item" role="presentation">
-                  <button type="button" class="nav-link waves-effect" data-bs-toggle="tab" data-bs-target="#form-tabs-social" aria-controls="form-tabs-social" role="tab" aria-selected="false" tabindex="-1"><span class="ti ti-link ti-lg d-sm-none"></span><span class="d-none d-sm-block">Payments Schedule</span></button>
-                </li>
-                <li class="nav-item" role="presentation">
-                <button id="actionButton" type="submit"disabled  class="nav-link waves-effect" data-bs-toggle="tab" data-bs-target="#form-tabs-detail" aria-controls="form-tabs-social" role="tab" aria-selected="false" tabindex="-1"><span class="ti ti-link ti-lg d-sm-none"></span><span class="d-none d-sm-block">Payments Details</span></button>
-                </li>
-              </ul>
-            </div>
-          </div>
+         
         </div>
       </div>
       </div>
