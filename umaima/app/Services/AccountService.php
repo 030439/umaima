@@ -785,10 +785,11 @@ class AccountService
     }
     public function getPaymentById($id){
         return  DB::table('payments')
-        ->leftjoin('allotes', 'payments.allote', '=', 'allotes.id')
+        ->leftjoin('allotes', 'payments.allotees', '=', 'allotes.id')
         ->leftjoin('banks', 'banks.id', '=', 'payments.from_account')
         ->select(
             'payments.paydate as pdate',
+            'payments.payment_type as payment_type',
             'payments.amount as amount',
             'payments.narration as narration',
             'banks.bank_name as account',
