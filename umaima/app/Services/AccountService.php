@@ -315,7 +315,34 @@ class AccountService
         ], 500);
     }
 }
+   public function addSurcharge($allocationId,$payDate){
+    $paymentSchedules = PaymentSchedule::where('allocation_details_id', $allocationId)
+                ->where('pay_date', '=', $payDate)
+                ->where('surcharge', 0)
+                ->where('amount_paid', 0)
+                ->get();
+            $surchargeRate = 15;
+            $previousOutstanding = 0;
 
+            foreach ($paymentSchedules as $schedule) {
+                $outstanding = $schedule->amount - $schedule->amount_paid;
+
+                // Calculate surcharge if payment is not made
+                $surcharge = 0;
+                if ($schedule->amount_paid == 0) {
+                    $surcharge = $this->calculateSurcharge($outstanding, $surchargeRate);
+                    $outstanding += $surcharge; // Add surcharge to outstanding balance
+                }
+                $outstanding += $previousOutstanding;
+                // Update the database with surcharge and outstanding
+                $updated = PaymentSchedule::where('id', $schedule->id)->update([
+                    'surcharge' => $surcharge, 
+                    'outstanding' => $outstanding,
+                    'updated_at' => now(),
+                ]);
+            }
+
+   }
 
     public function payAmount()
     {
@@ -323,7 +350,7 @@ class AccountService
             $allocationId = $this->request->input('plot');
             $amountPaid = $this->request->input('amount');
             $paidOn = $this->request->input('paydate');
-
+            $payD=Carbon::parse($paidOn)->format('Y-m-d');
             $payDate = Carbon::parse($paidOn)->format('Y-m-15');
 
             $paymentSchedule = DB::table('payment_schedule')
@@ -333,6 +360,9 @@ class AccountService
             
             if (!$paymentSchedule) {
                 return 3;
+            }
+            if($payD>$payDate){
+                $this->addSurcharge($allocationId,$payDate);
             }
             $record =  PaymentSchedule::where('allocation_details_id', $allocationId)
                 ->where('pay_date', $payDate)
@@ -350,8 +380,10 @@ class AccountService
                 ->where('amount_paid', 0)
                 ->get();
                 $surchargeRate = 15; // Define surcharge rate
+                $out_standing=0;
                 foreach ($overdueSchedules as $schedule) {
                     $outstanding = $schedule->amount - $schedule->amount_paid;
+                    
                     // print_r($outstanding);
                     // Calculate surcharge
                     $surcharge = $this->calculateSurcharge($outstanding, $surchargeRate);
@@ -360,22 +392,18 @@ class AccountService
                     $outStd= (int)($outstanding + $surcharge);//change outstanding value to decimal two points
                     
                     $outStd = (int)round($outstanding + $surcharge);
+                    $out_standing=$out_standing+$outStd;
                     $updation=[
                         'surcharge' => $surcharge,
-                        'outstanding' =>$outStd,
+                        'outstanding' =>$out_standing,
                         'updated_at' => now(),
                     ];
                     $schedule->update($updation);
-                    $schedule->update($updation);
-$schedule->refresh(); // Refresh the model instance from the database
-dd($schedule->toArray(), $updation);
-
-                    dd($schedule->toArray(), $updation);
                 }
-                dd("SDFSDF");
                 $updated =$record->update([
                     'amount_paid' => $amountPaid,
                     'paid_on' => $paidOn,
+                    'outstanding' =>$out_standing-$amountPaid,
                     'updated_at' => now(),
                 ]);
             }
