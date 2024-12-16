@@ -783,5 +783,8 @@ class AccountService
         // Example: Apply surcharge for each month missed
         return ($outstanding*$rate)/100; // Simple surcharge calculation, can be adjusted based on your business logic
     }
+    public function getPaymentById($id){
+        
+    }
 
 }

@@ -31,9 +31,9 @@ Route::get("clearData",function(){
        return "Route cache cleared successfully!"; 
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/',[DashboardController::class,'index'])->name('dashboard.index');
@@ -56,6 +56,10 @@ Route::middleware(['auth'])->group(function () {
 });
 // plost setupt routes in group with prefix
 Route::middleware('auth')->group(function () {
+    Route::controller(AccountController::class)
+    ->group(function(){
+        Route::get('payment-detail/{id}','paymentDetail');
+    });
     Route::controller(PlotController::class)
         ->prefix('setup')
         ->group(function(){
