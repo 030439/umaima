@@ -64,13 +64,13 @@ $(function() {
                 {
                     targets: 2,
                     render: function(t, e, a, s) {
-                        return '<span class="text-heading">' + a.size + "</span>";
+                        return '<span class="text-heading">' + a.bdate + "</span>";
                     }
                 },
                 {
                     targets: 3,
                     render: function(t, e, a, s) {
-                        return '<span class="text-heading">' + a.location + "</span>";
+                        return '<span class="text-heading">' + a.total + "</span>";
                     }
                 },
                 {

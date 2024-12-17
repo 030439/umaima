@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Traits\QueryTrait;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
@@ -272,90 +273,88 @@ class PlotService
         $perPage = $this->request->input('length', 10);
         $start = $this->request->input('start', 0);
         $length = $this->request->input('length', 10);
-        $page = $this->request->input('page', 1);
+        $page = ($start / $length) + 1;
         $orderColumn = $this->request->input('orderColumn', 'plots.id');
         $orderDirection = $this->request->input('orderDirection', 'asc');
-        $groupBy = $this->request->input('groupBy', []);
-        $having = $this->request->input('having', []);
-        $paginate = $this->request->input('paginate', true);
-        $draw=$this->request->get('draw');
-        $searchValue = $this->request->get('search')['value']; // This is the value you want to search for
-
-        // Initialize an array for the conditions
-        $columns = [
-            'allocation_details.id as id',
-            'plots.status as status',
+        $draw = $this->request->get('draw');
+        $searchValue = $this->request->input('search')['value'] ?? null;
+    
+        // Initialize the query
+        $query = DB::table('allocation_details')
+            ->select(
+                'allocation_details.id as id',
+                'plots.status as status',
+                'plots.plot_number',
+                'schemes.name as scheme',
+                DB::raw('SUM(payment_schedule.amount) as total'),
+                'plot_sizes.size as size',
+                'allocation_details.installment',
+                'allocation_details.bdate'
+            )
+            ->leftJoin('plots', 'allocation_details.plot', '=', 'plots.id')
+            ->leftJoin('schemes', 'allocation_details.scheme', '=', 'schemes.id')
+            ->leftJoin('payment_schedule', 'allocation_details.id', '=', 'payment_schedule.allocation_details_id')
+            ->leftJoin('plot_sizes', 'plots.plot_size_id', '=', 'plot_sizes.id')
+            ->where('allocation_details.allote', '=', $id);
+    
+        // Apply search filter
+        if (!empty($searchValue)) {
+            $query->where(function ($q) use ($searchValue) {
+                $q->orWhere('plots.plot_number', 'LIKE', '%' . $searchValue . '%')
+                    ->orWhere('schemes.name', 'LIKE', '%' . $searchValue . '%')
+                    ->orWhere('plot_sizes.size', 'LIKE', '%' . $searchValue . '%');
+            });
+        }
+    
+        // Group by necessary columns
+        $query->groupBy(
+            'allocation_details.id',
+            'plots.status',
             'plots.plot_number',
-            'schemes.name  as scheme',
-            'plot_locations.location_name as location',
-            'plot_sizes.size as size',
+            'schemes.name',
+            'plot_sizes.size',
             'allocation_details.installment',
             'allocation_details.bdate'
-        ];
-
-        $filters = [];
-        $joins = [
-            [
-                'table' => 'plots',
-                'first' => 'allocation_details.plot',
-                'operator' => '=',
-                'second' => 'plots.id',
-                'type'=>'leftjoin'
-            ],
-            [
-                'table' => 'schemes',
-                'first' => 'allocation_details.scheme',
-                'operator' => '=',
-                'second' => 'schemes.id',
-                'type'=>'leftjoin'
-            ],
-            [
-                'table' => 'plot_locations',
-                'first' => 'plots.plot_location_id',
-                'operator' => '=',
-                'second' => 'plot_locations.id',
-                'type'=>'leftjoin'
-            ],
-            [
-                'table' => 'plot_sizes',
-                'first' => 'plots.plot_size_id',
-                'operator' => '=',
-                'second' => 'plot_sizes.id',
-                'type'=>'leftjoin'
-            ],
-        ];
-        if (!empty($searchValue)) {
-            // Using an associative array instead of a nested array
-            $filters['allocation_details.allote'] = '%' . $searchValue . '%'; // This will be like 'name' => '%searchValue%'
-        }
-
-        $conditions[] = ['allocation_details.allote', '=', $id];
-
-        // Fetch the records using QueryTrait's fetchRecords method
-    
-        $result = $this->fetchRecords(
-            "allocation_details",
-            $columns,
-            $conditions,
-            $filters,
-            $joins,
-            $orderColumn,
-            $orderDirection,
-            $groupBy ,
-            $having ,
-            $perPage ,
-            $page = ($start / $length) + 1 ,
-            $paginate = true
         );
+    
+        // Apply order by
+        $query->orderBy($orderColumn, $orderDirection);
+        
+    
+        // Get the total records count
+        $totalRecords = $query->count();
+        
+    
+        // Get the filtered records count
+        $filteredQuery = clone $query; // Clone the query for counting filtered results
+        $filteredRecords = $filteredQuery->count();
+    
+        // Apply pagination
+        $query->offset($start)->limit($length);
+    
+        // Fetch the data
+        $data = $query->get();
+        $totalRecords=count($data);
+        $filteredRecords=count($data);
+        // Return the result (formatted for DataTables)
+        return response()->json([
+            'draw' => $draw,
+            'recordsTotal' => $totalRecords,
+            'recordsFiltered' => $filteredRecords,
+            'data' => $data
+        ]);
+    }
+    
 
         // Return only the data if pagination is enabled, or full response if not paginated
-        return[
-            'data' => $result['data'],
-            'recordsTotal' => $result['recordsTotal'],
-            'recordsFiltered' => $result['recordsFiltered'],
-            'draw' => $draw,
-        ];
-    }
+    //     dd($result);
+    //     return[
+    //         'data' => $result['data'],
+    //         'recordsTotal' => $result['recordsTotal'],
+    //         'recordsFiltered' => $result['recordsFiltered'],
+    //         'draw' => $draw,
+    //     ];
+    // }
     public function createPlot()
     {
         try {
