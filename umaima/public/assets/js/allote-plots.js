@@ -43,7 +43,7 @@ $(function() {
                 { data: 'id',title:"Total Paid"}, 
                 { data: 'id',title:"Due" }, 
                 { data: 'id',title:"Total Due"},  
-                { data: 'id',title:"actions"},  
+                { data: 'id',title:"Schedule"},  
             ],
             columnDefs: [
                
