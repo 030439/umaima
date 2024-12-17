@@ -70,19 +70,19 @@ $(function() {
                 {
                     targets: 3,
                     render: function(t, e, a, s) {
-                        return '<span class="text-heading">' + a.total + "</span>";
+                        return '<span class="text-heading">' + a.paid + "</span>";
                     }
                 },
                 {
                     targets: 4,
                     render: function(t, e, a, s) {
-                        return '<span class="text-heading">' + a.installment + "</span>";
+                        return '<span class="text-heading">' + a.due + "</span>";
                     }
                 },
                 {
                     targets: 5,
                     render: function(t, e, a, s) {
-                        return '<span class="text-heading">' + a.bdate + "</span>";
+                        return '<span class="text-heading">' + a.totalDue + "</span>";
                     }
                 },
                 // {

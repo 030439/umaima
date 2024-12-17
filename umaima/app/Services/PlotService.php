@@ -280,22 +280,30 @@ class PlotService
         $searchValue = $this->request->input('search')['value'] ?? null;
     
         // Initialize the query
-        $query = DB::table('allocation_details')
-            ->select(
-                'allocation_details.id as id',
-                'plots.status as status',
-                'plots.plot_number',
-                'schemes.name as scheme',
-                DB::raw('SUM(payment_schedule.amount) as total'),
-                'plot_sizes.size as size',
-                'allocation_details.installment',
-                'allocation_details.bdate'
-            )
-            ->leftJoin('plots', 'allocation_details.plot', '=', 'plots.id')
-            ->leftJoin('schemes', 'allocation_details.scheme', '=', 'schemes.id')
-            ->leftJoin('payment_schedule', 'allocation_details.id', '=', 'payment_schedule.allocation_details_id')
-            ->leftJoin('plot_sizes', 'plots.plot_size_id', '=', 'plot_sizes.id')
-            ->where('allocation_details.allote', '=', $id);
+
+$query = DB::table('allocation_details')
+    ->select(
+        'allocation_details.id as id',
+        'plots.status as status',
+        'plots.plot_number',
+        'schemes.name as scheme',
+        DB::raw('(SELECT ps.outstanding 
+                  FROM payment_schedule ps 
+                  WHERE ps.allocation_details_id = allocation_details.id 
+                  ORDER BY ps.id DESC 
+                  LIMIT 1) as totalDue'),
+        DB::raw('SUM(payment_schedule.outstanding) as due'),
+        DB::raw('SUM(payment_schedule.amount) as amount'),
+        DB::raw('SUM(payment_schedule.amount_paid) as paid'),
+        'plot_sizes.size as size',
+        'allocation_details.installment',
+        'allocation_details.bdate'
+    )
+    ->leftJoin('plots', 'allocation_details.plot', '=', 'plots.id')
+    ->leftJoin('schemes', 'allocation_details.scheme', '=', 'schemes.id')
+    ->leftJoin('payment_schedule', 'allocation_details.id', '=', 'payment_schedule.allocation_details_id')
+    ->leftJoin('plot_sizes', 'plots.plot_size_id', '=', 'plot_sizes.id')
+    ->where('allocation_details.allote', '=', $id);
     
         // Apply search filter
         if (!empty($searchValue)) {
@@ -682,90 +690,108 @@ class PlotService
 
     //show payment schedule
     public function paymentSchedule() {
-        $installmentCount = (int) $this->request->input('installment');  
-        $durationAmount = $this->request->input('duration_amount'); 
-        $installment_amount = $this->request->input('installment_amount');
-
+        $installmentCount = (int) $this->request->input('installment');
+        $durationAmount = $this->request->input('duration_amount');
+        $installmentAmount = $this->request->input('installment_amount');
         $bdate = $this->request->input('bdate');
-        $convertedDate = Carbon::createFromFormat('Y-m-d', $bdate)->format('d-M-Y'); // String here
-
-        // Create new Carbon instance to format further
-        $carbonDate = Carbon::createFromFormat('d-M-Y', $convertedDate);
-        $month = $carbonDate->format('M');
-        $year = $carbonDate->format('Y');
-        $dateString = "15-{$month}-{$year}";
-        $startDate = Carbon::createFromFormat('d-M-Y', $dateString); 
+        $onBooking = $this->request->input('onbooking');
+        $allocation = $this->request->input('allocation');
+        $confirmation = $this->request->input('confirmation');
+        $demarcation = $this->request->input('demargation');
+        $possession = $this->request->input('possession');
+        
+        // Format and parse dates
+        $bookingDate = Carbon::createFromFormat('Y-m-d', $bdate);
+        $startDate = $bookingDate->copy()->day(15); // Start on the 15th of the month
     
-        $did = (int) $this->request->input('duration'); 
-        $allotes = DB::table('mid_pays_durations')
-                    ->select('*')
-                    ->where('id', $did)
-                    ->first();
-        $duration = $allotes->durations;
+        $durationId = (int) $this->request->input('duration');
+        $durationDetails = DB::table('mid_pays_durations')
+            ->select('*')
+            ->where('id', $durationId)
+            ->first();
     
-        $bookingDate = $carbonDate->format('d-M-Y');
-        $date2 = $startDate->copy()->addMonths(1);
-        $allocationDate = $date2->format('d-M-Y');
-        $date3 = $startDate->copy()->addMonths(2);
-        $confirmationDate = $date3->format('d-M-Y');
+        $duration = $durationDetails->durations ?? 1; // Fallback if duration not found
     
         $response = [
             [
                 "payment" => "Booking",
-                "amount" => $this->request->input('onbooking'),
-                "date" => $dateString
-            ],
-            [
-                "payment" => "Allocation",
-                "amount" => $this->request->input('allocation'),
-                "date" => $allocationDate
-            ],
-            [
-                "payment" => "Confirmation",
-                "amount" => $this->request->input('confirmation'),
-                "date" => $confirmationDate
-            ],
+                "amount" => $onBooking,
+                "date" => $startDate->format('d-M-Y')
+            ]
         ];
     
-        $durationCount = 0;
-        $counter = 0;
-        $installmentStartDate = Carbon::createFromFormat('d-M-Y', $confirmationDate); 
+        // Add Allocation Payment
+        if ($allocation > 0) {
+            $allocationDate = $startDate->copy()->addMonth();
+            $response[] = [
+                "payment" => "Allocation",
+                "amount" => $allocation,
+                "date" => $allocationDate->format('d-M-Y')
+            ];
+        }
     
+        // Add Confirmation Payment
+        if ($confirmation > 0) {
+            $confirmationDate = isset($allocationDate) 
+                ? $allocationDate->copy()->addMonth()
+                : $startDate->copy()->addMonth();
+            $response[] = [
+                "payment" => "Confirmation",
+                "amount" => $confirmation,
+                "date" => $confirmationDate->format('d-M-Y')
+            ];
+        } else {
+            $confirmationDate = $startDate;
+        }
+        if($allocation>0 && $confirmation<=0 ){
+            $confirmationDate = $allocationDate;
+        }
+    
+        // Add Installments and Durations
+        $lastDate = $confirmationDate->copy();
+        $counter = 0;
         for ($i = 1; $i <= $installmentCount; $i++) {
-            $counter++;
-            $installmentDate = $installmentStartDate->copy()->addMonths($i); 
+            $lastDate->addMonth();
             $response[] = [
                 "payment" => "Installment " . $i,
-                "amount" => $installment_amount,
-                "date" => $installmentDate->format('d-M-Y')
+                "amount" => $installmentAmount,
+                "date" => $lastDate->format('d-M-Y')
             ];
     
+            $counter++;
             if ($counter == $duration) {
-                $durationCount++;
                 $response[] = [
-                    "payment" => "Duration " . $durationCount,
+                    "payment" => "Duration " . ceil($i / $duration),
                     "amount" => $durationAmount,
-                    "date" => $installmentDate->format('d-M-Y')
+                    "date" => $lastDate->format('d-M-Y')
                 ];
                 $counter = 0;
             }
-    
-            $last_date = $installmentDate;
         }
     
-        $response[] = [
-            "payment" => "Demargation",
-            "amount" => $this->request->input('demargation'),
-            "date" => $last_date->copy()->addMonths(1)->format('d-M-Y')
-        ];
-        $response[] = [
-            "payment" => "Possession",
-            "amount" => $this->request->input('possession'),
-            "date" => $last_date->copy()->addMonths(2)->format('d-M-Y')
-        ];
+        // Add Demarcation Payment
+        if ($demarcation > 0) {
+            $response[] = [
+                "payment" => "Demarcation",
+                "amount" => $demarcation,
+                "date" => $lastDate->copy()->addMonth()->format('d-M-Y')
+            ];
+        }
     
-        return ($response);
+        // Add Possession Payment
+        if ($possession > 0) {
+            $date3_ = $startDate->copy()->addMonths($this->request->input('demargation') > 0 ? 2 : 1);
+            $pdate = $date3_->format('d-M-Y');
+            $response[] = [
+                "payment" => "Possession",
+                "amount" => $possession,
+                "date" => $pdate
+            ];
+        }
+    
+        return $response;
     }
+    
     //store scheule on confirmation
     public function confirmSchedule(){
         $schedule=$this->paymentSchedule();
