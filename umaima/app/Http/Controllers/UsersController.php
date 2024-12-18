@@ -37,7 +37,7 @@ class UsersController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             logAction('User Login', 'User ID: ' . Auth::id());
-            return redirect()->intended('/'); // Redirect to intended page
+            return redirect()->intended('/dashboard'); // Redirect to intended page
         }
 
         return back()->withErrors(['email' => 'The provided credentials do not match our records.']);

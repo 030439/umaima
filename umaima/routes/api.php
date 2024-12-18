@@ -55,6 +55,7 @@ Route::middleware(['auth:sanctum','access'])->group(function () {
             Route::post('listing','listing')->name('bank.read');
             Route::post('store','store')->name('bank.create');
             Route::post('delete','destroy')->name('bank.delete');
+            Route::POST("account-ledger-list/{id}",'ledger')->name('bank.write');
     });
     Route::controller(AccountController::class)
     ->group(function(){
@@ -65,6 +66,7 @@ Route::middleware(['auth:sanctum','access'])->group(function () {
         Route::POST('getPayments','getPayments')->name('payment.read');
         Route::POST('getExpenses','getExpenses')->name('payment.read');
         Route::POST('getPaymentsVoucher','getPaymentsVoucher')->name('payment.read');
+       
     });
 });
 Route::middleware('auth:sanctum')->group(function(){

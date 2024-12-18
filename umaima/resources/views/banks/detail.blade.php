@@ -20,20 +20,11 @@
 
 <!-- Product List Table -->
 <div class="card">
+    <input type="hidden" id="bankId" value={{$id}}>
   <div class="card-header">
     <h5 class="card-title">Filter</h5>
     <div class="d-flex justify-content-between align-items-center row pt-4 gap-6 gap-md-0">
-        <div class="col-md-4">
-            <select id="paymentType" class="form-select">
-                <option value="">Filter By Payement Type</option>
-                <option value="1">Received </option>
-                <option value="2">Payment</option>
-            </select>
-        </div>
-        <div class="col-md-4">
-            <select id="subcat" class="form-select text-capitalize">
-            </select>
-        </div>
+        
         <div class="col-md-4">
             <input type="text" class="form-control flatpickr-input" placeholder="YYYY-MM-DD to YYYY-MM-DD" id="flatpickr-range" readonly="readonly">
         </div>
@@ -95,6 +86,6 @@
 <script src="../../assets/js/forms-pickers.js"></script>
 
 <!-- Page JS -->
-<script src="../../assets/js/app-ecommerce-product-list.js"></script>
+<script src="../../assets/js/bank-ledger.js"></script>
 @endsection
 

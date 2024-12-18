@@ -75,4 +75,13 @@ class BankController extends Controller
         $result = $this->bankservice->destroy();
         return ($result);
     }
+    public function ledger($id)
+    {
+        $result = $this->bankservice->ledger($id);
+        return ($result);
+    }
+    public function detail($id)
+    {
+        return view('banks.detail',['id'=>$id]);
+    }
 }

@@ -110,6 +110,8 @@ Route::middleware('auth')->group(function () {
         ->group(function(){
             Route::get('list','index')->name('bank.index');
             Route::get('create','create');
+            Route::get("account-ledger/{id}",'detail');
+           
     });
 });
 

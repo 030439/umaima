@@ -291,6 +291,8 @@ public function applyStanding()
                         $msg = $pay; // Return the exception message
                 }
             } else {
+                $lastInsertedId = DB::table('payments')->insertGetId($data);
+                        logAction('Created Payment', $lastInsertedId);
                 $msg = "Payment created successfully!";
                 logAction('Created Payment', $lastInsertedId);
             }

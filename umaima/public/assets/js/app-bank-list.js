@@ -35,6 +35,16 @@ $(function() {
                 type: "POST", // Ensure the correct HTTP method is used
                 dataSrc: "data" // Server response should contain the "data" key for rows
             },
+            columns: [   // Map to 'name' in the returned JSON
+                { data: 'id',title:"Bank" },       // Map to 'id' in the returned JSON
+                { data: 'id',title:"Branch" },     // Map to 'name' in the returned JSON
+                { data: 'id',title:"Account-Holder" },       // Map to 'id' in the returned JSON
+                { data: 'id',title:"Account" }, 
+                { data: 'id',title:"Initial-Balance" }, 
+                { data: 'id',title:"Status" },
+                { data: 'id',title:"Action" },
+                // { data: 'id',title:"Actions" },    
+            ],
             columnDefs: [
                
 
@@ -99,7 +109,7 @@ $(function() {
                     render: function(t, e, a, s) {
                         return `
                             <div class="d-flex align-items-center">
-                                <a href="/account-ledger/${a.id}" 
+                                <a href="/banks/account-ledger/${a.id}" 
                                    class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill edit-record" 
                                    data-id="${a.id}">
                                     <i class="ti ti-eye ti-md"></i>
