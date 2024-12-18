@@ -225,11 +225,15 @@ class SchemeService
 
     public function totalPlotsSchemeWise()
     {
-            $plotsCountByScheme = DB::table('schemes')
-            ->select(
-                'schemes.name as scheme','schemes.id as sid','schemes.no_of_plots as total_plots',
-            )
-            ->get();
+        $plotsCountByScheme = DB::table('schemes')
+        ->select(
+            'schemes.name as scheme',
+            'schemes.id as sid',
+            DB::raw('COUNT(schemes.no_of_plots) as no_of_plots') // Count the no_of_plots column
+        )
+        ->groupBy('schemes.id', 'schemes.name') // Group by necessary fields
+        ->get();
+    
             return $plotsCountByScheme;
     }
     public function totalExpenseHeadWise()

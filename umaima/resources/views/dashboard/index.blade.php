@@ -20,7 +20,7 @@
                   <div class="card h-100">
                     <div class="card-body d-flex justify-content-between align-items-center">
                       <div class="card-title mb-0">
-                        <h5 class="mb-1 me-2">{{$sp->total_plots}}</h5>
+                        <h5 class="mb-1 me-2">{{$sp->no_of_plots}}</h5>
                         <p class="mb-0">{{$sp->scheme}}</p>
                       </div>
                       <div class="card-icon">
@@ -109,65 +109,65 @@
       </div>
     </div>
 
-<div class="row">
-            <div class="col">
-                <h6 class="mt-6">Scheme-Wise-Plots</h6>
-                <div class="card mb-6">
-                <div class="card-header px-0 pt-0">
-                    <div class="nav-align-top">
-                      
-                    <ul class="nav nav-tabs" role="tablist">
-                        @if(!empty($groupedPlots))
-                        
-                        @foreach($groupedPlots as $schemeName => $plots)
-                        <li class="nav-item" role="presentation">
-                        <button type="button" class="nav-link waves-effect <?php if($schemeName==0){echo 'active';}?>" data-bs-toggle="tab" data-bs-target="#t{{$schemeName}}" aria-controls="form-tabs-personal" role="tab" aria-selected="true"><span class="ti ti-user ti-lg d-sm-none"></span><span class="d-none d-sm-block">{{$plots['scheme']}}</span></button>
-                        </li>
-                        @endforeach
-                        @endif
-                    </ul>
-                    </div>
-                </div>
-
-                <div class="card-body">
-                    <div class="tab-content p-0">
-                    <!-- Personal Info -->
-                    @if(!empty($groupedPlots))
-                    @foreach($groupedPlots as $schemeName => $plots)
-
-                    <div class="tab-pane fade <?php if($schemeName==0){echo 'active';}?> show" id="t{{$schemeName}}" role="tabpanel">
-                        <div class="row" style="margin-left:20px">    
-                    @if(!empty($plots))
-                    @foreach ($plots['plots'] as $plot) 
-                             <?php if($plot['aid']){?>
-                              <a href="allote-plotes/{{$plot['aid']}}" class="col-3 col-md-2 col-lg-1 text-white  bg-info text-center p-4" 
-                            style="margin:1px"  data-bs-toggle="tooltip" 
-                            data-bs-placement="top" 
-                            data-bs-custom-class="tooltip-info"
-                            data-bs-original-title="{{$plot['allote']}}">
-                                    {{$plot['plot_number']}}
-                            </a>
-                            <?php }else{?>
-                              <a href="#" class="col-3 col-md-2 col-lg-1 text-white  bg-primary text-center p-4" 
-                                style="margin:1px"  data-bs-toggle="tooltip" 
-                                data-bs-placement="top" 
-                                data-bs-custom-class="tooltip-primary"
-                                data-bs-original-title="{{$plot['allote']}}">
-                                    {{$plot['plot_number']}}
-                             </a>
-                              <?php
-                            }?>
-                    @endforeach
-                     @endif
-                     </div>
-                    </div>
-                    @endforeach
-                    @endif
-                 </div>
-                </div>
-                </div>
+  <div class="row">
+    <div class="col">
+        <h6 class="mt-6">Scheme-Wise-Plots</h6>
+        <div class="card mb-6">
+        <div class="card-header px-0 pt-0">
+            <div class="nav-align-top">
+              
+            <ul class="nav nav-tabs" role="tablist">
+                @if(!empty($groupedPlots))
+                
+                @foreach($groupedPlots as $schemeName => $plots)
+                <li class="nav-item" role="presentation">
+                <button type="button" class="nav-link waves-effect <?php if($schemeName==0){echo 'active';}?>" data-bs-toggle="tab" data-bs-target="#t{{$schemeName}}" aria-controls="form-tabs-personal" role="tab" aria-selected="true"><span class="ti ti-user ti-lg d-sm-none"></span><span class="d-none d-sm-block">{{$plots['scheme']}}</span></button>
+                </li>
+                @endforeach
+                @endif
+            </ul>
             </div>
+        </div>
+
+        <div class="card-body">
+            <div class="tab-content p-0">
+            <!-- Personal Info -->
+            @if(!empty($groupedPlots))
+            @foreach($groupedPlots as $schemeName => $plots)
+
+            <div class="tab-pane fade <?php if($schemeName==0){echo 'active';}?> show" id="t{{$schemeName}}" role="tabpanel">
+                <div class="row" style="margin-left:20px">    
+            @if(!empty($plots))
+            @foreach ($plots['plots'] as $plot) 
+                      <?php if($plot['aid']){?>
+                      <a href="allote-plotes/{{$plot['aid']}}" class="col-3 col-md-2 col-lg-1 text-white  bg-info text-center p-4" 
+                    style="margin:1px"  data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    data-bs-custom-class="tooltip-info"
+                    data-bs-original-title="{{$plot['allote']}}">
+                            {{$plot['plot_number']}}
+                    </a>
+                    <?php }else{?>
+                      <a href="#" class="col-3 col-md-2 col-lg-1 text-white  bg-primary text-center p-4" 
+                        style="margin:1px"  data-bs-toggle="tooltip" 
+                        data-bs-placement="top" 
+                        data-bs-custom-class="tooltip-primary"
+                        data-bs-original-title="{{$plot['allote']}}">
+                            {{$plot['plot_number']}}
+                      </a>
+                      <?php
+                    }?>
+            @endforeach
+              @endif
+              </div>
             </div>
+            @endforeach
+            @endif
+          </div>
+        </div>
+        </div>
+    </div>
+  </div>
 
 
           </div>
