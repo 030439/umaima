@@ -9,7 +9,7 @@
   <div class="container-xxl flex-grow-1 container-p-y">
     <div class="row mb-3">
         <!-- Cards with few info -->
-        <div class="col-lg-3 col-sm-6">
+        <div class="col-lg-4 col-sm-6">
             <div class="card h-100">
             <div class="card-body d-flex justify-content-between align-items-center">
                 <div class="card-title mb-0">
@@ -24,7 +24,7 @@
             </div>
             </div>
         </div>
-        <div class="col-lg-3 col-sm-6">
+        <div class="col-lg-4 col-sm-6">
             <div class="card h-100">
                 <a href="/alloted-plots/scheme/{{$sid}}">
                     <div class="card-body d-flex justify-content-between align-items-center">
@@ -41,7 +41,7 @@
                 </a>
             </div>
         </div>
-        <div class="col-lg-3 col-sm-6">
+        <div class="col-lg-4 col-sm-6">
             <div class="card h-100">
             <div class="card-body d-flex justify-content-between align-items-center">
                 <div class="card-title mb-0">
@@ -56,7 +56,7 @@
             </div>
             </div>
         </div>
-        <div class="col-lg-3 col-sm-6">
+        <!-- <div class="col-lg-3 col-sm-6">
             <div class="card h-100">
             <div class="card-body d-flex justify-content-between align-items-center">
                 <div class="card-title mb-0">
@@ -70,7 +70,7 @@
                 </div>
             </div>
             </div>
-        </div>
+        </div> -->
     </div>
       <div class="card">
         <div class="card-datatable table-responsive">
