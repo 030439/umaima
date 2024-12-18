@@ -109,67 +109,10 @@
       </div>
     </div>
   
-<div class="row g-6">
-<button class="btn btn-secondary add-new btn-primary waves-effect waves-light"  onclick="applySurcharge()">
-Apply Surcharge
-    </button>
-<!-- Sales last year -->
-<div class="col-xxl-2 col-md-4 col-sm-6">
-<div class="card h-100">
-<div class="card-header pb-3">
-  <div class="row">
-    <div class="col-6">
-      <h5 class="card-title mb-1">Order</h5>
-      <p class="card-subtitle">Last week</p>
-    </div>
-    <div class="col-6">
-    <button class="btn btn-secondary add-new btn-primary waves-effect waves-light"  type="button" onclick="addPlotSize()">
-      Add New Ploat Size
-    </button>
-    </div>
-  </div>
-</div>
-<div class="card-body">
-<div id="ordersLastWeek"></div>
-<div class="d-flex justify-content-between align-items-center gap-3">
-  <h4 class="mb-0">124k</h4>
-  <small class="text-success">+12.6%</small>
-</div>
-</div>
-</div>
-</div>
 
-<!-- Sessions Last month -->
-<div class="col-xxl-2 col-md-4 col-sm-6">
-<div class="card h-100">
-<div class="card-header pb-0">
-<h5 class="card-title mb-1">Sales</h5>
-<p class="card-subtitle">Last Year</p>
-</div>
-<div id="salesLastYear"></div>
-<div class="card-body pt-0">
-<div class="d-flex justify-content-between align-items-center mt-3 gap-3">
-  <h4 class="mb-0">175k</h4>
-  <small class="text-danger">-16.2%</small>
-</div>
-</div>
-</div>
-</div>
 
-<!-- Total Profit -->
-<div class="col-xxl-2 col-md-4 col-6">
-<div class="card h-100">
-<div class="card-body">
-<div class="badge p-2 bg-label-danger mb-3 rounded"><i class="ti ti-credit-card ti-28px"></i></div>
-<h5 class="card-title mb-1">Total Profit</h5>
-<p class="card-subtitle ">Last week</p>
-<p class="text-heading mb-3 mt-1">1.28k</p>
-<div>
-  <span class="badge bg-label-danger">-12.2%</span>
-</div>
-</div>
-</div>
-</div>
+
+
 
 <!-- Total Sales -->
 

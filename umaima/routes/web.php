@@ -37,6 +37,7 @@ Route::get("clearData",function(){
 
 Route::middleware('auth')->group(function () {
     Route::get('/',[DashboardController::class,'index'])->name('dashboard.index');
+    Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard.index');
     Route::post('upload/bilk',[DashboardController::class,'bulk'])->name('bulk.store');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

@@ -78,52 +78,12 @@
                 <span class="input-group-text cursor-pointer"><i class="ti ti-eye-off"></i></span>
               </div>
             </div>
-            <div class="my-8">
-              <div class="d-flex justify-content-between">
-                <div class="form-check mb-0 ms-2">
-                  <input class="form-check-input" type="checkbox" id="remember-me" name="remember">
-                  <label class="form-check-label" for="remember-me">
-                    Remember Me
-                  </label>
-                </div>
-                <a href="auth-forgot-password-basic.html">
-                  <p class="mb-0">Forgot Password?</p>
-                </a>
-              </div>
-            </div>
             <div class="mb-6">
               <button class="btn btn-primary d-grid w-100" id="signInButton" type="submit">Login</button>
             </div>
           </form>
 
-          <p class="text-center">
-            <span>New on our platform?</span>
-            <a href="auth-register-basic.html">
-              <span>Create an account</span>
-            </a>
-          </p>
-
-          <div class="divider my-6">
-            <div class="divider-text">or</div>
-          </div>
-
-          <div class="d-flex justify-content-center">
-            <a href="javascript:;" class="btn btn-sm btn-icon rounded-pill btn-text-facebook me-1_5">
-              <i class="tf-icons ti ti-brand-facebook-filled"></i>
-            </a>
-
-            <a href="javascript:;" class="btn btn-sm btn-icon rounded-pill btn-text-twitter me-1_5">
-              <i class="tf-icons ti ti-brand-twitter-filled"></i>
-            </a>
-
-            <a href="javascript:;" class="btn btn-sm btn-icon rounded-pill btn-text-github me-1_5">
-              <i class="tf-icons ti ti-brand-github-filled"></i>
-            </a>
-
-            <a href="javascript:;" class="btn btn-sm btn-icon rounded-pill btn-text-google-plus">
-              <i class="tf-icons ti ti-brand-google-filled"></i>
-            </a>
-          </div>
+     
         </div>
       </div>
       <!-- /Register -->
@@ -186,7 +146,7 @@ $(document).ready(function() {
             success: function(response) {
               if(response.success){
                 showToast("Sign in successful", "success");
-                window.location.href = '/';
+                window.location.href = '/dashboard';
               }else{
                 showToast(response.error, "danger");
               };
