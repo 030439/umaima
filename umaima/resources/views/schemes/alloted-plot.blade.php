@@ -29,7 +29,7 @@
                 <a href="/alloted-plots/scheme/{{$sid}}">
                     <div class="card-body d-flex justify-content-between align-items-center">
                         <div class="card-title mb-0">
-                        <h5 class="mb-1 me-2">{{$scheme->allotted}}</h5>
+                        <h5 class="mb-1 me-2">{{$scheme->vacant}}</h5>
                         <p class="mb-0">Alloted plots</p>
                         </div>
                         <div class="card-icon">
@@ -45,7 +45,7 @@
             <div class="card h-100">
             <div class="card-body d-flex justify-content-between align-items-center">
                 <div class="card-title mb-0">
-                <h5 class="mb-1 me-2">{{$scheme->vacant}}</h5>
+                <h5 class="mb-1 me-2">{{$scheme->allotted}}</h5>
                 <p class="mb-0">Vacant Plots</p>
                 </div>
                 <div class="card-icon">

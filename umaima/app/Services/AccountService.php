@@ -438,6 +438,8 @@ public function applyStanding()
             $paidOn = $this->request->input('paydate');
             $payD=Carbon::parse($paidOn)->format('Y-m-d');
             $payDate = Carbon::parse($paidOn)->format('Y-m-15');
+            $dm=Carbon::parse($paidOn)->format('Y-m');
+            $pD = Carbon::parse($paidOn)->format('Y-m');
 
             $paymentSchedule = DB::table('payment_schedule')
             ->where('allocation_details_id', $allocationId)
@@ -447,7 +449,7 @@ public function applyStanding()
             if (!$paymentSchedule) {
                 return 3;
             }
-            if($payD>$payDate){
+            if($payD>$payDate && $dm!=$pD){
                 $this->addSurcharge($allocationId,$payDate);
             }
             $record =  PaymentSchedule::where('allocation_details_id', $allocationId)

@@ -80,7 +80,7 @@ class SchemeService
         ->leftJoin('plots', 'plots.scheme_id', '=', 'schemes.id') // Use LEFT JOIN to include schemes without plots
         ->select(
             'schemes.name as scheme',
-            'schemes.no_of_plots',
+            DB::raw('COUNT(plots.id) as no_of_plots'), // Count all plots
             'schemes.total_valuation',
             DB::raw('COALESCE(SUM(CASE WHEN plots.status = 0 THEN 1 ELSE 0 END), 0) as vacant'),   // Count of active plots or 0
             DB::raw('COALESCE(SUM(CASE WHEN plots.status = 1 THEN 1 ELSE 0 END), 0) as allotted'), // Count of allotted plots or 0
