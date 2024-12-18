@@ -185,7 +185,7 @@ class SchemeService
             // Query to fetch plots and related scheme information
             $plots = DB::table('plots')
             ->join('schemes', 'plots.scheme_id', '=', 'schemes.id')
-            ->leftjoin('allocation_details', 'allocation_details.plot', '=', 'plots.id')
+            ->leftjoin('allocation_details', 'allocation_details.plot', '=', 'plots.plot_number')
             ->leftjoin('allotes', 'allocation_details.allote', '=', 'allotes.id')
             ->select(
                 'plots.id as id',
@@ -225,22 +225,12 @@ class SchemeService
 
     public function totalPlotsSchemeWise()
     {
-        $plotsCountByScheme = DB::table('schemes')
-    ->select(
-        'schemes.name as scheme',
-        'schemes.id as sid',
-        DB::raw('COUNT(schemes.no_of_plots) as no_of_plots') // Count the no_of_plots column
-    )
-    ->groupBy('schemes.id', 'schemes.name') // Group by necessary fields
-    ->get();
-
-    
         
-            // $plotsCountByScheme = DB::table('schemes')
-            // ->select(
-            //     'schemes.name as scheme','schemes.id as sid','schemes.no_of_plots as total_plots',
-            // )
-            // ->get();
+            $plotsCountByScheme = DB::table('schemes')
+            ->select(
+                'schemes.name as scheme','schemes.id as sid','schemes.no_of_plots as total_plots',
+            )
+            ->get();
             return $plotsCountByScheme;
     }
     public function totalExpenseHeadWise()

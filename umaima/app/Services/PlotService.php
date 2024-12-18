@@ -280,53 +280,44 @@ class PlotService
         $searchValue = $this->request->input('search')['value'] ?? null;
     
         // Initialize the query
-
-$query = DB::table('allocation_details')
-    ->select(
-        'allocation_details.id as id',
-        'plots.status as status',
-        'plots.plot_number',
-        'schemes.name as scheme',
-        DB::raw('(SELECT ps.outstanding 
-                  FROM payment_schedule ps 
-                  WHERE ps.allocation_details_id = allocation_details.id 
-                  ORDER BY ps.id DESC 
-                  LIMIT 1) as totalDue'),
-        DB::raw('SUM(payment_schedule.outstanding) as due'),
-        DB::raw('SUM(payment_schedule.amount) as amount'),
-        DB::raw('SUM(payment_schedule.amount_paid) as paid'),
-        'plot_sizes.size as size',
-        'allocation_details.installment',
-        'allocation_details.bdate'
-    )
-    ->leftJoin('plots', 'allocation_details.plot', '=', 'plots.id')
-    ->leftJoin('schemes', 'allocation_details.scheme', '=', 'schemes.id')
-    ->leftJoin('payment_schedule', 'allocation_details.id', '=', 'payment_schedule.allocation_details_id')
-    ->leftJoin('plot_sizes', 'plots.plot_size_id', '=', 'plot_sizes.id')
-    ->where('allocation_details.allote', '=', $id);
-    
-        // Apply search filter
-        if (!empty($searchValue)) {
-            $query->where(function ($q) use ($searchValue) {
-                $q->orWhere('plots.plot_number', 'LIKE', '%' . $searchValue . '%')
-                    ->orWhere('schemes.name', 'LIKE', '%' . $searchValue . '%')
-                    ->orWhere('plot_sizes.size', 'LIKE', '%' . $searchValue . '%');
-            });
-        }
-    
-        // Group by necessary columns
-        $query->groupBy(
-            'allocation_details.id',
-            'plots.status',
-            'plots.plot_number',
+        $query = DB::table('allocation_details')
+        ->select(
+            'schemes.name as scheme',
+            DB::raw('(SELECT ps.outstanding 
+                      FROM payment_schedule ps 
+                      WHERE ps.allocation_details_id = allocation_details.id 
+                      ORDER BY ps.id DESC 
+                      LIMIT 1) as totalDue'),
+            DB::raw('(SELECT p.status 
+                      FROM plots p 
+                      WHERE p.plot_number = allocation_details.plot 
+                      ORDER BY p.id DESC 
+                      LIMIT 1) as status'),
+            DB::raw('(SELECT p.plot_number 
+                      FROM plots p 
+                      WHERE p.plot_number = allocation_details.plot 
+                      ORDER BY p.id DESC 
+                      LIMIT 1) as plot_number'),
+            DB::raw('SUM(payment_schedule.outstanding) as due'),
+            DB::raw('SUM(payment_schedule.amount) as amount'),
+            DB::raw('SUM(payment_schedule.amount_paid) as paid'),
+            'allocation_details.installment',
+            'allocation_details.bdate'
+        )
+        ->leftJoin('schemes', 'allocation_details.scheme', '=', 'schemes.id')
+        ->leftJoin('payment_schedule', 'allocation_details.id', '=', 'payment_schedule.allocation_details_id')
+        ->where('allocation_details.allote', '=', $id)
+        ->groupBy(
             'schemes.name',
-            'plot_sizes.size',
+            'allocation_details.id', // Add this
+            'allocation_details.plot', // Add this
             'allocation_details.installment',
             'allocation_details.bdate'
         );
     
+    
         // Apply order by
-        $query->orderBy($orderColumn, $orderDirection);
+        // $query->orderBy($orderColumn, $orderDirection);
         
     
         // Get the total records count

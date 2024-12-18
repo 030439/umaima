@@ -20,7 +20,7 @@
                   <div class="card h-100">
                     <div class="card-body d-flex justify-content-between align-items-center">
                       <div class="card-title mb-0">
-                        <h5 class="mb-1 me-2">{{$sp->no_of_plots}}</h5>
+                        <h5 class="mb-1 me-2">{{$sp->total_plots}}</h5>
                         <p class="mb-0">{{$sp->scheme}}</p>
                       </div>
                       <div class="card-icon">
