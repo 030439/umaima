@@ -159,7 +159,7 @@
                                     {{$plot['plot_number']}}
                             </a>
                             <?php }else{?>
-                              <a class="col-3 col-md-2 col-lg-1 text-white  bg-primary text-center p-4" 
+                              <a href="#" class="col-3 col-md-2 col-lg-1 text-white  bg-primary text-center p-4" 
                             style="margin:1px"  data-bs-toggle="tooltip" 
                             data-bs-placement="top" 
                             data-bs-custom-class="tooltip-primary"
