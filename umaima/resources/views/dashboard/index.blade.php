@@ -108,16 +108,6 @@
         </div>
       </div>
     </div>
-  
-
-
-
-
-
-<!-- Total Sales -->
-
-
-<!-- Revenue Growth -->
 
 <div class="row">
             <div class="col">
@@ -149,7 +139,6 @@
                         <div class="row" style="margin-left:20px">    
                     @if(!empty($plots))
                     @foreach ($plots['plots'] as $plot) 
-                    
                              <?php if($plot['aid']){?>
                               <a href="allote-plotes/{{$plot['aid']}}" class="col-3 col-md-2 col-lg-1 text-white  bg-info text-center p-4" 
                             style="margin:1px"  data-bs-toggle="tooltip" 
@@ -172,7 +161,6 @@
                      @endif
                      </div>
                     </div>
-
                     @endforeach
                     @endif
                  </div>
