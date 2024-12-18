@@ -38,43 +38,8 @@
         </div>
      </div>
     <div class="row mt-3 mb-3">
-      <div class="col-xxl-3 col-md-4">
-        <div class="card h-100" >
-          <div class="card-header d-flex justify-content-between badge bg-info mb-3">
-            <div class="card-title mb-0">
-              <h6 class="mb-1 text-white">Expense By Expense Heads</h6>
-              <!-- <p class="card-subtitle">Monthly Sales Overview</p> -->
-            </div>
-            <i class="menu-icon tf-icons ti ti-file-description"></i>
-          </div>
-          <div class="card-body">
-            <ul class="p-0 m-0">
-              @if($expensesByHeads)
-              @foreach($expensesByHeads as $expense)
-              <a href="/expense">
-                <li class="d-flex align-items-center mb-4 badge bg-label-gray p-2">
-                
-                  <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                    <div class="me-2">
-                      <div class="d-flex align-items-center">
-                        <h6 class="mb-0 me-1">{{$expense->expense}}</h6>
-                      </div>
-                    </div>
-                    <div class="user-progress">
-                      <p class="text-info fw-medium mb-0 d-flex align-items-center gap-1">
-                        {{$expense->total_amount}}
-                      </p>
-                    </div>
-                  </div>
-                </li>
-              </a>
-              @endforeach
-              @endif
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="col-xxl-3 col-md-4">
+     
+      <div class="col-xxl-6 col-md-6">
         <div class="card h-100">
           <div class="card-header d-flex justify-content-between badge bg-success mb-3">
             <div class="card-title mb-0">
@@ -108,7 +73,7 @@
           </div>
         </div>
       </div>
-      <div class="col-xxl-3 col-md-4">
+      <div class="col-xxl-6 col-md-6">
         <div class="card h-100">
           <div class="card-header d-flex justify-content-between badge bg-info mb-3">
             <div class="card-title mb-0">
