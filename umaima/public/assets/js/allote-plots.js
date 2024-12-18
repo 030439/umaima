@@ -38,11 +38,11 @@ $(function() {
             },
             columns: [   // Map to 'name' in the returned JSON
                 { data: 'id',title:"SCHEME"},       // Map to 'id' in the returned JSON
-                { data: 'id',title:"Plot-no"},     // Map to 'name' in the returned JSON
+                { data: 'id',title:"Plot"},     // Map to 'name' in the returned JSON
                 { data: 'id',title:"Booking Date"},       // Map to 'id' in the returned JSON
-                { data: 'id',title:"Total Paid"}, 
-                { data: 'id',title:"Due" }, 
-                { data: 'id',title:"Total Due"},  
+                { data: 'id',title:"Total-amount"}, 
+                { data: 'id',title:" Paid Amount" }, 
+                { data: 'id',title:" Dues"},  
                 { data: 'id',title:"Schedule"},  
             ],
             columnDefs: [
@@ -70,13 +70,13 @@ $(function() {
                 {
                     targets: 3,
                     render: function(t, e, a, s) {
-                        return '<span class="text-heading">' + a.paid + "</span>";
+                        return '<span class="text-heading">' + a.amount + "</span>";
                     }
                 },
                 {
                     targets: 4,
                     render: function(t, e, a, s) {
-                        return '<span class="text-heading">' + a.due + "</span>";
+                        return '<span class="text-heading">' + a.paid + "</span>";
                     }
                 },
                 {
