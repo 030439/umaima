@@ -669,7 +669,7 @@ $query = DB::table('allocation_details')
             ->join('plot_locations', 'plots.plot_location_id', '=', 'plot_locations.id')
             ->join('plot_categories', 'plots.plot_category_id', '=', 'plot_categories.id')
             ->join('categories', 'plots.category_id', '=', 'categories.id')
-            ->where('plots.id', $id)
+            ->where('plots.plot_number', $id)
             ->where('plots.status', 1)
             ->get();
 
@@ -780,7 +780,7 @@ $query = DB::table('allocation_details')
     
         // Add Possession Payment
         if ($possession > 0) {
-            $date3_ = $startDate->copy()->addMonths($this->request->input('demargation') > 0 ? 2 : 1);
+            $date3_ = $lastDate->copy()->addMonths($this->request->input('demargation') > 0 ? 2 : 1);
             $pdate = $date3_->format('d-M-Y');
             $response[] = [
                 "payment" => "Possession",
