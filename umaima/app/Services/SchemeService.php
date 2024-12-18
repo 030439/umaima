@@ -192,7 +192,8 @@ class SchemeService
                 'plots.status as status',
                 'plots.plot_number',
                 'schemes.name as scheme',
-                'allotes.fullname as allote'
+                'allotes.fullname as allote',
+                'allotes.id as aid'
             )
             ->get();
 
@@ -207,6 +208,7 @@ class SchemeService
                     'plots' => $plots->mapWithKeys(function ($plot) {
                         return [
                             $plot->id => [
+                                'aid'=>$plot->aid,
                                 'allote'=>$plot->allote,
                                 'status' => $plot->status,
                                 'plot_number' => $plot->plot_number,
