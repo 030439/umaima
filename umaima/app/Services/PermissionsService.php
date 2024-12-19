@@ -158,7 +158,7 @@ class PermissionsService
             DB::beginTransaction();
 
             // Step 1: Create the role
-            $role = Role::create(['name' => $roleName]);
+            $role = Role::create(['name' => $roleName,'guard_name'=>'web']);
            
 
             // Step 2: Retrieve permissions by names

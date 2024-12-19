@@ -102,12 +102,13 @@ class RegisteredUserController extends Controller
                 'message' => $e->errors(),
                 'success' => false
             ]);
-        } catch (\Exception $e) {
-            return response()->json([
-                'message' => "An error occurred while creating the user.",
-                'success' => false
-            ]);
-        }
+        } 
+        // catch (\Exception $e) {
+        //     return response()->json([
+        //         'message' => "An error occurred while creating the user.",
+        //         'success' => false
+        //     ]);
+        // }
     }
     
 
