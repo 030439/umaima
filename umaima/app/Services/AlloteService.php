@@ -178,9 +178,9 @@ class AlloteService
     {
         try {
             $validator = Validator::make($this->request->all(), [
-                'formValidationUsername' => 'required',
-                'formValidationEmail' => 'required',
-                'formValidationcell' => 'required',
+                // 'formValidationUsername' => 'required',
+                // 'formValidationEmail' => 'required',
+                // 'formValidationcell' => 'required',
                 'formValidationFirstName' => 'required',
                 'formValidationLastName' => 'required',
             ]);
@@ -197,10 +197,10 @@ class AlloteService
     
             // Insert into schemes table
             $arr = [
-                    'username' => $this->request->input('formValidationUsername'),
-                    'email' => $this->request->input('formValidationEmail'),
-                    'cellno' => $this->request->input('formValidationcell'),
-                    'phone' => $this->request->input('formValidationoffice'),
+                    // 'username' => $this->request->input('formValidationUsername'),
+                    // 'email' => $this->request->input('formValidationEmail'),
+                    // 'cellno' => $this->request->input('formValidationcell'),
+                    // 'phone' => $this->request->input('formValidationoffice'),
                     'fullname' => $this->request->input('formValidationFirstName'),
                     'cnic' => $this->request->input('formValidationLastName'),
                     'guardian'=> $this->request->input('guardian'),
@@ -240,9 +240,7 @@ class AlloteService
     try {
         // Validate the request inputs
         $validator = Validator::make($this->request->all(), [
-            'formValidationUsername' => 'required',
-            'formValidationEmail' => 'required',
-            'formValidationcell' => 'required',
+      
             'formValidationFirstName' => 'required',
             'formValidationLastName' => 'required',
         ]);

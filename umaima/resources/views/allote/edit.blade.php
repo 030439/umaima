@@ -1,3 +1,4 @@
+
 @extends('layout.app')
 <?php $breadCrumb='Allote / <span class="text-primary">Add</span></i>'?>
 @section('title', 'Home Page')
@@ -10,87 +11,17 @@
             
             
 <!-- Default -->
-<div class="row">
+<div class="row card">
 
 
   <!-- Validation Wizard -->
   <div class="col-12 mb-6">
-    <div id="wizard-validation" class="bs-stepper mt-2">
-      <div class="bs-stepper-header">
-        <div class="step" data-target="#account-details-validation">
-          <button type="button" class="step-trigger">
-            <span class="bs-stepper-circle">1</span>
-            <span class="bs-stepper-label mt-1">
-              <span class="bs-stepper-title">Account Details</span>
-              <span class="bs-stepper-subtitle">Setup Account Details</span>
-            </span>
-          </button>
-        </div>
-        <div class="line">
-          <i class="ti ti-chevron-right"></i>
-        </div>
-        <div class="step" data-target="#personal-info-validation">
-          <button type="button" class="step-trigger">
-            <span class="bs-stepper-circle">2</span>
-            <span class="bs-stepper-label">
-              <span class="bs-stepper-title">Personal Info</span>
-              <span class="bs-stepper-subtitle">Add personal info</span>
-            </span>
-          </button>
-        </div>
-        <div class="line">
-          <i class="ti ti-chevron-right"></i>
-        </div>
-        <div class="step" data-target="#social-links-validation">
-          <button type="button" class="step-trigger">
-            <span class="bs-stepper-circle">3</span>
-            <span class="bs-stepper-label">
-              <span class="bs-stepper-title">Social Links</span>
-              <span class="bs-stepper-subtitle">Add social links</span>
-            </span>
-          </button>
-        </div>
-      </div>
-      <div class="bs-stepper-content">
-        <form id="wizard-validation-form" onSubmit="return false" method="post" action="{{route('allote.edit')}}">
+    <div id="wizard-" class="bs- mt-2">
+   
+      <div class="bs-stepper-">
+      <form id="wizard-validation-form" onSubmit="return false" method="post" action="{{route('allote.create')}}">
           @csrf
           <input type="hidden" name="id" value="{{$allote->id}}">
-          <!-- Account Details -->
-          <div id="account-details-validation" class="content">
-            <div class="content-header mb-4">
-              <h6 class="mb-0">Account Details</h6>
-              <small>Enter  Account Details.</small>
-            </div>
-            <div class="row g-6">
-              <div class="col-sm-6">
-                <label class="form-label" for="formValidationUsername">Username</label>
-                <input type="text" name="formValidationUsername" id="formValidationUsername" value="{{$allote->username}}" class="form-control" placeholder="johndoe" />
-              </div>
-              <div class="col-sm-6">
-                <label class="form-label" for="formValidationEmail">Email</label>
-                <input type="email" name="formValidationEmail" value="{{$allote->email}}" id="formValidationEmail" class="form-control" placeholder="john.doe@email.com" aria-label="john.doe" />
-              </div>
-              <div class="col-sm-6 form-password-toggle">
-                <label class="form-label" for="formValidationcell">Cell No</label>
-                <div class="input-group input-group-merge">
-                  <input type="number" id="formValidationcell" value="{{$allote->cellno}}" name="formValidationcell" class="form-control" aria-describedby="formValidationPass2" />
-                </div>
-              </div>
-              <div class="col-sm-6 form-password-toggle">
-                <label class="form-label" for="formValidationoffice">Phone No:Office </label>
-                <div class="input-group input-group-merge">
-                  <input type="number" id="" value="{{$allote->phone}}" name="formValidationoffice" class="form-control"   />
-                 
-                </div>
-              </div>
-              <div class="col-12 d-flex justify-content-between">
-                <button class="btn btn-label-secondary btn-prev" disabled> <i class="ti ti-arrow-left ti-xs me-sm-2 me-0"></i>
-                  <span class="align-middle d-sm-inline-block d-none">Previous</span>
-                </button>
-                <button class="btn btn-primary btn-next"> <span class="align-middle d-sm-inline-block d-none me-sm-2">Next</span> <i class="ti ti-arrow-right ti-xs"></i></button>
-              </div>
-            </div>
-          </div>
           <!-- Personal Info -->
           <div id="personal-info-validation" class="content">
             <div class="content-header mb-4">
@@ -100,7 +31,7 @@
             <div class="row g-6">
               <div class="col-sm-6">
                 <label class="form-label" for="formValidationFirstName">Full Name</label>
-                <input type="text" id="formValidationFirstName" value="{{$allote->fullnmae}}" name="formValidationFirstName" class="form-control" placeholder="John" />
+                <input type="text" id="formValidationFirstName" value="{{$allote->fullname}}" name="formValidationFirstName" class="form-control" placeholder="John" />
               </div>
               <div class="col-sm-6">
                 <label class="form-label" for="formValidationLastName">CNIC </label>
@@ -120,24 +51,18 @@
               </div>
               <div class="col-sm-6">
                 <label class="form-label" for="formValidation">CNIC </label>
-                <input type="text" id="formValidation" value="{{$allote->gnic}}" name="gcnic" class="form-control" placeholder="Doe" />
+                <input type="text" id="formValidation" value="{{$allote->gcnic}}" name="gcnic" class="form-control" placeholder="Doe" />
               </div>
               <div class="col-sm-6">
                 <label class="form-label" for="formValidationOccupation">Occupation </label>
                 <input type="text" id="formValidationOccupation" value="{{$allote->occupation}}" name="occupation" class="form-control" placeholder="Doe" />
               </div>
               <div class="col-md-6">
-                <label class="form-label" for="multicol-birthdate">Birth Date</label>
-                <input type="text" name="dob" value="{{$allote->dob}}" id="multicol-birthdate" class="form-control dob-picker flatpickr-input active" placeholder="YYYY-MM-DD" readonly="readonly">
+                <label class="form-label" for="multicol-">Birth Date</label>
+                <input type="date" name="dob" value="{{$allote->dob}}" id="-birthdate" class="form-control dob- -input " placeholder="YYYY-MM-DD">
               </div>
               
-              
-              <div class="col-12 d-flex justify-content-between">
-                <button class="btn btn-label-secondary btn-prev"> <i class="ti ti-arrow-left ti-xs me-sm-2 me-0"></i>
-                  <span class="align-middle d-sm-inline-block d-none">Previous</span>
-                </button>
-                <button class="btn btn-primary btn-next"> <span class="align-middle d-sm-inline-block d-none me-sm-2">Next</span> <i class="ti ti-arrow-right ti-xs"></i></button>
-              </div>
+          
             </div>
           </div>
           <!-- Social Links -->
@@ -159,21 +84,25 @@
               </div> -->
               <div class="col-sm-6">
                 <label class="form-label" for="formValidationLastName">Residence No </label>
-                <input type="text" id="formValidationLastName" value="{{$allote->residance_no}}" name="residence" class="form-control" placeholder="Doe" />
+                <input type="text" id="formValidationLastName"value="{{$allote->residence_no}}" name="residence" class="form-control" placeholder="Doe" />
               </div>
               <div class="mb-6">
                 <label class="form-label" for="bs-validation-bio">Address</label>
-                <textarea class="form-control" id="bs-validation-bio" name="address" rows="3" required="">{{$allote->address}}</textarea>
+                <textarea class="form-control" id="bs-validation-bio" name="address" rows="3" required="">
+                       {{$allote->address}}
+                </textarea>
               </div>
               <div class="col-12 d-flex justify-content-between">
-                <button class="btn btn-label-secondary btn-prev"> <i class="ti ti-arrow-left ti-xs me-sm-2 me-0"></i>
-                  <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                <button class="btn btn-label- btn-prev"> 
+                  <span class="align-middle d-sm-inline-block d-none"></span>
                 </button>
-                <button class="btn btn-success btn-next btn-submit">Submit</button>
+                <button class="btn btn-success btn-next btn-submit" onclick="submitdata();">Submit</button>
               </div>
             </div>
           </div>
         </form>
+
+  
       </div>
     </div>
   </div>
@@ -216,60 +145,75 @@
 <!-- Page JS -->
 <script src="../../assets/js/extended-ui-sweetalert2.js"></script>
 <script>
-  function submitdata() {
-    // Prevent form from submitting the traditional way
-    event.preventDefault();
+   function submitdata(event) {
 
-    // Get the form element
+Swal.fire({
+    title: "Processing...",
+    text: "Please wait",
+    icon: "info",
+    showConfirmButton: false,
+    allowOutsideClick: false,
+    allowEscapeKey: false,
+    willOpen: () => {
+        Swal.showLoading();
+    },
+});
+
+// Wait for 1 second before submitting the form
+setTimeout(function () {
     var form = document.getElementById('wizard-validation-form');
-
-    // Collect the form data
     var formData = new FormData(form);
 
-    // Send the data via AJAX
-    $.ajax({
-        url: "{{ route('allote.edit') }}",  // URL where the form data should be submitted
-        type: "POST",  // HTTP method
-        data: formData,  // Form data
-        processData: false,  // Disable processing the data (required for FormData)
-        contentType: false,  // Disable setting the content type (required for FormData)
-        success: function(response) {
-            // Handle the success response
-            if (response.success) {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Success!',
-                    text: 'Form data submitted successfully!',
-                    showConfirmButton: false,
-                    timer: 2000
-                });
-                // Optionally, you can redirect or reset the form here
-                window.location.href="/allote-listing";
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error!',
-                    text: 'There was an error submitting the form.',
-                    showConfirmButton: false,
-                    timer: 2000
-                });
-            }
+    // Debugging: Log form data to console
+    for (var pair of formData.entries()) {
+        console.log(pair[0] + ": " + pair[1]);
+    }
+
+    fetch("{{ route('allote.edit') }}", {
+        method: "POST",
+        body: formData,
+        headers: {
+            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
         },
-        error: function(xhr, status, error) {
-            // Handle the error response
+    })
+    .then(response => response.json()) // Parse JSON response
+    .then(data => {
+        Swal.close();
+
+        if (data.success) {
             Swal.fire({
-                icon: 'error',
-                title: 'Error!',
-                text: 'There was an error with the AJAX request.',
+                icon: 'success',
+                title: 'Success!',
+                text: data.message,
                 showConfirmButton: false,
                 timer: 2000
             });
+
+            // Redirect after success
+            setTimeout(function() {
+                window.location.href = "/allote-listing";
+            }, 2000);
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Validation Error',
+                html: data.message.replace(/\n/g, '<br>'), // Display validation errors
+            });
         }
+    })
+    .catch(error => {
+        Swal.close();
+        console.error("Error:", error);
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'An unexpected error occurred. Please try again later.',
+        });
     });
+}, 1000);
 }
 
+
+
 </script>
-<script src="../../assets/js/form-wizard-numbered.js"></script>
-<script src="../../assets/js/form-wizard-validation.js"></script>
-<script src="../../assets/js/form-layouts.js"></script>
 @endsection

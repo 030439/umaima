@@ -208,57 +208,7 @@
     }, 1000);
 }
 
-  function submitdata__() {
-    // Prevent form from submitting the traditional way
-    event.preventDefault();
 
-    // Get the form element
-    var form = document.getElementById('wizard-validation-form');
-
-    // Collect the form data
-    var formData = new FormData(form);
-
-    // Send the data via AJAX
-    $.ajax({
-        url: "{{ route('allote.create') }}",  // URL where the form data should be submitted
-        type: "POST",  // HTTP method
-        data: formData,  // Form data
-        processData: false,  // Disable processing the data (required for FormData)
-        contentType: false,  // Disable setting the content type (required for FormData)
-        success: function(response) {
-            // Handle the success response
-            if (response.success) {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Success!',
-                    text: 'Form data submitted successfully!',
-                    showConfirmButton: false,
-                    timer: 2000
-                });
-                // Optionally, you can redirect or reset the form here
-                window.location.href="allote-listing";
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error!',
-                    text: 'There was an error submitting the form.',
-                    showConfirmButton: false,
-                    timer: 2000
-                });
-            }
-        },
-        error: function(xhr, status, error) {
-            // Handle the error response
-            Swal.fire({
-                icon: 'error',
-                title: 'Error!',
-                text: 'There was an error with the AJAX request.',
-                showConfirmButton: false,
-                timer: 2000
-            });
-        }
-    });
-}
 
 </script>
 @endsection
