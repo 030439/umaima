@@ -1,6 +1,6 @@
 @extends('layout.app')
 <?php $breadCrumb=' Scheme / <span class="text-primary">Create</span></i>'?>
-@section('title', 'crate-scheme')
+@section('title', 'create-scheme')
 @section('content')
  <div class="content-wrapper">
 

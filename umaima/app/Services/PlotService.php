@@ -278,85 +278,77 @@ class PlotService
         $orderDirection = $this->request->input('orderDirection', 'asc');
         $draw = $this->request->get('draw');
         $searchValue = $this->request->input('search')['value'] ?? null;
-    
-        // Initialize the query
-        $query = DB::table('allocation_details')
+        $allocationDetails = DB::table('allocation_details')
         ->select(
-            'schemes.name as scheme',
-            'plots.plot_number as id',
-            DB::raw('(SELECT ps.outstanding 
-                      FROM payment_schedule ps 
-                      WHERE ps.allocation_details_id = allocation_details.id 
-                      ORDER BY ps.id DESC 
-                      LIMIT 1) as totalDue'),
-            DB::raw('(SELECT p.status 
-                      FROM plots p 
-                      WHERE p.plot_number = allocation_details.plot 
-                      ORDER BY p.id DESC 
-                      LIMIT 1) as status'),
-            DB::raw('(SELECT p.plot_number 
-                      FROM plots p 
-                      WHERE p.plot_number = allocation_details.plot 
-                      ORDER BY p.id DESC 
-                      LIMIT 1) as plot_number'),
-            DB::raw('SUM(payment_schedule.outstanding) as due'),
-            DB::raw('SUM(payment_schedule.amount) as amount'),
-            DB::raw('SUM(payment_schedule.amount_paid) as paid'),
+            'allocation_details.id',
+            'allocation_details.plot',
             'allocation_details.installment',
-            'allocation_details.bdate'
+            'allocation_details.bdate',
+            'schemes.name as scheme'
         )
         ->leftJoin('schemes', 'allocation_details.scheme', '=', 'schemes.id')
-        ->leftJoin('plots', 'allocation_details.plot', '=', 'plots.plot_number')
-        ->leftJoin('payment_schedule', 'allocation_details.id', '=', 'payment_schedule.allocation_details_id')
         ->where('allocation_details.allote', '=', $id)
-        ->groupBy(
-            'schemes.name',
-            'plots.plot_number',
-            'allocation_details.id', // Add this
-            'allocation_details.plot', // Add this
-            'allocation_details.installment',
-            'allocation_details.bdate'
-        );
+        ->get(); // Fetch all records
     
-    
-        // Apply order by
-        // $query->orderBy($orderColumn, $orderDirection);
+        // Step 2: Initialize an empty array for results
+        $results = [];
         
-    
-        // Get the total records count
-        $totalRecords = $query->count();
+        // Step 3: Loop through each allocation_detail
+        foreach ($allocationDetails as $detail) {
+            // Fetch the latest outstanding amount from payment_schedule
+            $latestDue = DB::table('payment_schedule')
+                ->where('allocation_details_id', $detail->id)
+                ->orderByDesc('id')
+                ->value('outstanding');
         
-    
-        // Get the filtered records count
-        $filteredQuery = clone $query; // Clone the query for counting filtered results
-        $filteredRecords = $filteredQuery->count();
-    
-        // Apply pagination
-        $query->offset($start)->limit($length);
-    
-        // Fetch the data
-        $data = $query->get();
-        $totalRecords=count($data);
-        $filteredRecords=count($data);
-        // Return the result (formatted for DataTables)
-        return response()->json([
-            'draw' => $draw,
-            'recordsTotal' => $totalRecords,
-            'recordsFiltered' => $filteredRecords,
-            'data' => $data
-        ]);
+            // Fetch the latest plot status from plots table
+            $latestStatus = DB::table('plots')
+                ->where('plot_number', $detail->plot)
+                ->orderByDesc('id')
+                ->value('status');
+        
+            // Fetch the latest plot number from plots table
+            $latestPlotNumber = DB::table('plots')
+                ->where('plot_number', $detail->plot)
+                ->orderByDesc('id')
+                ->value('plot_number');
+        
+            // Aggregate payment_schedule data for this allocation_detail
+            $paymentSummary = DB::table('payment_schedule')
+                ->selectRaw('SUM(outstanding) as totalDue, SUM(amount) as totalAmount, SUM(amount_paid) as totalPaid')
+                ->where('allocation_details_id', $detail->id)
+                ->first();
+        
+            // Construct the result for this allocation_detail
+            $results[] = [
+                'scheme' => $detail->scheme,
+                'id' => $detail->id,
+                'plot' => $detail->plot,
+                'status' => $latestStatus,
+                'plot_number' => $latestPlotNumber,
+                'totalDue' => $paymentSummary->totalDue ?? 0,
+                'amount' => $paymentSummary->totalAmount ?? 0,
+                'paid' => $paymentSummary->totalPaid ?? 0,
+              
+                'bdate' => $detail->bdate,
+            ];
+        }
+        // Step 4: Get the total records count
+        $totalRecords = count($results);
+        
+        
+            $data = $results;
+            $totalRecords=count($results);
+            $filteredRecords=count($results);
+            // Return the result (formatted for DataTables)
+            return response()->json([
+                'draw' => $draw,
+                'recordsTotal' => $totalRecords,
+                'recordsFiltered' => $filteredRecords,
+                'data' => $data
+            ]);
     }
-    
-
-        // Return only the data if pagination is enabled, or full response if not paginated
-    //     dd($result);
-    //     return[
-    //         'data' => $result['data'],
-    //         'recordsTotal' => $result['recordsTotal'],
-    //         'recordsFiltered' => $result['recordsFiltered'],
-    //         'draw' => $draw,
-    //     ];
-    // }
+        
     public function createPlot()
     {
         try {

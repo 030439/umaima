@@ -25,8 +25,13 @@ class SchemeController extends Controller
         $result = $this->schemeservice->createScheme();
         return ($result);
     }
+    public function updateScheme()
+    {
+        $result = $this->schemeservice->updateScheme();
+        return ($result);
+    }
     public function editScheme($id){
-        $result = $this->schemeservice->editScheme($id);
+        $scheme = $this->schemeservice->editScheme($id);
         return view('schemes.edit',compact('scheme'));
     }
     public function schemePlots()

@@ -160,13 +160,57 @@ class SchemeService
                 'no_of_plots' => $this->request->input('scheme.numberOfPlots'),
                 'total_valuation' => $this->request->input('scheme.totalValuation'),
             ]);
-    
             // Log the action
             logAction('Created Scheme', $scheme->name);
     
             // Success response
             return response()->json([
                 'message' => 'Scheme created successfully!',
+                'success' => true
+            ]);
+        } catch (Exception $e) {
+            // Error response
+            
+            return response()->json([
+                'message' =>  $e->getMessage(),
+                'success' => false
+            ]);
+        }
+    }
+    public function updateScheme()
+    {
+        try {
+            $validator = Validator::make($this->request->all(), [
+                'scheme.schemeName' => 'required|string',
+                'scheme.schemeArea' => 'required',
+                'scheme.numberOfPlots' => 'required',
+                'scheme.totalValuation' => 'required',
+            ]);
+    
+            if ($validator->fails()) {
+                // Format the error messages as a single string with line breaks
+                $errorMessages = implode("\n", $validator->errors()->all());
+            
+                return response()->json([
+                    'success' => false,
+                    'message' => "\n" . $errorMessages
+                ], 422); // Unprocessable Entity
+            }
+    
+            $id=$this->request->input('scheme.id');
+            $scheme = Scheme::find($id);
+            $scheme->name = $this->request->input('scheme.schemeName');
+            $scheme->area = $this->request->input('scheme.schemeArea');
+            $scheme->no_of_plots =$this->request->input('scheme.numberOfPlots');
+            $scheme->total_valuation = $this->request->input('scheme.totalValuation');
+            $scheme->save();
+           
+            // Log the action
+            logAction('Scheme updated', $scheme->name);
+    
+            // Success response
+            return response()->json([
+                'message' => 'Scheme updated successfully!',
                 'success' => true
             ]);
         } catch (Exception $e) {
@@ -264,6 +308,10 @@ class SchemeService
             ->get();
         
             return $expensesByHead;
+    }
+
+    public function editScheme($id){
+        return Scheme::find($id);
     }
      
     

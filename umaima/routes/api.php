@@ -35,6 +35,7 @@ Route::middleware(['auth:sanctum','access'])->group(function () {
     Route::post('/assign-role', [RolePermissionController::class, 'assignRole'])->name('roles.assign');
     //Schemes and allotments
     Route::post('/create-scheme', [SchemeController::class, 'store'])->name('scheme.create');
+    Route::post('/update-scheme', [SchemeController::class, 'updateScheme'])->name('scheme.write');
     Route::post('/schemes', [SchemeController::class, 'listing'])->name('scheme.read');
     Route::post('/create-scheme-plot', [PlotController::class, 'store'])->name('plot.create');
     Route::post('/allote/plots/{id}',[PlotController::Class,'alloteePlotes'])->name('allotment.read');

@@ -103,14 +103,14 @@ $(function() {
                         return `
                             <div class="d-flex align-items-center">
                                 <a href="scheme-plots/${a.id}" 
-                                   class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill edit-record" 
-                                   data-id="${a.id}">
+                                   class=" btn-text-info waves-effect waves-light" 
+                                   >
                                     <i class="ti ti-eye ti-md"></i>
                                 </a>
-                                <a href="edit-scheme/${a.id}"  class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill">
+                                <a href="edit-scheme/${a.id}"  class="btn btn-text-warning waves-effect waves-light">
                                     <i class="ti ti-edit ti-md"></i>
                                 </a>
-                                <a href="javascript:;" class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill delete-record">
+                                <a href="javascript:;" class="btn btn-text-danger waves-effect waves-light delete-record">
                                     <i class="ti ti-trash ti-md"></i>
                                 </a>
                             </div>`;
@@ -339,13 +339,14 @@ document.addEventListener("DOMContentLoaded", function () {
             setError(totalValuation, "Please enter a valid total valuation.");
             isValid = false;
         }
-
+        const editId=$("#editId").val();
         if (isValid) {
             const scheme = {
                 schemeName: schemeName.value,
                 schemeArea: schemeArea.value,
                 numberOfPlots: numberOfPlots.value,
-                totalValuation: totalValuation.value
+                totalValuation: totalValuation.value,
+                id: editId.value
             };
 
             saveScheme(scheme);
