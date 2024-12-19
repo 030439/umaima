@@ -55,6 +55,11 @@ class SchemeController extends Controller
     }
     public function allotedPlotListing(){
         $groupedPlots = $this->schemeservice->allotedPlotListing();
+        $totalPlotsSchemeWise = $this->schemeservice->totalPlotsSchemeWise();
+        $expensesByHeads = $this->schemeservice->totalExpenseHeadWise();
+        $totalPaymentsByAllote = $this->schemeservice->totalPaymentsByAllote();
+        return view('plots.alloted-plot', compact('groupedPlots','totalPlotsSchemeWise','expensesByHeads','totalPaymentsByAllote'));
+        $groupedPlots = $this->schemeservice->allotedPlotListing();
         return view('plots.alloted-plot', compact('groupedPlots'));
     }
     public function listing(){
