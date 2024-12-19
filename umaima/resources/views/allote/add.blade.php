@@ -10,86 +10,17 @@
             
             
 <!-- Default -->
-<div class="row">
+<div class="row card ">
 
 
   <!-- Validation Wizard -->
-  <div class="col-12 mb-6">
-    <div id="wizard-validation" class="bs-stepper mt-2">
-      <div class="bs-stepper-header">
-        <div class="step" data-target="#account-details-validation">
-          <button type="button" class="step-trigger">
-            <span class="bs-stepper-circle">1</span>
-            <span class="bs-stepper-label mt-1">
-              <span class="bs-stepper-title">Account Details</span>
-              <span class="bs-stepper-subtitle">Setup Account Details</span>
-            </span>
-          </button>
-        </div>
-        <div class="line">
-          <i class="ti ti-chevron-right"></i>
-        </div>
-        <div class="step" data-target="#personal-info-validation">
-          <button type="button" class="step-trigger">
-            <span class="bs-stepper-circle">2</span>
-            <span class="bs-stepper-label">
-              <span class="bs-stepper-title">Personal Info</span>
-              <span class="bs-stepper-subtitle">Add personal info</span>
-            </span>
-          </button>
-        </div>
-        <div class="line">
-          <i class="ti ti-chevron-right"></i>
-        </div>
-        <div class="step" data-target="#social-links-validation">
-          <button type="button" class="step-trigger">
-            <span class="bs-stepper-circle">3</span>
-            <span class="bs-stepper-label">
-              <span class="bs-stepper-title">Social Links</span>
-              <span class="bs-stepper-subtitle">Add social links</span>
-            </span>
-          </button>
-        </div>
-      </div>
-      <div class="bs-stepper-content">
+  <div class="col-12 mb-6 ">
+    <div id="wizard-" class="bs- mt-2 ">
+   
+      <div class="bs--content">
         <form id="wizard-validation-form" onSubmit="return false" method="post" action="{{route('allote.create')}}">
           @csrf
-          <!-- Account Details -->
-          <div id="account-details-validation" class="content">
-            <div class="content-header mb-4">
-              <h6 class="mb-0">Account Details</h6>
-              <small>Enter  Account Details.</small>
-            </div>
-            <div class="row g-6">
-              <div class="col-sm-6">
-                <label class="form-label" for="formValidationUsername">Username</label>
-                <input type="text" name="formValidationUsername" id="formValidationUsername" class="form-control" placeholder="johndoe" />
-              </div>
-              <div class="col-sm-6">
-                <label class="form-label" for="formValidationEmail">Email</label>
-                <input type="email" name="formValidationEmail" id="formValidationEmail" class="form-control" placeholder="john.doe@email.com" aria-label="john.doe" />
-              </div>
-              <div class="col-sm-6 form-password-toggle">
-                <label class="form-label" for="formValidationcell">Cell No</label>
-                <div class="input-group input-group-merge">
-                  <input type="number" id="formValidationcell" name="formValidationcell" class="form-control" aria-describedby="formValidationPass2" />
-                </div>
-              </div>
-              <div class="col-sm-6 form-password-toggle">
-                <label class="form-label" for="formValidationoffice">Phone No:Office </label>
-                <div class="input-group input-group-merge">
-                  <input type="number" id="" name="formValidationoffice" class="form-control"   />
-                 
-                </div>
-              </div>
-              <div class="col-12 d-flex justify-content-between">
-                <button class="btn btn-label-secondary btn-prev" disabled> <i class="ti ti-arrow-left ti-xs me-sm-2 me-0"></i>
-                  <span class="align-middle d-sm-inline-block d-none">Previous</span>
-                </button>
-                <button class="btn btn-primary btn-next"> <span class="align-middle d-sm-inline-block d-none me-sm-2">Next</span> <i class="ti ti-arrow-right ti-xs"></i></button>
-              </div>
-            </div>
-          </div>
+      
           <!-- Personal Info -->
           <div id="personal-info-validation" class="content">
             <div class="content-header mb-4">
@@ -130,13 +61,7 @@
                 <input type="text" name="dob" id="multicol-birthdate" class="form-control dob-picker flatpickr-input active" placeholder="YYYY-MM-DD" readonly="readonly">
               </div>
               
-              
-              <div class="col-12 d-flex justify-content-between">
-                <button class="btn btn-label-secondary btn-prev"> <i class="ti ti-arrow-left ti-xs me-sm-2 me-0"></i>
-                  <span class="align-middle d-sm-inline-block d-none">Previous</span>
-                </button>
-                <button class="btn btn-primary btn-next"> <span class="align-middle d-sm-inline-block d-none me-sm-2">Next</span> <i class="ti ti-arrow-right ti-xs"></i></button>
-              </div>
+          
             </div>
           </div>
           <!-- Social Links -->
@@ -165,10 +90,10 @@
                 <textarea class="form-control" id="bs-validation-bio" name="address" rows="3" required=""></textarea>
               </div>
               <div class="col-12 d-flex justify-content-between">
-                <button class="btn btn-label-secondary btn-prev"> <i class="ti ti-arrow-left ti-xs me-sm-2 me-0"></i>
-                  <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                <button class="btn btn-label- btn-prev"> 
+                  <span class="align-middle d-sm-inline-block d-none"></span>
                 </button>
-                <button class="btn btn-success btn-next btn-submit">Submit</button>
+                <button class="btn btn-success btn-next btn-submit" onclick="submitdata();">Submit</button>
               </div>
             </div>
           </div>
@@ -215,7 +140,75 @@
 <!-- Page JS -->
 <script src="../../assets/js/extended-ui-sweetalert2.js"></script>
 <script>
-  function submitdata() {
+ function submitdata(event) {
+
+    Swal.fire({
+        title: "Processing...",
+        text: "Please wait",
+        icon: "info",
+        showConfirmButton: false,
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        willOpen: () => {
+            Swal.showLoading();
+        },
+    });
+
+    // Wait for 1 second before submitting the form
+    setTimeout(function () {
+        var form = document.getElementById('wizard-validation-form');
+        var formData = new FormData(form);
+
+        // Debugging: Log form data to console
+        for (var pair of formData.entries()) {
+            console.log(pair[0] + ": " + pair[1]);
+        }
+
+        fetch("{{ route('allote.create') }}", {
+            method: "POST",
+            body: formData,
+            headers: {
+                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+            },
+        })
+        .then(response => response.json()) // Parse JSON response
+        .then(data => {
+            Swal.close();
+
+            if (data.success) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success!',
+                    text: data.message,
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+
+                // Redirect after success
+                setTimeout(function() {
+                    window.location.href = "allote-listing";
+                }, 2000);
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Validation Error',
+                    html: data.message.replace(/\n/g, '<br>'), // Display validation errors
+                });
+            }
+        })
+        .catch(error => {
+            Swal.close();
+            console.error("Error:", error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'An unexpected error occurred. Please try again later.',
+            });
+        });
+    }, 1000);
+}
+
+  function submitdata__() {
     // Prevent form from submitting the traditional way
     event.preventDefault();
 
@@ -268,7 +261,4 @@
 }
 
 </script>
-<script src="../../assets/js/form-wizard-numbered.js"></script>
-<script src="../../assets/js/form-wizard-validation.js"></script>
-<script src="../../assets/js/form-layouts.js"></script>
 @endsection
