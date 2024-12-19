@@ -283,6 +283,7 @@ class PlotService
         $query = DB::table('allocation_details')
         ->select(
             'schemes.name as scheme',
+            'plots.plot_number as id',
             DB::raw('(SELECT ps.outstanding 
                       FROM payment_schedule ps 
                       WHERE ps.allocation_details_id = allocation_details.id 
@@ -305,10 +306,12 @@ class PlotService
             'allocation_details.bdate'
         )
         ->leftJoin('schemes', 'allocation_details.scheme', '=', 'schemes.id')
+        ->leftJoin('plots', 'allocation_details.plot', '=', 'plots.plot_number')
         ->leftJoin('payment_schedule', 'allocation_details.id', '=', 'payment_schedule.allocation_details_id')
         ->where('allocation_details.allote', '=', $id)
         ->groupBy(
             'schemes.name',
+            'plots.plot_number',
             'allocation_details.id', // Add this
             'allocation_details.plot', // Add this
             'allocation_details.installment',
