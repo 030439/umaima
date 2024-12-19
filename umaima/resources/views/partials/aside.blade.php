@@ -35,11 +35,7 @@
     </li>
 
 
-    <!-- Apps & Pages -->
-    <li class="menu-header small">
-      <span class="menu-header-text" >User - Accounts</span>
-    </li>
- 
+  
    
     <li class="menu-item {{ request()->routeIs('users.*') ? 'active open' : '' }} ">
       <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -82,10 +78,6 @@
       </ul>
     </li>
 
-    <!-- plot setup  -->
-    <li class="menu-header small">
-      <span class="menu-header-text">Apps &amp; Pages</span>
-    </li>
     <li class="menu-item {{ request()->routeIs('allotment.*') ||request()->routeIs('plot.*') ? 'active open' : '' }}" style="">
       <a href="javascript:void(0);" class="menu-link menu-toggle">
         <i class="menu-icon tf-icons ti ti-map"></i>
@@ -146,9 +138,6 @@
               </a>
             </li>
       </ul>
-    </li>
-    <li class="menu-header small">
-      <span class="menu-header-text" >Finance</span>
     </li>
 
     <li class="menu-item {{ request()->routeIs('cashbook.*') ? 'active open' : '' }}" style="">
