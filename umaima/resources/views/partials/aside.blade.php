@@ -75,6 +75,11 @@
             <div data-i18n="List">List</div>
           </a>
         </li>
+        <li class="menu-item">
+          <a href="/allote/inactive" class="menu-link">
+            <div >Inactive Alloties</div>
+          </a>
+        </li>
       </ul>
     </li>
 

@@ -50,6 +50,7 @@ Route::middleware(['auth:sanctum','access'])->group(function () {
     Route::post('/confirm-schedule', [PlotController::class, 'confirmSchedule'])->name('schedule.create');
     Route::post('get-plots',[PlotController::class, 'getPlotsByAllote'])->name('plot.read');
     Route::post("getAllotees",[AlloteController::class,'geAll'])->name('allote.read');
+    Route::post("getInActiveAllotees",[AlloteController::class,'getInActiveAllotees'])->name('allote.read');
     //accounts
     Route::controller(BankController::class)
         ->prefix('banks')

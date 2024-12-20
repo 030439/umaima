@@ -19,8 +19,15 @@ class AlloteController extends Controller
     function index(){
         return view('allote.index');
     }
+    function inactive(){
+        return view('allote.inactive');
+    }
     public function alloteCreate(){
         return view('allote.add');
+    }
+    public function getInActiveAllotees(){
+        $result = $this->alloteservice->getInActiveAllotees();
+        return ($result);
     }
     public function geAll(){
         $result = $this->alloteservice->geAll();
