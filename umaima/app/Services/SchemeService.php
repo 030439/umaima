@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use App\Models\Scheme;
+use App\Models\Plot;
 use Illuminate\Http\JsonResponse;
 use Exception;
 class SchemeService
@@ -371,6 +372,9 @@ return $response;
 
     public function editScheme($id){
         return Scheme::find($id);
+    }
+    public function editPlot($id){
+        return Plot::find($id);
     }
      
     

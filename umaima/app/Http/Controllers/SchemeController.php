@@ -48,6 +48,13 @@ class SchemeController extends Controller
      
         return view('schemes.scheme-plots',['sid'=>$id,'scheme'=>$plots]);
     }
+    public function editPlot($id)
+    {
+        $plots = $this->schemeservice->editPlot($id);
+        $schemes = $this->schemeservice->getSchemes();
+     
+        return view('schemes.edit-plots',compact('plots','schemes'));
+    }
     public function allotePlotByScheme($id)
     {
         $plots = $this->schemeservice->schemePlotsDetail($id);
