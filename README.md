@@ -19,6 +19,6 @@ Generate insightful reports for rentals, schemes, ledgers, and other business co
 User-Friendly Interface
 Intuitive and easy-to-use interface designed to simplify complex accounting tasks.
 Technology Stack
-Backend: [PHP/Laravel]
-Frontend: [HTML, CSS, JavaScript, Bootstrap]
-Database: [MySQL]
+Backend: [PHP/Laravel/CodeIgniter]
+Frontend: [HTML, CSS, JavaScript, Bootstrap/Tailwind]
+Database: [MySQL/PostgreSQL]
