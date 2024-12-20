@@ -11,63 +11,76 @@
     
   
   <div class="row">
-    <div class="col">
-        <h6 class="mt-6">Scheme-Wise-Plots</h6>
-        <div class="card mb-6">
+  <div class="col">
+    <h6 class="mt-6">Scheme-Wise-Plots</h6>
+    <div class="card mb-6">
         <div class="card-header px-0 pt-0">
             <div class="nav-align-top">
-              
-            <ul class="nav nav-tabs" role="tablist">
-                @if(!empty($groupedPlots))
-                
-                @foreach($groupedPlots as $schemeName => $plots)
-                <li class="nav-item" role="presentation">
-                <button type="button" class="nav-link waves-effect <?php if($schemeName==0){echo 'active';}?>" data-bs-toggle="tab" data-bs-target="#t{{$schemeName}}" aria-controls="form-tabs-personal" role="tab" aria-selected="true"><span class="ti ti-user ti-lg d-sm-none"></span><span class="d-none d-sm-block">{{$plots['scheme']}}</span></button>
-                </li>
-                @endforeach
-                @endif
-            </ul>
+                <ul class="nav nav-tabs" role="tablist">
+                    <?php if (!empty($groupedPlots)): ?>
+                        <?php $isActive = true; $counter=0;?>
+                        <?php foreach ($groupedPlots as $schemeName => $plots):  ?>
+                            <li class="nav-item" role="presentation">
+                                <button type="button" class="nav-link waves-effect <?php echo  $isActive ? 'active' : '' ?>" 
+                                    data-bs-toggle="tab" 
+                                    data-bs-target="#tab-0-<?php echo  $counter; ?>" 
+                                    aria-controls="form-tabs-personal" 
+                                    role="tab" 
+                                    aria-selected="<?php echo  $isActive ? 'true' : 'false' ?>">
+                                    <span class="ti ti-user ti-lg d-sm-none"></span>
+                                    <span class="d-none d-sm-block"><?php echo  htmlspecialchars($plots['scheme']) ?></span>
+                                </button>
+                            </li>
+                            <?php $isActive = false; $counter++; ?>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </ul>
             </div>
         </div>
 
         <div class="card-body">
             <div class="tab-content p-0">
-            <!-- Personal Info -->
-            @if(!empty($groupedPlots))
-            @foreach($groupedPlots as $schemeName => $plots)
-
-            <div class="tab-pane fade <?php if($schemeName==0){echo 'active';}?> show" id="t{{$schemeName}}" role="tabpanel">
-                <div class="row" style="margin-left:20px">    
-            @if(!empty($plots))
-            @foreach ($plots['plots'] as $plot) 
-                      <?php if($plot['aid']){?>
-                      <a href="allote-plotes/{{$plot['aid']}}" class="col-3 col-md-2 col-lg-1 text-white  bg-info text-center p-4" 
-                    style="margin:1px"  data-bs-toggle="tooltip" 
-                    data-bs-placement="top" 
-                    data-bs-custom-class="tooltip-info"
-                    data-bs-original-title="{{$plot['allote']}}">
-                            {{$plot['plot_number']}}
-                    </a>
-                    <?php }else{?>
-                      <a href="#" class="col-3 col-md-2 col-lg-1 text-white  bg-primary text-center p-4" 
-                        style="margin:1px"  data-bs-toggle="tooltip" 
-                        data-bs-placement="top" 
-                        data-bs-custom-class="tooltip-primary"
-                        data-bs-original-title="{{$plot['allote']}}">
-                            {{$plot['plot_number']}}
-                      </a>
-                      <?php
-                    }?>
-            @endforeach
-              @endif
-              </div>
+                <?php if (!empty($groupedPlots)): ?>
+                    <?php $isActive = true; $counter=0; ?>
+                    <?php foreach ($groupedPlots as $schemeName => $plotsGroup): ?>
+                        <div class="tab-pane fade <?php echo  $isActive ? 'active show' : '' ?>" 
+                            id="tab-0-<?php echo $counter;?>" 
+                            role="tabpanel">
+                            <div class="row" style="margin-left:20px">
+                                <?php if (!empty($plotsGroup)): ?>
+                                    <?php foreach ($plotsGroup['plots'] as $k=> $plot): ?>
+                                        <?php if (($plot['allote_id'])): ?>
+                                            <a href="allote-plotes/{{($plot['allote_id'])}}" 
+                                                class="col-3 col-md-2 col-lg-1 text-white bg-info text-center p-4" 
+                                                style="margin:1px" 
+                                                data-bs-toggle="tooltip" 
+                                                data-bs-placement="top" 
+                                                data-bs-custom-class="tooltip-info" 
+                                                data-bs-original-title="<?php echo  htmlspecialchars($plot['allote']) ?>">
+                                                <?php echo  htmlspecialchars($plot['plot_number']) ?>
+                                            </a>
+                                        <?php else: ?>
+                                            <a href="#" 
+                                                class="col-3 col-md-2 col-lg-1 text-white bg-primary text-center p-4" 
+                                                style="margin:1px" 
+                                                data-bs-toggle="tooltip" 
+                                                data-bs-placement="top" 
+                                                data-bs-custom-class="tooltip-primary" 
+                                                data-bs-original-title="Unallocated">
+                                                <?php echo  htmlspecialchars($plot['plot_number']) ?>
+                                            </a>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                        <?php $isActive = false;$counter++; ?>
+                    <?php endforeach; ?>
+                <?php endif; ?>
             </div>
-            @endforeach
-            @endif
-          </div>
-        </div>
         </div>
     </div>
+</div>
   </div>
 
 

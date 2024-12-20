@@ -100,13 +100,8 @@ $(function() {
                     render: function(t, e, a, s) {
                         return `
                             <div class="d-flex align-items-center">
-                                <a href="javascript:;" 
-                                   class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill edit-record" 
-                                   data-id="${a.id}" 
-                                   onclick="showEditModal(${a.id})">
-                                    <i class="ti ti-eye ti-md"></i>
-                                </a>
-                                <a href="${r}" class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill">
+                               
+                                <a href="/edit/plot/${a.id}" class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill">
                                     <i class="ti ti-edit ti-md"></i>
                                 </a>
                                 <a href="javascript:;" class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill delete-record">

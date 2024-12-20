@@ -73,6 +73,7 @@ Route::middleware('auth')->group(function () {
             Route::post('duration','duration');
             Route::post('installment','installment');
             Route::get('plot-alltment','plotAllotment')->name('allotment.form');
+           
     });
 
     Route::controller(SchemeController::class)
@@ -84,6 +85,7 @@ Route::middleware('auth')->group(function () {
             Route::get('add-scheme-plot','createSchemePlot')->name('scheme.plot');
             Route::get('alloted-plot-listing','allotedPlotListing')->name('alloted.index');
             Route::get("edit-scheme/{id}",'editScheme')->name('scheme.write');
+            Route::get("edit/plot/{id}",'editPlot');
     });
     Route::controller(AlloteController::class)
     ->group(function(){
