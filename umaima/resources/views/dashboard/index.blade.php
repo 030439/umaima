@@ -18,7 +18,7 @@
             <div class="col-lg-12 col-md-12 mt-2">
               <div class="card h-100">
                 <div class="card-header d-flex justify-content-between">
-                  <h5 class="card-title mb-0">{{$sp->scheme_name}}</h5>
+                  <h5 class="card-title mb-0"><a href="scheme-plots/{{$sp->sid}}">{{$sp->scheme_name}}</a></h5>
                   <small class="h6">Total Plots {{$sp->total_plots}}</small>
                 </div>
                 <div class="card-body">
@@ -27,7 +27,7 @@
                       <div class="d-flex align-items-center">
                         <div class="badge rounded bg-label-primary me-4 p-2"><i class="ti ti-chart-pie-2 ti-lg"></i></div>
                         <div class="card-info">
-                          <h5 class="mb-0">230k</h5>
+                          <h5 class="mb-0">{{$sp->valuation}}</h5>
                           <small>Total Valuation</small>
                         </div>
                       </div>

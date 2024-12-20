@@ -329,11 +329,11 @@ return $response;
         $results = DB::table('payment_schedule')
             ->join('allocation_details', 'payment_schedule.allocation_details_id', '=', 'allocation_details.id')
             ->join('schemes', 'allocation_details.scheme', '=', 'schemes.id')
-            ->select('schemes.name as scheme_name','schemes.no_of_plots as total_plots','schemes.id as sid')
+            ->select('schemes.name as scheme_name','schemes.total_valuation as valuation','schemes.no_of_plots as total_plots','schemes.id as sid')
             ->selectRaw('SUM(payment_schedule.outstanding) as totalDue')
             ->selectRaw('SUM(payment_schedule.amount) as totalAmount')
             ->selectRaw('SUM(payment_schedule.amount_paid) as totalPaid')
-            ->groupBy('schemes.name','schemes.no_of_plots','schemes.id')
+            ->groupBy('schemes.name','schemes.no_of_plots','schemes.id','schemes.total_valuation')
             ->get();
         return $results;
     }

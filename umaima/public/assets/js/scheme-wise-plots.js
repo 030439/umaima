@@ -42,7 +42,7 @@ $(function() {
                 { data: 'id',title:"plot-size" },       // Map to 'id' in the returned JSON
                 { data: 'id',title:"plot-location" }, 
                 { data: 'id',title:"status" }, 
-                { data: 'id',title:"actions" },    
+                // { data: 'id',title:"actions" },    
             ],
             columnDefs: [
                
@@ -93,30 +93,30 @@ $(function() {
                         return '<span class="badge ' + status_bg + '" text-capitalized>' +status_title+ "</span>";
                     }
                 },
-                {
-                    targets: -1,
-                    title: "Actions",
-                    searchable: false,
-                    orderable: false,
-                    render: function(t, e, a, s) {
-                        return `
-                            <div class="d-flex align-items-center">
-                                <a href="javascript:;" 
-                                   class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill edit-record" 
-                                   data-id="${a.id}" 
-                                   onclick="showEditModal(${a.id})">
-                                    <i class="ti ti-eye ti-md"></i>
-                                </a>
-                                <a href="${r}" class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill">
-                                    <i class="ti ti-edit ti-md"></i>
-                                </a>
-                                <a href="javascript:;" class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill delete-record">
-                                    <i class="ti ti-trash ti-md"></i>
-                                </a>
-                            </div>`;
-                    }
+                // {
+                //     targets: -1,
+                //     title: "Actions",
+                //     searchable: false,
+                //     orderable: false,
+                //     render: function(t, e, a, s) {
+                //         return `
+                //             <div class="d-flex align-items-center">
+                //                 <a href="javascript:;" 
+                //                    class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill edit-record" 
+                //                    data-id="${a.id}" 
+                //                    onclick="showEditModal(${a.id})">
+                //                     <i class="ti ti-eye ti-md"></i>
+                //                 </a>
+                //                 <a href="${r}" class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill">
+                //                     <i class="ti ti-edit ti-md"></i>
+                //                 </a>
+                //                 <a href="javascript:;" class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill delete-record">
+                //                     <i class="ti ti-trash ti-md"></i>
+                //                 </a>
+                //             </div>`;
+                //     }
                     
-                }
+                // }
             ],
             order: [[2, "desc"]],
             dom: '<"row"<"col-md-2"<"ms-n2"l>><"col-md-10"<"dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-6 mb-md-0 mt-n6 mt-md-0"fB>>>t<"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
