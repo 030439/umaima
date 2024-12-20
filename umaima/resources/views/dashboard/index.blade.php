@@ -13,25 +13,56 @@
       <div class="card-body">
         <div class="card-title">Schemes</div>
           <div class="row mb-5">
-            @if($totalPlotsSchemeWise)
-            @foreach($totalPlotsSchemeWise as $sp)
-              <div class="col-lg-6 col-sm-6">
-                <a href="scheme-plots/{{$sp->sid}}">
-                  <div class="card h-100">
-                    <div class="card-body d-flex justify-content-between align-items-center">
-                      <div class="card-title mb-0">
-                        <h5 class="mb-1 me-2">{{$sp->total_plots}}</h5>
-                        <p class="mb-0">{{$sp->scheme}}</p>
+          @if($totalPlotsSchemeWise)
+          @foreach($totalPlotsSchemeWise as $sp)
+            <div class="col-lg-8 col-md-12">
+              <div class="card h-100">
+                <div class="card-header d-flex justify-content-between">
+                  <h5 class="card-title mb-0">{{$sp->scheme_name}}</h5>
+                  <small class="text-muted">{{$sp->total_plots}}</small>
+                </div>
+                <div class="card-body">
+                  <div class="row gy-3">
+                    <div class="col-md-3 col-6">
+                      <div class="d-flex align-items-center">
+                        <div class="badge rounded bg-label-primary me-4 p-2"><i class="ti ti-chart-pie-2 ti-lg"></i></div>
+                        <div class="card-info">
+                          <h5 class="mb-0">230k</h5>
+                          <small>Sales</small>
+                        </div>
                       </div>
-                      <div class="card-icon">
-                        <span class="badge bg-label-warning rounded p-2">
-                          <i class='ti ti-alert-octagon ti-26px'></i>
-                        </span>
+                    </div>
+                    <div class="col-md-3 col-6">
+                      <div class="d-flex align-items-center">
+                        <div class="badge rounded bg-label-info me-4 p-2"><i class="ti ti-users ti-lg"></i></div>
+                        <div class="card-info">
+                          <h5 class="mb-0">8.549k</h5>
+                          <small>Customers</small>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                      <div class="d-flex align-items-center">
+                        <div class="badge rounded bg-label-danger me-4 p-2"><i class="ti ti-shopping-cart ti-lg"></i></div>
+                        <div class="card-info">
+                          <h5 class="mb-0">1.423k</h5>
+                          <small>Products</small>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                      <div class="d-flex align-items-center">
+                        <div class="badge rounded bg-label-success me-4 p-2"><i class="ti ti-currency-dollar ti-lg"></i></div>
+                        <div class="card-info">
+                          <h5 class="mb-0">$9745</h5>
+                          <small>Revenue</small>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </a>
+                </div>
               </div>
+            </div>
             @endforeach
             @endif
           </div>
@@ -241,7 +272,7 @@
  <script>
        
 
-        function applySurcharge() {
+        function applySurcharge_() {
             // Show loading dialog for 1 second before submitting the form
             Swal.fire({
                 title: "Processing...",

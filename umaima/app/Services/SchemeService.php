@@ -269,13 +269,16 @@ class SchemeService
 
     public function totalPlotsSchemeWise()
     {
-        
-            $plotsCountByScheme = DB::table('schemes')
-            ->select(
-                'schemes.name as scheme','schemes.id as sid','schemes.no_of_plots as total_plots',
-            )
+        $results = DB::table('payment_schedule')
+            ->join('allocation_details', 'payment_schedule.allocation_details_id', '=', 'allocation_details.id')
+            ->join('schemes', 'allocation_details.scheme', '=', 'schemes.id')
+            ->select('schemes.name as scheme_name','schemes.no_of_plots as total_plots','schemes.id as sid')
+            ->selectRaw('SUM(payment_schedule.outstanding) as totalDue')
+            ->selectRaw('SUM(payment_schedule.amount) as totalAmount')
+            ->selectRaw('SUM(payment_schedule.amount_paid) as totalPaid')
+            ->groupBy('schemes.name','schemes.no_of_plots','schemes.id')
             ->get();
-            return $plotsCountByScheme;
+        return $results;
     }
     public function totalExpenseHeadWise()
     {
