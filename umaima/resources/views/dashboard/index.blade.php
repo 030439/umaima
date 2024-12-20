@@ -15,11 +15,11 @@
           <div class="row mb-5">
           @if($totalPlotsSchemeWise)
           @foreach($totalPlotsSchemeWise as $sp)
-            <div class="col-lg-8 col-md-12">
+            <div class="col-lg-12 col-md-12 mt-2">
               <div class="card h-100">
                 <div class="card-header d-flex justify-content-between">
                   <h5 class="card-title mb-0">{{$sp->scheme_name}}</h5>
-                  <small class="text-muted">{{$sp->total_plots}}</small>
+                  <small class="h6">Total Plots {{$sp->total_plots}}</small>
                 </div>
                 <div class="card-body">
                   <div class="row gy-3">
@@ -28,7 +28,7 @@
                         <div class="badge rounded bg-label-primary me-4 p-2"><i class="ti ti-chart-pie-2 ti-lg"></i></div>
                         <div class="card-info">
                           <h5 class="mb-0">230k</h5>
-                          <small>Sales</small>
+                          <small>Total Valuation</small>
                         </div>
                       </div>
                     </div>
@@ -36,23 +36,23 @@
                       <div class="d-flex align-items-center">
                         <div class="badge rounded bg-label-info me-4 p-2"><i class="ti ti-users ti-lg"></i></div>
                         <div class="card-info">
-                          <h5 class="mb-0">8.549k</h5>
-                          <small>Customers</small>
+                          <h5 class="mb-0">{{$sp->totalAmount}}</h5>
+                          <small>Allote plot Amount</small>
                         </div>
                       </div>
                     </div>
                     <div class="col-md-3 col-6">
                       <div class="d-flex align-items-center">
-                        <div class="badge rounded bg-label-danger me-4 p-2"><i class="ti ti-shopping-cart ti-lg"></i></div>
+                        <div class="badge rounded bg-label-success me-4 p-2"><i class="ti ti-credit-card ti-26px"></i></div>
                         <div class="card-info">
-                          <h5 class="mb-0">1.423k</h5>
-                          <small>Products</small>
+                          <h5 class="mb-0">{{$sp->totalPaid}}</h5>
+                          <small> Payments Received</small>
                         </div>
                       </div>
                     </div>
                     <div class="col-md-3 col-6">
                       <div class="d-flex align-items-center">
-                        <div class="badge rounded bg-label-success me-4 p-2"><i class="ti ti-currency-dollar ti-lg"></i></div>
+                        <div class="badge rounded bg-label-danger me-4 p-2"><i class="ti ti-currency-dollar ti-lg"></i></div>
                         <div class="card-info">
                           <h5 class="mb-0">$9745</h5>
                           <small>Revenue</small>
@@ -141,63 +141,76 @@
     </div>
 
   <div class="row">
-    <div class="col">
-        <h6 class="mt-6">Scheme-Wise-Plots</h6>
-        <div class="card mb-6">
+  <div class="col">
+    <h6 class="mt-6">Scheme-Wise-Plots</h6>
+    <div class="card mb-6">
         <div class="card-header px-0 pt-0">
             <div class="nav-align-top">
-              
-            <ul class="nav nav-tabs" role="tablist">
-                @if(!empty($groupedPlots))
-                
-                @foreach($groupedPlots as $schemeName => $plots)
-                <li class="nav-item" role="presentation">
-                <button type="button" class="nav-link waves-effect <?php if($schemeName==0){echo 'active';}?>" data-bs-toggle="tab" data-bs-target="#t{{$schemeName}}" aria-controls="form-tabs-personal" role="tab" aria-selected="true"><span class="ti ti-user ti-lg d-sm-none"></span><span class="d-none d-sm-block">{{$plots['scheme']}}</span></button>
-                </li>
-                @endforeach
-                @endif
-            </ul>
+                <ul class="nav nav-tabs" role="tablist">
+                    <?php if (!empty($groupedPlots)): ?>
+                        <?php $isActive = true; $counter=0;?>
+                        <?php foreach ($groupedPlots as $schemeName => $plots):  ?>
+                            <li class="nav-item" role="presentation">
+                                <button type="button" class="nav-link waves-effect <?php echo  $isActive ? 'active' : '' ?>" 
+                                    data-bs-toggle="tab" 
+                                    data-bs-target="#tab-0-<?php echo  $counter; ?>" 
+                                    aria-controls="form-tabs-personal" 
+                                    role="tab" 
+                                    aria-selected="<?php echo  $isActive ? 'true' : 'false' ?>">
+                                    <span class="ti ti-user ti-lg d-sm-none"></span>
+                                    <span class="d-none d-sm-block"><?php echo  htmlspecialchars($plots['scheme']) ?></span>
+                                </button>
+                            </li>
+                            <?php $isActive = false; $counter++; ?>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </ul>
             </div>
         </div>
 
         <div class="card-body">
             <div class="tab-content p-0">
-            <!-- Personal Info -->
-            @if(!empty($groupedPlots))
-            @foreach($groupedPlots as $schemeName => $plots)
-
-            <div class="tab-pane fade <?php if($schemeName==0){echo 'active';}?> show" id="t{{$schemeName}}" role="tabpanel">
-                <div class="row" style="margin-left:20px">    
-            @if(!empty($plots))
-            @foreach ($plots['plots'] as $plot) 
-                      <?php if($plot['aid']){?>
-                      <a href="allote-plotes/{{$plot['aid']}}" class="col-3 col-md-2 col-lg-1 text-white  bg-info text-center p-4" 
-                    style="margin:1px"  data-bs-toggle="tooltip" 
-                    data-bs-placement="top" 
-                    data-bs-custom-class="tooltip-info"
-                    data-bs-original-title="{{$plot['allote']}}">
-                            {{$plot['plot_number']}}
-                    </a>
-                    <?php }else{?>
-                      <a href="#" class="col-3 col-md-2 col-lg-1 text-white  bg-primary text-center p-4" 
-                        style="margin:1px"  data-bs-toggle="tooltip" 
-                        data-bs-placement="top" 
-                        data-bs-custom-class="tooltip-primary"
-                        data-bs-original-title="{{$plot['allote']}}">
-                            {{$plot['plot_number']}}
-                      </a>
-                      <?php
-                    }?>
-            @endforeach
-              @endif
-              </div>
+                <?php if (!empty($groupedPlots)): ?>
+                    <?php $isActive = true; $counter=0; ?>
+                    <?php foreach ($groupedPlots as $schemeName => $plotsGroup): ?>
+                        <div class="tab-pane fade <?php echo  $isActive ? 'active show' : '' ?>" 
+                            id="tab-0-<?php echo $counter;?>" 
+                            role="tabpanel">
+                            <div class="row" style="margin-left:20px">
+                                <?php if (!empty($plotsGroup)): ?>
+                                    <?php foreach ($plotsGroup['plots'] as $k=> $plot): ?>
+                                        <?php if (($plot['allote_id'])): ?>
+                                            <a href="allote-plotes/{{($plot['allote_id'])}}" 
+                                                class="col-3 col-md-2 col-lg-1 text-white bg-info text-center p-4" 
+                                                style="margin:1px" 
+                                                data-bs-toggle="tooltip" 
+                                                data-bs-placement="top" 
+                                                data-bs-custom-class="tooltip-info" 
+                                                data-bs-original-title="<?php echo  htmlspecialchars($plot['allote']) ?>">
+                                                <?php echo  htmlspecialchars($plot['plot_number']) ?>
+                                            </a>
+                                        <?php else: ?>
+                                            <a href="#" 
+                                                class="col-3 col-md-2 col-lg-1 text-white bg-primary text-center p-4" 
+                                                style="margin:1px" 
+                                                data-bs-toggle="tooltip" 
+                                                data-bs-placement="top" 
+                                                data-bs-custom-class="tooltip-primary" 
+                                                data-bs-original-title="Unallocated">
+                                                <?php echo  htmlspecialchars($plot['plot_number']) ?>
+                                            </a>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                        <?php $isActive = false;$counter++; ?>
+                    <?php endforeach; ?>
+                <?php endif; ?>
             </div>
-            @endforeach
-            @endif
-          </div>
-        </div>
         </div>
     </div>
+</div>
   </div>
 
 

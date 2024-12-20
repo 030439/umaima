@@ -222,11 +222,67 @@ class SchemeService
             ]);
         }
     }
-
+    public function getAlloteName($plot,$scheme){
+        $plots = DB::table('allocation_details')
+        ->leftJoin('plots', 'allocation_details.plot', '=', 'plots.plot_number')
+        ->leftJoin('schemes', 'allocation_details.scheme', '=', 'schemes.id')  // Use allocation_details.scheme for join
+        ->leftJoin('allotes', 'allocation_details.allote', '=', 'allotes.id')
+        ->select(
+            'allotes.fullname as allote_name',
+            'allotes.id as allote_id'
+        )
+        ->where('plots.plot_number', $plot)  // Assuming $plot contains the plot number (e.g., 20)
+        ->where('schemes.id', $scheme)      // Assuming $scheme contains the scheme ID (e.g., 1)
+        ->orderBy('plots.id', 'ASC')        // Sort ascending by plot ID
+        ->limit(1)                          // To mimic LIMIT 1 from SQL
+        ->first();                          // Fetches the first result
+    
+    // Return the result, or false if no record is found
+    return $plots ? $plots : false;
+    
+    }
      public function allotedPlotListing()
     {
-        // Fetch plots with related scheme details
-            // Query to fetch plots and related scheme information
+        $plots = DB::table('plots')
+    ->leftJoin('schemes', 'plots.scheme_id', '=', 'schemes.id')
+    ->leftJoin('allocation_details', 'allocation_details.plot', '=', 'plots.plot_number')
+    ->leftJoin('allotes', 'allocation_details.allote', '=', 'allotes.id')
+    ->select(
+        'plots.id as id',
+        'plots.status as plot_status',
+        'plots.plot_number',
+        'schemes.name as scheme',
+        'schemes.id as sid',
+        'allotes.fullname as allote_name',
+        'allotes.id as allote_id'
+    )
+    ->orderBy('plots.id') // Sort descending by plot ID
+    ->get();
+
+
+// Group data by schemes
+$groupedPlots = $plots->groupBy('scheme');
+$response = [];
+foreach ($groupedPlots as $schemeName => $plots) {
+    $response[] = [
+        'scheme' => $schemeName,
+        'plots' => $plots->map(function ($plot) {
+            return [
+                    'allote_id' => $this->getAlloteName($plot->plot_number,$plot->sid)?$this->getAlloteName($plot->plot_number,$plot->sid)->allote_id:'', // Handle missing allote name
+                    'status' => $plot->plot_status,
+                    'allote' => $this->getAlloteName($plot->plot_number,$plot->sid)?$this->getAlloteName($plot->plot_number,$plot->sid)->allote_name:'', // Handle missing allote name
+                    'status' => $plot->plot_status,
+                    'plot_number' => $plot->plot_number,
+             
+            ];
+        })->all(),
+    ];
+}
+
+
+
+ //dd($response);
+return $response;
             $plots = DB::table('plots')
             ->join('schemes', 'plots.scheme_id', '=', 'schemes.id')
             ->leftjoin('allocation_details', 'allocation_details.plot', '=', 'plots.plot_number')
