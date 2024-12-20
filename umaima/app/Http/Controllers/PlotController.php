@@ -46,6 +46,12 @@ class PlotController extends Controller
         $result = $this->plotservice->createPlot();
         return ($result);
     }
+    
+    public function updateplot()
+    {
+        $result = $this->plotservice->updateplot();
+        return ($result);
+    }
 
     public function plotSize(){
         $sizes = DB::table('plot_sizes')->get();

@@ -402,6 +402,56 @@ class PlotService
             ]);
         }
     }
+    public function updateplot()
+    {
+        try {
+            $validator = Validator::make($this->request->all(), [
+                'plot.id' => 'required|integer',
+                'plot.plotSize' => 'required|integer',
+                'plot.plotLocation' => 'required|integer',
+                'plot.plotCat' => 'required|integer',
+                'plot.category' => 'required|integer',
+                
+            ]);
+
+            if ($validator->fails()) {
+                // Format the error messages as a single string with line breaks
+                $errorMessages = implode("\n", $validator->errors()->all());
+            
+                return response()->json([
+                    'success' => false,
+                    'message' => "\n" . $errorMessages
+                ], 422); // Unprocessable Entity
+            }
+
+            // Insert into schemes table
+            $id=$this->request->input('plot.id');
+            $plot=Plot::find($id);
+          
+              
+                $plot->plot_size_id = $this->request->input('plot.plotSize');
+                $plot->plot_location_id = $this->request->input('plot.plotLocation');
+                $plot->plot_category_id=$this->request->input('plot.plotCat');
+                $plot->category_id=$this->request->input('plot.category');
+                $plot->updated_at =now();
+                $plot->save();
+            // Log the action
+            logAction('plot updated Plot', $plot->id.','.$plot->scheme_id);
+
+            // Success response
+            return response()->json([
+                'message' => 'Scheme Plot updated successfully!',
+                'success' => true
+            ]);
+        } catch (Exception $e) {
+            // Error response
+            
+            return response()->json([
+                'message' =>  $e->getMessage(),
+                'success' => false
+            ]);
+        }
+    }
 
     public function createPlotSize()
     {

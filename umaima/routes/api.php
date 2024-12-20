@@ -38,6 +38,7 @@ Route::middleware(['auth:sanctum','access'])->group(function () {
     Route::post('/update-scheme', [SchemeController::class, 'updateScheme'])->name('scheme.write');
     Route::post('/schemes', [SchemeController::class, 'listing'])->name('scheme.read');
     Route::post('/create-scheme-plot', [PlotController::class, 'store'])->name('plot.create');
+    Route::post('/edit-scheme-plot', [PlotController::class, 'updateplot'])->name('plot.create');
     Route::post('/allote/plots/{id}',[PlotController::Class,'alloteePlotes'])->name('allotment.read');
     Route::post('/plots', [PlotController::class, 'listing'])->name('plot.read');
     Route::post('/scheme-plots/{id}', [PlotController::class, 'schemePlots'])->name('plot.read');

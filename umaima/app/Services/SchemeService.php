@@ -376,6 +376,9 @@ return $response;
     public function editPlot($id){
         return Plot::find($id);
     }
+    public function getSchemes(){
+        return Scheme::all();
+    }
      
     
 }

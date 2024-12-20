@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\SchemeService;
+use DB;
 class SchemeController extends Controller
 {
     protected $schemeservice;
@@ -52,8 +53,11 @@ class SchemeController extends Controller
     {
         $plots = $this->schemeservice->editPlot($id);
         $schemes = $this->schemeservice->getSchemes();
-     
-        return view('schemes.edit-plots',compact('plots','schemes'));
+        $sizes = DB::table('plot_sizes')->get();
+        $locations = DB::table('plot_locations')->get();
+        $plot_categories = DB::table('plot_categories')->get();
+        $categories = DB::table('categories')->get();
+        return view('schemes.edit-plots',compact('plots','schemes','sizes','locations','plot_categories','categories'));
     }
     public function allotePlotByScheme($id)
     {
