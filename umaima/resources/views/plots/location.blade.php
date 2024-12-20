@@ -46,7 +46,7 @@
             <form id="addPermissionForm" class="row" onsubmit="return false">
               <div class="col-12 mb-4">
                 <label class="form-label" for="modalPermissionName">Permission Name</label>
-                <input type="text" id="modalPermissionName" name="modalPermissionName" class="form-control" placeholder="Permission Name">
+                <input type="text" id="modalPermissionName" name="modalPermissionName" class="form-control" tag="Permission Name">
               </div>
               <div class="col-12 mb-2">
                 <div class="form-check">
@@ -84,7 +84,7 @@
             <form id="editPermissionForm" class="row pt-2 row-gap-2 gx-4" onsubmit="return false">
               <div class="col-sm-9">
                 <label class="form-label" for="editPermissionName">Permission Name</label>
-                <input type="text" id="editPermissionName" name="editPermissionName" class="form-control" placeholder="Permission Name" tabindex="-1" />
+                <input type="text" id="editPermissionName" name="editPermissionName" class="form-control" tag="Permission Name" tabindex="-1" />
               </div>
               <div class="col-sm-3 mb-4">
                 <label class="form-label invisible d-none d-sm-inline-block">Button</label>

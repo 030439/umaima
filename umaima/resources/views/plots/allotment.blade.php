@@ -73,23 +73,23 @@
 
                     <div class="col-6 fv-plugins-icon-container">
                       <label class="form-label" for="category">Category</label>
-                      <input type="text" id="category" class="form-control" placeholder="John Doe" name="category" readonly>
+                      <input type="text" id="category" class="form-control" tag="John Doe" name="category" readonly>
                       <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                     </div>
                     <div class="col-6 fv-plugins-icon-container">
                       <label class="form-label" for="cat">Sub Category</label>
-                      <input type="text" id="cat" class="form-control" placeholder="plot sub cat" name="cat" readonly>
+                      <input type="text" id="cat" class="form-control" tag="plot sub cat" name="cat" readonly>
                       <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                     </div>
                    
                     <div class="col-md-6 fv-plugins-icon-container">
                       <label class="form-label" for="location">Location</label>
-                      <input type="text" id="location" class="form-control" placeholder="John Doe" name="location" readonly>
+                      <input type="text" id="location" class="form-control" tag="John Doe" name="location" readonly>
                     <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
                     
                     <div class="col-md-6 fv-plugins-icon-container">
                       <label class="form-label" for="plot-size">Plot Size</label>
-                      <input type="text" id="plot-size" class="form-control" placeholder="John Doe" name="plot-size" readonly>
+                      <input type="text" id="plot-size" class="form-control" tag="John Doe" name="plot-size" readonly>
                     <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
                   
                       
@@ -107,16 +107,16 @@
                       
                       <div class="col-sm-6">
                         <label class="form-label" for="onbooking">On Booking</label>
-                        <input type="number" id="onbooking" name="onbooking" class="form-control" placeholder="10000" />
+                        <input type="number" id="onbooking" name="onbooking" class="form-control" tag="10000" />
                       </div>
                       <div class="col-sm-6">
                         <label class="form-label" for="allocation">Allocation </label>
-                        <input type="number" id="allocation" name="allocation" class="form-control" placeholder="10000" />
+                        <input type="number" id="allocation" name="allocation" class="form-control" tag="10000" />
                       </div>
                     
                       <div class="col-sm-6">
                         <label class="form-label" for="confirmation">Confirmation </label>
-                        <input type="number" id="confirmation" name="confirmation" class="form-control" placeholder="10000" />
+                        <input type="number" id="confirmation" name="confirmation" class="form-control" tag="10000" />
                       </div>
                       <div class="col-6">
                         <label class="form-label" for="installment">installment</label>
@@ -126,7 +126,7 @@
                       </div>
                       <div class="col-sm-6">
                         <label class="form-label" for="installment_amount">Amount</label>
-                        <input type="number" id="installment_amount" name="installment_amount" class="form-control" placeholder="John" />
+                        <input type="number" id="installment_amount" name="installment_amount" class="form-control" tag="John" />
                       </div>
                       <div class="col-6">
                           <label class="form-label" for="duration">Mid Pay Durations</label>
@@ -136,7 +136,7 @@
                         </div>
                         <div class="col-sm-6">
                         <label class="form-label" for="duration_amount">Amount</label>
-                        <input type="number" id="duration_amount" name="duration_amount" class="form-control" placeholder="John" />
+                        <input type="number" id="duration_amount" name="duration_amount" class="form-control" tag="John" />
                       </div>
                       <div class="col-6">
                           <label class="form-label" for="extra">Extra Charges</label>
@@ -149,15 +149,15 @@
                         </div>
                         <div class="col-sm-6">
                         <label class="form-label" for="percentage">Percentage</label>
-                        <input type="number" id="percentage" name="percentage" class="form-control" placeholder="0.5" />
+                        <input type="number" id="percentage" name="percentage" class="form-control" tag="0.5" />
                       </div>
                       <div class="col-sm-6">
                         <label class="form-label" for="possession">Possession </label>
-                        <input type="number" id="possession" name="possession" class="form-control" placeholder="10000" />
+                        <input type="number" id="possession" name="possession" class="form-control" tag="10000" />
                       </div>
                       <div class="col-sm-6">
                         <label class="form-label" for="demargation">Demargation </label>
-                        <input type="number" id="demargation" name="demargation" class="form-control" placeholder="10000" />
+                        <input type="number" id="demargation" name="demargation" class="form-control" tag="10000" />
                       </div>
                     </div>
                 </div>

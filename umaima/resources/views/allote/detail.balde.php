@@ -277,19 +277,19 @@
                 <form id="editUserForm" class="row g-6" onsubmit="return false">
                 <div class="col-12 col-md-6">
                     <label class="form-label" for="modalEditUserFirstName">First Name</label>
-                    <input type="text" id="modalEditUserFirstName" name="modalEditUserFirstName" class="form-control" placeholder="John" value="John" />
+                    <input type="text" id="modalEditUserFirstName" name="modalEditUserFirstName" class="form-control" tag="John" value="John" />
                 </div>
                 <div class="col-12 col-md-6">
                     <label class="form-label" for="modalEditUserLastName">Last Name</label>
-                    <input type="text" id="modalEditUserLastName" name="modalEditUserLastName" class="form-control" placeholder="Doe" value="Doe" />
+                    <input type="text" id="modalEditUserLastName" name="modalEditUserLastName" class="form-control" tag="Doe" value="Doe" />
                 </div>
                 <div class="col-12">
                     <label class="form-label" for="modalEditUserName">Username</label>
-                    <input type="text" id="modalEditUserName" name="modalEditUserName" class="form-control" placeholder="johndoe007" value="johndoe007" />
+                    <input type="text" id="modalEditUserName" name="modalEditUserName" class="form-control" tag="johndoe007" value="johndoe007" />
                 </div>
                 <div class="col-12 col-md-6">
                     <label class="form-label" for="modalEditUserEmail">Email</label>
-                    <input type="text" id="modalEditUserEmail" name="modalEditUserEmail" class="form-control" placeholder="example@domain.com" value="example@domain.com" />
+                    <input type="text" id="modalEditUserEmail" name="modalEditUserEmail" class="form-control" tag="example@domain.com" value="example@domain.com" />
                 </div>
                 <div class="col-12 col-md-6">
                     <label class="form-label" for="modalEditUserStatus">Status</label>
@@ -302,13 +302,13 @@
                 </div>
                 <div class="col-12 col-md-6">
                     <label class="form-label" for="modalEditTaxID">Tax ID</label>
-                    <input type="text" id="modalEditTaxID" name="modalEditTaxID" class="form-control modal-edit-tax-id" placeholder="123 456 7890" value="123 456 7890" />
+                    <input type="text" id="modalEditTaxID" name="modalEditTaxID" class="form-control modal-edit-tax-id" tag="123 456 7890" value="123 456 7890" />
                 </div>
                 <div class="col-12 col-md-6">
                     <label class="form-label" for="modalEditUserPhone">Phone Number</label>
                     <div class="input-group">
                     <span class="input-group-text">US (+1)</span>
-                    <input type="text" id="modalEditUserPhone" name="modalEditUserPhone" class="form-control phone-number-mask" placeholder="202 555 0111" value="202 555 0111" />
+                    <input type="text" id="modalEditUserPhone" name="modalEditUserPhone" class="form-control phone-number-mask" tag="202 555 0111" value="202 555 0111" />
                     </div>
                 </div>
                 <div class="col-12 col-md-6">

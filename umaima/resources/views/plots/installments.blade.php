@@ -97,7 +97,7 @@
                         <form id="addPermissionForm" class="row" onsubmit="return false">
                         <div class="col-12 mb-4">
                             <label class="form-label" for="modalPermissionName">Installment </label>
-                            <input type="text" id="modalPermissionName" name="modalPermissionName" class="form-control" placeholder="installment">
+                            <input type="text" id="modalPermissionName" name="modalPermissionName" class="form-control" tag="installment">
                             <div class="fv-plugins-message-container invalid-feedbacks"></div>
                         </div>
                         <div class="col-12 text-center demo-vertical-spacing">
@@ -121,12 +121,12 @@
                         <form id="addsizeForm" class="row" onsubmit="return false">
                         <div class="col-12 mb-4">
                             <label class="form-label" for="durationname">Duration Name</label>
-                            <input type="text" id="durationname" name="durationname" class="form-control" placeholder="duration">
+                            <input type="text" id="durationname" name="durationname" class="form-control" tag="duration">
                             <div class="fv-plugins-message-container invalid-feedbacks"></div>
                         </div>
                         <div class="col-12 mb-4">
                             <label class="form-label" for="modalPermissionName">Duration</label>
-                            <input type="text" id="plotsizefiled" name="modalPermissionName" class="form-control" placeholder="duration">
+                            <input type="text" id="plotsizefiled" name="modalPermissionName" class="form-control" tag="duration">
                             <div class="fv-plugins-message-container invalid-feedbacks"></div>
                         </div>
                         <div class="col-12 text-center demo-vertical-spacing">

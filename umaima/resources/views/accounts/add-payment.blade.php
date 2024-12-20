@@ -61,12 +61,12 @@
 
                         <div class="col-6">
                             <label class="col-form-label text-sm-end" for="amount">Amount</label>
-                            <input type="number" id="amount" name="amount" class="form-control" placeholder="Enter Amount" />
+                            <input type="number" id="amount" name="amount" class="form-control" tag="Enter Amount" />
                         </div>
 
                         <div class="col-6">
                             <label class="col-form-label text-sm-end" for="narration">Narration</label>
-                            <input type="text" id="narration" name="narration" class="form-control" placeholder="Enter Narration" />
+                            <input type="text" id="narration" name="narration" class="form-control" tag="Enter Narration" />
                         </div>
                     </div>
 

@@ -131,7 +131,7 @@
                         <form id="addPermissionForm" class="row" onsubmit="return false">
                         <div class="col-12 mb-4">
                             <label class="form-label" for="modalPermissionName">Location Name</label>
-                            <input type="text" id="modalPermissionName" name="modalPermissionName" class="form-control" placeholder="location Name">
+                            <input type="text" id="modalPermissionName" name="modalPermissionName" class="form-control" tag="location Name">
                             <div class="fv-plugins-message-container invalid-feedbacks"></div>
                         </div>
                         <div class="col-12 text-center demo-vertical-spacing">
@@ -154,7 +154,7 @@
                         <form id="addCatForm" class="row" onsubmit="return false">
                         <div class="col-12 mb-4">
                             <label class="form-label" for="modalcategoryName">Category Name</label>
-                            <input type="text" id="modalcategoryName" name="category" class="form-control" placeholder="category Name">
+                            <input type="text" id="modalcategoryName" name="category" class="form-control" tag="category Name">
                             <div class="fv-plugins-message-container invalid-feedbacks"></div>
                         </div>
                         <div class="col-12 text-center demo-vertical-spacing">
@@ -178,7 +178,7 @@
                         <form id="addsizeForm" class="row" onsubmit="return false">
                         <div class="col-12 mb-4">
                             <label class="form-label" for="modalPermissionName">Plot  Size</label>
-                            <input type="text" id="plotsizefiled" name="modalPermissionName" class="form-control" placeholder="plot size Name">
+                            <input type="text" id="plotsizefiled" name="modalPermissionName" class="form-control" tag="plot size Name">
                             <div class="fv-plugins-message-container invalid-feedbacks"></div>
                         </div>
                         <div class="col-12 text-center demo-vertical-spacing">

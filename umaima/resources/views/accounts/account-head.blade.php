@@ -65,7 +65,7 @@
                         <form id="addPermissionForm" class="row" onsubmit="return false">
                         <div class="col-12 mb-4">
                             <label class="form-label" for="modalPermissionName">Expense Head </label>
-                            <input type="text" id="modalPermissionName" name="modalPermissionName" class="form-control" placeholder="installment">
+                            <input type="text" id="modalPermissionName" name="modalPermissionName" class="form-control" tag="installment">
                             <div class="fv-plugins-message-container invalid-feedbacks"></div>
                         </div>
                         <div class="col-12 text-center demo-vertical-spacing">

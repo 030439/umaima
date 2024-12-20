@@ -29,23 +29,23 @@
 <form id="schemeForm" class="row g-6" onsubmit="return false">
   <div class="col-md-6">
     <label class="form-label" for="schemeName">Scheme Name</label>
-    <input type="text" id="schemeName" class="form-control" placeholder="Scheme name" name="schemeName" />
+    <input type="text" id="schemeName" class="form-control" tag="Scheme name" name="schemeName" />
     <div class="invalid-feedback"></div>
   </div>
   
   <div class="col-md-6">
     <label class="form-label" for="schemeArea">Area</label>
-    <input class="form-control" type="number" id="schemeArea" name="schemeArea" placeholder="Scheme area" />
+    <input class="form-control" type="number" id="schemeArea" name="schemeArea" tag="Scheme area" />
   </div>
 
   <div class="col-md-6">
     <label class="form-label" for="numberOfPlots">No. of Plots</label>
-    <input class="form-control" type="number" id="numberOfPlots" name="numberOfPlots" placeholder="Number of plots" />
+    <input class="form-control" type="number" id="numberOfPlots" name="numberOfPlots" tag="Number of plots" />
   </div>
 
   <div class="col-md-6">
     <label class="form-label" for="totalValuation">Total Valuation</label>
-    <input class="form-control" type="number" id="totalValuation" name="totalValuation" placeholder="Total valuation" />
+    <input class="form-control" type="number" id="totalValuation" name="totalValuation" tag="Total valuation" />
   </div>
 
   <div class="col-12">

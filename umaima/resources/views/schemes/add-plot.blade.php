@@ -37,7 +37,7 @@
 
         <div class="col-md-6">
             <label class="form-label" for="plotNumber">Plot Number</label>
-            <input type="text" id="plotNumber" class="form-control" placeholder="Plot number" name="plotNumber"  />
+            <input type="text" id="plotNumber" class="form-control" tag="Plot number" name="plotNumber"  />
             <div class="invalid-feedback">Please enter the plot number.</div>
         </div>
 

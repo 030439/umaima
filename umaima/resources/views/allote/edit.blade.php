@@ -31,31 +31,31 @@
             <div class="row g-6">
               <div class="col-sm-6">
                 <label class="form-label" for="formValidationFirstName">Full Name</label>
-                <input type="text" id="formValidationFirstName" value="{{$allote->fullname}}" name="formValidationFirstName" class="form-control" placeholder="John" />
+                <input type="text" id="formValidationFirstName" value="{{$allote->fullname}}" name="formValidationFirstName" class="form-control" tag="John" />
               </div>
               <div class="col-sm-6">
                 <label class="form-label" for="formValidationLastName">CNIC </label>
-                <input type="text" id="formValidationLastName" value="{{$allote->cnic}}" name="formValidationLastName" class="form-control" placeholder="Doe" />
+                <input type="text" id="formValidationLastName" value="{{$allote->cnic}}" name="formValidationLastName" class="form-control" tag="Doe" />
               </div>
               <div class="col-sm-6">
                 <label class="form-label" for="formValidationFirstName">Father's/Husband Name</label>
-                <input type="text" id="formValidationFirstName" value="{{$allote->father}}" name="father" class="form-control" placeholder="John" />
+                <input type="text" id="formValidationFirstName" value="{{$allote->father}}" name="father" class="form-control" tag="John" />
               </div>
               <div class="col-sm-6">
                 <label class="form-label" for="formValidationLastName">CNIC </label>
-                <input type="text" id="formValidationLastName" value="{{$allote->fcnic}}" name="fcnic" class="form-control" placeholder="Doe" />
+                <input type="text" id="formValidationLastName" value="{{$allote->fcnic}}" name="fcnic" class="form-control" tag="Doe" />
               </div>
               <div class="col-sm-6">
                 <label class="form-label" for="formValidation">Guardian Name</label>
-                <input type="text" id="formValidation" value="{{$allote->guardian}}" name="guardian" class="form-control" placeholder="John" />
+                <input type="text" id="formValidation" value="{{$allote->guardian}}" name="guardian" class="form-control" tag="John" />
               </div>
               <div class="col-sm-6">
                 <label class="form-label" for="formValidation">CNIC </label>
-                <input type="text" id="formValidation" value="{{$allote->gcnic}}" name="gcnic" class="form-control" placeholder="Doe" />
+                <input type="text" id="formValidation" value="{{$allote->gcnic}}" name="gcnic" class="form-control" tag="Doe" />
               </div>
               <div class="col-sm-6">
                 <label class="form-label" for="formValidationOccupation">Occupation </label>
-                <input type="text" id="formValidationOccupation" value="{{$allote->occupation}}" name="occupation" class="form-control" placeholder="Doe" />
+                <input type="text" id="formValidationOccupation" value="{{$allote->occupation}}" name="occupation" class="form-control" tag="Doe" />
               </div>
               <div class="col-md-6">
                 <label class="form-label" for="multicol-">Birth Date</label>
@@ -76,15 +76,15 @@
             
             <div class="col-sm-6">
                 <label class="form-label" for="formValidationLastName">Nationality </label>
-                <input type="text" id="formValidationGoogle" value="{{$allote->nationality}}" name="nationality" class="form-control" placeholder="Doe" />
+                <input type="text" id="formValidationGoogle" value="{{$allote->nationality}}" name="nationality" class="form-control" tag="Doe" />
               </div>
               <!-- <div class="col-sm-6">
                 <label class="form-label" for="formValidationLastName">Occupation </label>
-                <input type="text" id="formValidationLastName" name="formValidationLastName" class="form-control" placeholder="Doe" />
+                <input type="text" id="formValidationLastName" name="formValidationLastName" class="form-control" tag="Doe" />
               </div> -->
               <div class="col-sm-6">
                 <label class="form-label" for="formValidationLastName">Residence No </label>
-                <input type="text" id="formValidationLastName"value="{{$allote->residence_no}}" name="residence" class="form-control" placeholder="Doe" />
+                <input type="text" id="formValidationLastName"value="{{$allote->residence_no}}" name="residence" class="form-control" tag="Doe" />
               </div>
               <div class="mb-6">
                 <label class="form-label" for="bs-validation-bio">Address</label>

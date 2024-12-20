@@ -43,19 +43,19 @@
                       <form id="editUserForm" class="row g-6 fv-plugins-bootstrap5 fv-plugins-framework" novalidate>
                         <div class="col-12 col-md-6">
                           <label class="form-label" for="modalEditUserFirstName">First Name</label>
-                          <input type="text" id="modalEditUserFirstName" name="fname" class="form-control" placeholder="John" required>
+                          <input type="text" id="modalEditUserFirstName" name="fname" class="form-control" tag="John" required>
                           <div class="fv-plugins-message-container invalid-feedbacks">Please enter your first name.</div>
                         </div>
                         
                         <div class="col-12 col-md-6">
                           <label class="form-label" for="modalEditUserLastName">Last Name</label>
-                          <input type="text" id="modalEditUserLastName" name="lname" class="form-control" placeholder="Doe" required>
+                          <input type="text" id="modalEditUserLastName" name="lname" class="form-control" tag="Doe" required>
                           <div class="fv-plugins-message-container invalid-feedbacks">Please enter your last name.</div>
                         </div>
                         
                         <div class="col-12 col-md-6">
                           <label class="form-label" for="modalEditUserName">Username</label>
-                          <input type="text" id="modalEditUserName" name="username" class="form-control" placeholder="johndoe007" required>
+                          <input type="text" id="modalEditUserName" name="username" class="form-control" tag="johndoe007" required>
                           <div class="fv-plugins-message-container invalid-feedbacks">Please enter a username.</div>
                         </div>
                         
@@ -68,7 +68,7 @@
                         
                         <div class="col-12 col-md-6">
                           <label class="form-label" for="modalEditUserEmail">Email</label>
-                          <input type="email" id="modalEditUserEmail" name="email" class="form-control" placeholder="example@domain.com" required>
+                          <input type="email" id="modalEditUserEmail" name="email" class="form-control" tag="example@domain.com" required>
                           <div class="fv-plugins-message-container invalid-feedbacks">Please enter a valid email.</div>
                         </div>
                         

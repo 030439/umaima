@@ -30,31 +30,31 @@
             <div class="row g-6">
               <div class="col-sm-6">
                 <label class="form-label" for="formValidationFirstName">Full Name</label>
-                <input type="text" id="formValidationFirstName" name="formValidationFirstName" class="form-control" placeholder="John" />
+                <input type="text" id="formValidationFirstName" name="formValidationFirstName" class="form-control" tag="John" />
               </div>
               <div class="col-sm-6">
                 <label class="form-label" for="formValidationLastName">CNIC </label>
-                <input type="text" id="formValidationLastName" name="formValidationLastName" class="form-control" placeholder="Doe" />
+                <input type="text" id="formValidationLastName" name="formValidationLastName" class="form-control" tag="Doe" />
               </div>
               <div class="col-sm-6">
                 <label class="form-label" for="formValidationFirstName">Father's/Husband Name</label>
-                <input type="text" id="formValidationFirstName" name="father" class="form-control" placeholder="John" />
+                <input type="text" id="formValidationFirstName" name="father" class="form-control" tag="John" />
               </div>
               <div class="col-sm-6">
                 <label class="form-label" for="formValidationLastName">CNIC </label>
-                <input type="text" id="formValidationLastName" name="fcnic" class="form-control" placeholder="Doe" />
+                <input type="text" id="formValidationLastName" name="fcnic" class="form-control" tag="Doe" />
               </div>
               <div class="col-sm-6">
                 <label class="form-label" for="formValidation">Guardian Name</label>
-                <input type="text" id="formValidation" name="guardian" class="form-control" placeholder="John" />
+                <input type="text" id="formValidation" name="guardian" class="form-control" tag="John" />
               </div>
               <div class="col-sm-6">
                 <label class="form-label" for="formValidation">CNIC </label>
-                <input type="text" id="formValidation" name="gcnic" class="form-control" placeholder="Doe" />
+                <input type="text" id="formValidation" name="gcnic" class="form-control" tag="Doe" />
               </div>
               <div class="col-sm-6">
                 <label class="form-label" for="formValidationOccupation">Occupation </label>
-                <input type="text" id="formValidationOccupation" name="occupation" class="form-control" placeholder="Doe" />
+                <input type="text" id="formValidationOccupation" name="occupation" class="form-control" tag="Doe" />
               </div>
               <div class="col-md-6">
                 <label class="form-label" for="multicol-birthdate">Birth Date</label>
@@ -75,15 +75,15 @@
             
             <div class="col-sm-6">
                 <label class="form-label" for="formValidationLastName">Nationality </label>
-                <input type="text" id="formValidationGoogle" name="nationality" class="form-control" placeholder="Doe" />
+                <input type="text" id="formValidationGoogle" name="nationality" class="form-control" tag="Doe" />
               </div>
               <!-- <div class="col-sm-6">
                 <label class="form-label" for="formValidationLastName">Occupation </label>
-                <input type="text" id="formValidationLastName" name="formValidationLastName" class="form-control" placeholder="Doe" />
+                <input type="text" id="formValidationLastName" name="formValidationLastName" class="form-control" tag="Doe" />
               </div> -->
               <div class="col-sm-6">
                 <label class="form-label" for="formValidationLastName">Residence No </label>
-                <input type="text" id="formValidationLastName" name="residence" class="form-control" placeholder="Doe" />
+                <input type="text" id="formValidationLastName" name="residence" class="form-control" tag="Doe" />
               </div>
               <div class="mb-6">
                 <label class="form-label" for="bs-validation-bio">Address</label>

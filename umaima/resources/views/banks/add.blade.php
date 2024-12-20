@@ -22,23 +22,23 @@
               </div>
               <div class="col-md-4">
                 <label class="form-label" for="bank">Bank Name</label>
-                <input type="text" id="bank" class="form-control" placeholder="Bank name" name="bank" />
+                <input type="text" id="bank" class="form-control" tag="Bank name" name="bank" />
               </div>
               <div class="col-md-4">
                 <label class="form-label" for="branch">Branch</label>
-                <input type="text" id="branch" class="form-control" placeholder="branch" name="branch" />
+                <input type="text" id="branch" class="form-control" tag="branch" name="branch" />
               </div>
               <div class="col-md-4">
                 <label class="form-label" for="account-holder">Account Holder</label>
-                <input type="text" id="account-holder" class="form-control" placeholder="account-holder" name="account_holder" />
+                <input type="text" id="account-holder" class="form-control" tag="account-holder" name="account_holder" />
               </div>
               <div class="col-md-4">
                 <label class="form-label" for="account-no">Account No</label>
-                <input type="text" id="account-no" class="form-control" placeholder="123123-123123-123" name="account_no" />
+                <input type="text" id="account-no" class="form-control" tag="123123-123123-123" name="account_no" />
               </div>
               <div class="col-md-4">
                 <label class="form-label" for="initial-balance">Initial Balance</label>
-                <input type="number" id="initial-balance" class="form-control" placeholder="0000000000" name="initial_balance" />
+                <input type="number" id="initial-balance" class="form-control" tag="0000000000" name="initial_balance" />
               </div>
 
               <div class="col-12">
