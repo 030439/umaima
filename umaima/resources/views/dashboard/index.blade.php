@@ -115,19 +115,19 @@
           </div>
           <div class="card-body">
             <ul class="p-0 m-0">
-              @if($totalPaymentsByAllote)
-              @foreach($totalPaymentsByAllote as $ap)
+              @if($expensesByHeads)
+              @foreach($expensesByHeads as $ex)
                 <li class="d-flex align-items-center mb-4">
                 
                   <div class="d-flex w-100 badge bg-label-gray flex-wrap align-items-center justify-content-between gap-2">
                     <div class="me-2">
                       <div class="d-flex align-items-center">
-                        <h6 class="mb-0 me-1">{{$ap->allote}}</h6>
+                        <h6 class="mb-0 me-1">{{$ex->expense}}</h6>
                       </div>
                     </div>
                     <div class="user-progress">
                       <p class="text-info fw-medium mb-0 d-flex align-items-center gap-1">
-                        {{$ap->total_amount}}
+                        {{$ex->total_amount}}
                       </p>
                     </div>
                   </div>

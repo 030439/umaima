@@ -84,6 +84,114 @@ class AlloteService
             'draw' => $draw,
         ];
     }
+    public function getInActiveAllotees()
+    {
+        // Use request parameters with fallback defaults
+        $perPage = $this->request->input('length', 10);
+        $start = $this->request->input('start', 0);
+        $length = $this->request->input('length', 10);
+        $page = ($start / $length) + 1;
+        $orderColumn = $this->request->input('orderColumn', 'plots.id');
+        $orderDirection = $this->request->input('orderDirection', 'asc');
+        $draw = $this->request->get('draw');
+        $searchValue = $this->request->input('search')['value'] ?? null;
+
+        $allocationDetailsQuery = DB::table('allocation_details')
+    ->select(
+        'allocation_details.allote',
+        'allocation_details.id',
+        'allotes.fullname as allote_name',
+        'plots.plot_number as plot'
+    )
+    ->leftJoin(
+        DB::raw('(SELECT allocation_details_id, MAX(updated_at) AS last_payment_date 
+                  FROM payment_schedule 
+                  GROUP BY allocation_details_id) as ps'),
+        'allocation_details.id', '=', 'ps.allocation_details_id'
+    )
+    ->leftJoin('allotes', 'allocation_details.allote', '=', 'allotes.id')
+    ->leftJoin('plots', 'allocation_details.plot', '=', 'plots.plot_number')
+    ->where(function ($query) {
+        $query->whereNull('ps.last_payment_date')
+              ->orWhere('ps.last_payment_date', '<', DB::raw('DATE_SUB(CURDATE(), INTERVAL 1 MONTH)'));
+    });
+       
+    if (!empty($searchValue)) {
+        $allocationDetailsQuery->where(function ($query) use ($searchValue) {
+            $query->where('allocation_details.allote', 'LIKE', "%{$searchValue}%")
+                  ->orWhere('allotes.fullname', 'LIKE', "%{$searchValue}%")
+                  ->orWhere('plots.plot_number', 'LIKE', "%{$searchValue}%");
+        });
+    }
+    
+    // Apply sorting
+    $allocationDetailsQuery->orderBy($orderColumn, $orderDirection);
+    
+    // Apply pagination
+    $allocationDetails = $allocationDetailsQuery
+        ->offset($start)
+        ->limit($length)
+        ->get();
+    
+  
+    
+        // Step 2: Initialize an empty array for results
+        $results = [];
+        
+        // Step 3: Loop through each allocation_detail
+        foreach ($allocationDetails as $detail) {
+            // Fetch the latest outstanding amount from payment_schedule
+            $latestDue = DB::table('payment_schedule')
+                ->where('allocation_details_id', $detail->id)
+                ->orderByDesc('id')
+                ->value('outstanding');
+        
+            // Fetch the latest plot status from plots table
+            $latestStatus = DB::table('plots')
+                ->where('plot_number', $detail->plot)
+                ->orderByDesc('id')
+                ->value('status');
+        
+            // Fetch the latest plot number from plots table
+            $latestPlotNumber = DB::table('plots')
+                ->where('plot_number', $detail->plot)
+                ->orderByDesc('id')
+                ->value('plot_number');
+        
+            // Aggregate payment_schedule data for this allocation_detail
+            $paymentSummary = DB::table('payment_schedule')
+                ->selectRaw('SUM(outstanding) as totalDue, SUM(amount) as totalAmount, SUM(amount_paid) as totalPaid')
+                ->where('allocation_details_id', $detail->id)
+                ->first();
+        
+            // Construct the result for this allocation_detail
+            $results[] = [
+                // 'scheme' => $detail->scheme,
+                'id' => $detail->id,
+                'plot' => $detail->plot,
+                'allote' => $detail->allote_name,
+                'status' => $latestStatus,
+                'plot_number' => $latestPlotNumber,
+                'totalDue' => $paymentSummary->totalDue ?? 0,
+                'amount' => $paymentSummary->totalAmount ?? 0,
+                'paid' => $paymentSummary->totalPaid ?? 0,
+            ];
+        }
+        // Step 4: Get the total records count
+        $totalRecords = count($results);
+        
+        
+            $data = $results;
+            $totalRecords=count($results);
+            $filteredRecords=count($results);
+            // Return the result (formatted for DataTables)
+            return response()->json([
+                'draw' => $draw,
+                'recordsTotal' => $totalRecords,
+                'recordsFiltered' => $filteredRecords,
+                'data' => $data
+            ]);
+    }
     public function plotPaymet($id)
     {
         // Use request parameters with fallback defaults
@@ -235,74 +343,74 @@ class AlloteService
     }
 
     public function updateAllote()
-{
-    $id=$this->request->input("id");
-    try {
-        // Validate the request inputs
-        $validator = Validator::make($this->request->all(), [
-      
-            'formValidationFirstName' => 'required',
-            'formValidationLastName' => 'required',
-        ]);
+    {
+        $id=$this->request->input("id");
+        try {
+            // Validate the request inputs
+            $validator = Validator::make($this->request->all(), [
+        
+                'formValidationFirstName' => 'required',
+                'formValidationLastName' => 'required',
+            ]);
 
-        if ($validator->fails()) {
-            // Format the error messages as a single string with line breaks
-            $errorMessages = implode("\n", $validator->errors()->all());
+            if ($validator->fails()) {
+                // Format the error messages as a single string with line breaks
+                $errorMessages = implode("\n", $validator->errors()->all());
 
+                return response()->json([
+                    'success' => false,
+                    'message' => "\n" . $errorMessages
+                ], 422); // Unprocessable Entity
+            }
+
+            // Find the existing Allote record by its ID
+            $allote = Allote::find($id);
+
+            if (!$allote) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Allote record not found.'
+                ], 404); // Not Found
+            }
+
+            // Prepare the data for updating
+            $arr = [
+                'username' => $this->request->input('formValidationUsername'),
+                'email' => $this->request->input('formValidationEmail'),
+                'cellno' => $this->request->input('formValidationcell'),
+                'phone' => $this->request->input('formValidationoffice'),
+                'fullname' => $this->request->input('formValidationFirstName'),
+                'cnic' => $this->request->input('formValidationLastName'),
+                'guardian' => $this->request->input('guardian'),
+                'gcnic' => $this->request->input('gcnic'),
+                'father' => $this->request->input('father'),
+                'fcnic' => $this->request->input('fcnic'),
+                'occupation' => $this->request->input('occupation'),
+                'dob' => $this->request->input('dob'),
+                'nationality' => $this->request->input('nationality'),
+                'residence_no' => $this->request->input('residence'),
+                'address' => $this->request->input('address')
+            ];
+
+            // Update the Allote record
+            $allote->update($arr);
+
+            // Log the action
+            logAction('Updated Allote', $allote->fullname . ',' . $allote->username);
+
+            // Success response
             return response()->json([
-                'success' => false,
-                'message' => "\n" . $errorMessages
-            ], 422); // Unprocessable Entity
-        }
-
-        // Find the existing Allote record by its ID
-        $allote = Allote::find($id);
-
-        if (!$allote) {
+                'message' => 'Allote updated successfully!',
+                'success' => true
+            ]);
+        } catch (Exception $e) {
+            // Error response
             return response()->json([
-                'success' => false,
-                'message' => 'Allote record not found.'
-            ], 404); // Not Found
+                'message' => $e->getMessage(),
+                'success' => false
+            ]);
         }
-
-        // Prepare the data for updating
-        $arr = [
-            'username' => $this->request->input('formValidationUsername'),
-            'email' => $this->request->input('formValidationEmail'),
-            'cellno' => $this->request->input('formValidationcell'),
-            'phone' => $this->request->input('formValidationoffice'),
-            'fullname' => $this->request->input('formValidationFirstName'),
-            'cnic' => $this->request->input('formValidationLastName'),
-            'guardian' => $this->request->input('guardian'),
-            'gcnic' => $this->request->input('gcnic'),
-            'father' => $this->request->input('father'),
-            'fcnic' => $this->request->input('fcnic'),
-            'occupation' => $this->request->input('occupation'),
-            'dob' => $this->request->input('dob'),
-            'nationality' => $this->request->input('nationality'),
-            'residence_no' => $this->request->input('residence'),
-            'address' => $this->request->input('address')
-        ];
-
-        // Update the Allote record
-        $allote->update($arr);
-
-        // Log the action
-        logAction('Updated Allote', $allote->fullname . ',' . $allote->username);
-
-        // Success response
-        return response()->json([
-            'message' => 'Allote updated successfully!',
-            'success' => true
-        ]);
-    } catch (Exception $e) {
-        // Error response
-        return response()->json([
-            'message' => $e->getMessage(),
-            'success' => false
-        ]);
     }
-}
 
     
 

@@ -205,8 +205,9 @@ fetchSchemeDetails();
     });
     selectPlot.addEventListener("change", function () {
         const plotId = selectPlot.value;
+          const scheme_ = selectScheme.value;
         if (plotId) {
-            fetchPlotsDetails(plotId);
+            fetchPlotsDetails(plotId,scheme_);
         } else {
             resetPlots();
         }
@@ -235,14 +236,14 @@ fetchSchemeDetails();
         });
     }
 
-    function fetchPlotsDetails(schemeId) {
+    function fetchPlotsDetails(plot,scheme_) {
         $.ajax({
             method: "post",
             url: `/api/get-plots-detail`,
             headers: {
                 "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
             },
-            data:{id:schemeId}, // Your endpoint for fetching plots
+            data:{id:plot,'scheme':scheme_}, // Your endpoint for fetching plots
             success: function (response) {
                 if (response.success && response.detail) {
                     $("#category").val(response.detail[0].category);

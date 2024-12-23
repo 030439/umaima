@@ -23,11 +23,11 @@ use App\Http\Controllers\LogController;
 |
 */
 
-Route::get("clearData",function(){
+Route::get("/clearData",function(){
     \Artisan::call('cache:clear');
      \Artisan::call('route:clear');
      \Artisan::call('config:cache');
-           \Artisan::call('optimize:clear');
+
        return "Route cache cleared successfully!"; 
 });
 

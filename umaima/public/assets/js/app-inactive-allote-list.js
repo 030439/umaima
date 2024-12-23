@@ -36,85 +36,47 @@ $(function() {
             },
             columns: [   // Map to 'name' in the returned JSON
                 { data: 'id',title:"Name" },       // Map to 'id' in the returned JSON
-                { data: 'id',title:"Contact-No" },     // Map to 'name' in the returned JSON
-                { data: 'id',title:"Email" },       // Map to 'id' in the returned JSON
-                { data: 'id',title:"CNIC" }, 
-                { data: 'id',title:"status" },  
-                { data: 'id',title:"actions" },  
+                { data: 'id',title:"Plot-No" },     // Map to 'name' in the returned JSON
+                { data: 'id',title:"Amount" },       // Map to 'id' in the returned JSON
+                { data: 'id',title:"Paid" }, 
+                { data: 'id',title:"Due" },   
             ],
             columnDefs: [
              
+             
                 {
                     targets: 0,
-                    responsivePriority: 4,
                     render: function(t, e, a, s) {
-                        var n = a.fullname,
-                            i = a.email,
-                            o = a.status;
-                        return '<div class="d-flex justify-content-start align-items-center user-name">' +
-                            '<div class="d-flex flex-column"><a  class="text-heading text-truncate"><span class="fw-medium">' + n + "</span></a></div></div>";
-                    }
-                },
-                {
-                    targets: 1,
-                    render: function(t, e, a, s) {
-                        return '<span class="text-heading">' + a.cellno + "</span>";
+                        return '<span class="text-heading">' + a.allote + "</span>";
                     }
                     
                 },
                 {
+                    targets: 1,
+                    render: function(t, e, a, s) {
+                        return '<span class="text-heading">' + a.plot_number + "</span>";
+                    }
+                },
+                {
                     targets: 2,
                     render: function(t, e, a, s) {
-                        return '<span class="text-heading">' + a.email + "</span>";
+                        return '<span class="text-heading">' + a.amount + "</span>";
                     }
                 },
                 {
                     targets: 3,
                     render: function(t, e, a, s) {
-                        return '<span class="text-heading">' + a.cnic + "</span>";
+                        return '<span class="text-heading">' + a.paid + "</span>";
                     }
                 },
                 {
                     targets: 4,
                     render: function(t, e, a, s) {
-                        a = a.status;
-                        var status_bg;
-                        var status_title;
-                        if (a == 1) {
-                            status_title="Active"
-                            status_bg='bg-label-success';
-                        } else if (a ==2) {
-                            status_title="Pending"
-                                   status_bg='bg-label-warning';
-                        } else if (a == 0) {
-                            status_title="Inactive"
-                            status_bg='bg-label-secondary';
-                        }
-                        return '<span class="badge ' + status_bg + '" text-capitalized>' +status_title+ "</span>";
+                        return '<span class="text-heading">' + a.totalDue + "</span>";
                     }
                 },
-                {
-                    targets: -1,
-                    title: "Actions",
-                    searchable: false,
-                    orderable: false,
-                    render: function(t, e, a, s) {
-                        return `
-                            <div class="d-flex align-items-center">
-                            
-                                <a href="allote-plotes/${a.id}" class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill">
-                                    <i class="ti ti-map ti-md"></i>
-                                </a>
-                                <a href="allote/edit/${a.id}" class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill">
-                                    <i class="ti ti-edit ti-md"></i>
-                                </a>
-                                <a href="javascript:;" class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill delete-record">
-                                    <i class="ti ti-trash ti-md"></i>
-                                </a>
-                            </div>`;
-                    }
-                    
-                }
+                
+              
             ],
             order: [[2, "desc"]],
             dom: '<"row"<"col-md-2"<"ms-n2"l>><"col-md-10"<"dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-6 mb-md-0 mt-n6 mt-md-0"fB>>>t<"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',

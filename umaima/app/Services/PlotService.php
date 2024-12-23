@@ -314,10 +314,25 @@ class PlotService
                 ->value('plot_number');
         
             // Aggregate payment_schedule data for this allocation_detail
-            $paymentSummary = DB::table('payment_schedule')
-                ->selectRaw('SUM(outstanding) as totalDue, SUM(amount) as totalAmount, SUM(amount_paid) as totalPaid')
-                ->where('allocation_details_id', $detail->id)
-                ->first();
+            // Query to get the aggregated data
+$aggregatedData = DB::table('payment_schedule')
+->selectRaw('SUM(amount) as totalAmount, SUM(amount_paid) as totalPaid')
+->where('allocation_details_id', $detail->id)
+->first();
+
+// Query to get the last record's 'outstanding' value
+$lastOutstanding = DB::table('payment_schedule')
+->where('allocation_details_id', $detail->id)
+->orderBy('id', 'desc') // Order by ID or other column to get the last record
+->value('outstanding');
+
+// Combine results
+$paymentSummary = (object) [
+'totalAmount' => $aggregatedData->totalAmount,
+'totalPaid' => $aggregatedData->totalPaid,
+'totalDue' => $lastOutstanding,
+];
+
         
             // Construct the result for this allocation_detail
             $results[] = [
@@ -699,6 +714,7 @@ class PlotService
     }
     public function  getplotDetails(){
         $id=$this->request->input('id');
+        $sid=$this->request->input('scheme');
             $allotes = DB::table('plots')
             ->select('plot_categories.category_name','categories.name as cat','plot_sizes.size','plot_locations.location_name')
             ->join('plot_sizes', 'plots.plot_size_id', '=', 'plot_sizes.id')
@@ -706,6 +722,7 @@ class PlotService
             ->join('plot_categories', 'plots.plot_category_id', '=', 'plot_categories.id')
             ->join('categories', 'plots.category_id', '=', 'categories.id')
             ->where('plots.plot_number', $id)
+            ->where('plots.scheme_id', $sid)
             ->where('plots.status', 1)
             ->get();
 
