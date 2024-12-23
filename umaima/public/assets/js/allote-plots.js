@@ -1,5 +1,6 @@
 "use strict";
 var pid=$("#pid").attr('title');
+// allote plot javascript
 const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
 $(function() {
     let e, a, s;
