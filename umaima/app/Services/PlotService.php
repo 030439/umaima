@@ -314,24 +314,24 @@ class PlotService
                 ->value('plot_number');
         
             // Aggregate payment_schedule data for this allocation_detail
-            // Query to get the aggregated data
-$aggregatedData = DB::table('payment_schedule')
-->selectRaw('SUM(amount) as totalAmount, SUM(amount_paid) as totalPaid')
-->where('allocation_details_id', $detail->id)
-->first();
+                        // Query to get the aggregated data
+            $aggregatedData = DB::table('payment_schedule')
+            ->selectRaw('SUM(amount) as totalAmount, SUM(amount_paid) as totalPaid')
+            ->where('allocation_details_id', $detail->id)
+            ->first();
 
-// Query to get the last record's 'outstanding' value
-$lastOutstanding = DB::table('payment_schedule')
-->where('allocation_details_id', $detail->id)
-->orderBy('id', 'desc') // Order by ID or other column to get the last record
-->value('outstanding');
+            // Query to get the last record's 'outstanding' value
+            $lastOutstanding = DB::table('payment_schedule')
+            ->where('allocation_details_id', $detail->id)
+            ->orderBy('id', 'desc') // Order by ID or other column to get the last record
+            ->value('outstanding');
 
-// Combine results
-$paymentSummary = (object) [
-'totalAmount' => $aggregatedData->totalAmount,
-'totalPaid' => $aggregatedData->totalPaid,
-'totalDue' => $lastOutstanding,
-];
+            // Combine results
+            $paymentSummary = (object) [
+            'totalAmount' => $aggregatedData->totalAmount,
+            'totalPaid' => $aggregatedData->totalPaid,
+            'totalDue' => $lastOutstanding,
+            ];
 
         
             // Construct the result for this allocation_detail

@@ -130,85 +130,85 @@ class AccountService
 
     }
    public function applyStanding_()
-{
-    $pdate=date('Y-m-15');
-    $paymentSchedules = DB::table('payment_schedule')->where('pay_date','<',$pdate)->get();
-    $updateCount = 0;
-
-    foreach ($paymentSchedules as $schedule) {
-        // Calculate the outstanding balance
-        $outstanding = $schedule->amount + $schedule->surcharge - $schedule->amount_paid;
-
-        // Update the outstanding value
-        $updated = DB::table('payment_schedule')
-            ->where('id', $schedule->id)
-            ->update([
-                'outstanding' => (int)$outstanding,
-                'updated_at' => now(),
-            ]);
-
-        // Increment counter if update is successful
-        if ($updated) {
-            $updateCount++;
-        }
-    }
-
-    // Return success or failure message
-    if ($updateCount > 0) {
-        return $updateCount." records updated successfully";
-    } else {
-        return 'No records were updated.';
-    }
-}
-
-public function applyStanding()
-{
-    $pdate = date('Y-m-15');
-
-    try {
-        // Fetch records grouped by allocation_details_id
-        $paymentSchedules = DB::table('payment_schedule')
-            ->where('pay_date', '<=', $pdate)
-            ->orderBy('allocation_details_id')
-            ->orderBy('pay_date')
-            ->get()
-            ->groupBy('allocation_details_id');
-
+    {
+        $pdate=date('Y-m-15');
+        $paymentSchedules = DB::table('payment_schedule')->where('pay_date','<',$pdate)->get();
         $updateCount = 0;
 
-        foreach ($paymentSchedules as $allocation_id => $schedules) {
-            $cumulativeOutstanding = 0; // Reset for each allocation group
+        foreach ($paymentSchedules as $schedule) {
+            // Calculate the outstanding balance
+            $outstanding = $schedule->amount + $schedule->surcharge - $schedule->amount_paid;
 
-            foreach ($schedules as $schedule) {
-                // Calculate new outstanding for this record
-                $newOutstanding = $cumulativeOutstanding + $schedule->amount + $schedule->surcharge - $schedule->amount_paid;
+            // Update the outstanding value
+            $updated = DB::table('payment_schedule')
+                ->where('id', $schedule->id)
+                ->update([
+                    'outstanding' => (int)$outstanding,
+                    'updated_at' => now(),
+                ]);
 
-                // Update cumulative outstanding
-                $cumulativeOutstanding = $newOutstanding;
-
-                // Update the database record
-                $updated = DB::table('payment_schedule')
-                    ->where('id', $schedule->id)
-                    ->update([
-                        'outstanding' => $cumulativeOutstanding,
-                        'updated_at' => now(),
-                    ]);
-
-                if ($updated) {
-                    $updateCount++;
-                }
+            // Increment counter if update is successful
+            if ($updated) {
+                $updateCount++;
             }
         }
 
-        return $updateCount > 0
-            ? "{$updateCount} records updated successfully"
-            : "No records were updated.";
-    } catch (\Exception $e) {
-        // Log the error and return a failure message
-        Log::error("Error updating payment schedule: " . $e->getMessage());
-        return "An error occurred: " . $e->getMessage();
+        // Return success or failure message
+        if ($updateCount > 0) {
+            return $updateCount." records updated successfully";
+        } else {
+            return 'No records were updated.';
+        }
     }
-}
+
+    public function applyStanding()
+    {
+        $pdate = date('Y-m-15');
+
+        try {
+            // Fetch records grouped by allocation_details_id
+            $paymentSchedules = DB::table('payment_schedule')
+                ->where('pay_date', '<=', $pdate)
+                ->orderBy('allocation_details_id')
+                ->orderBy('pay_date')
+                ->get()
+                ->groupBy('allocation_details_id');
+
+            $updateCount = 0;
+
+            foreach ($paymentSchedules as $allocation_id => $schedules) {
+                $cumulativeOutstanding = 0; // Reset for each allocation group
+
+                foreach ($schedules as $schedule) {
+                    // Calculate new outstanding for this record
+                    $newOutstanding = $cumulativeOutstanding + $schedule->amount + $schedule->surcharge - $schedule->amount_paid;
+
+                    // Update cumulative outstanding
+                    $cumulativeOutstanding = $newOutstanding;
+
+                    // Update the database record
+                    $updated = DB::table('payment_schedule')
+                        ->where('id', $schedule->id)
+                        ->update([
+                            'outstanding' => $cumulativeOutstanding,
+                            'updated_at' => now(),
+                        ]);
+
+                    if ($updated) {
+                        $updateCount++;
+                    }
+                }
+            }
+
+            return $updateCount > 0
+                ? "{$updateCount} records updated successfully"
+                : "No records were updated.";
+        } catch (\Exception $e) {
+            // Log the error and return a failure message
+            Log::error("Error updating payment schedule: " . $e->getMessage());
+            return "An error occurred: " . $e->getMessage();
+        }
+    }
 
 
 
@@ -442,6 +442,7 @@ public function applyStanding()
             $payDate = Carbon::parse($paidOn)->format('Y-m-15');
             $dm=Carbon::parse($paidOn)->format('Y-m');
             $pD = Carbon::parse($paidOn)->format('Y-m');
+            
 
             $paymentSchedule = DB::table('payment_schedule')
             ->where('allocation_details_id', $allocationId)

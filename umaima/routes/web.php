@@ -12,6 +12,11 @@ use App\Http\Controllers\SchemeController;
 use App\Http\Controllers\AlloteController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\LogController;
+use App\Http\Controllers\BulkController;
+
+
+Route::get('/import', [BulkController::class, 'showImportForm'])->name('import.show');
+Route::post('/import', [BulkController::class, 'import'])->name('import.upload');
 /*
 |--------------------------------------------------------------------------
 | Web Routes

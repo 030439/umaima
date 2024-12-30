@@ -97,38 +97,38 @@ class AlloteService
         $searchValue = $this->request->input('search')['value'] ?? null;
 
         $allocationDetailsQuery = DB::table('allocation_details')
-    ->select(
-        'allocation_details.allote',
-        'allocation_details.id',
-        'allotes.fullname as allote_name',
-        'plots.plot_number as plot'
-    )
-    ->leftJoin(
-        DB::raw('(SELECT allocation_details_id, MAX(updated_at) AS last_payment_date 
-                  FROM payment_schedule 
-                  GROUP BY allocation_details_id) as ps'),
-        'allocation_details.id', '=', 'ps.allocation_details_id'
-    )
-    ->leftJoin('allotes', 'allocation_details.allote', '=', 'allotes.id')
-    ->leftJoin('plots', 'allocation_details.plot', '=', 'plots.plot_number')
-    ->where(function ($query) {
-        $query->whereNull('ps.last_payment_date')
-              ->orWhere('ps.last_payment_date', '<', DB::raw('DATE_SUB(CURDATE(), INTERVAL 1 MONTH)'));
-    });
-       
-    if (!empty($searchValue)) {
-        $allocationDetailsQuery->where(function ($query) use ($searchValue) {
-            $query->where('allocation_details.allote', 'LIKE', "%{$searchValue}%")
-                  ->orWhere('allotes.fullname', 'LIKE', "%{$searchValue}%")
-                  ->orWhere('plots.plot_number', 'LIKE', "%{$searchValue}%");
+        ->select(
+            'allocation_details.allote',
+            'allocation_details.id',
+            'allotes.fullname as allote_name',
+            'plots.plot_number as plot'
+        )
+        ->leftJoin(
+            DB::raw('(SELECT allocation_details_id, MAX(updated_at) AS last_payment_date 
+                    FROM payment_schedule 
+                    GROUP BY allocation_details_id) as ps'),
+            'allocation_details.id', '=', 'ps.allocation_details_id'
+        )
+        ->leftJoin('allotes', 'allocation_details.allote', '=', 'allotes.id')
+        ->leftJoin('plots', 'allocation_details.plot', '=', 'plots.plot_number')
+        ->where(function ($query) {
+            $query->whereNull('ps.last_payment_date')
+                ->orWhere('ps.last_payment_date', '<', DB::raw('DATE_SUB(CURDATE(), INTERVAL 1 MONTH)'));
         });
-    }
-    
-    // Apply sorting
-    $allocationDetailsQuery->orderBy($orderColumn, $orderDirection);
-    
-    // Apply pagination
-    $allocationDetails = $allocationDetailsQuery
+        
+        if (!empty($searchValue)) {
+            $allocationDetailsQuery->where(function ($query) use ($searchValue) {
+                $query->where('allocation_details.allote', 'LIKE', "%{$searchValue}%")
+                    ->orWhere('allotes.fullname', 'LIKE', "%{$searchValue}%")
+                    ->orWhere('plots.plot_number', 'LIKE', "%{$searchValue}%");
+            });
+        }
+        
+        // Apply sorting
+        $allocationDetailsQuery->orderBy($orderColumn, $orderDirection);
+        
+        // Apply pagination
+        $allocationDetails = $allocationDetailsQuery
         ->offset($start)
         ->limit($length)
         ->get();

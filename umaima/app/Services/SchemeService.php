@@ -239,88 +239,89 @@ class SchemeService
         ->first();                          // Fetches the first result
     
     // Return the result, or false if no record is found
-    return $plots ? $plots : false;
+        return $plots ? $plots : false;
     
     }
      public function allotedPlotListing()
     {
         $plots = DB::table('plots')
-    ->leftJoin('schemes', 'plots.scheme_id', '=', 'schemes.id')
-    ->leftJoin('allocation_details', 'allocation_details.plot', '=', 'plots.plot_number')
-    ->leftJoin('allotes', 'allocation_details.allote', '=', 'allotes.id')
-    ->select(
-        'plots.id as id',
-        'plots.status as plot_status',
-        'plots.plot_number',
-        'schemes.name as scheme',
-        'schemes.id as sid',
-        'allotes.fullname as allote_name',
-        'allotes.id as allote_id'
-    )
-    ->orderBy('plots.id') // Sort descending by plot ID
-    ->get();
+        ->leftJoin('schemes', 'plots.scheme_id', '=', 'schemes.id')
+        ->leftJoin('allocation_details', 'allocation_details.plot', '=', 'plots.plot_number')
+        ->leftJoin('allotes', 'allocation_details.allote', '=', 'allotes.id')
+        ->select(
+            'plots.id as id',
+            'plots.status as plot_status',
+            'plots.plot_number',
+            'schemes.name as scheme',
+            'schemes.id as sid',
+            'allotes.fullname as allote_name',
+            'allotes.id as allote_id'
+        )
+        ->orderBy('plots.id') // Sort descending by plot ID
+        ->get();
 
 
-// Group data by schemes
-$groupedPlots = $plots->groupBy('scheme');
-$response = [];
-foreach ($groupedPlots as $schemeName => $plots) {
-    $response[] = [
-        'scheme' => $schemeName,
-        'plots' => $plots->map(function ($plot) {
-            return [
-                    'allote_id' => $this->getAlloteName($plot->plot_number,$plot->sid)?$this->getAlloteName($plot->plot_number,$plot->sid)->allote_id:'', // Handle missing allote name
-                    'status' => $plot->plot_status,
-                    'allote' => $this->getAlloteName($plot->plot_number,$plot->sid)?$this->getAlloteName($plot->plot_number,$plot->sid)->allote_name:'', // Handle missing allote name
-                    'status' => $plot->plot_status,
-                    'plot_number' => $plot->plot_number,
-             
+        // Group data by schemes
+        $groupedPlots = $plots->groupBy('scheme');
+        $response = [];
+        foreach ($groupedPlots as $schemeName => $plots) {
+            $response[] = [
+                'scheme' => $schemeName,
+                'plots' => $plots->map(function ($plot) {
+                    return [
+                            'allote_id' => $this->getAlloteName($plot->plot_number,$plot->sid)?$this->getAlloteName($plot->plot_number,$plot->sid)->allote_id:'', // Handle missing allote name
+                            'status' => $plot->plot_status,
+                            'allote' => $this->getAlloteName($plot->plot_number,$plot->sid)?$this->getAlloteName($plot->plot_number,$plot->sid)->allote_name:'', // Handle missing allote name
+                            'status' => $plot->plot_status,
+                            'plot_number' => $plot->plot_number,
+                    
+                    ];
+                })->all(),
             ];
-        })->all(),
-    ];
-}
+
+        }
 
 
 
- //dd($response);
-return $response;
-            $plots = DB::table('plots')
-            ->join('schemes', 'plots.scheme_id', '=', 'schemes.id')
-            ->leftjoin('allocation_details', 'allocation_details.plot', '=', 'plots.plot_number')
-            ->leftjoin('allotes', 'allocation_details.allote', '=', 'allotes.id')
-            ->select(
-                'plots.id as id',
-                'plots.status as status',
-                'plots.plot_number',
-                'schemes.name as scheme',
-                'allotes.fullname as allote',
-                'allotes.id as aid'
-            )
-            ->get();
+        //dd($response);
+        return $response;
+                $plots = DB::table('plots')
+                ->join('schemes', 'plots.scheme_id', '=', 'schemes.id')
+                ->leftjoin('allocation_details', 'allocation_details.plot', '=', 'plots.plot_number')
+                ->leftjoin('allotes', 'allocation_details.allote', '=', 'allotes.id')
+                ->select(
+                    'plots.id as id',
+                    'plots.status as status',
+                    'plots.plot_number',
+                    'schemes.name as scheme',
+                    'allotes.fullname as allote',
+                    'allotes.id as aid'
+                )
+                ->get();
 
-            // Group plots by scheme name
-            $groupedPlots = $plots->groupBy('scheme');
+                // Group plots by scheme name
+                $groupedPlots = $plots->groupBy('scheme');
 
-            // Format the response as desired
-            $response = [];
-            foreach ($groupedPlots as $schemeName => $plots) {
-                $response[] = [
-                    'scheme' => $schemeName,
-                    'plots' => $plots->mapWithKeys(function ($plot) {
-                        return [
-                            $plot->id => [
-                                'aid'=>$plot->aid,
-                                'allote'=>$plot->allote,
-                                'status' => $plot->status,
-                                'plot_number' => $plot->plot_number,
-                            ],
-                        ];
-                    })->all(),
-                ];
-            }
+                // Format the response as desired
+                $response = [];
+                foreach ($groupedPlots as $schemeName => $plots) {
+                    $response[] = [
+                        'scheme' => $schemeName,
+                        'plots' => $plots->mapWithKeys(function ($plot) {
+                            return [
+                                $plot->id => [
+                                    'aid'=>$plot->aid,
+                                    'allote'=>$plot->allote,
+                                    'status' => $plot->status,
+                                    'plot_number' => $plot->plot_number,
+                                ],
+                            ];
+                        })->all(),
+                    ];
+                }
 
-            // Output the response
-            return ($response);
+                // Output the response
+                return ($response);
 
     }
 
