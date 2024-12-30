@@ -37,6 +37,9 @@ class BulkDataImport implements ToCollection
             $arr[$rcKey] = []; // Initialize the first rc array
     
             foreach ($rows as $i => $row) {
+                if($row[0]==""){
+                    break;
+                }
 
                 if ($row[0] == "end") {
                     $number++; // Increment number for the next rc key
@@ -66,7 +69,6 @@ class BulkDataImport implements ToCollection
                
             }
             $this->storePayment($arr);
-            dd($arr);
         });
     }
 
@@ -136,11 +138,12 @@ class BulkDataImport implements ToCollection
 
     public function storePayment($records)
     {
+        dd($records);
 
         try {
             DB::beginTransaction();
             foreach($records as $rec){
-                dd($rec);
+
             }
             $data = [
                 'paydate' => $rec('paid_on'),
