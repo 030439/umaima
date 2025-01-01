@@ -641,6 +641,7 @@ class BulkDataImport implements ToCollection
                 "amount" => $possession,
                 "date" => $pdate
             ];
+            
         }
    
         return $response;
