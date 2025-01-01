@@ -551,7 +551,6 @@ class BulkDataImport implements ToCollection
                 $possession = $d['amount'];
             }
         }
-       
         // Format and parse dates
      
         // $bookingDate = Carbon::createFromFormat('Y-m-d', $bdate);
@@ -635,7 +634,7 @@ class BulkDataImport implements ToCollection
     
         // Add Possession Payment
         if ($possession > 0) {
-            $date3_ = $lastDate->copy()->addMonths($data['demargation'] > 0 ? 2 : 1);
+            $date3_ = $lastDate->copy()->addMonths($demarcation > 0 ? 2 : 1);
             $pdate = $date3_->format('d-M-Y');
             $response[] = [
                 "payment" => "Possession",
@@ -643,7 +642,7 @@ class BulkDataImport implements ToCollection
                 "date" => $pdate
             ];
         }
-    
+   
         return $response;
     }
     
