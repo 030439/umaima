@@ -12,7 +12,7 @@ class CreateAllocationDetailsTable extends Migration
             $table->integer('allote');
             $table->integer('scheme');
             $table->string('status')->default('1'); 
-            $table->integer('plot')->unique();  
+            $table->integer('plot');  
             $table->date('bdate');
             $table->integer('onbooking');
             $table->integer('allocation');
