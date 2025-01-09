@@ -534,6 +534,7 @@ class BulkDataImport implements ToCollection
                 "date" =>  $startDate->format('d-M-Y')
             ];
         }
+        return $response; 
         dd($response);
         $installmentCount =  (int)$data[0]['installment'];
         
