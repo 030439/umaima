@@ -674,7 +674,7 @@ class BulkDataImport implements ToCollection
     public function confirmSchedule($data,$aid){
      
          $schedule=$this->paymentSchedule($data);
-         dd($schedule);
+        
 
 
         $plot = $data[0]['plot'];
