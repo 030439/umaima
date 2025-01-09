@@ -16,6 +16,7 @@ class DashboardController extends Controller
         $this->usersService = $usersService;
     }
 
+    
     public function index(SchemeService $schemeservice)
     {   
         $groupedPlots = $schemeservice->allotedPlotListing();
