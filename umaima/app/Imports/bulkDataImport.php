@@ -500,7 +500,10 @@ class BulkDataImport implements ToCollection
                     'created_at' => now(),
                     'updated_at' => now(),
                 ];
+                //new db table for plot payments
                 PlotPayment::create($plotPayments);
+
+
             }
 
             // $updated = DB::table('payment_schedule')
