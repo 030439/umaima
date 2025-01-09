@@ -19,29 +19,14 @@ use App\Models\PaymentSchedule;
 use Illuminate\Http\JsonResponse;
 use Exception;
 
-use Maatwebsite\Excel\Concerns\WithCalculatedFormulas;
- use Maatwebsite\Excel\Concerns\WithMultipleSheets;
- use Maatwebsite\Excel\Concerns\WithCustomValueBinder;
- use PhpOffice\PhpSpreadsheet\Cell\Cell;
- use PhpOffice\PhpSpreadsheet\Cell\DataType;
-use PhpOffice\PhpSpreadsheet\Cell\DefaultValueBinder;
-
-
 
 class BulkDataImport implements ToCollection
 {
-    public function bindValue(Cell $cell, $value): bool
-    {
-        
-        $cell->setValueExplicit($value, DataType::TYPE_STRING);
 
-        // Return false to keep the value binder from setting the value
-        return true;
-    }
     
     public function collection(Collection $rows)
     {
-        
+       
         // Skip the header row
         $header = $rows->shift();
 
@@ -54,7 +39,6 @@ class BulkDataImport implements ToCollection
     
             foreach ($rows as $i => $row) {
                
-                
                 if($row[0]==""){
                     break;
                 }
@@ -146,16 +130,14 @@ class BulkDataImport implements ToCollection
                 // echo "<br>";
                
             }
-           
              return $this->storePayment($arr);
            
         });
     }
 
     public function getPlotId($plot_number,$scheme){
-        // $plot_number=(int)($plot_number);
         $plot=Plot::where('plot_number',$plot_number)->where('scheme_id',$scheme)->first();
-        if(!empty($plot) && $plot->id>0){
+        if($plot->id>0){
             return $plot->id;
         }else{
             return 0;
@@ -179,9 +161,7 @@ class BulkDataImport implements ToCollection
         $scheme=$data['scheme'];
         $plot=$data['plot'];
         $allote=$data['allote'];
-        
         $plot_id=$this->getPlotId($plot,$scheme);
-     
         // echo $plot_id;
         // return $plot_id;
         if($plot==0){
@@ -260,8 +240,6 @@ class BulkDataImport implements ToCollection
             // foreach($records as $index=> $record){
             //      if(!empty($record)){
             //         $alloted =$this->allotment($record[0]);
-                    
-                    
             //         if($alloted>0){
             //             $ok=$this->confirmSchedule($record,$alloted);
             //             if($ok){

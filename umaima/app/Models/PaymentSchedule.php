@@ -10,6 +10,7 @@ class PaymentSchedule extends Model
     use HasFactory;
 
     protected $table="payment_schedule";
+    
     protected $fillable = [
         'allocation_details_id',
         'payment',
