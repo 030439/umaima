@@ -524,14 +524,17 @@ class BulkDataImport implements ToCollection
         // dd($data);
         $response=[];
         foreach($data as $i=> $d){
-            dd($d);
-            // $d['payment']
-            // $response[$i] = [
-            //     "payment" => "Possession",
-            //     "amount" => $possession,
-            //     "date" => $pdate
-            // ];
+           $bdate= $d['pay_date'];
+            $bookingDate = \Carbon\Carbon::createFromFormat('Y-m-d', $bdate->format('Y-m-d'));
+            $startDate = $bookingDate->copy()->day(15); // Start on the 15th of the month
+    
+            $response[$i]= [
+                "payment" => $d['payment'],
+                "amount" => $d['amount'],
+                "date" =>  $startDate->format('d-M-Y')
+            ];
         }
+        dd($response);
         $installmentCount =  (int)$data[0]['installment'];
         
         // $durationAmount = $data['duration_amount'];
