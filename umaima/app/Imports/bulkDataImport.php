@@ -520,8 +520,18 @@ class BulkDataImport implements ToCollection
 
 
     public function paymentSchedule($data) {
-        //error
-       
+
+        // dd($data);
+        $response=[];
+        foreach($data as $i=> $d){
+            dd($d);
+            // $d['payment']
+            // $response[$i] = [
+            //     "payment" => "Possession",
+            //     "amount" => $possession,
+            //     "date" => $pdate
+            // ];
+        }
         $installmentCount =  (int)$data[0]['installment'];
         
         // $durationAmount = $data['duration_amount'];
