@@ -78,8 +78,8 @@ class PlotService
             // Using an associative array instead of a nested array
             $filters['schemes.name'] = '%' . $searchValue . '%'; // This will be like 'name' => '%searchValue%'
             $filters['plots.plot_number'] = '%' . $searchValue . '%';
-            $filters['plots.location_name'] = '%' . $searchValue . '%';
-            $filters['plots.size'] = '%' . $searchValue . '%';
+            $filters['plot_locations.location_name'] = '%' . $searchValue . '%';
+            $filters['plot_sizes.size'] = '%' . $searchValue . '%';
         }
 
         // Fetch the records using QueryTrait's fetchRecords method
