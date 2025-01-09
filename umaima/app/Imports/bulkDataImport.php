@@ -522,6 +522,7 @@ class BulkDataImport implements ToCollection
     public function paymentSchedule($data) {
        
         $installmentCount =  (int)$data[0]['installment'];
+        
         // $durationAmount = $data['duration_amount'];
         // $installmentAmount = $data['installment_amount'];
          $bdate = $data[0]['pay_date'];
@@ -658,6 +659,9 @@ class BulkDataImport implements ToCollection
     public function confirmSchedule($data,$aid){
      
          $schedule=$this->paymentSchedule($data);
+
+         //shceudle check
+         dd($schedule);
 
 
         $plot = $data[0]['plot'];
