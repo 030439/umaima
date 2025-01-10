@@ -350,7 +350,6 @@ class AlloteService
             $validator = Validator::make($this->request->all(), [
         
                 'formValidationFirstName' => 'required',
-                'formValidationLastName' => 'required',
             ]);
 
             if ($validator->fails()) {

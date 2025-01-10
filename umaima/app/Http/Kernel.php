@@ -36,13 +36,13 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class, // CORRECT PLACEMENT
             \App\Http\Middleware\Localization::class,
         ],
 
         'api' => [
-            \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+            // REMOVE FROM HERE \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
             \Illuminate\Routing\Middleware\ThrottleRequests::class.':api',
-            
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
     ];
@@ -66,10 +66,10 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'access' => \App\Http\Middleware\RolePermissionGlobalMiddleware::class,
+       'auth:sanctum' => \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class
     ];
     protected function schedule(\Illuminate\Console\Scheduling\Schedule $schedule)
     {
         $schedule->command('backup:db')->dailyAt('02:00'); // Adjust time as needed
     }
-
 }

@@ -25,7 +25,7 @@
 
   <div class="toast-container position-fixed top-0 end-0 p-3" id="toastContainer" style="color:#fff !important"></div>
     
-     @include('partials.aside')
+  <x-sidebar/>
      <div class="layout-page">
       @include('partials.nav')
       @yield('content')

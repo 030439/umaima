@@ -25,7 +25,26 @@
 
   <div class="toast-container position-fixed top-0 end-0 p-3" id="toastContainer" style="color:#fff !important"></div>
     
-     <?php echo $__env->make('partials.aside', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+  <?php if (isset($component)) { $__componentOriginald31f0a1d6e85408eecaaa9471b609820 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginald31f0a1d6e85408eecaaa9471b609820 = $attributes; } ?>
+<?php $component = App\View\Components\Sidebar::resolve([] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component->withName('sidebar'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(App\View\Components\Sidebar::class))->getConstructor()): ?>
+<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
+<?php endif; ?>
+<?php $component->withAttributes([]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginald31f0a1d6e85408eecaaa9471b609820)): ?>
+<?php $attributes = $__attributesOriginald31f0a1d6e85408eecaaa9471b609820; ?>
+<?php unset($__attributesOriginald31f0a1d6e85408eecaaa9471b609820); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginald31f0a1d6e85408eecaaa9471b609820)): ?>
+<?php $component = $__componentOriginald31f0a1d6e85408eecaaa9471b609820; ?>
+<?php unset($__componentOriginald31f0a1d6e85408eecaaa9471b609820); ?>
+<?php endif; ?>
      <div class="layout-page">
       <?php echo $__env->make('partials.nav', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
       <?php echo $__env->yieldContent('content'); ?>

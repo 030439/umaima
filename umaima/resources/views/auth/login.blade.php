@@ -139,14 +139,35 @@ $(document).ready(function() {
         };
 
         // Send AJAX POST request
-        $.ajax({
+         // Send AJAX POST request for login
+         $.ajax({
             url: '/api/sign-in', // Your Laravel route
             type: 'POST',
             data: formData,
             success: function(response) {
               if(response.success){
                 showToast("Sign in successful", "success");
-                window.location.href = '/dashboard';
+                const token = response.token;
+                 console.log("Token:", token)
+                // Redirect to dashboard after login using the token
+                  $.ajax({
+                    url: '/dashboard',
+                    type: 'GET',
+                    headers: {
+                      Authorization: `Bearer ${token}`
+                    },
+                    success: function(dashboardResponse){
+                      console.log("Dashboard Response:", dashboardResponse);
+                      // redirect after getting the dashboard
+                      window.location.href = '/dashboard';
+                    },
+                       error: function(xhr) {
+                           showToast(xhr.responseText.error, "danger");
+                               console.error('Error during getting dashboard', xhr.responseText);
+                             console.log("Error Response", xhr)
+                               // Handle error
+                       }
+                  });
               }else{
                 showToast(response.error, "danger");
               };
@@ -154,7 +175,6 @@ $(document).ready(function() {
             error: function(xhr) {
               showToast(xhr.responseText.error, "danger");
                 console.error('Error during sign in', xhr.responseText);
-                // Handle error
             }
         });
     });

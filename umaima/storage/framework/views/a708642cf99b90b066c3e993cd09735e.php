@@ -1,6 +1,6 @@
 
-<?php $breadCrumb='Allote / <span class="text-primary">List</span></i>'?>
-<?php $__env->startSection('title', 'Allote'); ?>
+<?php $breadCrumb='Users / <span class="text-primary">list</span></i>'?>
+<?php $__env->startSection('title', 'users'); ?>
 <?php $__env->startSection('content'); ?>
 <div class="content-wrapper">
 
@@ -15,7 +15,7 @@
         
         <div class="card-datatable table-responsive">
                 <table class="datatables-users table dataTable no-footer dtr-column collapsed">
-                 
+                  
                 </table>
               </div>
               <style>
@@ -43,19 +43,19 @@
                       <form id="editUserForm" class="row g-6 fv-plugins-bootstrap5 fv-plugins-framework" novalidate>
                         <div class="col-12 col-md-6">
                           <label class="form-label" for="modalEditUserFirstName">First Name</label>
-                          <input type="text" id="modalEditUserFirstName" name="fname" class="form-control" tag="John" required>
+                          <input type="text" id="modalEditUserFirstName" name="fname" class="form-control" placeholder="John" required>
                           <div class="fv-plugins-message-container invalid-feedbacks">Please enter your first name.</div>
                         </div>
                         
                         <div class="col-12 col-md-6">
                           <label class="form-label" for="modalEditUserLastName">Last Name</label>
-                          <input type="text" id="modalEditUserLastName" name="lname" class="form-control" tag="Doe" required>
+                          <input type="text" id="modalEditUserLastName" name="lname" class="form-control" placeholder="Doe" required>
                           <div class="fv-plugins-message-container invalid-feedbacks">Please enter your last name.</div>
                         </div>
                         
                         <div class="col-12 col-md-6">
                           <label class="form-label" for="modalEditUserName">Username</label>
-                          <input type="text" id="modalEditUserName" name="username" class="form-control" tag="johndoe007" required>
+                          <input type="text" id="modalEditUserName" name="username" class="form-control" placeholder="johndoe007" required>
                           <div class="fv-plugins-message-container invalid-feedbacks">Please enter a username.</div>
                         </div>
                         
@@ -68,7 +68,7 @@
                         
                         <div class="col-12 col-md-6">
                           <label class="form-label" for="modalEditUserEmail">Email</label>
-                          <input type="email" id="modalEditUserEmail" name="email" class="form-control" tag="example@domain.com" required>
+                          <input type="email" id="modalEditUserEmail" name="email" class="form-control" placeholder="example@domain.com" required>
                           <div class="fv-plugins-message-container invalid-feedbacks">Please enter a valid email.</div>
                         </div>
                         
@@ -109,14 +109,10 @@
                           <td>User:</td>
                           <td>
                             <div class="d-flex justify-content-start align-items-center user-name">
-                              <div class="avatar-wrapper">
-                                <div class="avatar avatar-sm me-4">
-                                  <img src="../../assets/img/avatars/2.png" alt="Avatar" class="rounded-circle">
-                                </div>
-                              </div>
+                              
                               <div class="d-flex flex-column">
-                                <a href="app-user-view-account.html" class="text-heading text-truncate">
-                                  <span class="fw-medium">Zsazsa McCleverty</span>
+                                <a href="#" class="text-heading text-truncate">
+                                  <span class="fw-medium"></span>
                                 </a>
                               </div>
                             </div>
@@ -150,7 +146,7 @@
                           <td>Actions:</td>
                           <td>
                             <div class="d-flex align-items-center">
-                              <a id="plot-detail"class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill delete-record">
+                              <a href="javascript:;" class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill delete-record">
                                 <i class="ti ti-trash ti-md"></i>
                               </a>
                               <a href="app-user-view-account.html" class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill">
@@ -208,7 +204,7 @@
     
 
     <!-- Page JS -->
-    <script src="../../assets/js/app-allote-list.js"></script>
+    <script src="../../assets/js/app-user-list.js"></script>
 <?php $__env->stopSection(); ?>
           
-<?php echo $__env->make('layout.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\umaima\umaima\resources\views/allote/index.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layout.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\umaima\umaima\resources\views/users/index.blade.php ENDPATH**/ ?>

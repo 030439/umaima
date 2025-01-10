@@ -369,6 +369,7 @@ class SchemeService
             )
             ->where('payments.payment_type', '=', 1) // Filter by payment type
             ->groupBy('payments.allotees', 'allotes.fullname') // Group by expense head ID and name
+            ->limit(5)
             ->get();
         
             return $expensesByHead;

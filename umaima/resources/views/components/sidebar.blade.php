@@ -30,7 +30,7 @@
     <li class="menu-item {{ request()->routeIs('dashboard.index') ? 'active' : '' }}">
         <a href="{{ route('dashboard.index') }}" class="menu-link">
             <i class="menu-icon tf-icons ti ti-smart-home"></i>
-            <div data-i18n="Dashboards">Dashboards</div>
+            <div data-i18n="Dashboard">Dashboard</div>
         </a>
     </li>
 
@@ -70,14 +70,15 @@
         <div >Alloties</div>
       </a>
       <ul class="menu-sub">
-      @if(auth()->check() && auth()->user()->can('allote.read'))
-
-        <li class="menu-item {{ request()->routeIs('allote.index') ? 'active' : '' }}">
-          <a href="{{ route('allote.index') }}" class="menu-link">
-            <div data-i18n="List">List</div>
-          </a>
-        </li>
-        @endcan
+      @if(auth()->check())
+          @if(auth()->user()->can('allote.read'))
+              <li class="menu-item {{ request()->routeIs('allote.index') ? 'active' : '' }}">
+                  <a href="{{ route('allote.index') }}" class="menu-link">
+                      <div data-i18n="List">List</div>
+                   </a>
+               </li>
+           @endif
+           @endif
         <li class="menu-item">
           <a href="/allote/inactive" class="menu-link">
             <div >Inactive Alloties</div>

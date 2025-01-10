@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('allotes', function (Blueprint $table) {
             $table->id();
-            $table->string('username');
-            $table->string('email');
-            $table->string('cellno');
+            $table->string('username')->nullable();
+            $table->string('email')->nullable();
+            $table->string('cellno')->nullable();
             $table->string('phone')->nullable();
-            $table->string('fullname');
-            $table->string('cnic');
+            $table->string('fullname')->nullable();
+            $table->string('cnic')->nullable();
             $table->string('guardian')->nullable();
             $table->string('gcnic')->nullable();
             $table->string('father')->nullable();

@@ -40,9 +40,9 @@ Route::get("/clearData",function(){
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth:sanctum')->group(function () {
     Route::get('/',[DashboardController::class,'index'])->name('dashboard.index');
-    Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard.index');
+    Route::get('/dashboard',[DashboardController::class,'index'])->name('allote.index');
     Route::post('upload/bilk',[DashboardController::class,'bulk'])->name('bulk.store');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

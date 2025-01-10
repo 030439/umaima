@@ -26,11 +26,11 @@
   
   <ul class="menu-inner py-1">
     <!-- Dashboards -->
-  
+   
     <li class="menu-item <?php echo e(request()->routeIs('dashboard.index') ? 'active' : ''); ?>">
         <a href="<?php echo e(route('dashboard.index')); ?>" class="menu-link">
             <i class="menu-icon tf-icons ti ti-smart-home"></i>
-            <div data-i18n="Dashboards">Dashboards</div>
+            <div data-i18n="Dashboard">Dashboard</div>
         </a>
     </li>
 
@@ -70,11 +70,15 @@
         <div >Alloties</div>
       </a>
       <ul class="menu-sub">
-        <li class="menu-item <?php echo e(request()->routeIs('allote.index') ? 'active' : ''); ?>">
-          <a href="<?php echo e(route('allote.index')); ?>" class="menu-link">
-            <div data-i18n="List">List</div>
-          </a>
-        </li>
+      <?php if(auth()->check()): ?>
+          <?php if(auth()->user()->can('allote.read')): ?>
+              <li class="menu-item <?php echo e(request()->routeIs('allote.index') ? 'active' : ''); ?>">
+                  <a href="<?php echo e(route('allote.index')); ?>" class="menu-link">
+                      <div data-i18n="List">List</div>
+                   </a>
+               </li>
+           <?php endif; ?>
+           <?php endif; ?>
         <li class="menu-item">
           <a href="/allote/inactive" class="menu-link">
             <div >Inactive Alloties</div>
@@ -191,4 +195,4 @@
   
   
 
-</aside><?php /**PATH C:\xampp\htdocs\umaima\umaima\resources\views/partials/aside.blade.php ENDPATH**/ ?>
+</aside><?php /**PATH C:\xampp\htdocs\umaima\umaima\resources\views/components/sidebar.blade.php ENDPATH**/ ?>
