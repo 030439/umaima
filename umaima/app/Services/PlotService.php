@@ -1080,16 +1080,16 @@ class PlotService
             ->join('allotes', 'allocation_details.allote', '=', 'allotes.id')
             ->where('allocation_details.plot', $plot)
             ->first();
-            dd($allotes);
+        return $allotes->allote;
     }
 
-    public function getplotByScheme(){
+    public function getplotBySchemes(){
         $id=$this->request->input('id');
-        $allotes = DB::table('plots')->select('plot_number', 'id')->where('scheme_id', $id)->where('status', 1)->get();
+        $allotes = DB::table('allocation_details')->select('plot', 'id')->where('scheme', $id)->get();
         $allote=$allotes->map(function ($allote) {
             return [
-                'value' => $allote->plot_number, // assuming 'id' is a unique identifier
-                'label' => $allote->plot_number // assuming 'name' holds the display name
+                'value' => $allote->plot, // assuming 'id' is a unique identifier
+                'label' => $allote->plot // assuming 'name' holds the display name
             ];
         });
         return response()->json([

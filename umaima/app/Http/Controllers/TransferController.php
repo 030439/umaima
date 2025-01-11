@@ -37,7 +37,7 @@ class TransferController extends Controller
     }
 
     public function getplotByScheme(){
-        $result = $this->plotservice->getplotByScheme();
+        $result = $this->plotservice->getplotBySchemes();
         return ($result);
     }
 
