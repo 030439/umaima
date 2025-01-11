@@ -47,6 +47,13 @@ Route::get("/clearData",function(){
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+
+    Route::controller(TransferController::class)
+    ->group(function(){
+        Route::get('plot/transfer','plotTransfer')->name('transfer.read');
+       
+    });
+
     Route::get('/',[DashboardController::class,'index'])->name('dashboard.index');
     Route::get('/dashboard',[DashboardController::class,'index'])->name('allote.index');
     Route::post('upload/bilk',[DashboardController::class,'bulk'])->name('bulk.store');
@@ -187,16 +194,12 @@ Route::middleware(['auth']) ->prefix('api')->group(function () {
        
     });
 
-    Route::controller(TransferController::class)
-    ->group(function(){
-        Route::get('plot/transfer','plotTransfer')->name('transfer.read');
-       
-    });
+  
 });
 Route::middleware('auth')->prefix('api')->group(function(){
     Route::controller(TransferController::class)
     ->group(function(){
-        Route::get('transerList','transerList')->name('transfer.read');
+        Route::post('transerList','transerList')->name('transfer.list');
     });
     Route::post("getAllotiesNames",[AlloteController::class,'getAllotiesNames']);
     Route::post("get-alloties",[AlloteController::class,'getAlloties']);

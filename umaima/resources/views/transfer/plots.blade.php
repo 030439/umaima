@@ -54,6 +54,6 @@
     
 
     <!-- Page JS -->
-    <script src="../../assets/js/app-scheme-list.js"></script>
+    <script src="../../assets/js/transfer-list.js"></script>
 @endsection
           

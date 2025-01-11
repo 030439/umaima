@@ -42,38 +42,49 @@ class PlotService
 
         // Initialize an array for the conditions
         $columns = [
-            'plots.id as id',
-            'plots.status as status',
-            'plots.plot_number',
-            'schemes.name  as scheme',
-            'plot_locations.location_name as location',
-            'plot_sizes.size as size'
+            'transfers.id as id',
+            'transfers.amount as amount',
+            'from_allotes.fullname as from', // Use "from_allotes" alias
+            'to_allotes.fullname as to',   // Use "to_allotes" alias
+            'transfers.tdate as tdate',
+            'allocation_details.plot as plot',
+            'schemes.name as scheme'
         ];
-
-        $filters = [];
         $joins = [
+            
+            [
+                'table' => 'allocation_details',
+                'first' => 'allocation_details.id',
+                'operator' => '=',
+                'second' => 'transfers.allocation_details_id',
+                'type'=>'join'
+            ],
             [
                 'table' => 'schemes',
-                'first' => 'plots.scheme_id',
+                'first' => 'allocation_details.scheme',
                 'operator' => '=',
                 'second' => 'schemes.id',
                 'type'=>'join'
             ],
             [
-                'table' => 'plot_locations',
-                'first' => 'plots.plot_location_id',
+                'table' => 'allotes as from_allotes', // Alias "allotes" as "from_allotes"
+                'first' => 'transfers.from',  // Link to the sender's allote ID
                 'operator' => '=',
-                'second' => 'plot_locations.id',
+                'second' => 'from_allotes.id',        
                 'type'=>'join'
             ],
             [
-                'table' => 'plot_sizes',
-                'first' => 'plots.plot_size_id',
+                'table' => 'allotes as to_allotes',    // Alias "allotes" as "to_allotes"
+                'first' => 'transfers.to',    // Link to the receiver's allote ID
                 'operator' => '=',
-                'second' => 'plot_sizes.id',
+                'second' => 'to_allotes.id',
                 'type'=>'join'
             ],
         ];
+
+
+        $filters = [];
+
         if (!empty($searchValue)) {
             // Using an associative array instead of a nested array
             $filters['schemes.name'] = '%' . $searchValue . '%'; // This will be like 'name' => '%searchValue%'
@@ -85,7 +96,7 @@ class PlotService
         // Fetch the records using QueryTrait's fetchRecords method
     
         $result = $this->fetchRecords(
-            $this->table,
+            "transfers",
             $columns,
             $conditions = [],
             $filters,
@@ -109,7 +120,7 @@ class PlotService
     }
 
 
-    
+
     //fetch all the plots
     public function geAll()
     {
