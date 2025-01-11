@@ -1,4 +1,6 @@
 <?php
+
+namespace App\Traits;
 trait CrudOperations {
   
     public function create($table, $data) {

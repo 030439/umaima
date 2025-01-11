@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\PermissionRegistrar;
 use App\Models\User; // Ensure the User model is imported
 
 class PermissionsTableSeeder extends Seeder
@@ -112,14 +113,14 @@ class PermissionsTableSeeder extends Seeder
             Permission::firstOrCreate($permission);
         }
 
-        DB::table('plot_categories')->insert([
-            'id' => 1,
-            'category_name'=>"Commercial"
-        ]);
-        DB::table('plot_categories')->insert([
-            'id' => 2,
-            'category_name'=>"Residentail"
-        ]);
+        // DB::table('plot_categories')->insert([
+        //     'id' => 1,
+        //     'category_name'=>"Commercial"
+        // ]);
+        // DB::table('plot_categories')->insert([
+        //     'id' => 2,
+        //     'category_name'=>"Residentail"
+        // ]);
 
         // Create admin role and assign permissions
         $adminRole = Role::firstOrCreate(['name' => 'admin']);
@@ -140,7 +141,12 @@ class PermissionsTableSeeder extends Seeder
                 'password' => bcrypt('info123'), // Encrypt password
             ]
         );
-
+        DB::table('model_has_roles')->insert([
+            'model_id' => 1,
+            'role_id' => 1,
+            'model_type' => 'App\Models\User', // or the relevant model class
+        ]);
+        
         // Attach the role to the user
         $user->assignRole($adminRole);
     }

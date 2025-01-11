@@ -65,8 +65,8 @@
 </span>
     </a>
           </div>
-          <form id="login-form" class="mb-4" method="post">
-     
+          <form id="login-form" action="/sign-in" class="mb-4" method="post">
+          @csrf
             <div class="mb-6">
               <label for="email" class="form-label">Email or Username</label>
               <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email or username" autofocus>
@@ -79,7 +79,7 @@
               </div>
             </div>
             <div class="mb-6">
-              <button class="btn btn-primary d-grid w-100" id="signInButton" type="submit">Login</button>
+              <button class="btn btn-primary d-grid w-100" id="signInButtonv" type="submit">Login</button>
             </div>
           </form>
 
@@ -141,7 +141,7 @@ $(document).ready(function() {
         // Send AJAX POST request
          // Send AJAX POST request for login
          $.ajax({
-            url: '/api/sign-in', // Your Laravel route
+            url: '/sign-in', // Your Laravel route
             type: 'POST',
             data: formData,
             success: function(response) {
@@ -149,25 +149,7 @@ $(document).ready(function() {
                 showToast("Sign in successful", "success");
                 const token = response.token;
                  console.log("Token:", token)
-                // Redirect to dashboard after login using the token
-                  $.ajax({
-                    url: '/dashboard',
-                    type: 'GET',
-                    headers: {
-                      Authorization: `Bearer ${token}`
-                    },
-                    success: function(dashboardResponse){
-                      console.log("Dashboard Response:", dashboardResponse);
-                      // redirect after getting the dashboard
-                      window.location.href = '/dashboard';
-                    },
-                       error: function(xhr) {
-                           showToast(xhr.responseText.error, "danger");
-                               console.error('Error during getting dashboard', xhr.responseText);
-                             console.log("Error Response", xhr)
-                               // Handle error
-                       }
-                  });
+                 window.location.href = '/dashboard';
               }else{
                 showToast(response.error, "danger");
               };

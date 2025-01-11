@@ -70,7 +70,7 @@
         <div >Alloties</div>
       </a>
       <ul class="menu-sub">
-      @if(auth()->check() && auth()->user()->can('allote.read'))
+      @can('edit articles')
 
         <li class="menu-item {{ request()->routeIs('allote.index') ? 'active' : '' }}">
           <a href="{{ route('allote.index') }}" class="menu-link">

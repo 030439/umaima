@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator; // Add this line
 
 class RegisteredUserController extends Controller
@@ -90,8 +92,18 @@ class RegisteredUserController extends Controller
                 'password' => Hash::make($data['password']),
             ]);
             // Fire registered event and assign role
-            event(new Registered($user));
+            // event(new Registered($user));
             $user->assignRole($data['role']);
+
+          $roleId = Role::where('name', $data['role'])->value('id');
+
+          DB::table('model_has_roles')->insert([
+            'model_id' => $user->id,
+            'role_id' => $roleId,
+            'model_type' => User::class, // Ensure this field is set correctly
+        ]);
+        
+        
             // Success response
             return response()->json([
                 'message' => 'User created successfully!',

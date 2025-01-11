@@ -33,16 +33,24 @@ class UsersController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
-        
         if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-            logAction('User Login', 'User ID: ' . Auth::id());
-            return redirect()->intended('/dashboard'); // Redirect to intended page
-        }
-
-        return back()->withErrors(['email' => 'The provided credentials do not match our records.']);
+          $request->session()->regenerate();
+          logAction('User Login', 'User ID: ' . Auth::id());
+           // Fetch all user's permissions.
+            // Fetch all user's permissions
+            $user = Auth::user();
+            $permissions = $user->getAllPermissions()->pluck('name'); // Get only the 'name' attributes
+            foreach($permissions as $permission){
+                $permissions_[] = $permission;
+            }
+           //Store the permissions in the session
+         session(['user_permissions' => $permissions_]);
+    
+          return redirect()->intended('/dashboard');
+       }
+    
+     return back()->withErrors(['email' => 'The provided credentials do not match our records.']);
     }
-
     public function logout(Request $request)
     {
         Auth::logout();

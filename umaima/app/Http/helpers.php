@@ -2,6 +2,23 @@
 use App\Models\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
+
+ function check(string $permission): bool
+    {
+       if(!Auth::check()){
+        return false;
+      }
+
+       // Retrieve permissions from the session.
+       $userPermissions = session('user_permissions', []);
+    //    dd($userPermissions);
+      return in_array($permission, $userPermissions)?true:false;
+
+      // Check if the permission exists in the stored permissions array.
+       return in_array($permission, $userPermissions);
+    }
+
+
 if (!function_exists('apiResponse')) {
     function apiResponse(bool $success, string $message, $data = null, int $statusCode = 200)
     {
