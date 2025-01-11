@@ -31,6 +31,8 @@ class AccountService
         // Use request parameters with fallback defaults
         $perPage = $this->request->input('length', 10);
         $page = $this->request->input('page', 1);
+        $start = $this->request->input('start', 0);
+        $length = $this->request->input('length', 10);
         $joins = $this->request->input('joins', []);
         $orderColumn = $this->request->input('orderColumn', 'id');
         $orderDirection = $this->request->input('orderDirection', 'asc');
@@ -794,6 +796,8 @@ class AccountService
         // Use request parameters with fallback defaults
         $perPage = $this->request->input('length', 10);
         $page = $this->request->input('page', 1);
+        $start = $this->request->input('start', 0);
+        $length = $this->request->input('length', 10);
         $joins = $this->request->input('joins', []);
         $orderColumn = $this->request->input('orderColumn', 'id');
         $orderDirection = $this->request->input('orderDirection', 'asc');
