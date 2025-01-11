@@ -208,11 +208,11 @@ fetchSchemeDetails();
     function fetchAllote(plotId) {
         $.ajax({
             method: "post",
-            url: `/api/get-alloe-by-plot`,
+            url: '/api/get-allote-by-plot',
             headers: {
                 "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
-            },
-            data:{id:plotId}, // Your endpoint for fetching plots
+            }, // Your endpoint for fetching plots
+            data:{plot:plotId},
             success: function (response) {
                 if (response.success && response.plots) {
                     populateDropdown('plot',response.plots);

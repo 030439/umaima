@@ -1072,4 +1072,30 @@ class PlotService
         ]);
     }
 
+
+    public function getAlloteByPlot(){
+        $plot=$this->request->input('plot');
+            $allotes = DB::table('allocation_details')
+            ->select('allotes.fullname as allote')
+            ->join('allotes', 'allocation_details.allote', '=', 'allotes.id')
+            ->where('allocation_details.plot', $plot)
+            ->first();
+            dd($allotes);
+    }
+
+    public function getplotByScheme(){
+        $id=$this->request->input('id');
+        $allotes = DB::table('plots')->select('plot_number', 'id')->where('scheme_id', $id)->where('status', 1)->get();
+        $allote=$allotes->map(function ($allote) {
+            return [
+                'value' => $allote->plot_number, // assuming 'id' is a unique identifier
+                'label' => $allote->plot_number // assuming 'name' holds the display name
+            ];
+        });
+        return response()->json([
+            'success' => true,
+            'plots' => $allote
+        ]);
+    }
+
 }
