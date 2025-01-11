@@ -202,7 +202,7 @@ $(function() {
                 text: '<i class="ti ti-plus ti-xs me-0 me-sm-2"></i><span class="d-none d-sm-inline-block">Add New Scheme</span>',
                 className: "add-new btn btn-primary mb-6 mb-md-0 waves-effect waves-light",
                 attr: {
-                    onclick: "window.location.href='/create-scheme'",
+                    onclick: "window.location.href='/transfer-create'",
                     "data-bs-toggle": "modal", 
                     "data-bs-target": "#addUser"
                 },

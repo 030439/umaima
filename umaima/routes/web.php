@@ -51,7 +51,7 @@ Route::middleware('auth')->group(function () {
     Route::controller(TransferController::class)
     ->group(function(){
         Route::get('plot/transfer','plotTransfer')->name('transfer.read');
-       
+        Route::get('transfer-create','createTransfer')->name('transfer.create');
     });
 
     Route::get('/',[DashboardController::class,'index'])->name('dashboard.index');
@@ -200,6 +200,7 @@ Route::middleware('auth')->prefix('api')->group(function(){
     Route::controller(TransferController::class)
     ->group(function(){
         Route::post('transerList','transerList')->name('transfer.list');
+        Route::post('get-allote-by-plot', 'getAlloteByPlot')->name('transfer.store');
     });
     Route::post("getAllotiesNames",[AlloteController::class,'getAllotiesNames']);
     Route::post("get-alloties",[AlloteController::class,'getAlloties']);
