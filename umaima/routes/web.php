@@ -186,7 +186,7 @@ Route::middleware(['auth']) ->prefix('api')->group(function () {
        
     });
 });
-Route::middleware('auth')->group(function(){
+Route::middleware('auth')->prefix('api')->group(function(){
     Route::post("getAllotiesNames",[AlloteController::class,'getAllotiesNames']);
     Route::post("get-alloties",[AlloteController::class,'getAlloties']);
     Route::post('/get-scheme-details', [SchemeController::class, 'getSchemeDetails']);

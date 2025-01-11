@@ -110,9 +110,7 @@ $(function() {
                                 <a href="edit-scheme/${a.id}"  class="btn btn-text-warning waves-effect waves-light">
                                     <i class="ti ti-edit ti-md"></i>
                                 </a>
-                                <a href="javascript:;" class="btn btn-text-danger waves-effect waves-light delete-record">
-                                    <i class="ti ti-trash ti-md"></i>
-                                </a>
+                              
                             </div>`;
                     }
                     

@@ -238,42 +238,9 @@ class BulkDataImport implements ToCollection
             foreach($records as $index=> $record){
                  if(!empty($record)){
                     $alloted =$this->allotment($record[0]);
+                 
                     if($alloted>0){
-                        $ok=$this->confirmSchedule($record,$alloted);
-                        if($ok){
-                            // foreach($record as $rec){
-    
-                            //     if(!empty($rec['paid_on'])){
-        
-                            //         $data = [
-                            //             'paid_on' => $rec['paid_on'],
-                            //             'paydate' => $rec['paid_on'],
-                            //             'payment_type' => 1,
-                            //             'from_account' => 1,
-                            //             'amount' => $rec['amount_paid'],
-                            //             'amount_paid'=>$rec['amount_paid'],
-                            //             'narration' => "Plot Payment",
-                            //             'allotees' => (int)$rec['allote'],
-                            //             'expense_heads' => 0,
-                            //             'created_at' => now(),
-                            //             'updated_at' => now(),
-                            //         ];
-    
-                            //         $pay = [
-                            //             'paydate' => $rec['paid_on'],
-                            //             'payment_type' => 1,
-                            //             'from_account' => 1,
-                            //             'amount' => $rec['amount_paid'],
-                            //             'narration' => "Plot Payment",
-                            //             'allotees' => (int)$rec['allote'],
-                            //             'expense_heads' => 0,
-                            //             'created_at' => now(),
-                            //             'updated_at' => now(),
-                            //         ];
-                            //         $success=true;
-                            //     }
-                            // }
-                        }
+                    $this->confirmSchedule($record,$alloted);
                     }
                  }
             }

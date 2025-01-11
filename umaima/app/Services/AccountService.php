@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use App\Models\Bank;
+use App\Models\PlotPayment;
 use Carbon\Carbon;
 use App\Models\PaymentSchedule;
 use Illuminate\Http\JsonResponse;
@@ -278,6 +279,11 @@ class AccountService
                         $msg = "Failed to update payment schedule!";
                         break;
                     case 3:
+                        $msg = "Payment schedule updated successfully!";
+                        $lastInsertedId = DB::table('payments')->insertGetId($data);
+                        logAction('Created Payment', $lastInsertedId);
+                        break;
+
                         $success=false;
                         $msg = "No matching payment schedule found.";
                         
@@ -438,6 +444,7 @@ class AccountService
             $allocationId = $this->request->input('plot');
             $amountPaid = $this->request->input('amount');
             $paidOn = $this->request->input('paydate');
+            $narration=$this->request->input('narration');
             $payD=Carbon::parse($paidOn)->format('Y-m-d');
             $payDate = Carbon::parse($paidOn)->format('Y-m-15');
             $dm=Carbon::parse($paidOn)->format('Y-m');
@@ -448,9 +455,9 @@ class AccountService
             ->where('allocation_details_id', $allocationId)
             ->whereRaw("pay_date = ?", [$payDate])
             ->first();
-            
+            $late=false;
             if (!$paymentSchedule) {
-                return 3;
+                $late=true; 
             }
             if($payD>$payDate && $dm!=$pD){
                 $this->addSurcharge($allocationId,$payDate);
@@ -460,11 +467,14 @@ class AccountService
                 ->first();
                
 
-            if ($record) {
+            if ($record || $late) {
                 //check if amount is already paid on this date 
-                if($record->amount_paid){
-                    return 5;
+                if($record){
+                    if($record->amount_paid){
+                        $amountPaid+=$record->amount_paid;
+                      }
                 }
+                
                 $overdueSchedules = PaymentSchedule::where('allocation_details_id', $allocationId)
                 ->where('pay_date', '<', $payDate)
                 ->where('surcharge', 0)
@@ -491,12 +501,48 @@ class AccountService
                     ];
                     $schedule->update($updation);
                 }
+                if($late) {
+                    $latePayment=[
+                        "allocation_details_id"=>$allocationId,
+                        "payment"=>"Late Payment",
+                        "amount"=>0,
+                        "amount_paid"=>$amountPaid,
+                        "paid_on"=>$paidOn,
+                        "surcharge"=>0,
+                        "outstanding"=>0,
+                        "pay_date"=>0,
+                    ];
+                    $plotPayments= [
+                        'allocation_details_id'=>$allocationId,
+                        'paydate'=>$paidOn,
+                        'amount'=>$amountPaid,
+                        'narration'=>$narration,
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ];
+    
+                    PlotPayment::create($plotPayments);
+                    PaymentSchedule::create($latePayment);  
+                    
+                    return 3;
+                }
                 $updated =$record->update([
                     'amount_paid' => $amountPaid,
                     'paid_on' => $paidOn,
                     // 'outstanding' =>$out_standing-$amountPaid,
                     'updated_at' => now(),
                 ]);
+
+                $plotPayments= [
+                    'allocation_details_id'=>$allocationId,
+                    'paydate'=>$paidOn,
+                    'amount'=>$amountPaid,
+                    'narration'=>$narration,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ];
+
+                PlotPayment::create($plotPayments);
             }
 
             // $updated = DB::table('payment_schedule')
