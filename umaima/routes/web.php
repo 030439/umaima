@@ -13,6 +13,7 @@ use App\Http\Controllers\AlloteController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\BulkController;
+use App\Http\Controllers\TransferController;
 
 
 Route::get('/import', [BulkController::class, 'showImportForm'])->name('import.show');
@@ -177,6 +178,18 @@ Route::middleware(['auth']) ->prefix('api')->group(function () {
     Route::controller(AccountController::class)
     ->group(function(){
         Route::POST('apply/surcharge','applyCharge')->name('payment.create');
+        Route::POST('fetch-accounts','fetchAccounts')->name('cash.create');
+        Route::POST('cash/store','storePayment')->name('payment.create');
+        Route::POST('account-heads','addAccountHead')->name('account-head.create');
+        Route::POST('getPayments','getPayments')->name('payment.read');
+        Route::POST('getExpenses','getExpenses')->name('payment.read');
+        Route::POST('getPaymentsVoucher','getPaymentsVoucher')->name('payment.read');
+       
+    });
+
+    Route::controller(TransferController::class)
+    ->group(function(){
+        Route::POST('plot/transfer','plotTransfer')->name('transfer.read');
         Route::POST('fetch-accounts','fetchAccounts')->name('cash.create');
         Route::POST('cash/store','storePayment')->name('payment.create');
         Route::POST('account-heads','addAccountHead')->name('account-head.create');

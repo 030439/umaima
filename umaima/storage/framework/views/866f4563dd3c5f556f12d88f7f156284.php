@@ -95,10 +95,18 @@
       </a>
       <ul class="menu-sub">
         <li class="menu-item ">
-              <a href="<?php echo e(route('allotment.form')); ?>" class="menu-link">
-                <div>Plot Allotment</div>
-              </a>
-            </li>
+          <a href="<?php echo e(route('allotment.form')); ?>" class="menu-link">
+            <div>Plot Allotment</div>
+          </a>
+        </li>
+
+        <?php if(check('transfer.read')): ?>
+        <li class="menu-item <?php echo e(request()->routeIs('transfer.read') ? 'active' : ''); ?>">
+          <a href="<?php echo e(route('transfer.read')); ?>" class="menu-link">
+            <div>Plot Transfer</div>
+          </a>
+        </li>
+        <?php endif; ?>
 
         <li class="menu-item " style="">
           <a href="javascript:void(0);" class="menu-link menu-toggle">

@@ -95,10 +95,18 @@
       </a>
       <ul class="menu-sub">
         <li class="menu-item ">
-              <a href="{{ route('allotment.form') }}" class="menu-link">
-                <div>Plot Allotment</div>
-              </a>
-            </li>
+          <a href="{{ route('allotment.form') }}" class="menu-link">
+            <div>Plot Allotment</div>
+          </a>
+        </li>
+
+        @if(check('transfer.read'))
+        <li class="menu-item {{ request()->routeIs('transfer.read') ? 'active' : '' }}">
+          <a href="{{ route('transfer.read') }}" class="menu-link">
+            <div>Plot Transfer</div>
+          </a>
+        </li>
+        @endif
 
         <li class="menu-item " style="">
           <a href="javascript:void(0);" class="menu-link menu-toggle">

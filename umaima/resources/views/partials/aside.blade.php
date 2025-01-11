@@ -97,13 +97,7 @@
                 <div>Plot Allotment</div>
               </a>
             </li>
-            @can('edit articles')
-            <li class="menu-item {{ request()->routeIs('allotment.form') ? 'active' : '' }}">
-              <a href="{{ route('allotment.form') }}" class="menu-link">
-                <div>Plot Allotment</div>
-              </a>
-            </li>
-            @endcan
+
         <li class="menu-item {{ request()->routeIs('plot.*') ? 'active open' : '' }}" style="">
           <a href="javascript:void(0);" class="menu-link menu-toggle">
             <div >Setup</div>
