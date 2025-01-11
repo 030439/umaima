@@ -108,9 +108,7 @@ $(function() {
                                 <a href="allote/edit/${a.id}" class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill">
                                     <i class="ti ti-edit ti-md"></i>
                                 </a>
-                                <a href="javascript:;" class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill delete-record">
-                                    <i class="ti ti-trash ti-md"></i>
-                                </a>
+                               
                             </div>`;
                     }
                     
