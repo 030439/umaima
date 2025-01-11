@@ -189,17 +189,15 @@ Route::middleware(['auth']) ->prefix('api')->group(function () {
 
     Route::controller(TransferController::class)
     ->group(function(){
-        Route::POST('plot/transfer','plotTransfer')->name('transfer.read');
-        Route::POST('fetch-accounts','fetchAccounts')->name('cash.create');
-        Route::POST('cash/store','storePayment')->name('payment.create');
-        Route::POST('account-heads','addAccountHead')->name('account-head.create');
-        Route::POST('getPayments','getPayments')->name('payment.read');
-        Route::POST('getExpenses','getExpenses')->name('payment.read');
-        Route::POST('getPaymentsVoucher','getPaymentsVoucher')->name('payment.read');
+        Route::get('plot/transfer','plotTransfer')->name('transfer.read');
        
     });
 });
 Route::middleware('auth')->prefix('api')->group(function(){
+    Route::controller(TransferController::class)
+    ->group(function(){
+        Route::get('transerList','transerList')->name('transfer.read');
+    });
     Route::post("getAllotiesNames",[AlloteController::class,'getAllotiesNames']);
     Route::post("get-alloties",[AlloteController::class,'getAlloties']);
     Route::post('/get-scheme-details', [SchemeController::class, 'getSchemeDetails']);

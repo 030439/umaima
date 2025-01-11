@@ -18,4 +18,9 @@ class TransferController extends Controller
     public function plotTransfer(){
         return view('transfer.plots');
     }
+
+    public function transerList(){
+        $all = $this->plotservice->transerList();
+        return response()->json($all);
+    }
 }

@@ -149,11 +149,11 @@ class PermissionsTableSeeder extends Seeder
                 'password' => bcrypt('info123'), // Encrypt password
             ]
         );
-        DB::table('model_has_roles')->insert([
-            'model_id' => 1,
-            'role_id' => 1,
-            'model_type' => 'App\Models\User', // or the relevant model class
-        ]);
+        // DB::table('model_has_roles')->insert([
+        //     'model_id' => 1,
+        //     'role_id' => 1,
+        //     'model_type' => 'App\Models\User', // or the relevant model class
+        // ]);
         
         // Attach the role to the user
         $user->assignRole($adminRole);
