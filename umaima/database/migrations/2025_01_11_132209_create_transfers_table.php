@@ -12,8 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('transfers', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->id(); // Primary key
+            $table->foreignId('allocation_details_id')->constrained('allocation_details')->onDelete('cascade');
+            $table->foreignId('from')->constrained('allotes')->onDelete('cascade');
+            $table->foreignId('to')->constrained('allotes')->onDelete('cascade');
+            $table->date('tdate'); // Payment date
+            $table->decimal('amount', 15, 2); // Amount with precision
+            $table->text('narration'); // Narration
+            $table->timestamps(); // created_at and updated_at
+            $table->softDeletes();
         });
     }
 
