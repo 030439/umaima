@@ -105,6 +105,14 @@ class PermissionsTableSeeder extends Seeder
             ['name' => 'cash.create', 'guard_name' => 'web'],
             ['name' => 'cash.delete', 'guard_name' => 'web'],
             ['name' => 'cash.list', 'guard_name' => 'web'],
+
+
+
+            ['name' => 'transfer.read', 'guard_name' => 'web'],
+            ['name' => 'transfer.write', 'guard_name' => 'web'],
+            ['name' => 'transfer.create', 'guard_name' => 'web'],
+            ['name' => 'transfer.delete', 'guard_name' => 'web'],
+            ['name' => 'transfer.list', 'guard_name' => 'web'],
             
         ];
 

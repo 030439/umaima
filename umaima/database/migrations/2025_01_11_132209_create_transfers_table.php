@@ -19,6 +19,7 @@ return new class extends Migration
             $table->date('tdate'); // Payment date
             $table->decimal('amount', 15, 2); // Amount with precision
             $table->text('narration'); // Narration
+
             $table->timestamps(); // created_at and updated_at
             $table->softDeletes();
         });
