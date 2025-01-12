@@ -1076,13 +1076,14 @@ class PlotService
     public function getAlloteByPlot(){
         $plot=$this->request->input('plot');
             $allotes = DB::table('allocation_details')
-            ->select('allotes.fullname as allote','allocation_details.allote as id')
+            ->select('allocation_details.id as allocation','allotes.fullname as allote','allocation_details.allote as id')
             ->join('allotes', 'allocation_details.allote', '=', 'allotes.id')
             ->where('allocation_details.plot', $plot)
             ->first();
             $arr=[
                 'name'=>$allotes->allote,
-                'id'=>$allotes->id
+                'id'=>$allotes->id,
+                'allocation'=>$allotes->allocation
             ];
         return $arr;
     }
@@ -1107,9 +1108,10 @@ class PlotService
     {
         try {
             $validator = Validator::make($this->request->all(), [
-                'scheme' => 'required|string|unique:schemes,name',
+                'scheme' => 'required',
                 'plot' => 'required',
-                'from' => 'required',
+                'from' => 'required/integer',
+                'allocation' => 'required/integer',
                 'to' => 'required|integer',
                 'amount' => 'required',
                 'date' => 'required',
@@ -1124,14 +1126,24 @@ class PlotService
                     'message' => "\n" . $errorMessages
                 ], 422); // Unprocessable Entity
             }
-    
-            dd("err");
+
+            $allocation= $this->request->input('allocation');
+            $scheme= $this->request->input('scheme');
+            $plot= $this->request->input('plot');
+            $from= $this->request->input('from');
+            $to= $this->request->input('to');
+            $amount= $this->request->input('amount');
+            $date= $this->request->input('date');
+            $narration= $this->request->input('narration');
+           
             // Insert into schemes table
             $scheme = Scheme::create([
-                'name' => $this->request->input('scheme.schemeName'),
-                'area' => $this->request->input('scheme.schemeArea'),
-                'no_of_plots' => $this->request->input('scheme.numberOfPlots'),
-                'total_valuation' => $this->request->input('scheme.totalValuation'),
+                'allocation_details_id'=>$allocation,
+                'from'=>$from,
+                'to'=>$to,
+                'tdate'=>$date,
+                'amount'=>$amount, 
+                'narration'=>$narration
             ]);
             // Log the action
             logAction('Created Scheme', $scheme->name);
