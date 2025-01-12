@@ -1080,7 +1080,11 @@ class PlotService
             ->join('allotes', 'allocation_details.allote', '=', 'allotes.id')
             ->where('allocation_details.plot', $plot)
             ->first();
-        return $allotes->allote;
+            $arr=[
+                'name'=>$allotes->allote,
+                'id'=>$allotes->id
+            ];
+        return $arr;
     }
 
     public function getplotBySchemes(){
