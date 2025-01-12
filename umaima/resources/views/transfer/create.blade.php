@@ -45,8 +45,8 @@
 
         <div class="col-6">
             <label class="form-label" for="schemeSelection">From Allote</label>
-            <input class="form-select" id="alloted" name="fromallote" readonly>
-            <input class="form-select" id="from-allote" name="from" readonly>
+            <input class="form-control" id="alloted" name="fromallote" readonly>
+            <input type="hidden"  id="from-allote" name="from" readonly>
             <div class="valid-feedback">Looks good!</div>
             <div class="invalid-feedback">Please select your scheme</div>
         </div>

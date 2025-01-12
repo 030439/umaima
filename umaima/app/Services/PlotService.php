@@ -1076,7 +1076,7 @@ class PlotService
     public function getAlloteByPlot(){
         $plot=$this->request->input('plot');
             $allotes = DB::table('allocation_details')
-            ->select('allotes.fullname as allote')
+            ->select('allotes.fullname as allote','allocation_details.allote as id')
             ->join('allotes', 'allocation_details.allote', '=', 'allotes.id')
             ->where('allocation_details.plot', $plot)
             ->first();
@@ -1125,6 +1125,7 @@ class PlotService
                 ], 422); // Unprocessable Entity
             }
     
+            dd("err");
             // Insert into schemes table
             $scheme = Scheme::create([
                 'name' => $this->request->input('scheme.schemeName'),

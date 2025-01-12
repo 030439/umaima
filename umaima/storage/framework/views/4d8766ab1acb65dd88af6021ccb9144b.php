@@ -45,7 +45,8 @@
 
         <div class="col-6">
             <label class="form-label" for="schemeSelection">From Allote</label>
-            <input class="form-select" id="alloted" name="from" readonly>
+            <input class="form-control" id="alloted" name="fromallote" readonly>
+            <input type="hidden"  id="from-allote" name="from" readonly>
             <div class="valid-feedback">Looks good!</div>
             <div class="invalid-feedback">Please select your scheme</div>
         </div>
@@ -129,6 +130,7 @@
 
 <script>
     const csrfToken=document.querySelector('meta[name="csrf-token"]').getAttribute("content");
+    
     function populateDropdown(selectId, items) {
         const selectElement = document.getElementById(selectId);
         selectElement.innerHTML = "<option value=''>Select</option>"; // Reset options
@@ -201,7 +203,8 @@
             data:{plot:plotId},
             success: function (response) {
                 if (response) {
-                    $("#alloted").val(response);
+                    $("#alloted").val(response.name);
+                    $("#from-allote").val(response.id);
                 } else {
                     showToast("Failed to fetch plots", "danger");
                 }
