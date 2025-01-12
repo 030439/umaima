@@ -1106,7 +1106,7 @@ class PlotService
 
     public function transferPlot()
     {
-        try {
+        
             $validator = Validator::make($this->request->all(), [
                 'scheme' => 'required',
                 'plot' => 'required',
@@ -1137,7 +1137,9 @@ class PlotService
             $narration= $this->request->input('narration');
            
             // Insert into schemes table
-            $scheme = Scheme::create([
+            DB::beginTransaction();
+            try {
+            $Transfer = Transfer::create([
                 'allocation_details_id'=>$allocation,
                 'from'=>$from,
                 'to'=>$to,
@@ -1146,19 +1148,22 @@ class PlotService
                 'narration'=>$narration
             ]);
             // Log the action
-            logAction('Created Scheme', $scheme->name);
+            logAction('Plot transfer created for  plot '.$plot .'form allote '.$from .' to '.$to, $Transfer->id);
     
-            // Success response
+           
+            DB::commit();
+
             return response()->json([
-                'message' => 'Scheme created successfully!',
-                'success' => true
+                'message' => 'design category created successfully!',
+                'success' => true,
             ]);
-        } catch (Exception $e) {
-            // Error response
-            
+        } catch (\Exception $e) {
+            DB::rollBack();
+            \Log::error('Error creating account: ' . $e->getMessage());
+
             return response()->json([
-                'message' =>  $e->getMessage(),
-                'success' => false
+                'message' => $e->getMessage(),
+                'success' => false,
             ]);
         }
     }
