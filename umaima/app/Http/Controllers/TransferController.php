@@ -41,4 +41,8 @@ class TransferController extends Controller
         return ($result);
     }
 
+    public function transferPlot(){
+        return $this->plotservice->transferPlot();
+    }
+
 }

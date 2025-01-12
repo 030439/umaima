@@ -1098,4 +1098,129 @@ class PlotService
         ]);
     }
 
+
+    public function transferPlot()
+    {
+        try {
+            $validator = Validator::make($this->request->all(), [
+                'scheme' => 'required|string|unique:schemes,name',
+                'plot' => 'required',
+                'from' => 'required',
+                'to' => 'required|integer',
+                'amount' => 'required',
+                'date' => 'required',
+            ]);
+    
+            if ($validator->fails()) {
+                // Format the error messages as a single string with line breaks
+                $errorMessages = implode("\n", $validator->errors()->all());
+            
+                return response()->json([
+                    'success' => false,
+                    'message' => "\n" . $errorMessages
+                ], 422); // Unprocessable Entity
+            }
+    
+            // Insert into schemes table
+            $scheme = Scheme::create([
+                'name' => $this->request->input('scheme.schemeName'),
+                'area' => $this->request->input('scheme.schemeArea'),
+                'no_of_plots' => $this->request->input('scheme.numberOfPlots'),
+                'total_valuation' => $this->request->input('scheme.totalValuation'),
+            ]);
+            // Log the action
+            logAction('Created Scheme', $scheme->name);
+    
+            // Success response
+            return response()->json([
+                'message' => 'Scheme created successfully!',
+                'success' => true
+            ]);
+        } catch (Exception $e) {
+            // Error response
+            
+            return response()->json([
+                'message' =>  $e->getMessage(),
+                'success' => false
+            ]);
+        }
+    }
+
+    public function designStore()
+    {
+        $validate = Validator::make($this->request->all(), [
+            'name' => 'required',
+            'opening_qty' => 'required',
+            'designpro' => 'required|integer|exists:inventories,id',
+            'opening_cost' => 'required',
+            'edate' => 'required',
+            'code' => 'required',
+        ]);
+
+        if ($validate->fails()) {
+            // Format the error messages as a single string with line breaks
+            $errorMessages = implode("\n", $validate->errors()->all());
+
+            return response()->json([
+                'success' => false,
+                'message' => "\n" . $errorMessages,
+            ], 422); // Unprocessable Entity
+        }
+
+        DB::beginTransaction();
+
+        try {
+            // Insert the unit record and get its ID
+
+            $designsertedId = DB::table('designs')->insertGetId([
+                'name' => $this->request->input('name'),
+                'code' => $this->request->input('code'),
+                'pid' => $this->request->input('designpro'),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+
+            // Handle the image upload and store it manually
+            $image = $this->request->file('image');
+
+            if($image){
+                $fileName = $image->getClientOriginalName();
+                 $filePath = $image->storeAs('images', $fileName, 'public');
+                DB::table('media')->insert([
+                    'name' => $fileName,
+                    'file_name' => $fileName,
+                    'disk' => 'public',
+                    'mime_type' => $image->getMimeType(),
+                    'size' => $image->getSize(),
+                    'collection_name' => 'images',
+                    'model_id' => $designsertedId, // ID of the unit
+                    'model_type' => 'designs',       // Reference to the units table
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            }
+            
+            
+
+            
+            logAction('design Created', $lastInsertedId);
+
+            DB::commit();
+
+            return response()->json([
+                'message' => 'design category created successfully!',
+                'success' => true,
+            ]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            \Log::error('Error creating account: ' . $e->getMessage());
+
+            return response()->json([
+                'message' => $e->getMessage(),
+                'success' => false,
+            ]);
+        }
+    }
+    
+
 }

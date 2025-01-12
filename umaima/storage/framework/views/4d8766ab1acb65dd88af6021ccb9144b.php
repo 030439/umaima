@@ -25,10 +25,10 @@
 <div class="card">
 <h5 class="card-header">Create Scheme Plot</h5>
 <div class="card-body">
-    <form id="schemePlotForm" class="row g-6"  onsubmit="return false">
+    <form id="formdata" class="row g-6"  onsubmit="return false">
         <div class="col-6">
             <label class="form-label" for="schemeSelection">Scheme</label>
-            <select class="form-select select2" id="scheme" name="schemeSelection" >
+            <select class="form-select select2" id="scheme" name="scheme" >
                 <option value="">Select Scheme</option>
             </select>
             <div class="valid-feedback">Looks good!</div>
@@ -36,7 +36,7 @@
         </div>
         <div class="col-6">
             <label class="form-label" for="schemeSelection">Plot</label>
-            <select class="form-select select2" id="plot" name="schemeSelection" >
+            <select class="form-select select2" id="plot" name="plot" >
                 <option value="">Select Plot</option>
             </select>
             <div class="valid-feedback">Looks good!</div>
@@ -45,66 +45,41 @@
 
         <div class="col-6">
             <label class="form-label" for="schemeSelection">From Allote</label>
-            <select class="form-select select2" id="alloted" name="schemeSelection" >
-                <option value="">Select Alloted Allote</option>
-            </select>
+            <input class="form-select" id="alloted" name="from">
             <div class="valid-feedback">Looks good!</div>
             <div class="invalid-feedback">Please select your scheme</div>
         </div>
 
         <div class="col-6">
             <label class="form-label" for="schemeSelection">To Allote</label>
-            <select class="form-select" id="allote" name="schemeSelection" >
+            <select class="form-select" id="allote" name="to" >
                 <option value="">Select Allote</option>
             </select>
             <div class="valid-feedback">Looks good!</div>
             <div class="invalid-feedback">Please select your scheme</div>
         </div>
 
+
         <div class="col-md-6">
-            <label class="form-label" for="plotNumber">Plot Number</label>
-            <input type="text" id="plotNumber" class="form-control" tag="Plot number" name="plotNumber"  />
-            <div class="invalid-feedback">Please enter the plot number.</div>
+            <label class="form-label" for="plotNumber">Amount</label>
+            <input class="form-control" id="amount" name="amount" type="number">
         </div>
 
-        <div class="col-6">
-            <label class="form-label" for="plotSize">Plot Size</label>
-            <select class="form-select" id="plotSize" name="plotSize" >
-                <option value="">Select Plot Size</option>
-            </select>
-            <div class="valid-feedback">Looks good!</div>
-            <div class="invalid-feedback">Please select the plot size.</div>
+        <div class="col-md-6">
+            <label class="form-label" for="plotNumber">Date</label>
+            <input class="form-control" id="date" name="date" type="date">
         </div>
-        <div class="col-6">
-            <label class="form-label" for="plotCategories">Plot Category</label>
-            <select class="form-select" id="plotCategories" name="plotCategories" >
-                <option value="">Select Plot Category</option>
-            </select>
-            <div class="valid-feedback">Looks good!</div>
-            <div class="invalid-feedback">Please select the plot Category.</div>
+        <div class="col-md-6">
+            <label class="form-label" for="plotNumber">Narration</label>
+            <input class="form-control" id="narration" name="narration">
         </div>
-        <div class="col-6">
-            <label class="form-label" for="plotCat">Plot Sub Category</label>
-            <select class="form-select" id="plotCat" name="plotCat" >
-                <option value="">Select Plot Category</option>
-                <option value="1">Residential</option>
-                <option value="2">Commercial</option>
-            </select>
-            <div class="valid-feedback">Looks good!</div>
-            <div class="invalid-feedback">Please select the plot Category.</div>
-        </div>
-        <div class="col-6">
-            <label class="form-label" for="plotLocation">Plot Location</label>
-            <select class="form-select" id="plotLocation" name="plotLocation" >
-                <option value="">Select Plot Location</option>
-            </select>
-            <div class="valid-feedback">Looks good!</div>
-            <div class="invalid-feedback">Please select the plot location.</div>
-        </div>
-        
 
+        <div class="col-md-6">
+            <label class="form-label" for="plotNumber">Document</label>
+            <input class="form-control" id="document" name="document" type="file">
+        </div>
         <div class="col-12">
-            <button type="submit" name="submitButton" class="btn btn-primary">Submit</button>
+        <button class="btn btn-success btn-next btn-submit" onclick="submitdata();">Submit</button>
         </div>
     </form>
 </div>
@@ -142,46 +117,57 @@
 
 <!-- Main JS -->
 <script src="../../assets/js/main.js"></script>
-<script>
-function populateDropdown(selectId, items) {
-    const selectElement = document.getElementById(selectId);
-    selectElement.innerHTML = "<option value=''>Select</option>"; // Reset options
 
-    items.forEach(item => {
-        const option = document.createElement("option");
-        option.value = item.value;
-        option.textContent = item.label;
-        selectElement.appendChild(option);
-    });
-    $("#"+selectId).select2();
-    
-}
-function fetchSchemeDetails() {
-    $.ajax({
-        method: "POST",
-        url: "/api/get-alloties",
-        headers: {
-            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
-        },
-        success: function(data) {
-            if (data.success) {
-                populateDropdown("allote", data.allotes);
-                populateDropdown("scheme", data.scheme);
-            } else {
-                showToast("Error: " + data.message, "danger");
+<!-- Main JS -->
+<script src="../../assets/vendor/libs/sweetalert2/sweetalert2.js"></script>
+
+>
+
+
+<!-- Page JS -->
+<script src="../../assets/js/extended-ui-sweetalert2.js"></script>
+
+<script>
+    const csrfToken=document.querySelector('meta[name="csrf-token"]').getAttribute("content");
+    function populateDropdown(selectId, items) {
+        const selectElement = document.getElementById(selectId);
+        selectElement.innerHTML = "<option value=''>Select</option>"; // Reset options
+
+        items.forEach(item => {
+            const option = document.createElement("option");
+            option.value = item.value;
+            option.textContent = item.label;
+            selectElement.appendChild(option);
+        });
+        $("#"+selectId).select2();
+        
+    }
+    function fetchSchemeDetails() {
+        $.ajax({
+            method: "POST",
+            url: "/api/get-alloties",
+            headers: {
+                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+            },
+            success: function(data) {
+                if (data.success) {
+                    populateDropdown("allote", data.allotes);
+                    populateDropdown("scheme", data.scheme);
+                } else {
+                    showToast("Error: " + data.message, "danger");
+                }
+            },
+            error: function(jqXHR) {
+                const errorResponse = jqXHR.responseJSON;
+                if (errorResponse && errorResponse.error) {
+                    showToast("Error: " + errorResponse.message, "danger");
+                } else {
+                    showToast("Failed to load scheme details.", "danger");
+                }
             }
-        },
-        error: function(jqXHR) {
-            const errorResponse = jqXHR.responseJSON;
-            if (errorResponse && errorResponse.error) {
-                showToast("Error: " + errorResponse.message, "danger");
-            } else {
-                showToast("Failed to load scheme details.", "danger");
-            }
-        }
-    });
-}
-fetchSchemeDetails();
+        });
+    }
+   fetchSchemeDetails();
 
     function fetchPlots(plotId) {
         $.ajax({
@@ -214,9 +200,8 @@ fetchSchemeDetails();
             }, // Your endpoint for fetching plots
             data:{plot:plotId},
             success: function (response) {
-                if (response.success && response.plots) {
-                    populateDropdown('plot',response.plots);
-                    
+                if (response) {
+                    $("#alloted").val(response);
                 } else {
                     showToast("Failed to fetch plots", "danger");
                 }
@@ -256,8 +241,176 @@ fetchSchemeDetails();
             resetAllote();
         }
     });
+
 </script>
 
+<script>
 
+
+
+
+function submitdata(event) {
+    // Show loading dialog for 1 second before submitting the form
+    Swal.fire({
+        title: "Processing...",
+        text: "Please wait",
+        icon: "info",
+        showConfirmButton: false,
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        willOpen: () => {
+            Swal.showLoading(); // Show the loading spinner
+        },
+    });
+
+    // Wait for 1 second before submitting the form
+    setTimeout(function () {
+        // Create a new FormData object from the form
+        const formData = new FormData(document.getElementById("formdata"));
+
+        // const supplier = document.getElementById("supplier-name").value;
+        // const tcharges = document.getElementById("tcharges").value;
+        // const currency = document.getElementById("currency").value;
+        // const crate = document.getElementById("conversion-rate").value;
+        // const cdate = document.getElementById("cdate").value;
+        // const saleType = document.getElementById("sale-type").value;
+        // const invType = document.getElementById("inv-type-0").value;
+
+        // // Append them to the FormData object
+        // formData.append("supplier", supplier);
+        // formData.append("crate", crate);
+        // formData.append("currency", currency);
+        // formData.append("cdate", cdate);
+        // formData.append("tcharges", tcharges);
+        // formData.append("invType",invType);
+        // formData.append("saleType",saleType);
+
+        fetch("<?php echo e(route('transfer.create')); ?>", {
+            method: "POST",
+            body: formData,
+            headers: {
+                "X-CSRF-TOKEN": csrfToken // Add CSRF token to request headers
+            },
+        })
+        .then(response => {
+            if (!response.ok) {
+                Swal.close(); // Close the loading dialog
+            
+                Swal.fire({
+                    icon: 'error',
+                    text: response,
+                });
+            }
+            return response.json(); // Assuming JSON response
+        })
+        .then(data => {
+            Swal.close(); // Close the loading dialog
+            
+            if (data.success) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success!',
+                    text: data.message,
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+
+                // Redirect after success
+                setTimeout(function() {
+                    window.location.href = "/sale/list";
+                }, 2000); 
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: data.message,
+                });
+            }
+        })
+        .catch(error => {
+            Swal.close(); // Close the loading dialog
+            
+            Swal.fire({
+                icon: 'error',
+                text: error,
+            });
+        });
+    }, 1000); // Delay of 1 second (1000 milliseconds)
+}
+
+
+
+    function submitdata__(event) {
+    Swal.fire({
+        title: "Processing...",
+        text: "Please wait",
+        icon: "info",
+        showConfirmButton: false,
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        willOpen: () => {
+            Swal.showLoading();
+        },
+    });
+
+
+        var form = document.getElementById('formdata');
+        var formData = new FormData(form);
+
+        // Debugging: Log form data to console
+        for (var pair of formData.entries()) {
+            console.log(pair[0] + ": " + pair[1]);
+        }
+
+        fetch("<?php echo e(route('transfer.create')); ?>", {
+            method: "POST",
+            body: formData,
+            headers: {
+                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+            },
+        })
+        .then(response => {
+            if (!response.ok) {
+           return response.json().then(errorData => {
+               throw new Error(errorData.message || 'Network response was not ok');
+           });
+        }
+        return response.json();
+        })
+        .then(data => {
+            Swal.close();
+
+            if (data.success) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success!',
+                    text: data.message,
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+
+                // Redirect after success
+                setTimeout(function() {
+                    window.location.href = "allote-listing";
+                }, 2000);
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Validation Error',
+                    html: data.message.replace(/\n/g, '<br>'), // Display validation errors
+                });
+            }
+        })
+        .catch(error => {
+            Swal.close();
+            console.error("Error:", error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'An unexpected error occurred. Please try again later.',
+            });
+        });
+}
+</script>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('layout.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\umaima\umaima\resources\views/transfer/create.blade.php ENDPATH**/ ?>

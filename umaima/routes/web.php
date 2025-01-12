@@ -202,6 +202,7 @@ Route::middleware('auth')->prefix('api')->group(function(){
         Route::post('transerList','transerList')->name('transfer.list');
         Route::post('get-allote-by-plot', 'getAlloteByPlot')->name('transfer.store');
         Route::post('/get-plot-by-scheme','getplotByScheme');
+        Route::post('/transfer-plot','transferPlot')->name('transfer.create');
     });
     Route::post("getAllotiesNames",[AlloteController::class,'getAllotiesNames']);
     Route::post("get-alloties",[AlloteController::class,'getAlloties']);
