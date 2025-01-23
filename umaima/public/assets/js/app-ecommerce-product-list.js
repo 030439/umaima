@@ -446,6 +446,8 @@ function populateDropdown(selectId, items) {
         option.textContent = item.label;
         selectElement.appendChild(option);
     });
+
+    $("#"+selectId).select2();
 }
 
 function fetchExpenseHeads() {

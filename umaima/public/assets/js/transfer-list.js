@@ -37,42 +37,50 @@ $(function() {
             },
             columns: [   // Map to 'name' in the returned JSON
                 { data: 'id',title:"Scheme" },       // Map to 'id' in the returned JSON
-                { data: 'id',title:"area" },     // Map to 'name' in the returned JSON
-                { data: 'id',title:"no-of-plots" },       // Map to 'id' in the returned JSON
-                { data: 'id',title:"total-valuation" }, 
-                { data: 'id',title:"status" }, 
-                { data: 'id',title:"actions" },    
+                { data: 'id',title:"Plot" },     // Map to 'name' in the returned JSON
+                { data: 'id',title:"From-Allote" },       // Map to 'id' in the returned JSON
+                { data: 'id',title:"To-Allote" }, 
+                { data: 'id',title:"T-Amount" },
+                { data: 'id',title:"T-Narration" },   
             ],
             columnDefs: [
                
                
                 {
                     targets: 0,
-                    responsivePriority: 4,
                     render: function(t, e, a, s) {
-                        var n = a.name,
-                            i = a.email
-                        return '<div class="d-flex justify-content-start align-items-center user-name">' +
-                            '<div class="d-flex flex-column"><a  class="text-heading text-truncate"><span class="fw-medium">' + n + "</span></a></div></div>";
+                        return '<span class="text-heading">' + a.scheme + "</span>";
                     }
                 },
                 {
                     targets: 1,
                     render: function(t, e, a, s) {
-                        return '<span class="text-heading">' + a.area + "</span>";
+                        return '<span class="text-heading">' + a.plot + "</span>";
                     }
                     
                 },
                 {
                     targets: 2,
                     render: function(t, e, a, s) {
-                        return '<span class="text-heading">' + a.no_of_plots + "</span>";
+                        return '<span class="text-heading">' + a.from + "</span>";
                     }
                 },
                 {
                     targets: 3,
                     render: function(t, e, a, s) {
-                        return '<span class="text-heading">' + a.total_valuation + "</span>";
+                        return '<span class="text-heading">' + a.to + "</span>";
+                    }
+                },
+                {
+                    targets: 4,
+                    render: function(t, e, a, s) {
+                        return '<span class="text-heading">' + a.amount + "</span>";
+                    }
+                },
+                {
+                    targets: 5,
+                    render: function(t, e, a, s) {
+                        return '<span class="text-heading">' + a.narration + "</span>";
                     }
                 },
                 {
@@ -94,27 +102,7 @@ $(function() {
                         return '<span class="badge ' + status_bg + '" text-capitalized>' +status_title+ "</span>";
                     }
                 },
-                {
-                    targets: -1,
-                    title: "Actions",
-                    searchable: false,
-                    orderable: false,
-                    render: function(t, e, a, s) {
-                        return `
-                            <div class="d-flex align-items-center">
-                                <a href="scheme-plots/${a.id}" 
-                                   class=" btn-text-info waves-effect waves-light" 
-                                   >
-                                    <i class="ti ti-eye ti-md"></i>
-                                </a>
-                                <a href="edit-scheme/${a.id}"  class="btn btn-text-warning waves-effect waves-light">
-                                    <i class="ti ti-edit ti-md"></i>
-                                </a>
-                              
-                            </div>`;
-                    }
-                    
-                }
+               
             ],
             order: [[2, "desc"]],
             dom: '<"row"<"col-md-2"<"ms-n2"l>><"col-md-10"<"dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-6 mb-md-0 mt-n6 mt-md-0"fB>>>t<"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
@@ -199,7 +187,7 @@ $(function() {
                 }],
             },
             {
-                text: '<i class="ti ti-plus ti-xs me-0 me-sm-2"></i><span class="d-none d-sm-inline-block">Add New Scheme</span>',
+                text: '<i class="ti ti-plus ti-xs me-0 me-sm-2"></i><span class="d-none d-sm-inline-block">Tranfer Plot</span>',
                 className: "add-new btn btn-primary mb-6 mb-md-0 waves-effect waves-light",
                 attr: {
                     onclick: "window.location.href='/transfer-create'",

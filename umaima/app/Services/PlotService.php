@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\JsonResponse;
 use App\Models\Plot;
 use App\Models\AllocationDetail;
+use App\Models\Transfer;
 use Carbon\Carbon;
 use Exception;
 class PlotService
@@ -32,7 +33,7 @@ class PlotService
         $start = $this->request->input('start', 0);
         $length = $this->request->input('length', 10);
         $page = $this->request->input('page', 1);
-        $orderColumn = $this->request->input('orderColumn', 'plots.id');
+        $orderColumn = $this->request->input('orderColumn', 'transfers.id');
         $orderDirection = $this->request->input('orderDirection', 'asc');
         $groupBy = $this->request->input('groupBy', []);
         $having = $this->request->input('having', []);
@@ -43,6 +44,7 @@ class PlotService
         // Initialize an array for the conditions
         $columns = [
             'transfers.id as id',
+            'transfers.narration as narration',
             'transfers.amount as amount',
             'from_allotes.fullname as from', // Use "from_allotes" alias
             'to_allotes.fullname as to',   // Use "to_allotes" alias
@@ -409,7 +411,7 @@ class PlotService
         
             // Fetch the latest plot number from plots table
             $latestPlotNumber = DB::table('plots')
-                ->where('plot_number', $detail->plot)
+                ->where('id', $detail->plot)
                 ->orderByDesc('id')
                 ->value('plot_number');
         
@@ -1059,7 +1061,11 @@ class PlotService
     }
     public function getPlotsByAllote(){
         $id=$this->request->input('allote');
-        $allotes = DB::table('allocation_details')->select('plot', 'id')->where('allote', $id)->where('status', 1)->get();
+        $allotes = DB::table('allocation_details')
+        ->select('plots.plot_number as plot', 'allocation_details.id')
+        ->join('plots', 'allocation_details.plot', '=', 'plots.id')
+        ->where('allocation_details.allote', $id)->where('allocation_details.status', 1)
+        ->get();
         $allote=$allotes->map(function ($allote) {
             return [
                 'value' => $allote->id, // assuming 'id' is a unique identifier
@@ -1110,9 +1116,9 @@ class PlotService
             $validator = Validator::make($this->request->all(), [
                 'scheme' => 'required',
                 'plot' => 'required',
-                'from' => 'required/integer',
-                'allocation' => 'required/integer',
-                'to' => 'required|integer',
+                'from' => 'required',
+                'allocation' => 'required',
+                'to' => 'required',
                 'amount' => 'required',
                 'date' => 'required',
             ]);
@@ -1147,6 +1153,16 @@ class PlotService
                 'amount'=>$amount, 
                 'narration'=>$narration
             ]);
+            if($Transfer){
+                $allocationDetail = AllocationDetail::find($allocation);
+                if($allocationDetail){
+                    $allocationDetail->allote = $to;
+                    $allocationDetail->save();
+                    
+                }else{
+                  return "no record found for allocation";
+                }
+            }
             // Log the action
             logAction('Plot transfer created for  plot '.$plot .'form allote '.$from .' to '.$to, $Transfer->id);
     

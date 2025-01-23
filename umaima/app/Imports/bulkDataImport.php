@@ -238,7 +238,6 @@ class BulkDataImport implements ToCollection
             foreach($records as $index=> $record){
                  if(!empty($record)){
                     $alloted =$this->allotment($record[0]);
-                 
                     if($alloted>0){
                     $this->confirmSchedule($record,$alloted);
                     }
@@ -265,6 +264,7 @@ class BulkDataImport implements ToCollection
             //                     $data = [
             //                         'paid_on' => $rec['paid_on'],
             //                         'paydate' => $rec['paid_on'],
+            //                         'receipt'=>$rec['receipt'],
             //                         'payment_type' => 1,
             //                         'from_account' => 1,
             //                         'amount' => $rec['amount_paid'],
@@ -398,6 +398,7 @@ class BulkDataImport implements ToCollection
             // $allocationId = $data['plot'];
             $amountPaid = $data['amount_paid'];
             $paidOn = $data['paid_on'];
+            $receipt=$data['receipt'];
             
             
             $payD=Carbon::parse($paidOn)->format('Y-m-d');

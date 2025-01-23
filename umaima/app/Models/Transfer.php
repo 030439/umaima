@@ -11,7 +11,7 @@ class Transfer extends Model
     
     protected $table="transfers";
     protected $fillable = [
-        'allocation_details_id ',
+        'allocation_details_id',
         'from',
         'to',
         'tdate',

@@ -246,10 +246,10 @@ class SchemeService
     {
         $plots = DB::table('plots')
         ->leftJoin('schemes', 'plots.scheme_id', '=', 'schemes.id')
-        ->leftJoin('allocation_details', 'allocation_details.plot', '=', 'plots.plot_number')
+        ->leftJoin('allocation_details', 'allocation_details.plot', '=', 'plots.id')
         ->leftJoin('allotes', 'allocation_details.allote', '=', 'allotes.id')
         ->select(
-            'plots.id as id',
+            'plots.plot_number as id',
             'plots.status as plot_status',
             'plots.plot_number',
             'schemes.name as scheme',
@@ -263,15 +263,17 @@ class SchemeService
 
         // Group data by schemes
         $groupedPlots = $plots->groupBy('scheme');
+        // return $groupedPlots;
+        // dd($groupedPlots);
         $response = [];
         foreach ($groupedPlots as $schemeName => $plots) {
             $response[] = [
                 'scheme' => $schemeName,
                 'plots' => $plots->map(function ($plot) {
                     return [
-                            'allote_id' => $this->getAlloteName($plot->plot_number,$plot->sid)?$this->getAlloteName($plot->plot_number,$plot->sid)->allote_id:'', // Handle missing allote name
+                            'allote_id' => $plot->allote_id?$plot->allote_id:'', // Handle missing allote name
                             'status' => $plot->plot_status,
-                            'allote' => $this->getAlloteName($plot->plot_number,$plot->sid)?$this->getAlloteName($plot->plot_number,$plot->sid)->allote_name:'', // Handle missing allote name
+                            'allote' => $plot->allote_name?$plot->allote_name:'', // Handle missing allote name
                             'status' => $plot->plot_status,
                             'plot_number' => $plot->plot_number,
                     

@@ -20,6 +20,7 @@ class DashboardController extends Controller
     public function index(SchemeService $schemeservice)
     {   
         $groupedPlots = $schemeservice->allotedPlotListing();
+      
         $totalPlotsSchemeWise = $schemeservice->totalPlotsSchemeWise();
         $expensesByHeads = $schemeservice->totalExpenseHeadWise();
         $totalPaymentsByAllote = $schemeservice->totalPaymentsByAllote();

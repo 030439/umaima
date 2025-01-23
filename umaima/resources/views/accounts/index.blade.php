@@ -31,7 +31,7 @@
             </select>
         </div>
         <div class="col-md-4">
-            <select id="subcat" class="form-select text-capitalize">
+            <select id="subcat" class="form-select select2 text-capitalize">
             </select>
         </div>
         <div class="col-md-4">
@@ -77,10 +77,13 @@
 <!-- endbuild -->
 
 <!-- Vendors JS -->
+<script src="../../assets/vendor/libs/moment/moment.js"></script>
 <script src="../../assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
+<script src="../../assets/vendor/libs/select2/select2.js"></script>
+
 
 <!-- Main JS -->
-<script src="../../assets/vendor/libs/moment/moment.js"></script>
+
 <script src="../../assets/vendor/libs/flatpickr/flatpickr.js"></script> 
 <script src="../../assets/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.js"></script>
 <script src="../../assets/vendor/libs/bootstrap-daterangepicker/bootstrap-daterangepicker.js"></script>
@@ -88,7 +91,7 @@
 <script src="../../assets/vendor/libs/pickr/pickr.js"></script>
 
 <!-- Main JS -->
-<script src="../../assets/js/main.js"></script>
+
 
 
 <!-- Page JS -->
@@ -96,5 +99,7 @@
 
 <!-- Page JS -->
 <script src="../../assets/js/app-ecommerce-product-list.js"></script>
+
+<script src="../../assets/js/main.js"></script>
 @endsection
 
