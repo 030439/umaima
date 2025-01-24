@@ -461,9 +461,11 @@ class AccountService
             if (!$paymentSchedule) {
                 $late=true; 
             }
+
             if($payD>$payDate && $dm!=$pD){
                 $this->addSurcharge($allocationId,$payDate);
             }
+            
             $record =  PaymentSchedule::where('allocation_details_id', $allocationId)
                 ->where('pay_date', $payDate)
                 ->first();

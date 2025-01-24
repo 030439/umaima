@@ -196,32 +196,15 @@ class BulkDataImport implements ToCollection
        
         if ($allocationDetail) {
                 $status=['status'=>0];
+                // $updatedRows=Plot::where('id', $plot_id)->update($status); 
+
                 $updatedRows = DB::table('plots')
-                ->where('plot_number', '"'.$plot.'"')
+                ->where('id', $plot_id)
                 ->where('scheme_id', $scheme)
                 ->update($status);
-                $aid = $allocationDetail->id;
-               
-            // foreach ($records as $pay) {
-                
-            //     $inputDate = $pay['pay_date']; // e.g., '1-Jun-2024'
-
-            //     // $formattedDate = Carbon::createFromFormat('d-M-Y', $inputDate)->format('Y-m-d');
-               
-            //     // if($pay['amount']>0){
-            //         $Q = DB::table('payment_schedule')->insert([
-            //             'allocation_details_id' => $aid,
-            //             'payment' => $pay['payment'],
-            //             'amount' => $pay['amount'],
-            //             'pay_date' => $pay['pay_date'],
-            //             'created_at' => now(), // Set created_at to current timestamp
-            //             'updated_at' => now(),
-            //         ]);
-            //     // }
-               
-                
-            // }
-    
+                if($updatedRows){
+                    $aid = $allocationDetail->id;
+                }
             // If all inserts succeed, commit the transaction and return success response
             DB::commit();
             logAction('Plot Allocation Created', "Plot no ". $plot ." to Allote".$allote);
@@ -419,10 +402,10 @@ class BulkDataImport implements ToCollection
             if (!$paymentSchedule) {
                 return 3;
             }
-            // if($payD>$payDate && $dm!=$pD){
-
-            //     $this->addSurcharge($allocationId,$payDate);
-            // }
+            if($payD>$payDate && $dm!=$pD){
+                $this->addSurcharge($allocationId,$payDate);
+            }
+            
             $record =  PaymentSchedule::where('allocation_details_id', $allocationId)
                 ->where('pay_date', $payDate)
                 ->first();
@@ -433,7 +416,6 @@ class BulkDataImport implements ToCollection
                 if($record->amount_paid){
                     return 5;
                 }
-                $this->addSurcharge($allocationId,$payDate);
                 $overdueSchedules = PaymentSchedule::where('allocation_details_id', $allocationId)
                 ->where('pay_date', '<', $payDate)
                 ->where('surcharge', 0)
@@ -455,7 +437,7 @@ class BulkDataImport implements ToCollection
                     $out_standing=$out_standing+$outStd;
                     $updation=[
                         'surcharge' => $surcharge,
-                        // 'outstanding' =>$out_standing,
+                        //  'outstanding' =>$out_standing,
                         'updated_at' => now(),
                     ];
                     $schedule->update($updation);
@@ -463,7 +445,7 @@ class BulkDataImport implements ToCollection
                 $updated =$record->update([
                     'amount_paid' => $amountPaid,
                     'paid_on' => $payDate,
-                    // 'outstanding' =>$out_standing-$amountPaid,
+                    //  'outstanding' =>$out_standing-$amountPaid,
                     'updated_at' => now(),
                 ]);
                 
@@ -480,19 +462,7 @@ class BulkDataImport implements ToCollection
                 PlotPayment::create($plotPayments);
             }
 
-            // $updated = DB::table('payment_schedule')
-            //     ->where('allocation_details_id', $allocationId)
-            //     ->where('pay_date', $payDate)
-            //     ->update([
-            //         'amount_paid' => $amountPaid,
-            //         'paid_on' => $paidOn,
-            //         'updated_at' => now(),
-            //     ]);
-
             return $updated ? 1 : 2;
-        // } catch (Exception $e) {
-        //     return $e->getMessage();
-        // }
     }
 
 
