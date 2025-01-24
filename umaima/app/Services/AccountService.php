@@ -922,7 +922,7 @@ class AccountService
                 // Update the database with surcharge and outstanding
                 $updated = PaymentSchedule::where('id', $schedule->id)->update([
                     'surcharge' => $surcharge, 
-                    // 'outstanding' => $outstanding,
+                    'outstanding' => $outstanding,
                     'updated_at' => now(),
                 ]);
 

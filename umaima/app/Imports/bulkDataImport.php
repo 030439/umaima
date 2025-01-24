@@ -195,11 +195,11 @@ class BulkDataImport implements ToCollection
         $allocationDetail = AllocationDetail::create($data);
        
         if ($allocationDetail) {
-                // $status=['status'=>0];
-                // $updatedRows = DB::table('plots')
-                // ->where('plot_number', '"'.$plot.'"')
-                // ->where('scheme_id', $scheme)
-                // ->update($status);
+                $status=['status'=>0];
+                $updatedRows = DB::table('plots')
+                ->where('plot_number', '"'.$plot.'"')
+                ->where('scheme_id', $scheme)
+                ->update($status);
                 $aid = $allocationDetail->id;
                
             // foreach ($records as $pay) {
@@ -235,70 +235,70 @@ class BulkDataImport implements ToCollection
     public function storePayment($records)
     {
          $ok=false;
-            foreach($records as $index=> $record){
-                 if(!empty($record)){
-                    $alloted =$this->allotment($record[0]);
-                    if($alloted>0){
-                    $this->confirmSchedule($record,$alloted);
-                    }
-                 }
-            }
-
-
-
             // foreach($records as $index=> $record){
-            //     if(!empty($record)){
-            //        $scheme=$record[0]['scheme'];
-            //        $plot=$record[0]['plot'];
-            //        $allote=$record[0]['allote'];
-
-            //        $plot_id=$this->getPlotId($plot,$scheme);
-           
-            //        $alloted_=$this->getAllocation($plot_id,$allote);
-             
-            //        if($alloted_>0){
-            //             foreach($record as $rec){
-                      
-            //                 if(!empty($rec['paid_on'])){
-    
-            //                     $data = [
-            //                         'paid_on' => $rec['paid_on'],
-            //                         'paydate' => $rec['paid_on'],
-            //                         'receipt'=>$rec['receipt'],
-            //                         'payment_type' => 1,
-            //                         'from_account' => 1,
-            //                         'amount' => $rec['amount_paid'],
-            //                         'amount_paid'=>$rec['amount_paid'],
-            //                         'narration' => "Plot Payment",
-            //                         'allotees' => (int)$rec['allote'],
-            //                         'expense_heads' => 0,
-            //                         'created_at' => now(),
-            //                         'updated_at' => now(),
-            //                     ];
-
-            //                     $pay = [
-            //                         'paydate' => $rec['paid_on'],
-            //                         'payment_type' => 1,
-            //                         'from_account' => 1,
-            //                         'amount' => $rec['amount_paid'],
-            //                         'narration' => "Plot Payment",
-            //                         'allotees' => (int)$rec['allote'],
-            //                         'expense_heads' => 0,
-            //                         'created_at' => now(),
-            //                         'updated_at' => now(),
-            //                     ];
-            //                     $success=true;
-                              
-            //                     $this->payAmount($data,$alloted_);
-            //                     $lastInsertedId=Payment::create($pay);
-            //                     // AllocationDetail::create($data);
-            //                     // $lastInsertedId = DB::table('payments')->insertGetId($pay);
-            //                     logAction('Created Payment', 1);
-            //                 }
-            //             }
-            //        }
-            //     }
+            //      if(!empty($record)){
+            //         $alloted =$this->allotment($record[0]);
+            //         if($alloted>0){
+            //         $this->confirmSchedule($record,$alloted);
+            //         }
+            //      }
             // }
+
+
+
+            foreach($records as $index=> $record){
+                if(!empty($record)){
+                   $scheme=$record[0]['scheme'];
+                   $plot=$record[0]['plot'];
+                   $allote=$record[0]['allote'];
+
+                   $plot_id=$this->getPlotId($plot,$scheme);
+           
+                   $alloted_=$this->getAllocation($plot_id,$allote);
+             
+                   if($alloted_>0){
+                        foreach($record as $rec){
+                      
+                            if(!empty($rec['paid_on'])){
+    
+                                $data = [
+                                    'paid_on' => $rec['paid_on'],
+                                    'paydate' => $rec['paid_on'],
+                                    'receipt'=>$rec['receipt'],
+                                    'payment_type' => 1,
+                                    'from_account' => 1,
+                                    'amount' => $rec['amount_paid'],
+                                    'amount_paid'=>$rec['amount_paid'],
+                                    'narration' => "Plot Payment",
+                                    'allotees' => (int)$rec['allote'],
+                                    'expense_heads' => 0,
+                                    'created_at' => now(),
+                                    'updated_at' => now(),
+                                ];
+
+                                $pay = [
+                                    'paydate' => $rec['paid_on'],
+                                    'payment_type' => 1,
+                                    'from_account' => 1,
+                                    'amount' => $rec['amount_paid'],
+                                    'narration' => "Plot Payment",
+                                    'allotees' => (int)$rec['allote'],
+                                    'expense_heads' => 0,
+                                    'created_at' => now(),
+                                    'updated_at' => now(),
+                                ];
+                                $success=true;
+                              
+                                $this->payAmount($data,$alloted_);
+                                $lastInsertedId=Payment::create($pay);
+                                // AllocationDetail::create($data);
+                                // $lastInsertedId = DB::table('payments')->insertGetId($pay);
+                                logAction('Created Payment', 1);
+                            }
+                        }
+                   }
+                }
+            }
 
              return $ok?true:false;
 
@@ -355,6 +355,8 @@ class BulkDataImport implements ToCollection
     //         return $e->getMessage();
     //     }
     // }
+
+    
     private function calculateSurcharge($outstanding, $rate)
     {
 
@@ -387,7 +389,7 @@ class BulkDataImport implements ToCollection
                     'updated_at' => now(),
                 ]);
             }
-            $this->applyStanding();
+            // $this->applyStanding();
 
     }
     
@@ -400,8 +402,10 @@ class BulkDataImport implements ToCollection
             $paidOn = $data['paid_on'];
             $receipt=$data['receipt'];
             
-            
+            // $paidOn=Carbon::parse($paidOn)->format('Y-m-d');
+
             $payD=Carbon::parse($paidOn)->format('Y-m-d');
+            // dd($payD);
             $payDate = Carbon::parse($paidOn)->format('Y-m-15');
             $dm=Carbon::parse($paidOn)->format('Y-m');
             $pD = Carbon::parse($paidOn)->format('Y-m');
@@ -415,9 +419,10 @@ class BulkDataImport implements ToCollection
             if (!$paymentSchedule) {
                 return 3;
             }
-            if($payD>$payDate && $dm!=$pD){
-                $this->addSurcharge($allocationId,$payDate);
-            }
+            // if($payD>$payDate && $dm!=$pD){
+
+            //     $this->addSurcharge($allocationId,$payDate);
+            // }
             $record =  PaymentSchedule::where('allocation_details_id', $allocationId)
                 ->where('pay_date', $payDate)
                 ->first();
@@ -428,6 +433,7 @@ class BulkDataImport implements ToCollection
                 if($record->amount_paid){
                     return 5;
                 }
+                $this->addSurcharge($allocationId,$payDate);
                 $overdueSchedules = PaymentSchedule::where('allocation_details_id', $allocationId)
                 ->where('pay_date', '<', $payDate)
                 ->where('surcharge', 0)
@@ -456,18 +462,21 @@ class BulkDataImport implements ToCollection
                 }
                 $updated =$record->update([
                     'amount_paid' => $amountPaid,
-                    'paid_on' => $paidOn,
+                    'paid_on' => $payDate,
                     // 'outstanding' =>$out_standing-$amountPaid,
                     'updated_at' => now(),
                 ]);
+                
                 $plotPayments= [
                     'allocation_details_id'=>$allocationId,
-                    'paydate'=>$paidOn,
+                    'paydate'=>$payDate,
+                    'receipt_id'=>$receipt,
                     'amount'=>$amountPaid,
                     'narration'=>"Payment Paid",
                     'created_at' => now(),
                     'updated_at' => now(),
                 ];
+                // dd($plotPayments);
                 PlotPayment::create($plotPayments);
             }
 

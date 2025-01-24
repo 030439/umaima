@@ -14,6 +14,7 @@ class PlotPayment extends Model
     protected $fillable = [
         'allocation_details_id',
         'paydate',
+        'receipt_id',
         'amount',
         'narration'
     ];
