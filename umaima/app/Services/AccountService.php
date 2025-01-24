@@ -132,33 +132,36 @@ class AccountService
     public function isAmounntPaidOnDate($date,$allocation_details_id){
 
     }
-   public function applyStanding_()
+   public function lateapplyStanding($allocation_id)
     {
         $pdate=date('Y-m-15');
-        $paymentSchedules = DB::table('payment_schedule')->where('pay_date','<',$pdate)->get();
+        $paymentSchedules = DB::table('payment_schedule')
+            ->where('allocation_details_id', '=', $allocation_id)
+            ->orderBy('id', 'desc') // Get the last two entries
+            ->limit(2)
+            ->get();
         $updateCount = 0;
-
-        foreach ($paymentSchedules as $schedule) {
-            // Calculate the outstanding balance
-            $outstanding = $schedule->amount + $schedule->surcharge - $schedule->amount_paid;
-
-            // Update the outstanding value
-            $updated = DB::table('payment_schedule')
-                ->where('id', $schedule->id)
-                ->update([
-                    'outstanding' => (int)$outstanding,
-                    'updated_at' => now(),
-                ]);
-
-            // Increment counter if update is successful
-            if ($updated) {
-                $updateCount++;
+        foreach ($paymentSchedules as $i=> $schedule) {
+            if($i==1){
+                $lastOut=$schedule->outstanding;
+            }
+            if($i==0){
+                $outstanding = $schedule->amount_paid;
+                $last_id=$schedule->id;
             }
         }
 
+        $final=$lastOut-$outstanding;
+
+        $updated = DB::table('payment_schedule')
+        ->where('id', $last_id)
+        ->update([
+            'outstanding' => (int)$final,
+            'updated_at' => now(),
+        ]);
         // Return success or failure message
         if ($updateCount > 0) {
-            return $updateCount." records updated successfully";
+            return "records updated successfully";
         } else {
             return 'No records were updated.';
         }
@@ -266,12 +269,17 @@ class AccountService
             // Insert data and get the last inserted ID
            
             $success=true;
+            $allocationId = $this->request->input('plot');
+
             if ($payment_type == 1) {
                 $pay = $this->payAmount();
-                $std=$this->applyStanding();
+                // dd($pay);
+             
+                
                
                 switch ($pay) {
                     case 1:
+                        $std=$this->applyStanding();
                         $msg = "Payment schedule updated successfully!";
                         $lastInsertedId = DB::table('payments')->insertGetId($data);
                         logAction('Created Payment', $lastInsertedId);
@@ -281,6 +289,8 @@ class AccountService
                         $msg = "Failed to update payment schedule!";
                         break;
                     case 3:
+                        $dd=$this->lateapplyStanding($allocationId);
+                       
                         $msg = "Payment schedule updated successfully!";
                         $lastInsertedId = DB::table('payments')->insertGetId($data);
                         logAction('Created Payment', $lastInsertedId);
@@ -440,6 +450,33 @@ class AccountService
 
    }
 
+   public function lateSurcharge($allocationId,$payDate){
+    $paymentSchedules = PaymentSchedule::where('allocation_details_id', $allocationId)
+                ->get();
+            $surchargeRate = 15;
+            $previousOutstanding = 0;
+
+            foreach ($paymentSchedules as $schedule) {
+                $outstanding = $schedule->amount - $schedule->amount_paid;
+
+                // Calculate surcharge if payment is not made
+                $surcharge = 0;
+                if ($schedule->amount_paid == 0) {
+                    $surcharge = $this->calculateSurcharge($outstanding, $surchargeRate);
+                    $outstanding += $surcharge; // Add surcharge to outstanding balance
+                }
+                $outstanding += $previousOutstanding;
+                // Update the database with surcharge and outstanding
+                $updated = PaymentSchedule::where('id', $schedule->id)->update([
+                    'surcharge' => $surcharge, 
+                     'outstanding' => $outstanding,
+                    'updated_at' => now(),
+                ]);
+            }
+            $this->applyStanding();
+
+   }
+
     public function payAmount()
     {
         try {
@@ -527,7 +564,6 @@ class AccountService
     
                     PlotPayment::create($plotPayments);
                     PaymentSchedule::create($latePayment);  
-                    
                     return 3;
                 }
                 $updated =$record->update([
@@ -549,14 +585,6 @@ class AccountService
                 PlotPayment::create($plotPayments);
             }
 
-            // $updated = DB::table('payment_schedule')
-            //     ->where('allocation_details_id', $allocationId)
-            //     ->where('pay_date', $payDate)
-            //     ->update([
-            //         'amount_paid' => $amountPaid,
-            //         'paid_on' => $paidOn,
-            //         'updated_at' => now(),
-            //     ]);
 
             return $updated ? 1 : 2;
         } catch (Exception $e) {

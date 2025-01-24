@@ -285,7 +285,7 @@
  <script>
        
 
-        function applySurcharge() {
+        function applySurcharge_() {
             // Show loading dialog for 1 second before submitting the form
             Swal.fire({
                 title: "Processing...",
