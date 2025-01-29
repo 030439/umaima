@@ -929,9 +929,9 @@ class AccountService
 
             // Fetch payment schedules where no payment is made and due within the current month
             $paymentSchedules = DB::table('payment_schedule')
-                ->where('amount_paid', '=', 0)
-                ->where('pay_date', '>=', $currentMonthDate)
-                ->where('pay_date', '<=', $currentMonthLastDate)
+                ->where('id', '>', 0)
+                // ->where('pay_date', '>=', $currentMonthDate)
+                // ->where('pay_date', '<=', $currentMonthLastDate)
                 ->lockForUpdate() // Prevent other transactions from modifying these rows
                 ->get();
 
@@ -940,21 +940,22 @@ class AccountService
             $previousOutstanding = 0;
 
             foreach ($paymentSchedules as $schedule) {
-                $outstanding = $schedule->amount - $schedule->amount_paid;
+                $outstanding = $schedule->amount - $schedule->amount_paid+$schedule->surcharge;
 
                 // Calculate surcharge if payment is not made
-                $surcharge = 0;
-                if ($schedule->amount_paid == 0) {
-                    $surcharge = $this->calculateSurcharge($outstanding, $surchargeRate);
-                    $outstanding += $surcharge; // Add surcharge to outstanding balance
-                }
-                $outstanding += $previousOutstanding;
+                // $surcharge = 0;
+                // if ($schedule->amount_paid == 0) {
+                //     $surcharge = $this->calculateSurcharge($outstanding, $surchargeRate);
+                //     $outstanding += $surcharge; // Add surcharge to outstanding balance
+                // }
+                $outstanding -= $previousOutstanding;
                 // Update the database with surcharge and outstanding
                 $updated = PaymentSchedule::where('id', $schedule->id)->update([
-                    'surcharge' => $surcharge, 
+                    // 'surcharge' => $surcharge, 
                     'outstanding' => $outstanding,
                     'updated_at' => now(),
                 ]);
+                $previousOutstanding=$outstanding;
 
                 if ($updated === 0) { // If no rows were updated, rollback
                     DB::rollBack();
