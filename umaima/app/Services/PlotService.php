@@ -783,7 +783,7 @@ class PlotService
         $allotes = DB::table('plots')->select('plot_number', 'id')->where('scheme_id', $id)->where('status', 1)->get();
         $allote=$allotes->map(function ($allote) {
             return [
-                'value' => $allote->plot_number, // assuming 'id' is a unique identifier
+                'value' => $allote->id, // assuming 'id' is a unique identifier
                 'label' => $allote->plot_number // assuming 'name' holds the display name
             ];
         });
@@ -823,7 +823,7 @@ class PlotService
             ->join('plot_locations', 'plots.plot_location_id', '=', 'plot_locations.id')
             ->join('plot_categories', 'plots.plot_category_id', '=', 'plot_categories.id')
             ->join('categories', 'plots.category_id', '=', 'categories.id')
-            ->where('plots.plot_number', $id)
+            ->where('plots.id', $id)
             ->where('plots.scheme_id', $sid)
             ->where('plots.status', 1)
             ->get();
@@ -1096,11 +1096,11 @@ class PlotService
 
     public function getplotBySchemes(){
         $id=$this->request->input('id');
-        $allotes = DB::table('allocation_details')->select('plot', 'id')->where('scheme', $id)->get();
+        $allotes = DB::table('allocation_details')->select('plots.plot_number', 'plots.id')->join('plots','plots.id','=','allocation_details.plot')->where('scheme', $id)->get();
         $allote=$allotes->map(function ($allote) {
             return [
-                'value' => $allote->plot, // assuming 'id' is a unique identifier
-                'label' => $allote->plot // assuming 'name' holds the display name
+                'value' => $allote->id, // assuming 'id' is a unique identifier
+                'label' => $allote->plot_number // assuming 'name' holds the display name
             ];
         });
         return response()->json([
