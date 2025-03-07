@@ -922,41 +922,59 @@ class AccountService
     {
         try {
             DB::beginTransaction(); // Start the transaction
-
-            $currentMonth = Carbon::now()->startOfMonth(); // First day of the current month
-            $currentMonthDate = $currentMonth->format('Y-m-15'); // Use the 15th of the current month
-            $currentMonthLastDate = $currentMonth->endOfMonth()->format('Y-m-d'); // Dynamically get the last day
-
-            // Fetch payment schedules where no payment is made and due within the current month
+    
+            // Fetch all payment schedules grouped by allocation_details_id
             $paymentSchedules = DB::table('payment_schedule')
                 ->where('id', '>', 0)
-                // ->where('pay_date', '>=', $currentMonthDate)
-                // ->where('pay_date', '<=', $currentMonthLastDate)
+                ->orderBy('allocation_details_id', 'asc') // Group by allocation_details_id
+                ->orderBy('id', 'asc') // Ensure installments are processed in chronological order
                 ->lockForUpdate() // Prevent other transactions from modifying these rows
                 ->get();
-
+    
             // Define surcharge rate
             $surchargeRate = 15;
-            $previousOutstanding = 0;
-
+    
+            // Track the last outstanding balance for each allocation_details_id
+            $lastOutstandingByAllocation = [];
+    
             foreach ($paymentSchedules as $schedule) {
-                $outstanding = $schedule->amount - $schedule->amount_paid+$schedule->surcharge;
-
+                $allocationId = $schedule->allocation_details_id;
+    
+                // Initialize last outstanding balance for the allocation_details_id if not set
+                if (!isset($lastOutstandingByAllocation[$allocationId])) {
+                    $lastOutstandingByAllocation[$allocationId] = 0;
+                }
+    
                 // Calculate surcharge if payment is not made
-                // $surcharge = 0;
-                // if ($schedule->amount_paid == 0) {
-                //     $surcharge = $this->calculateSurcharge($outstanding, $surchargeRate);
-                //     $outstanding += $surcharge; // Add surcharge to outstanding balance
-                // }
-                $outstanding -= $previousOutstanding;
+                $surcharge = 0;
+                if ($schedule->amount_paid == 0) {
+                    $surcharge = $this->calculateSurcharge($schedule->amount, $surchargeRate);
+                }
+    
+                // Calculate outstanding balance for the current installment
+                $currentOutstanding = $schedule->amount + $surcharge - $schedule->amount_paid;
+    
+                // Add the current outstanding to the last outstanding balance for the allocation
+                $outstanding = $lastOutstandingByAllocation[$allocationId] + $currentOutstanding;
+    
+                // Debugging: Print values for verification
+                // echo "Allocation ID: {$allocationId}\n";
+                // echo "Installment ID: {$schedule->id}\n";
+                // echo "Amount: {$schedule->amount}\n";
+                // echo "Amount Paid: {$schedule->amount_paid}\n";
+                // echo "Surcharge: {$surcharge}\n";
+                // echo "Current Outstanding: {$currentOutstanding}\n";
+                // echo "Last Outstanding: {$lastOutstandingByAllocation[$allocationId]}\n";
+                // echo "Cumulative Outstanding: {$outstanding}\n";
+                // echo "-----------------------------\n";
+    
                 // Update the database with surcharge and outstanding
                 $updated = PaymentSchedule::where('id', $schedule->id)->update([
-                    // 'surcharge' => $surcharge, 
+                    'surcharge' => $surcharge,
                     'outstanding' => $outstanding,
                     'updated_at' => now(),
                 ]);
-                $previousOutstanding=$outstanding;
-
+    
                 if ($updated === 0) { // If no rows were updated, rollback
                     DB::rollBack();
                     return response()->json([
@@ -964,13 +982,16 @@ class AccountService
                         'message' => "Failed to update record with ID {$schedule->id}",
                     ]);
                 }
+    
+                // Update the last outstanding balance for the next iteration
+                $lastOutstandingByAllocation[$allocationId] = $outstanding;
             }
-
+    
             DB::commit(); // Commit the transaction
-
+    
             // Log action
-            logAction('Surcharge applied for payment month ' . $currentMonthDate);
-
+            logAction('Surcharge applied for all payment schedules.');
+    
             return response()->json([
                 'success' => true,
                 'message' => "Surcharge successfully applied.",
@@ -983,11 +1004,10 @@ class AccountService
             ]);
         }
     }
-    private function calculateSurcharge($outstanding, $rate)
+    
+    private function calculateSurcharge($amount, $rate)
     {
-
-        // Example: Apply surcharge for each month missed
-        return ($outstanding*$rate)/100; // Simple surcharge calculation, can be adjusted based on your business logic
+        return ($amount * $rate) / 100;
     }
     public function getPaymentById($id){
         return  DB::table('payments')

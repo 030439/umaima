@@ -4,7 +4,7 @@
 
   
   <div class="app-brand demo" style="height:90px">
-    <a href="<?php echo e(route('dashboard.index')); ?>" class="app-brand-link">
+    <a href="<?php echo e(url('dashboard')); ?>" class="app-brand-link">
       <span class="">
       <img src="../../assets/deluxe.jpg" height="120" width="150">
 </span>
@@ -170,6 +170,50 @@
         <li class="menu-item ">
           <a href="<?php echo e(route('cashbook.read')); ?>" class="menu-link">
             <div>Cash Book</div>
+          </a>
+        </li>
+        <li class="menu-item ">
+          <a href="<?php echo e(route('expense.show')); ?>" class="menu-link">
+            <div>Expenses</div>
+          </a>
+        </li>
+        <li class="menu-item ">
+          <a href="<?php echo e(route('payments.show')); ?>" class="menu-link">
+            <div>Payments</div>
+          </a>
+        </li>
+
+        <li class="menu-item" style="">
+          <a href="javascript:void(0);" class="menu-link menu-toggle">
+            <div >Setup</div>
+          </a>
+          <ul class="menu-sub">
+            <li class="menu-item ">
+              <a href="<?php echo e(route('account-head.read')); ?>" class="menu-link">
+                <div>Account Heads</div>
+              </a>
+            </li>
+            <li class="menu-item ">
+              <a href="<?php echo e(route('bank.index')); ?>" class="menu-link">
+                <div>Banks</div>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <?php endif; ?>
+
+    <?php if(check('cash.read')): ?>
+    <li class="menu-item " style="">
+      <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons ti ti-file-dollar"></i>
+        <div>Reports</div>
+      </a>
+      <ul class="menu-sub">
+        <li class="menu-item ">
+          <a href="<?php echo e(route('allote.ledger')); ?>" class="menu-link">
+            <div>Allote Ledger</div>
           </a>
         </li>
         <li class="menu-item ">

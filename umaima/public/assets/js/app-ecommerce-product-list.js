@@ -69,6 +69,7 @@ $(function () {
             { data: 'id',title:"amount" }, 
             { data: 'id',title:"allotee" }, 
             { data: 'id',title:"expense" },
+            { data: 'id',title:"Narration" },
             { data: 'id',title:"Actions" },    
         ],
         columnDefs: [
@@ -98,7 +99,7 @@ $(function () {
                 render: function (t, e, a, s) {
                     return'<h6 class="mb-0 align-items-center d-flex w-px-100 ' +
                               a.bank +
-                              '">' +
+                              '">' +a.bank+
                               a.account +
                               "</h6>";
                 },
@@ -146,6 +147,15 @@ $(function () {
                     }
                 },
                 
+            },
+            {
+                targets: 3,
+                responsivePriority: 1,
+                render: function (t, e, a, s) {
+                    return (
+                        a.narration 
+                    );
+                }
             },
             {
                 targets: -1,

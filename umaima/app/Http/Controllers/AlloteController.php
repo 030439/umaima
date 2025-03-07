@@ -25,6 +25,9 @@ class AlloteController extends Controller
     public function alloteCreate(){
         return view('allote.add');
     }
+    public function ledger(){
+        return view('reports.allote-ledger');
+    }
     public function getInActiveAllotees(){
         $result = $this->alloteservice->getInActiveAllotees();
         return ($result);

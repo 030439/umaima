@@ -113,9 +113,11 @@ Route::middleware('auth')->group(function () {
         Route::get('plot-payment/{id}','plotePayments')->name('payment.read');
         Route::get('allote/edit/{id}','edit')->name('allote.write');
         Route::get('allote/inactive','inactive');
+        Route::get('allote.ledger','ledger')->name('allote.ledger');
     });
     Route::controller(AccountController::class)
     ->group(function(){
+        Route::get('check/surcharge','applyCharge')->name('payment.create');
         Route::get('account-heads','accountHead')->name('account-head.read');
         Route::get('cashbook','cashbook')->name('cashbook.read');
         Route::get('add-payment','payment')->name('payment.read');
@@ -191,6 +193,7 @@ Route::middleware(['auth']) ->prefix('api')->group(function () {
         Route::POST('getPayments','getPayments')->name('payment.read');
         Route::POST('getExpenses','getExpenses')->name('payment.read');
         Route::POST('getPaymentsVoucher','getPaymentsVoucher')->name('payment.read');
+        Route::POST('getLedger', 'getLedger')->name('payment.getLedger');
        
     });
 

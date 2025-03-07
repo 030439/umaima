@@ -190,6 +190,47 @@
       </ul>
     </li>
     
+    <li class="menu-item {{ request()->routeIs('cashbook.*') ? 'active open' : '' }}" style="">
+      <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons ti ti-file-dollar"></i>
+        <div>Reports</div>
+      </a>
+      <ul class="menu-sub">
+        <li class="menu-item {{ request()->routeIs('cashbook.read') ? 'active' : '' }}">
+          <a href="{{ route('cashbook.read') }}" class="menu-link">
+            <div>Cash Book</div>
+          </a>
+        </li>
+        <li class="menu-item {{ request()->routeIs('expense.show') ? 'active' : '' }}">
+          <a href="{{ route('expense.show') }}" class="menu-link">
+            <div>Expenses</div>
+          </a>
+        </li>
+        <li class="menu-item {{ request()->routeIs('payments.show') ? 'active' : '' }}">
+          <a href="{{ route('payments.show') }}" class="menu-link">
+            <div>Payments</div>
+          </a>
+        </li>
+
+        <li class="menu-item" style="">
+          <a href="javascript:void(0);" class="menu-link menu-toggle">
+            <div >Setup</div>
+          </a>
+          <ul class="menu-sub">
+            <li class="menu-item {{ request()->routeIs('account-head.read') ? 'active' : '' }}">
+              <a href="{{ route('account-head.read') }}" class="menu-link">
+                <div>Account Heads</div>
+              </a>
+            </li>
+            <li class="menu-item {{ request()->routeIs('bank.index') ? 'active' : '' }} ">
+              <a href="{{ route('bank.index') }}" class="menu-link">
+                <div>Banks</div>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
   </ul>
   
   

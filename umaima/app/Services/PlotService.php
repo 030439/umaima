@@ -1005,7 +1005,7 @@ class PlotService
                 DB::beginTransaction();
                 $allocationDetail = AllocationDetail::create($data);
                 $status=['status'=>0];
-                Plot::where('plot_number', $plot)->where('scheme_id', $scheme)->update($status);     
+                Plot::where('id', $plot)->where('scheme_id', $scheme)->update($status);     
                 if ($allocationDetail) {
                     $aid = $allocationDetail->id;
                     foreach ($schedule as $pay) {

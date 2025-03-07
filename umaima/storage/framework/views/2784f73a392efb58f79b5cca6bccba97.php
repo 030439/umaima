@@ -1,6 +1,6 @@
 
-<?php $breadCrumb='Expenses / <span class="text-primary">Expense Heads</span></i>'?>
-<?php $__env->startSection('title', 'Expense-head'); ?>
+<?php $breadCrumb='Cashbook / <span class="text-primary"> Cashbook</span></i>'?>
+<?php $__env->startSection('title', 'Cashbook'); ?>
 <?php $__env->startSection('content'); ?>
    
 

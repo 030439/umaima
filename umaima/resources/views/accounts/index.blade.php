@@ -1,6 +1,6 @@
 @extends('layout.app')
-<?php $breadCrumb='Expenses / <span class="text-primary">Expense Heads</span></i>'?>
-@section('title', 'Expense-head')
+<?php $breadCrumb='Cashbook / <span class="text-primary"> Cashbook</span></i>'?>
+@section('title', 'Cashbook')
 @section('content')
    
 
