@@ -194,6 +194,7 @@ Route::middleware(['auth']) ->prefix('api')->group(function () {
         Route::POST('getExpenses','getExpenses')->name('payment.read');
         Route::POST('getPaymentsVoucher','getPaymentsVoucher')->name('payment.read');
         Route::POST('getLedger', 'getLedger')->name('payment.getLedger');
+        Route::POST('alloteData', 'alloteData')->name('payment.alloteData');
        
     });
 

@@ -256,6 +256,7 @@ class AccountService
             // Prepare data for insertion
             $data = [
                 'paydate' => $this->request->input('paydate'),
+                'receipt_id' => $this->request->input('receipt_id'),
                 'payment_type' => $this->request->input('payment_type'),
                 'from_account' => $this->request->input('from_account'),
                 'amount' => $this->request->input('amount'),
@@ -274,9 +275,7 @@ class AccountService
             if ($payment_type == 1) {
                 $pay = $this->payAmount();
                 // dd($pay);
-             
-                
-               
+            
                 switch ($pay) {
                     case 1:
                         $std=$this->applyStanding();
@@ -482,6 +481,7 @@ class AccountService
         try {
             $allocationId = $this->request->input('plot');
             $amountPaid = $this->request->input('amount');
+            $receipt_id = $this->request->input('receipt_id');
             $paidOn = $this->request->input('paydate');
             $narration=$this->request->input('narration');
             $payD=Carbon::parse($paidOn)->format('Y-m-d');
@@ -555,6 +555,7 @@ class AccountService
                     ];
                     $plotPayments= [
                         'allocation_details_id'=>$allocationId,
+                        'receipt_id'=>$receipt_id,
                         'paydate'=>$paidOn,
                         'amount'=>$amountPaid,
                         'narration'=>$narration,
@@ -592,7 +593,120 @@ class AccountService
         }
     }
 
+    public function alloteData($id){
+        $subcat = $this->request->get('subcat');
+        $startDate = $this->request->input('startDate');
+        $endDate = $this->request->input('endDate');
+        if (!empty($startDate) && !empty($endDate)) {
+            $conditions[] = ['paydate', '>=', $startDate]; // start date condition
+            $conditions[] = ['paydate', '<=', $endDate]; // end date condition
+        }
+        return  DB::table('payments')
+        ->leftjoin('allotes', 'payments.allotees', '=', 'allotes.id')
+        ->leftjoin('banks', 'banks.id', '=', 'payments.from_account')
+        ->select(
+            'payments.paydate as pdate',
+            'payments.payment_type as payment_type',
+            'payments.amount as amount',
+            'payments.narration as narration',
+            'banks.bank_name as account',
+            'allotes.fullname as allote'
+        )
+        ->where('payments.id','=',$id)
+        ->first();
+    }
 
+    public function getLedger()
+    {
+        // Use request parameters with fallback defaults
+        $perPage = $this->request->input('length', 10);
+        $page = $this->request->input('page', 1);
+        $start = $this->request->input('start', 0);
+        $length = $this->request->input('length', 10);
+        $joins = $this->request->input('joins', []);
+        $orderColumn = $this->request->input('orderColumn', 'id');
+        $orderDirection = $this->request->input('orderDirection', 'asc');
+        $groupBy = $this->request->input('groupBy', []);
+        $having = $this->request->input('having', []);
+        $paginate = $this->request->input('paginate', true);
+        $draw=$this->request->get('draw');
+        $searchValue = $this->request->get('search')['value']; // This is the value you want to search for
+        
+
+        $columns = [
+            'payments.*',
+            'banks.bank_name  as bank',
+            'banks.account_no  as account',
+            'allotes.fullname',
+            'allotes.phone'
+        ];
+
+        // Initialize an array for the conditions
+        $filters = [];
+        $conditions=[];
+        $startDate = $this->request->input('startDate');
+        $endDate = $this->request->input('endDate');
+    
+        // Add startDate and endDate to the filters if they are provided
+        
+        $joins = [
+            [
+                'table' => 'allotes',
+                'first' => 'payments.allotees',
+                'operator' => '=',
+                'second' => 'allotes.id',
+                'type'=>'leftJoin'
+            ],
+            [
+                'table' => 'banks',
+                'first' => 'payments.from_account',
+                'operator' => '=',
+                'second' => 'banks.id',
+                'type'=>'leftJoin'
+            ],
+        ];
+
+        if (!empty($searchValue)) {
+            // Using an associative array instead of a nested array
+            $filters['paydate'] = '%' . $searchValue . '%'; // This will be like 'name' => '%searchValue%'
+            $filters['from_account'] = '%' . $searchValue . '%';
+            $filters['amount'] = '%' . $searchValue . '%';
+            $filters['narration'] = '%' . $searchValue . '%';
+            $filters['account_heads.name'] = '%' . $searchValue . '%';
+            $filters['allotes.fullname'] = '%' . $searchValue . '%';
+        }
+        if (!empty($startDate) && !empty($endDate)) {
+            $conditions[] = ['paydate', '>=', $startDate]; // start date condition
+            $conditions[] = ['paydate', '<=', $endDate]; // end date condition
+        }
+        $paymentType = $this->request->get('payment');
+        $subcat = $this->request->get('subcat');
+        //code for filter of payment by type and sub cat
+        $conditions[] = ['allotees', '=', $subcat];
+        // Fetch the records using QueryTrait's fetchRecords method
+        $result = $this->fetchRecords(
+            'payments',
+            $columns,
+            $conditions,
+            $filters,
+            $joins,
+            $orderColumn,
+            $orderDirection,
+            $groupBy ,
+            $having ,
+            $perPage ,
+            $page = ($start / $length) + 1 ,
+            $paginate = true
+        );
+
+        // Return only the data if pagination is enabled, or full response if not paginated
+        return[
+            'data' => $result['data'],
+            'recordsTotal' => $result['recordsTotal'],
+            'recordsFiltered' => $result['recordsFiltered'],
+            'draw' => $draw,
+        ];
+    }
 
     public function getPaymentsVoucher()
     {

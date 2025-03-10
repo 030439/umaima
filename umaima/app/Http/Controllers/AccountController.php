@@ -45,6 +45,14 @@ class AccountController extends Controller
         $result = $this->accountservice->getPaymentsVoucher();
         return ($result);
     }
+    public function getLedger(){
+        $result = $this->accountservice->getLedger();
+        return ($result);
+    }
+    public function alloteData(){
+        $result = $this->accountservice->alloteData();
+        return ($result);
+    }
     public function getExpenses(){
         $result = $this->accountservice->getExpenses();
         return ($result);
