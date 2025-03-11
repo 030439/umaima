@@ -119,6 +119,9 @@ Route::middleware('auth')->group(function () {
             return view('reports.print-ledger');
         })->name('allote.ledgers');
     });
+
+
+    
     Route::controller(AccountController::class)
     ->group(function(){
         Route::get('check/surcharge','applyCharge')->name('payment.create');
