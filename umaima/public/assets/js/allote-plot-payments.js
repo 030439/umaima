@@ -42,8 +42,7 @@ $(function() {
                 { data: 'id',title:"due-date" },       // Map to 'id' in the returned JSON
                 { data: 'id',title:"amount-paid" }, 
                 { data: 'id',title:"paid-on" }, 
-                { data: 'id',title:"outstanding" },  
-                { data: 'id',title:"surcharge" },   
+                { data: 'id',title:"outstanding" },   
             ],
             columnDefs: [
                
@@ -85,13 +84,7 @@ $(function() {
                 {
                     targets: 5,
                     render: function(t, e, a, s) {
-                        return '<span class="text-heading">' + a.outstanding + "</span>";
-                    }
-                },
-                {
-                    targets: 6,
-                    render: function(t, e, a, s) {
-                        return '<span class="text-heading">' + a.surcharge + "</span>";
+                        return '<span class="text-heading">' + a.due + "</span>";
                     }
                 },
             ],

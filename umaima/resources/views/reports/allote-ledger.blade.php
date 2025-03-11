@@ -1,6 +1,6 @@
 @extends('layout.app')
-<?php $breadCrumb='Cashbook / <span class="text-primary"> Cashbook</span></i>'?>
-@section('title', 'Cashbook')
+<?php $breadCrumb='Reports / <span class="text-primary"> Ledger</span></i>'?>
+@section('title', 'Ledger')
 @section('content')
 
         <!-- / Navbar -->
@@ -13,8 +13,7 @@
                     <!-- Product List Table -->
                     <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title">Filter</h5>
-                        <div class="d-flex justify-content-between align-items-center row pt-4 gap-6 gap-md-0">
+                        <div class="d-flex justify-content-between align-items-center row gap-6 gap-md-0">
                             <div class="col-md-4">
                                 <select id="paymentType" class="form-select">
                                     <option value="">Filter By Payement Type</option>
@@ -29,91 +28,17 @@
                                 <input type="text" class="form-control flatpickr-input" placeholder="YYYY-MM-DD to YYYY-MM-DD" id="flatpickr-range" readonly="readonly">
                             </div>
                         </div>
-                        
                     </div>
-                    <div class="card mb-6">
+                </div>
+                    <div class="card  mt-3">
                         
                         <div class="card-widget-separator-wrapper">
-                            <div class="card-body card-widget-separator">
-                            <div class="row gy-4 gy-sm-1">
-                                <div class="col-sm-6 col-lg-3">
-                                    <div class="d-flex justify-content-between align-items-start card-widget-1 border-end pb-4 pb-sm-0">
-                                        <div class="info-container">
-                                            <ul class="list-unstyled mb-6">
-                                                <li class="mb-2">
-                                                <span class="h6 me-1">Allote:</span>
-                                                <span>lorine.hischke</span>
-                                                </li>
-                                                <li class="mb-2">
-                                                <span class="h6 me-1">Email:</span>
-                                                <span>vafgot@vultukir.org</span>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 col-lg-3">
-                                    <div class="d-flex justify-content-between align-items-start card-widget-1 border-end pb-4 pb-sm-0">
-                                        <div class="info-container">
-                                            <ul class="list-unstyled mb-6">
-                                                <li class="mb-2">
-                                                <span class="h6 me-1">Plot:</span>
-                                                <span>lorine.hischke</span>
-                                                </li>
-                                                <li class="mb-2">
-                                                <span class="h6 me-1">Category:</span>
-                                                <span>vafgot@vultukir.org</span>
-                                                </li>
-                                                <li class="mb-2">
-                                                <span class="h6 me-1">Sq.Fts:</span>
-                                                <span class="badge bg-label-success">Active</span>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div><div class="col-sm-6 col-lg-3">
-                                    <div class="d-flex justify-content-between align-items-start card-widget-1 border-end pb-4 pb-sm-0">
-                                        <div class="info-container">
-                                            <ul class="list-unstyled mb-6">
-                                                <li class="mb-2">
-                                                <span class="h6 me-1">Scheme:</span>
-                                                <span>lorine.hischke</span>
-                                                </li>
-                                                <li class="mb-2">
-                                                <span class="h6 me-1">Booking Date:</span>
-                                                <span>vafgot@vultukir.org</span>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div><div class="col-sm-6 col-lg-3">
-                                    <div class="d-flex justify-content-between align-items-start card-widget-1 border-end pb-4 pb-sm-0">
-                                        <div class="info-container">
-                                            <ul class="list-unstyled mb-6">
-                                                <li class="mb-2">
-                                                <span class="h6 me-1">From Date:</span>
-                                                <span>lorine.hischke</span>
-                                                </li>
-                                                <li class="mb-2">
-                                                <span class="h6 me-1">To Date:</span>
-                                                <span>vafgot@vultukir.org</span>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <div class="card-body card-widget-separator border-bottom">
+                            <div class="row gy-4 gy-sm-1" id="allote-detail">
                             </div>
                         </div>
                     </div>
                     <div class="card-datatable table-responsive">
-                        <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
-                            <div class="card-header d-flex border-top rounded-0 flex-wrap py-0 flex-column flex-md-row align-items-start">
-                                <div class="me-5 ms-n4 pe-5 mb-n6 mb-md-0">
-                    </div>
-                    
-                    <div class="d-flex justify-content-start justify-content-md-end align-items-baseline">
-                    </div></div></div>
                         <table class="datatables-products table dataTable no-footer dtr-column collapsed" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info" style="width: 958px;">
                             
                         </table>

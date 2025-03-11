@@ -64,12 +64,13 @@ $(function () {
         },
         columns: [   // Map to 'name' in the returned JSON
             { data: 'id',title:"Date" },       // Map to 'id' in the returned JSON
-            { data: 'id',title:"Payment" },     // Map to 'name' in the returned JSON
+            // { data: 'id',title:"Payment" },     // Map to 'name' in the returned JSON
             { data: 'id',title:"account" },       // Map to 'id' in the returned JSON
             { data: 'id',title:"amount" }, 
             { data: 'id',title:"allotee" }, 
             { data: 'id',title:"expense" },
             { data: 'id',title:"Narration" },
+            { data: 'id',title:"Receipt" },
             { data: 'id',title:"Actions" },    
         ],
         columnDefs: [
@@ -83,19 +84,19 @@ $(function () {
                 },
                 
             },
+            // {
+            //     targets: 1,
+            //     render: function (t, e, a, s) {
+            //         a = a.payment_type;
+            //         if(a==1){
+            //             return ('<span class="badge px-2 bg-label-success" text-capitalized="">credit</span>');
+            //         }else{
+            //             return ('<span class="badge px-2 bg-label-primary" text-capitalized="">Debit</span>');
+            //         }
+            //     },
+            // },
             {
                 targets: 1,
-                render: function (t, e, a, s) {
-                    a = a.payment_type;
-                    if(a==1){
-                        return ('<span class="badge px-2 bg-label-success" text-capitalized="">credit</span>');
-                    }else{
-                        return ('<span class="badge px-2 bg-label-primary" text-capitalized="">Debit</span>');
-                    }
-                },
-            },
-            {
-                targets: 2,
                 render: function (t, e, a, s) {
                     return'<h6 class="mb-0 align-items-center d-flex w-px-100 ' +
                               a.bank +
@@ -106,7 +107,7 @@ $(function () {
                
             },
             {
-                targets: 3,
+                targets: 2,
                 responsivePriority: 1,
                 render: function (t, e, a, s) {
                     return (
@@ -115,7 +116,7 @@ $(function () {
                 }
             },
             {
-                targets: 4,
+                targets: 3,
                 responsivePriority: 1,
                 render: function (t, e, a, s) {
                     var n = a.fullname,
@@ -137,7 +138,7 @@ $(function () {
                 },
             },
             {
-                targets: 5,
+                targets: 4,
                 render: function (t, e, a, s) {
                     if(a.expense){
                         return (a.expense
@@ -149,11 +150,20 @@ $(function () {
                 
             },
             {
-                targets: 3,
+                targets: 5,
                 responsivePriority: 1,
                 render: function (t, e, a, s) {
                     return (
                         a.narration 
+                    );
+                }
+            },
+            {
+                targets: 6,
+                responsivePriority: 1,
+                render: function (t, e, a, s) {
+                    return (
+                        a.receipt_id 
                     );
                 }
             },

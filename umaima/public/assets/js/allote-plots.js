@@ -44,7 +44,7 @@ $(function() {
                 { data: 'id',title:"Total-amount"}, 
                 { data: 'id',title:" Paid Amount" }, 
                 { data: 'id',title:" Dues"},  
-                { data: 'id',title:"Schedule"},  
+                { data: 'id',title:"Schedules"},  
             ],
             columnDefs: [
                
@@ -86,25 +86,6 @@ $(function() {
                         return '<span class="text-heading">' + a.totalDue + "</span>";
                     }
                 },
-                // {
-                //     targets: 5,
-                //     render: function(t, e, a, s) {
-                //         a = a.status;
-                //         var status_bg;
-                //         var status_title;
-                //         if (a === 1) {
-                //             status_title="Active"
-                //             status_bg='bg-label-success';
-                //         } else if (a === 2) {
-                //             status_title="Pending"
-                //                    status_bg='bg-label-warning';
-                //         } else if (a === 0) {
-                //             status_title="Inactive"
-                //             status_bg='bg-label-secondary';
-                //         }
-                //         return '<span class="badge ' + status_bg + '" text-capitalized>' +status_title+ "</span>";
-                //     }
-                // },
                 {
                     targets: -1,
                     title: "Plot-Payments",
@@ -113,6 +94,11 @@ $(function() {
                     render: function(t, e, a, s) {
                         return `
                             <div class="d-flex align-items-center">
+                                <a href="/plot-payments/${a.id}" 
+                                   class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill edit-record" 
+                                   data-id="${a.id}">
+                                    <i class="ti ti-file-dollar ti-md"></i>
+                                </a>
                                 <a href="/plot-payment/${a.id}" 
                                    class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill edit-record" 
                                    data-id="${a.id}">

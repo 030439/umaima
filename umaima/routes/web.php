@@ -110,10 +110,14 @@ Route::middleware('auth')->group(function () {
         Route::get('create-allote','alloteCreate');
         Route::POST('edit-allote','editStore')->name('allote.edit');
         Route::get('allote-plotes/{id}','alloteePlotes');
-        Route::get('plot-payment/{id}','plotePayments')->name('payment.read');
+        Route::get('plot-payment/{id}','plotePayment')->name('payment.read');
+        Route::get('plot-payments/{id}','plotePayments')->name('payment.read');
         Route::get('allote/edit/{id}','edit')->name('allote.write');
         Route::get('allote/inactive','inactive');
         Route::get('allote.ledger','ledger')->name('allote.ledger');
+        Route::get('ledger',function(){
+            return view('reports.print-ledger');
+        })->name('allote.ledgers');
     });
     Route::controller(AccountController::class)
     ->group(function(){

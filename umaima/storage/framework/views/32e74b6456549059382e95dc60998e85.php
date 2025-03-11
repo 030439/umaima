@@ -65,6 +65,11 @@
                         </div>
 
                         <div class="col-6">
+                            <label class="col-form-label text-sm-end" for="narration">Receipt No</label>
+                            <input type="text" id="receipt_id" name="receipt_id" class="form-control" tag="Enter Narration" />
+                        </div>
+
+                        <div class="col-6">
                             <label class="col-form-label text-sm-end" for="narration">Narration</label>
                             <input type="text" id="narration" name="narration" class="form-control" tag="Enter Narration" />
                         </div>

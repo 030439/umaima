@@ -216,34 +216,11 @@
             <div>Allote Ledger</div>
           </a>
         </li>
-        <li class="menu-item ">
+        <!-- <li class="menu-item ">
           <a href="{{ route('expense.show') }}" class="menu-link">
             <div>Expenses</div>
           </a>
-        </li>
-        <li class="menu-item ">
-          <a href="{{ route('payments.show') }}" class="menu-link">
-            <div>Payments</div>
-          </a>
-        </li>
-
-        <li class="menu-item" style="">
-          <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <div >Setup</div>
-          </a>
-          <ul class="menu-sub">
-            <li class="menu-item ">
-              <a href="{{ route('account-head.read') }}" class="menu-link">
-                <div>Account Heads</div>
-              </a>
-            </li>
-            <li class="menu-item ">
-              <a href="{{ route('bank.index') }}" class="menu-link">
-                <div>Banks</div>
-              </a>
-            </li>
-          </ul>
-        </li>
+        </li> -->
       </ul>
     </li>
     @endif

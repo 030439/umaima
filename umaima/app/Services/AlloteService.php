@@ -205,50 +205,9 @@ class AlloteService
         $having = $this->request->input('having', []);
         $paginate = $this->request->input('paginate', true);
         $draw=$this->request->get('draw');
-        $searchValue = $this->request->get('search')['value']; // This is the value you want to search for
-
-        // Initialize an array for the conditions
-        // $columns = [
-        //     'allocation_details.id as id',
-        //     'plots.status as status',
-        //     'plots.plot_number',
-        //     'schemes.name  as scheme',
-        //     'plot_locations.location_name as location',
-        //     'plot_sizes.size as size',
-        //     'allocation_details.installment'
-        // ];
+        $searchValue = $this->request->get('search')['value'];
 
         $filters = [];
-        // $joins = [
-        //     [
-        //         'table' => 'plots',
-        //         'first' => 'allocation_details.plot',
-        //         'operator' => '=',
-        //         'second' => 'plots.id',
-        //         'type'=>'leftjoin'
-        //     ],
-        //     [
-        //         'table' => 'schemes',
-        //         'first' => 'allocation_details.scheme',
-        //         'operator' => '=',
-        //         'second' => 'schemes.id',
-        //         'type'=>'leftjoin'
-        //     ],
-        //     [
-        //         'table' => 'plot_locations',
-        //         'first' => 'plots.plot_location_id',
-        //         'operator' => '=',
-        //         'second' => 'plot_locations.id',
-        //         'type'=>'leftjoin'
-        //     ],
-        //     [
-        //         'table' => 'plot_sizes',
-        //         'first' => 'plots.plot_size_id',
-        //         'operator' => '=',
-        //         'second' => 'plot_sizes.id',
-        //         'type'=>'leftjoin'
-        //     ],
-        // ];
         if (!empty($searchValue)) {
             // Using an associative array instead of a nested array
             $filters['allocation_details.allote'] = '%' . $searchValue . '%'; // This will be like 'name' => '%searchValue%'
@@ -273,9 +232,14 @@ class AlloteService
             $paginate = true
         );
 
-        // Return only the data if pagination is enabled, or full response if not paginated
+        $data = $result['data'];
+        $due=0;
+        foreach ($data as &$row) {
+            $due+=$row->amount-$row->amount_paid;
+            $row->due=$due;
+        }
         return[
-            'data' => $result['data'],
+            'data' => $data,
             'recordsTotal' => $result['recordsTotal'],
             'recordsFiltered' => $result['recordsFiltered'],
             'draw' => $draw,

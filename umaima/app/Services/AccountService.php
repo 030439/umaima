@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Bank;
 use App\Models\PlotPayment;
 use Carbon\Carbon;
+use App\Models\Allote;
+use App\Models\AllocationDetail;
 use App\Models\PaymentSchedule;
 use Illuminate\Http\JsonResponse;
 use Exception;
@@ -593,27 +595,77 @@ class AccountService
         }
     }
 
-    public function alloteData($id){
-        $subcat = $this->request->get('subcat');
+    public function alloteData(){
+        $id = $this->request->get('subcat');
         $startDate = $this->request->input('startDate');
         $endDate = $this->request->input('endDate');
         if (!empty($startDate) && !empty($endDate)) {
             $conditions[] = ['paydate', '>=', $startDate]; // start date condition
             $conditions[] = ['paydate', '<=', $endDate]; // end date condition
         }
-        return  DB::table('payments')
-        ->leftjoin('allotes', 'payments.allotees', '=', 'allotes.id')
-        ->leftjoin('banks', 'banks.id', '=', 'payments.from_account')
-        ->select(
-            'payments.paydate as pdate',
-            'payments.payment_type as payment_type',
-            'payments.amount as amount',
-            'payments.narration as narration',
-            'banks.bank_name as account',
-            'allotes.fullname as allote'
-        )
-        ->where('payments.id','=',$id)
-        ->first();
+        $allote = Allote::select('fullname', 'father')->where('id', '=', $id)->first();
+        $allocation=AllocationDetail::select('allocation_details.bdate','plots.plot_number','schemes.name as scheme','plot_categories.category_name','plot_sizes.size')
+        ->join('plots','plots.id','allocation_details.plot')
+        ->join('plot_categories','plot_categories.id','plots.plot_category_id')
+        ->join('plot_sizes','plot_sizes.id','plots.plot_size_id')
+        ->join('schemes','schemes.id','plots.scheme_id')
+        ->where('allocation_details.allote','=',$id)->get();
+
+        $html="";
+
+        $html.='<div class="col-sm-6 col-lg-3">
+            <div class="d-flex justify-content-between align-items-start card-widget-1 border-end pb-4 pb-sm-0">
+                <div class="info-container">
+                    <ul class="list-unstyled mb-6">
+                        <li class="mb-2">
+                        <span class="h6 me-1">Allote:</span>
+                        <span id="allote-name">'.$allote->fullname.'</span>
+                        </li>
+                        <li class="mb-2">
+                        <span class="h6 me-1">Father:</span>
+                        <span id="father_">'.$allote->father.'</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-lg-9">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Scheme</th>
+                        <th>Plot</th>
+                        <th>Category</th>
+                        <th>Sq.Fts</th>
+                        <th>Booking Date</th>
+                    </tr>
+                </thead>
+                <tbody>';
+                if($allocation){
+                    foreach($allocation as $alloted){
+                        $html.="<tr>";
+                        $html.="<td>";
+                        $html.=$alloted->scheme;
+                        $html.="</td>";
+                        $html.="<td>";
+                        $html.=$alloted->plot_number;
+                        $html.="</td>";
+                        $html.="<td>";
+                        $html.=$alloted->category_name;
+                        $html.="</td>";
+                        $html.="<td>";
+                        $html.=$alloted->size;
+                        $html.="</td>";
+                        $html.="<td>";
+                        $html.=$alloted->bdate;
+                        $html.="</td>";
+                        $html.="</tr>";
+                    }
+                }
+                $html.='</tbody>
+            </table>
+        </div>';
+        echo $html;
     }
 
     public function getLedger()
@@ -717,7 +769,7 @@ class AccountService
         $length = $this->request->input('length', 10);
         $joins = $this->request->input('joins', []);
         $orderColumn = $this->request->input('orderColumn', 'id');
-        $orderDirection = $this->request->input('orderDirection', 'asc');
+        $orderDirection = $this->request->input('orderDirection', 'desc');
         $groupBy = $this->request->input('groupBy', []);
         $having = $this->request->input('having', []);
         $paginate = $this->request->input('paginate', true);

@@ -42,7 +42,7 @@
   <div class="card-datatable table-responsive">
     <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer"><div class="card-header d-flex border-top rounded-0 flex-wrap py-0 flex-column flex-md-row align-items-start"><div class="me-5 ms-n4 pe-5 mb-n6 mb-md-0">
 </div>
-        <div class="d-flex justify-content-start justify-content-md-end align-items-baseline">
+        <div class="d-flex justify-content-start justify-content-md-end align-items-baseline table-responsive">
           </div></div></div>
             <table class="datatables-products table dataTable no-footer dtr-column collapsed" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info" style="width: 958px;">
                 

@@ -318,17 +318,7 @@ $(function () {
                         },
                     },
                 ],
-            },
-            {
-                text: '<i class="ti ti-plus ti-xs me-0 me-sm-2"></i><span class="d-none d-sm-inline-block">Payment</span>',
-                className: "add-new btn btn-primary mb-6 mb-md-0 waves-effect waves-light ml-2",
-                attr: {
-                    onclick: "window.location.href='/add-payment'",
-                },
-                init: function (e, a, t) {
-                    $(a).removeClass("btn-secondary");
-                }
-            },
+            }
         ],
         responsive: {
             details: {
@@ -425,12 +415,8 @@ $(function () {
                     subcat: _subcat
                 },
                 success: function(data) {
-                    if (data.success) {
-                        var totalAmount = 0;
-                        var totalPaidAmount = 0;
-                        var totalPendingAmount = 0;
-        
-                        console.log("Data received:", data);
+                    if (data) {
+                        $("#allote-detail").html(data);
                     }
                 },
                 error: function(xhr, status, error) {
