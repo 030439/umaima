@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use App\Models\Bank;
 use App\Models\PlotPayment;
+use App\Models\Payment;
 use Carbon\Carbon;
 use App\Models\Allote;
 use App\Models\AllocationDetail;
@@ -597,19 +598,48 @@ class AccountService
 
     public function alloteData(){
         $id = $this->request->get('subcat');
+        $plot = $this->request->get('plot');
         $startDate = $this->request->input('startDate');
         $endDate = $this->request->input('endDate');
+
+        // Initialize conditions array
+        $conditions = [];
+
         if (!empty($startDate) && !empty($endDate)) {
             $conditions[] = ['paydate', '>=', $startDate]; // start date condition
             $conditions[] = ['paydate', '<=', $endDate]; // end date condition
         }
-        $allote = Allote::select('fullname', 'father')->where('id', '=', $id)->first();
-        $allocation=AllocationDetail::select('allocation_details.bdate','plots.plot_number','schemes.name as scheme','plot_categories.category_name','plot_sizes.size')
-        ->join('plots','plots.id','allocation_details.plot')
-        ->join('plot_categories','plot_categories.id','plots.plot_category_id')
-        ->join('plot_sizes','plot_sizes.id','plots.plot_size_id')
-        ->join('schemes','schemes.id','plots.scheme_id')
-        ->where('allocation_details.allote','=',$id)->get();
+
+        // Get allote information
+        $allote = Allote::select('fullname', 'father')
+            ->where('id', '=', $id)
+            ->first();
+
+        // Build allocation query
+        $allocationQuery = AllocationDetail::select(
+                'allocation_details.bdate',
+                'plots.plot_number',
+                'schemes.name as scheme',
+                'plot_categories.category_name',
+                'plot_sizes.size'
+            )
+            ->join('plots', 'plots.id', 'allocation_details.plot')
+            ->join('plot_categories', 'plot_categories.id', 'plots.plot_category_id')
+            ->join('plot_sizes', 'plot_sizes.id', 'plots.plot_size_id')
+            ->join('schemes', 'schemes.id', 'plots.scheme_id')
+            ->where('allocation_details.allote', '=', $id);
+
+        if ($plot && $plot > 0) {
+            $allocationQuery->where('allocation_details.plot', '=', $plot);
+        }
+
+        // Apply date conditions if they exist
+        if (!empty($conditions)) {
+            $allocationQuery->where($conditions);
+        }
+
+        // Execute the query and get results
+        $allocation = $allocationQuery->get();
 
         $html="";
 
@@ -668,6 +698,56 @@ class AccountService
         echo $html;
     }
 
+
+    public function alloteDataForPrint(){
+
+        $id = $this->request->get('allote');
+        $plot = $this->request->get('plot');
+        $startDate = $this->request->input('startDate');
+        $endDate = $this->request->input('endDate');
+
+        // Initialize conditions array
+        $conditions = [];
+
+        if (!empty($startDate) && !empty($endDate)) {
+            $conditions[] = ['paydate', '>=', $startDate]; // start date condition
+            $conditions[] = ['paydate', '<=', $endDate]; // end date condition
+        }
+
+        // Get allote information
+        $allote = Allote::select('fullname', 'father')
+            ->where('id', '=', $id)
+            ->first();
+
+        // Build allocation query
+        $allocationQuery = AllocationDetail::select(
+                'allocation_details.bdate',
+                'plots.plot_number',
+                'schemes.name as scheme',
+                'plot_categories.category_name',
+                'plot_sizes.size'
+            )
+            ->join('plots', 'plots.id', 'allocation_details.plot')
+            ->join('plot_categories', 'plot_categories.id', 'plots.plot_category_id')
+            ->join('plot_sizes', 'plot_sizes.id', 'plots.plot_size_id')
+            ->join('schemes', 'schemes.id', 'plots.scheme_id')
+            ->where('allocation_details.allote', '=', $id);
+
+        if ($plot && $plot > 0) {
+            $allocationQuery->where('allocation_details.plot', '=', $plot);
+        }
+
+        // Apply date conditions if they exist
+        if (!empty($conditions)) {
+            $allocationQuery->where($conditions);
+        }
+
+        // Execute the query and get results
+        $allocation = $allocationQuery->get();
+
+        return ['allote'=>$allote,'allocation'=>$allocation];
+    }
+
     public function getLedger()
     {
         // Use request parameters with fallback defaults
@@ -686,11 +766,7 @@ class AccountService
         
 
         $columns = [
-            'payments.*',
-            'banks.bank_name  as bank',
-            'banks.account_no  as account',
-            'allotes.fullname',
-            'allotes.phone'
+            'plot_paymnets.*',
         ];
 
         // Initialize an array for the conditions
@@ -698,24 +774,25 @@ class AccountService
         $conditions=[];
         $startDate = $this->request->input('startDate');
         $endDate = $this->request->input('endDate');
+        $plot = $this->request->input('plot');
     
         // Add startDate and endDate to the filters if they are provided
         
         $joins = [
             [
-                'table' => 'allotes',
-                'first' => 'payments.allotees',
+                'table' => 'allocation_details',
+                'first' => 'plot_paymnets.allocation_details_id',
                 'operator' => '=',
-                'second' => 'allotes.id',
+                'second' => 'allocation_details.id',
                 'type'=>'leftJoin'
             ],
-            [
-                'table' => 'banks',
-                'first' => 'payments.from_account',
-                'operator' => '=',
-                'second' => 'banks.id',
-                'type'=>'leftJoin'
-            ],
+            // [
+            //     'table' => 'banks',
+            //     'first' => 'payments.from_account',
+            //     'operator' => '=',
+            //     'second' => 'banks.id',
+            //     'type'=>'leftJoin'
+            // ],
         ];
 
         if (!empty($searchValue)) {
@@ -734,10 +811,15 @@ class AccountService
         $paymentType = $this->request->get('payment');
         $subcat = $this->request->get('subcat');
         //code for filter of payment by type and sub cat
-        $conditions[] = ['allotees', '=', $subcat];
+        if(!empty($plot) && $plot>0){
+            $conditions[] = ['allocation_details.plot', '=', $plot];
+        }
+        $conditions[] = ['allocation_details.allote', '=', $subcat];
+
+
         // Fetch the records using QueryTrait's fetchRecords method
         $result = $this->fetchRecords(
-            'payments',
+            'plot_paymnets',
             $columns,
             $conditions,
             $filters,
@@ -758,6 +840,34 @@ class AccountService
             'recordsFiltered' => $result['recordsFiltered'],
             'draw' => $draw,
         ];
+    }
+
+    public function getLedgerforPrint()
+    {
+        $startDate = $this->request->input('startDate');
+        $endDate = $this->request->input('endDate');
+        $subcat = $this->request->get('allote');
+
+
+        $data = PlotPayment::select(
+                'plot_paymnets.*',
+                 'allotes.fullname',
+                'allotes.phone'
+            )
+            ->join('allocation_details', 'allocation_details.id', '=', 'plot_paymnets.allocation_details_id')
+            ->join('allotes', 'allotes.id', '=', 'allocation_details.allote')
+            ->where('allocation_details.allote', $subcat);  
+        // Apply date filters if provided
+        if (!empty($startDate) && !empty($endDate)) {
+            $data->whereBetween('plot_paymnets.paydate', [$startDate, $endDate]);
+        }
+
+        $plot = $this->request->input('plot');
+        if(!empty($plot) && $plot>0){
+            $data->where('allocation_details.plot', $plot);
+        }
+        $results = $data->get();
+        return $results;
     }
 
     public function getPaymentsVoucher()

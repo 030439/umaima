@@ -1079,6 +1079,27 @@ class PlotService
     }
 
 
+
+    public function getPlotsByAlloteForLedger(){
+        $id=$this->request->input('allote');
+        $allotes = DB::table('allocation_details')
+        ->select('plots.plot_number as plot', 'plots.id')
+        ->join('plots', 'allocation_details.plot', '=', 'plots.id')
+        ->where('allocation_details.allote', $id)->where('allocation_details.status', 1)
+        ->get();
+        $allote=$allotes->map(function ($allote) {
+            return [
+                'value' => $allote->id, // assuming 'id' is a unique identifier
+                'label' => $allote->plot // assuming 'name' holds the display name
+            ];
+        });
+        return response()->json([
+            'success' => true,
+            'plots' => $allote
+        ]);
+    }
+
+
     public function getAlloteByPlot(){
         $plot=$this->request->input('plot');
             $allotes = DB::table('allocation_details')

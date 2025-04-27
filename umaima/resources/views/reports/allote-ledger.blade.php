@@ -14,7 +14,7 @@
                     <div class="card">
                     <div class="card-header">
                         <div class="d-flex justify-content-between align-items-center row gap-6 gap-md-0">
-                            <div class="col-md-4">
+                            <div class="col-md-2">
                                 <select id="paymentType" class="form-select">
                                     <option value="">Filter By Payement Type</option>
                                     <option value="1">Received </option>
@@ -22,6 +22,10 @@
                             </div>
                             <div class="col-md-4">
                                 <select id="subcat" class="form-select select2 text-capitalize">
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <select id="plotNumber" class="form-select select2 text-capitalize">
                                 </select>
                             </div>
                             <div class="col-md-4">
@@ -35,6 +39,11 @@
                         <div class="card-widget-separator-wrapper">
                             <div class="card-body card-widget-separator border-bottom">
                             <div class="row gy-4 gy-sm-1" id="allote-detail">
+                            </div>
+                        </div>
+                        <div class="card-widget-separator-wrapper">
+                            <div class="card-body card-widget-separator border-bottom">
+                            <div class="row gy-4 gy-sm-1" id="allote-details">
                             </div>
                         </div>
                     </div>

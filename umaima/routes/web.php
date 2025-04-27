@@ -115,9 +115,12 @@ Route::middleware('auth')->group(function () {
         Route::get('allote/edit/{id}','edit')->name('allote.write');
         Route::get('allote/inactive','inactive');
         Route::get('allote.ledger','ledger')->name('allote.ledger');
-        Route::get('ledger',function(){
-            return view('reports.print-ledger');
-        })->name('allote.ledgers');
+
+       
+        
+        // Route::get('ledger',function(){
+        //     return view('reports.print-ledger');
+        // })->name('allote.ledgers');
     });
 
 
@@ -180,6 +183,7 @@ Route::middleware(['auth']) ->prefix('api')->group(function () {
     Route::post('/plot-allotment', [PlotController::class, 'listing'])->name('allotment.create');
     Route::post('/confirm-schedule', [PlotController::class, 'confirmSchedule'])->name('schedule.create');
     Route::post('get-plots',[PlotController::class, 'getPlotsByAllote'])->name('plot.read');
+    Route::post('get-plots-for-leder',[PlotController::class, 'getPlotsByAlloteForLedger'])->name('plot.read');
     Route::post("getAllotees",[AlloteController::class,'geAll'])->name('allote.read');
     Route::post("getInActiveAllotees",[AlloteController::class,'getInActiveAllotees'])->name('allote.read');
     //accounts
@@ -202,6 +206,7 @@ Route::middleware(['auth']) ->prefix('api')->group(function () {
         Route::POST('getPaymentsVoucher','getPaymentsVoucher')->name('payment.read');
         Route::POST('getLedger', 'getLedger')->name('payment.getLedger');
         Route::POST('alloteData', 'alloteData')->name('payment.alloteData');
+        Route::post('ledgerPrint','ledgerPrint');
        
     });
 

@@ -53,6 +53,9 @@ $(function () {
                     if(paymentType){
                         d.payment=paymentType;
                     }
+                    var plotNumber = $('#plotNumber').val();
+                        d.plot=plotNumber;
+                
                     var subcat = $('#subcat').val(); 
                     if(subcat){
                         d.subcat=subcat;
@@ -65,8 +68,8 @@ $(function () {
         columns: [   // Map to 'name' in the returned JSON
             { data: 'id',title:"Date" },       // Map to 'id' in the returned JSON
             {data:'id',title:"Receipt No"},
-            { data: 'id',title:"Payment" },     // Map to 'name' in the returned JSON
-            { data: 'id',title:"account" },       // Map to 'id' in the returned JSON
+            // { data: 'id',title:"Payment" },     // Map to 'name' in the returned JSON
+            // { data: 'id',title:"account" },       // Map to 'id' in the returned JSON
             { data: 'id',title:"amount" }, 
             { data: 'id',title:"Narration" }, 
         ],
@@ -89,30 +92,30 @@ $(function () {
                 },
                 
             },
+            // {
+            //     targets: 2,
+            //     render: function (t, e, a, s) {
+            //         a = a.payment_type;
+            //         if(a==1){
+            //             return ('<span class="badge px-2 bg-label-success" text-capitalized="">credit</span>');
+            //         }else{
+            //             return ('<span class="badge px-2 bg-label-primary" text-capitalized="">Debit</span>');
+            //         }
+            //     },
+            // },
+            // {
+            //     targets: 2,
+            //     render: function (t, e, a, s) {
+            //         return'<h6 class="mb-0 align-items-center d-flex w-px-100 ' +
+            //                   a.bank +
+            //                   '">' +a.bank+
+            //                   a.account +
+            //                   "</h6>";
+            //     },
+               
+            // },
             {
                 targets: 2,
-                render: function (t, e, a, s) {
-                    a = a.payment_type;
-                    if(a==1){
-                        return ('<span class="badge px-2 bg-label-success" text-capitalized="">credit</span>');
-                    }else{
-                        return ('<span class="badge px-2 bg-label-primary" text-capitalized="">Debit</span>');
-                    }
-                },
-            },
-            {
-                targets: 3,
-                render: function (t, e, a, s) {
-                    return'<h6 class="mb-0 align-items-center d-flex w-px-100 ' +
-                              a.bank +
-                              '">' +a.bank+
-                              a.account +
-                              "</h6>";
-                },
-               
-            },
-            {
-                targets: 4,
                 responsivePriority: 1,
                 render: function (t, e, a, s) {
                     return (
@@ -121,7 +124,7 @@ $(function () {
                 }
             },
             {
-                targets: 5,
+                targets: 3,
                 responsivePriority: 1,
                 render: function (t, e, a, s) {
                     return (
@@ -154,6 +157,9 @@ $(function () {
                         extend: "print",
                         text: '<i class="ti ti-printer me-2"></i>Print',
                         className: "dropdown-item",
+                        action: function (e, dt, node, config) {
+                            ledgerPrint(e, dt, node, config); // your custom function
+                        },
                         exportOptions: {
                             columns: [2, 3, 4, 5, 6, 7],
                             format: {
@@ -162,21 +168,16 @@ $(function () {
                                     return t.length <= 0
                                         ? t
                                         : ((t = $.parseHTML(t)),
-                                          (s = ""),
-                                          $.each(t, function (t, e) {
-                                              void 0 !== e.classList &&
-                                              e.classList.contains(
-                                                  "order-name"
-                                              )
-                                                  ? (s +=
-                                                        e.lastChild
-                                                            .firstChild
-                                                            .textContent)
-                                                  : void 0 === e.innerText
-                                                  ? (s += e.textContent)
-                                                  : (s += e.innerText);
-                                          }),
-                                          s);
+                                            (s = ""),
+                                            $.each(t, function (t, e) {
+                                                void 0 !== e.classList &&
+                                                e.classList.contains("order-name")
+                                                    ? (s += e.lastChild.firstChild.textContent)
+                                                    : void 0 === e.innerText
+                                                    ? (s += e.textContent)
+                                                    : (s += e.innerText);
+                                            }),
+                                            s);
                                 },
                             },
                         },
@@ -185,138 +186,16 @@ $(function () {
                                 .css("color", s)
                                 .css("border-color", e)
                                 .css("background-color", a),
-                                $(t.document.body)
-                                    .find("table")
-                                    .addClass("compact")
-                                    .css("color", "inherit")
-                                    .css("border-color", "inherit")
-                                    .css("background-color", "inherit");
+                            $(t.document.body)
+                                .find("table")
+                                .addClass("compact")
+                                .css("color", "inherit")
+                                .css("border-color", "inherit")
+                                .css("background-color", "inherit");
                         },
-                    },
-                    {
-                        extend: "csv",
-                        text: '<i class="ti ti-file me-2"></i>Csv',
-                        className: "dropdown-item",
-                        exportOptions: {
-                            columns: [2, 3, 4, 5, 6, 7],
-                            format: {
-                                body: function (t, e, a) {
-                                    var s;
-                                    return t.length <= 0
-                                        ? t
-                                        : ((t = $.parseHTML(t)),
-                                          (s = ""),
-                                          $.each(t, function (t, e) {
-                                              void 0 !== e.classList &&
-                                              e.classList.contains(
-                                                  "order-name"
-                                              )
-                                                  ? (s +=
-                                                        e.lastChild
-                                                            .firstChild
-                                                            .textContent)
-                                                  : void 0 === e.innerText
-                                                  ? (s += e.textContent)
-                                                  : (s += e.innerText);
-                                          }),
-                                          s);
-                                },
-                            },
-                        },
-                    },
-                    {
-                        extend: "excel",
-                        text: '<i class="ti ti-file-export me-2"></i>Excel',
-                        className: "dropdown-item",
-                        exportOptions: {
-                            columns: [2, 3, 4, 5, 6, 7],
-                            format: {
-                                body: function (t, e, a) {
-                                    var s;
-                                    return t.length <= 0
-                                        ? t
-                                        : ((t = $.parseHTML(t)),
-                                          (s = ""),
-                                          $.each(t, function (t, e) {
-                                              void 0 !== e.classList &&
-                                              e.classList.contains(
-                                                  "order-name"
-                                              )
-                                                  ? (s +=
-                                                        e.lastChild
-                                                            .firstChild
-                                                            .textContent)
-                                                  : void 0 === e.innerText
-                                                  ? (s += e.textContent)
-                                                  : (s += e.innerText);
-                                          }),
-                                          s);
-                                },
-                            },
-                        },
-                    },
-                    {
-                        extend: "pdf",
-                        text: '<i class="ti ti-file-text me-2"></i>Pdf',
-                        className: "dropdown-item",
-                        exportOptions: {
-                            columns: [2, 3, 4, 5, 6, 7],
-                            format: {
-                                body: function (t, e, a) {
-                                    var s;
-                                    return t.length <= 0
-                                        ? t
-                                        : ((t = $.parseHTML(t)),
-                                          (s = ""),
-                                          $.each(t, function (t, e) {
-                                              void 0 !== e.classList &&
-                                              e.classList.contains(
-                                                  "order-name"
-                                              )
-                                                  ? (s +=
-                                                        e.lastChild
-                                                            .firstChild
-                                                            .textContent)
-                                                  : void 0 === e.innerText
-                                                  ? (s += e.textContent)
-                                                  : (s += e.innerText);
-                                          }),
-                                          s);
-                                },
-                            },
-                        },
-                    },
-                    {
-                        extend: "copy",
-                        text: '<i class="ti ti-copy me-2"></i>Copy',
-                        className: "dropdown-item",
-                        exportOptions: {
-                            columns: [2, 3, 4, 5, 6, 7],
-                            format: {
-                                body: function (t, e, a) {
-                                    var s;
-                                    return t.length <= 0
-                                        ? t
-                                        : ((t = $.parseHTML(t)),
-                                          (s = ""),
-                                          $.each(t, function (t, e) {
-                                              void 0 !== e.classList &&
-                                              e.classList.contains(
-                                                  "order-name"
-                                              )
-                                                  ? (s +=
-                                                        e.lastChild
-                                                            .firstChild
-                                                            .textContent)
-                                                  : void 0 === e.innerText
-                                                  ? (s += e.textContent)
-                                                  : (s += e.innerText);
-                                          }),
-                                          s);
-                                },
-                            },
-                        },
-                    },
+                    }
+                    
+
                 ],
             }
         ],
@@ -400,6 +279,8 @@ $(function () {
                     _endDate = dates_[1].trim();   // To date
                 }
             }
+
+            var plotNumber = $('#plotNumber').val();
         
             var _subcat = $('#subcat').val();
         
@@ -412,7 +293,8 @@ $(function () {
                 data: {
                     startDate: _startDate,
                     endDate: _endDate,
-                    subcat: _subcat
+                    subcat: _subcat,
+                    plot:plotNumber
                 },
                 success: function(data) {
                     if (data) {
@@ -433,8 +315,59 @@ $(function () {
                 paymentType==1?fetchAlloties():fetchExpenseHeads();
             });
         });
+
+
+        // $('#paymentType').on('change', function () {
+        //     t.ajax.reload(function (json) {
+        //         $("#subcat").val('');
+        //         var paymentType = $('#paymentType').val(); 
+        //         paymentType==1?fetchAlloties():fetchExpenseHeads();
+        //     });
+        // });
+
+
+        function plotsByallote() {
+
+            var _subcat = $('#subcat').val();
+
+            $.ajax({
+                method: "POST",
+                url: "/api/get-plots-for-leder",
+                data:{
+                    allote:_subcat
+                },
+                headers: {
+                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+                },
+                success: function(data) {
+                    if (data.success) {
+                        populateDropdown("plotNumber", data.plots);
+                    } else {
+                        showToast("Error: " + data.message, "danger");
+                    }
+                },
+                error: function(jqXHR) {
+                    const errorResponse = jqXHR.responseJSON;
+                    if (errorResponse && errorResponse.error) {
+                        showToast("Error: " + errorResponse.message, "danger");
+                    } else {
+                        showToast("Failed to load scheme details.", "danger");
+                    }
+                }
+            });
+        }
+        
+
         $('#subcat').on('change', function () {
             getAlloteDetail();
+            plotsByallote();
+            t.ajax.reload(function (json) {
+            });
+        });
+
+        $('#plotNumber').on('change', function () {
+             getAlloteDetail();
+            // plotsByallote();
             t.ajax.reload(function (json) {
             });
         });
@@ -500,6 +433,58 @@ function fetchAlloties() {
             } else {
                 showToast("Failed to load scheme details.", "danger");
             }
+        }
+    });
+}
+
+
+
+
+function ledgerPrint() {
+    var allote = $('#subcat').val();
+    if(!allote){
+      return   alert("Please select a subcategory", "danger");
+    }
+    var dateRangeer = $('#flatpickr-range').val(); // Get the value of the date range input
+    var _startDate = ""; 
+    var _endDate = "";
+
+    if (dateRangeer) {
+        // Split the date range into start and end dates
+        var dates_ = dateRangeer.split(' to ');
+        if (dates_.length === 2) {  // Ensure we have two dates
+            _startDate = dates_[0].trim(); // From date
+            _endDate = dates_[1].trim();   // To date
+        }
+    }
+    var plotNumber = $('#plotNumber').val();
+    var allote = $('#subcat').val();
+
+    $.ajax({
+        method: "POST",
+        url: "/api/ledgerPrint",
+        headers: {
+            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+        },
+        data: {
+            startDate: _startDate,
+            endDate: _endDate,
+            allote: allote,
+            plot:plotNumber
+        },
+        success: function(data) {
+            if (data) {
+                var printWindow = window.open('', '_blank');
+                printWindow.document.open();
+                printWindow.document.write(data); // write the server response into the new window
+                printWindow.document.close();
+                printWindow.focus();
+                printWindow.print(); // trigger the print dialog
+                printWindow.close(); // optional: close after printing
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error("AJAX Error:", status, error);
         }
     });
 }

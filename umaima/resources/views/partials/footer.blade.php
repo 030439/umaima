@@ -8,7 +8,7 @@
         © <script>
         document.write(new Date().getFullYear())
 
-        </script>, made with ❤️ by <a href="https://appletservices.com/" target="_blank" class="footer-link">Appet Services</a>
+        </script>, made with ❤️ by <a href="https://appletservices.com/" target="_blank" class="footer-link">Applet Services</a>
       </div>
     </div>
   </div>

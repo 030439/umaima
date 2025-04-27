@@ -121,6 +121,11 @@ class PlotController extends Controller
         $result = $this->plotservice->getPlotsByAllote();
         return ($result);
     }
+
+    public function getPlotsByAlloteForLedger(){
+        $result = $this->plotservice->getPlotsByAlloteForLedger();
+        return ($result);
+    }
     
 
 

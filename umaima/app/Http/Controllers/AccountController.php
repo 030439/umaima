@@ -53,6 +53,17 @@ class AccountController extends Controller
         $result = $this->accountservice->alloteData();
         return ($result);
     }
+
+    public function ledgerPrint(){
+        $ledgers=$this->accountservice->getLedgerforPrint();
+        $alloteDetail=$this->accountservice->alloteDataForPrint();
+        $allote=$alloteDetail['allote'];
+        $allocation=$alloteDetail['allocation'];
+
+        return view('reports.print-ledger',compact('ledgers','allote','allocation'));
+
+    }
+
     public function getExpenses(){
         $result = $this->accountservice->getExpenses();
         return ($result);

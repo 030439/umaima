@@ -1,101 +1,257 @@
-
 <!DOCTYPE html>
-<html lang="en" class="light-style layout-navbar-fixed layout-menu-fixed layout-compact " dir="ltr" data-theme="theme-default" data-assets-path="../../assets/" data-template="vertical-menu-template" data-style="light">
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Tax Invoice</title>
+    <link rel="shortcut icon" type="image/png" href="./favicon.png" />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
 
-  
-<!-- Mirrored from demos.pixinvent.com/vuexy-html-admin-template/html/vertical-menu-template/tables-datatables-advanced.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 06 Nov 2024 19:10:24 GMT -->
-<head>
-     <!-- Favicon -->
- <link rel="icon" type="image/x-icon" href="../../assets/img/icons/brands/laravel-logo.png" />
+      .table-bordered td,
+      .table-bordered th {
+        border: 1px solid #ddd;
+        padding: 10px;
+        word-break: break-all;
+      }
 
-<!-- Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com/">
-<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;ampdisplay=swap" rel="stylesheet">
-
-<!-- Icons -->
-<link rel="stylesheet" href="../../assets/vendor/fonts/fontawesome.css" />
-<link rel="stylesheet" href="../../assets/vendor/fonts/tabler-icons.css"/>
-<link rel="stylesheet" href="../../assets/vendor/fonts/flag-icons.css" />
-
-<!-- Core CSS -->
-
-<link rel="stylesheet" href="../../assets/vendor/css/rtl/core.css" class="template-customizer-core-css" />
-<link rel="stylesheet" href="../../assets/vendor/css/rtl/theme-default.css" class="template-customizer-theme-css" />
-
-<link rel="stylesheet" href="../../assets/css/demo.css" />
-
-<!-- Vendors CSS -->
-<link rel="stylesheet" href="../../assets/vendor/libs/node-waves/node-waves.css" />
-
-<link rel="stylesheet" href="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
-<link rel="stylesheet" href="../../assets/vendor/libs/typeahead-js/typeahead.css" /> 
-<link rel="stylesheet" href="../../assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css">
-<link rel="stylesheet" href="../../assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css">
-<link rel="stylesheet" href="../../assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css">
-<link rel="stylesheet" href="../../assets/vendor/libs/select2/select2.css" />
-<link rel="stylesheet" href="../../assets/vendor/libs/%40form-validation/form-validation.css" />
-<link rel="stylesheet" href="../../assets/vendor/libs/dropzone/dropzone.css" />
-<link rel="stylesheet" href="../../assets/vendor/libs/bs-stepper/bs-stepper.css" />
-<link rel="stylesheet" href="../../assets/vendor/libs/flatpickr/flatpickr.css" />
-<link rel="stylesheet" href="../../assets/vendor/libs/sweetalert2/sweetalert2.css" />
-<link rel="stylesheet" href="../../assets/vendor/libs/apex-charts/apex-charts.css" />
-<link rel="stylesheet" href="../../assets/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.css" />
-<link rel="stylesheet" href="../../assets/vendor/libs/bootstrap-daterangepicker/bootstrap-daterangepicker.css" />
-<link rel="stylesheet" href="../../assets/vendor/libs/jquery-timepicker/jquery-timepicker.css" />
-<link rel="stylesheet" href="../../assets/vendor/libs/pickr/pickr-themes.css" />
-
-<!-- Page CSS -->
-
-
-<!-- Helpers -->
-<script src="../../assets/vendor/js/helpers.js"></script>
-<script src="../../assets/js/config.js"></script>
-
-</head>
-
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        margin: 0;
+        padding: 0;
+        font-size: 16px;
+      }
+      .h4-14 h4 {
+        font-size: 12px;
+        margin-top: 0;
+        margin-bottom: 5px;
+      }
+      .img {
+        margin-left: "auto";
+        margin-top: "auto";
+        height: 30px;
+      }
+      pre,
+      p {
+        /* width: 99%; */
+        /* overflow: auto; */
+        /* bpicklist: 1px solid #aaa; */
+        padding: 0;
+        margin: 0;
+      }
+      table {
+        font-family: arial, sans-serif;
+        width: 100%;
+        border-collapse: collapse;
+        padding: 1px;
+      }
+      .hm-p p {
+        text-align: left;
+        padding: 1px;
+        padding: 5px 4px;
+      }
+      td,
+      th {
+        text-align: left;
+        padding: 8px 6px;
+      }
+      .table-b td,
+      .table-b th {
+        border: 1px solid #ddd;
+      }
+      th {
+        /* background-color: #ddd; */
+      }
+      .hm-p td,
+      .hm-p th {
+        padding: 3px 0px;
+      }
+      .cropped {
+        float: right;
+        margin-bottom: 20px;
+        height: 100px; /* height of container */
+        overflow: hidden;
+      }
+      .cropped img {
+        width: 400px;
+        margin: 8px 0px 0px 80px;
+      }
+      .main-pd-wrapper {
+        box-shadow: 0 0 10px #ddd;
+        background-color: #fff;
+        border-radius: 10px;
+        padding: 15px;
+      }
+      .table-bordered td,
+      .table-bordered th {
+        border: 1px solid #ddd;
+        padding: 10px;
+        font-size: 14px;
+      }
+    </style>
+  </head>
   <body>
-<div class="containter">
-<div class="card">
-  <h5 class="card-header">Ajax Sourced Server-side</h5>
-  <div class="card-datatable text-nowrap">
-    <table class="datatables-ajax table">
-      <thead>
-        <tr>
-          <th>Full name</th>
-          <th>Email</th>
-          <th>Position</th>
-          <th>Office</th>
-          <th>Start date</th>
-          <th>Salary</th>
-        </tr>
-      </thead>
-    </table>
-  </div>
-  <footer class="content-footer footer bg-footer-theme">
-  <div class="container-xxl">
-    <div class="footer-container d-flex align-items-center justify-content-between py-4 flex-md-row flex-column">
-      <div class="text-body">
-        © <script>
-        document.write(new Date().getFullYear())
+    <section class="main-pd-wrapper" style="width: 1000px; margin: auto">
+      <div style="display: table-header-group">
+        <!-- <h4 style="text-align: center; margin: 0">
+          <b>Tax Invoice</b>
+        </h4> -->
 
-        </script>, made with ❤️ by <a href="https://applet-services.com" target="_blank" class="footer-link">Applet-Services</a>
+        <table style="width: 100%; table-layout: fixed">
+          <tr>
+            <td
+              style="border-left: 1px solid #ddd; border-right: 1px solid #ddd"
+            >
+              <div
+              >
+              <img src="https://deluxe.gogreenmotors.uk/assets/deluxe.jpg">
+                <p style="font-weight: bold; margin-top: 15px">
+                  GST TIN : 06AAFCD6498P1ZT
+                </p>
+              </div>
+            </td>
+            <td
+              align="right"
+              style="
+                text-align: right;
+                padding-left: 50px;
+                line-height: 1.5;
+                color: #323232;
+              "
+            >
+              <div>
+                <h4 style="margin-top: 5px; margin-bottom: 5px">
+                  <?php echo e($allote->fullname); ?>
+
+                </h4>
+                <!-- <p>NAME   :-  customer["name"]</p>
+                        <p>ADDRESS:- customer['address']</p>
+                        <p>MOBILE :- customer['mobile']</p>
+                        <p>OrderID   :- customer['order_id']</p>  -->
+                <p style="font-size: 14px">
+                 <?php echo e($allote->address); ?><br />
+                  Tel:
+                  <a href="tel:01241234568" style="color: #00bb07"
+                    ><?php echo e($allote->phone); ?></a
+                  >
+                </p>
+              </div>
+            </td>
+          </tr>
+        </table>
       </div>
-    </div>
-  </div>
-</footer>
-</div>
-</div>
+      <table
+        class="table table-bordered h4-14"
+        style="width: 100%; -fs-table-paginate: paginate; margin-top: 15px"
+      >
+        <thead style="display: table-header-group">
+          <tr
+            style="
+              margin: 0;
+              background: #fcbd021f;
+              padding: 15px;
+              padding-left: 20px;
+              -webkit-print-color-adjust: exact;
+            "
+          >
+            <td colspan="4">
+            <p>Scheme</p>
+              </h3>
+            </td>
+            <td colspan="2">
+              <p>Category</p>
+            </td>
+            <td colspan="2">
+              <p>
+                Plot-No |  SQFT 
+              </p>
+            </td>
+            <td colspan="4">
+              <p>Booking Date</p>
+            </td>
+          </tr>
+          <?php if(!empty($allocation)): ?>
+          <?php $__currentLoopData = $allocation; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $allo): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+          <tr>
+            <td colspan="4"><?php echo e($allo->scheme); ?></td>
+            <td colspan="2"><?php echo e($allo->category_name); ?></td>
+            <td colspan="2"><?php echo e($allo->plot_number); ?> | <?php echo e($allo->size); ?></td>
+            <td colspan="4"><?php echo e($allo->bdate); ?></td>
+          </tr>
+          <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+          <?php endif; ?>
+    </table>
+    <table border id="data-table" class="table table-bordered h4-14" style="width: 100%; margin-top: 15px">
+          <tr>
+            <th style="widt:200px">#</th>
+            <th style="">Date</th>
+            <th style=""> Receipt No</th>
+            <th style=""> Amount </th>
+            <th style=""> Narration</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php if(!empty($ledgers)): ?>
+          <?php $__currentLoopData = $ledgers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $ledger): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+          <tr>
 
+             <td><?php echo e(++$key); ?></td>
+            <td><?php echo e($ledger->paydate); ?></td>
+            <td><?php echo e($ledger->receipt_id); ?></td>
+            <td><?php echo e($ledger->amount); ?></td>
+            <td><?php echo e($ledger->narration); ?></td>
+          </tr>
+          <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+          <?php endif; ?>
+        </tbody>
+        <tfoot></tfoot>
+      </table>
 
-          
-          
-
-<!-- Footer -->
-
-   
     
+      <!-- <table class="hm-p table-bordered" style="width: 100%; margin-top: 30px">
+        <tr>
+          <th style="width: 400px">
+            <p>Payment Mode:</p>
+            <p>COD:</p>
+            <p>Deerika Cashback:</p>
+          </th>
+          <td style="width: 100px; border-right: none">
+            <p>&nbsp;</p>
+            <p style="text-align: right"><b>1199</b></p>
+            <p style="text-align: right"><b>90</b></p>
+          </td>
+          <td colspan="5" style="border-left: none"></td>
+        </tr>
+        <tr style="background: #fcbd02">
+          <th>Total Order Value</th>
+          <td style="width: 70px; text-align: right; border-right: none">
+            <b>1289</b>
+          </td>
+          <td colspan="5" style="border-left: none"></td>
+        </tr>
+      </table> -->
+
+     
+    </section>
   </body>
+
+
+  <script>
+        function printReceipt() {
+            window.print();
+        }
+    
+        window.onload = function() {
+            printReceipt();
+        };
+    
+        window.onafterprint = function() {
+            window.location.href = "<?php echo e(route('allote.ledger')); ?>";
+        };
+    </script>
 </html>
+
+
 
 <?php /**PATH C:\xampp\htdocs\umaima\umaima\resources\views/reports/print-ledger.blade.php ENDPATH**/ ?>

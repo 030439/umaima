@@ -8,7 +8,7 @@ use App\Http\Controllers\SchemeController;
 use App\Http\Controllers\PlotController;
 use App\Http\Controllers\BankController;
 use App\Http\Controllers\AlloteController;
-use App\Http\Controllers\AccountController;
+use App\Http\Controllers\AccountControllepr;
 use App\Http\Controllers\Auth\RegisteredUserController;
 
 /*

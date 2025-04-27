@@ -71,4 +71,7 @@ class AlloteController extends Controller
         $result = $this->alloteservice->plotPaymet($id);
         return ($result);
     }
+    public function ledgerPrint(){
+        return view('reports.print-ledger');
+    }
 }
