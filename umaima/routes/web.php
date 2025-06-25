@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RolePermissionController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LoanController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\PlotController;
 use App\Http\Controllers\BankController;
@@ -77,6 +78,7 @@ Route::middleware('auth')->group(function () {
     Route::controller(AccountController::class)
     ->group(function(){
         Route::get('payment-detail/{id}','paymentDetail');
+        Route::get('payment-edit/{id}','paymentEdit');
     });
     Route::controller(PlotController::class)
         ->prefix('setup')
@@ -124,7 +126,14 @@ Route::middleware('auth')->group(function () {
     });
 
 
-    
+    Route::controller(LoanController::class)
+    ->group(function(){
+        Route::get('/loans','index')->name('loan.lists');
+        Route::get('/add-loan','addLoan');
+        Route::get('/edit/party/{id}','editParty');
+        Route::get('/add-party','addParty');
+        Route::get('loan/parties','parties')->name('loan.party');
+    });
     Route::controller(AccountController::class)
     ->group(function(){
         Route::get('check/surcharge','applyCharge')->name('payment.create');
@@ -158,6 +167,16 @@ Route::middleware('auth')->group(function () {
 
 
 Route::middleware(['auth']) ->prefix('api')->group(function () {
+
+    Route::controller(LoanController::class)
+    ->group(function(){
+        Route::post('/loan/store','loanStore')->name('loan.parties');
+        Route::post('/parties','parties_listing')->name('loan.parties');
+        Route::post('/save-party','saveParty')->name('loan.parties');
+        Route::post('/update-party','updateParty')->name('loan.parties');
+        Route::POST('getLoansList','getLoansList')->name('payment.read');
+    });
+
     // roles routes
     Route::post('/roles-read', [RolePermissionController::class, 'getRoles'])->name('roles.read');
     Route::post('/roles', [RolePermissionController::class, 'storeRole'])->name('roles.create');

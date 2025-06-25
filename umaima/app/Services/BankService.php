@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use App\Models\Bank;
+use App\Models\Payment;
+use App\Models\Loan;
 use Illuminate\Http\JsonResponse;
 use Exception;
 class BankService
@@ -23,6 +25,35 @@ class BankService
         $this->table = 'banks'; // Define the table name for users
         $this->request = $request; // Inject Request
     }
+
+    public function getBankBalance($id)
+    {
+        $balance=0;
+        $payment = Payment::where('from_account', $id)->get();
+        if(!empty($payment)){
+            foreach ($payment as $row) {
+                if ($row->payment_type == 1) {
+                    $balance += $row->amount;
+                } else {
+                    $balance -= $row->amount;
+                }
+            }
+        }
+
+        $loans = Loan::where('bank', $id)->get();
+        if(!empty($loans)){
+            foreach ($loans as $row) {
+                if ($row->transaction == 1) {
+                    $balance += $row->amount;
+                } else {
+                    $balance -= $row->amount;
+                }
+            }
+        }
+
+        return $balance; // or handle the case where the bank is not found
+    }
+
 
     public function getAll()
     {
@@ -67,14 +98,21 @@ class BankService
             $paginate = true
         );
 
+
+        $data = $result['data'];
+        foreach ($data as &$row) {
+                $row->balance= $this->getBankBalance($row->id);
+        }
+
         // Return only the data if pagination is enabled, or full response if not paginated
         return[
-            'data' => $result['data'],
+            'data' => $data,
             'recordsTotal' => $result['recordsTotal'],
             'recordsFiltered' => $result['recordsFiltered'],
             'draw' => $draw,
         ];
     }
+
 
     //bank store with validation
     public function storeBank(){

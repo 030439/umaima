@@ -32,7 +32,7 @@ $(function () {
             serverSide: true,
             responsive: true,
             scrollX: true,
-            pageLength: 10,
+            pageLength: 1000000,
             ajax: {
                 url: "/api/getPaymentsVoucher",
                 headers: {

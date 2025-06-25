@@ -159,6 +159,28 @@
             </li>
       </ul>
     </li>
+    
+    <?php if(check('cash.read')): ?>
+    <li class="menu-item " style="">
+      <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons ti ti-file-dollar"></i>
+        <div>Loan</div>
+      </a>
+      <ul class="menu-sub">
+        <li class="menu-item ">
+          <a href="<?php echo e(route('loan.party')); ?>" class="menu-link">
+            <div>Load Parties</div>
+          </a>
+        </li>
+        <li class="menu-item ">
+          <a href="<?php echo e(route('loan.lists')); ?>" class="menu-link">
+            <div>Loans</div>
+          </a>
+        </li>
+      </ul>
+    </li>
+
+    <?php endif; ?>
     <?php endif; ?>
     <?php if(check('cash.read')): ?>
     <li class="menu-item " style="">
@@ -203,6 +225,8 @@
       </ul>
     </li>
     <?php endif; ?>
+
+
 
     <?php if(check('cash.read')): ?>
     <li class="menu-item " style="">

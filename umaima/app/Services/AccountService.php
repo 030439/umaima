@@ -135,7 +135,7 @@ class AccountService
     public function isAmounntPaidOnDate($date,$allocation_details_id){
 
     }
-   public function lateapplyStanding($allocation_id)
+    public function lateapplyStanding($allocation_id)
     {
         $pdate=date('Y-m-15');
         $paymentSchedules = DB::table('payment_schedule')
@@ -878,8 +878,8 @@ class AccountService
         $start = $this->request->input('start', 0);
         $length = $this->request->input('length', 10);
         $joins = $this->request->input('joins', []);
-        $orderColumn = $this->request->input('orderColumn', 'id');
-        $orderDirection = $this->request->input('orderDirection', 'desc');
+        $orderColumn = $this->request->input('orderColumn', 'paydate');
+        $orderDirection = $this->request->input('orderDirection', 'asc');
         $groupBy = $this->request->input('groupBy', []);
         $having = $this->request->input('having', []);
         $paginate = $this->request->input('paginate', true);

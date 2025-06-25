@@ -82,6 +82,13 @@ class AccountController extends Controller
         $page=$payment->payment_type==1?"pay":"expense";
         return view('accounts.'.$page,['payment' => $payment]);
     }
+
+     public function paymentEdit($id)
+    {
+        $payment = $this->accountservice->getPaymentById($id);
+        return view('accounts.editpay',['payment' => $payment]);
+    }
+
     public function applyCharge(){
         $result = $this->accountservice->applyCharge();
         return ($result);

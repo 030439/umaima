@@ -40,7 +40,7 @@ $(function() {
                 { data: 'id',title:"Branch" },     // Map to 'name' in the returned JSON
                 { data: 'id',title:"Account-Holder" },       // Map to 'id' in the returned JSON
                 { data: 'id',title:"Account" }, 
-                { data: 'id',title:"Initial-Balance" }, 
+                { data: 'id',title:"Balance" }, 
                 { data: 'id',title:"Status" },
                 { data: 'id',title:"Action" },
                 // { data: 'id',title:"Actions" },    
@@ -79,7 +79,7 @@ $(function() {
                 {
                     targets: 4,
                     render: function(t, e, a, s) {
-                        return '<span class="text-heading">' + a.initial_balance + "</span>";
+                        return '<span class="text-heading">' + a.balance + "</span>";
                     }
                 },
                 {

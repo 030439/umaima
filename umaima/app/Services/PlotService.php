@@ -547,6 +547,7 @@ class PlotService
           
               
                 $plot->plot_size_id = $this->request->input('plot.plotSize');
+                $plot->plot_number  = $this->request->input('plot.plotNumber');
                 $plot->plot_location_id = $this->request->input('plot.plotLocation');
                 $plot->plot_category_id=$this->request->input('plot.plotCat');
                 $plot->category_id=$this->request->input('plot.category');

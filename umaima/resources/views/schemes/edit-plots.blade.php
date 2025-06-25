@@ -252,10 +252,18 @@ function showToast(message, type) {
         setError(plotCat, "Please select the  plot SUB Category.");
         isValid = false;
     }
+
+    const plotNumber = document.getElementById("plotNumber");
+    if (plotNumber.value === "") {
+        alert("Please Enter plot Number.");
+        isValid = false;
+    }
+
     var id=$("#pid").val();
 
     if (isValid) {
         const scheme = {
+            plotNumber: plotNumber.value,
             plotSize: plotSize.value,
             plotLocation: plotLocation.value,
             plotCat:plotCat.value,
