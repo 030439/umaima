@@ -79,6 +79,8 @@ Route::middleware('auth')->group(function () {
     ->group(function(){
         Route::get('payment-detail/{id}','paymentDetail');
         Route::get('payment-edit/{id}','paymentEdit');
+        Route::get('payment-delete/{id}','deletePayment');
+        Route::get('receiving-report','receivingReport')->name('receiving.report');
     });
     Route::controller(PlotController::class)
         ->prefix('setup')

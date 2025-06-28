@@ -240,6 +240,12 @@
             <div>Allote Ledger</div>
           </a>
         </li>
+
+        <li class="menu-item ">
+          <a href="<?php echo e(route('receiving.report')); ?>" class="menu-link">
+            <div>Receiving Report</div>
+          </a>
+        </li>
         <!-- <li class="menu-item ">
           <a href="<?php echo e(route('expense.show')); ?>" class="menu-link">
             <div>Expenses</div>

@@ -351,6 +351,7 @@ class AccountService
 
 
     public function deletePayment($id){
+        
             $payment=$this->getPaymentById($id);
             try {
             if($payment->payment_type==1){
@@ -361,14 +362,17 @@ class AccountService
                     ->where('plot_paymnets.created_at',$payment->created_at)
                     ->where('allocation_details.allote',$payment->allote_id)
                     ->first();
+                    
                     $allocationId=$plotdata->id;
 
+             
                     PlotPayment::where('id', $plotdata->pid)->delete(); 
 
                     $schedule=['amount_paid'=>0,'paid_on'=>0];
                     $record =  PaymentSchedule::where('allocation_details_id', $allocationId)
                     ->where('paid_on', $payment->pdate)
                     ->update($schedule);
+                    
             }
             // Delete the payment record
             DB::table('payments')->where('id', $id)->delete();
@@ -1068,7 +1072,7 @@ class AccountService
         $length = $this->request->input('length', 10);
         $joins = $this->request->input('joins', []);
         $orderColumn = $this->request->input('orderColumn', 'paydate');
-        $orderDirection = $this->request->input('payments.id', 'desc');
+        $orderDirection = $this->request->input('payments.paydate', 'desc');
         $groupBy = $this->request->input('groupBy', []);
         $having = $this->request->input('having', []);
         $paginate = $this->request->input('paginate', true);

@@ -92,7 +92,8 @@
 
 <!-- Main JS -->
 
-
+<script src="../../assets/vendor/libs/sweetalert2/sweetalert2.js"></script>
+<script src="../../assets/js/extended-ui-sweetalert2.js"></script>
 
 <!-- Page JS -->
 <script src="../../assets/js/forms-pickers.js"></script>

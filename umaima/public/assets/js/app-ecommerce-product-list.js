@@ -171,7 +171,7 @@ $(function () {
                 targets: 7,
                 responsivePriority: 1,
                 render: function (t, e, a, s) {
-                    return '<div class="d-flex justify-content-sm-start align-items-sm-center"><button class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="ti ti-dots-vertical"></i></button><div class="dropdown-menu dropdown-menu-end m-0"><a href="/payment-detail/'+a.id+'" class="dropdown-item">View</a><a href="/payment-edit/'+a.id+'" class="dropdown-item">Edit</a></div></div>';
+                    return '<div class="d-flex justify-content-sm-start align-items-sm-center"><button class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="ti ti-dots-vertical"></i></button><div class="dropdown-menu dropdown-menu-end m-0"><a href="/payment-detail/'+a.id+'" class="dropdown-item">View</a><a href="/payment-edit/'+a.id+'" class="dropdown-item">Edit</a><a href="javascript:void(0);" onclick="deletePayment('+a.id+')"class="dropdown-item">Delete</a></div></div>';
                 },
             },
         ],
@@ -517,3 +517,77 @@ function fetchAlloties() {
         }
     });
 }
+
+
+
+
+
+
+function deletePayment(id) {
+    Swal.fire({
+        title: "Are you sure?",
+        text: "This action cannot be undone!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire({
+                title: "Deleting...",
+                text: "Please wait",
+                icon: "info",
+                showConfirmButton: false,
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                willOpen: () => {
+                    Swal.showLoading();
+                },
+            });
+
+            fetch(`/payment-delete/${id}`, {
+                method: 'get',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                Swal.close();
+
+                if (data.success) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Deleted!',
+                        text: data.message,
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
+
+                    // Optional: reload or remove element
+                    setTimeout(() => {
+                        location.reload();
+                    }, 2000);
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: data.message || 'Failed to delete.',
+                    });
+                }
+            })
+            .catch(error => {
+                console.error("Delete Error:", error);
+                Swal.close();
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Something went wrong. Please try again.',
+                });
+            });
+        }
+    });
+}
+

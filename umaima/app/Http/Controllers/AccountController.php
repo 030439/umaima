@@ -41,8 +41,8 @@ class AccountController extends Controller
         $result = $this->accountservice->storePayment();
         return ($result);
     }
-     public function deletePayment(){
-        $result = $this->accountservice->deletePayment();
+     public function deletePayment($id){
+        $result = $this->accountservice->deletePayment($id);
         return ($result);
     }
     public function updatePayment(){
@@ -116,5 +116,16 @@ class AccountController extends Controller
     public function applyCharge(){
         $result = $this->accountservice->applyCharge();
         return ($result);
+    }
+
+     public function receivingReport(){
+         $schemes = DB::table('schemes')
+        ->select(
+            'schemes.name as scheme',
+            'schemes.id as sid'
+        )
+        ->orderBy('schemes.id') // Sort descending by plot ID
+        ->get();
+        return view('accounts.receivingReport',['schemes' => $schemes]);
     }
 }
