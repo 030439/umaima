@@ -168,10 +168,8 @@ $(function () {
                 }
             },
             {
-                targets: -1,
-                title: "Actions",
-                searchable: !1,
-                orderable: !1,
+                targets: 7,
+                responsivePriority: 1,
                 render: function (t, e, a, s) {
                     return '<div class="d-flex justify-content-sm-start align-items-sm-center"><button class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="ti ti-dots-vertical"></i></button><div class="dropdown-menu dropdown-menu-end m-0"><a href="/payment-detail/'+a.id+'" class="dropdown-item">View</a><a href="/payment-edit/'+a.id+'" class="dropdown-item">Edit</a></div></div>';
                 },

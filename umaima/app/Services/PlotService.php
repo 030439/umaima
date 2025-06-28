@@ -143,6 +143,7 @@ class PlotService
         $columns = [
             'plots.id as id',
             'plots.status as status',
+            'categories.name as category',
             'plots.plot_number',
             'schemes.name  as scheme',
             'plot_locations.location_name as location',
@@ -170,6 +171,13 @@ class PlotService
                 'first' => 'plots.plot_size_id',
                 'operator' => '=',
                 'second' => 'plot_sizes.id',
+                'type'=>'join'
+            ],
+             [
+                'table' => 'categories',
+                'first' => 'plots.category_id',
+                'operator' => '=',
+                'second' => 'categories.id',
                 'type'=>'join'
             ],
         ];
@@ -442,7 +450,7 @@ class PlotService
                 'id' => $detail->id,
                 'plot' => $detail->plot,
                 'status' => $latestStatus,
-                'plot_number' => $latestPlotNumber,
+                'plot_number' => $latestPlotNumber ." ".getPlotCategoryName($latestPlotNumber),
                 'totalDue' => $paymentSummary->totalDue ?? 0,
                 'amount' => $paymentSummary->totalAmount ?? 0,
                 'paid' => $paymentSummary->totalPaid ?? 0,
@@ -1122,7 +1130,7 @@ class PlotService
         $allote=$allotes->map(function ($allote) {
             return [
                 'value' => $allote->id, // assuming 'id' is a unique identifier
-                'label' => $allote->plot_number // assuming 'name' holds the display name
+                'label' => $allote->plot_number." ".getPlotCategoryName($allote->plot_number) // assuming 'name' holds the display name
             ];
         });
         return response()->json([

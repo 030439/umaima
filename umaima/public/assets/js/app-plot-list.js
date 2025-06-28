@@ -57,7 +57,7 @@ $(function() {
                 {
                     targets: 1,
                     render: function(t, e, a, s) {
-                        return '<span class="text-heading">' + a.plot_number + "</span>";
+                        return '<span class="text-heading">' + a.plot_number +" "+ a.category+"</span>";
                     }
                     
                 },

@@ -1,7 +1,7 @@
-@extends('layout.app')
+
 <?php $breadCrumb=' <span class="text-primary"></span></i>'?>
-@section('title', 'Home Page')
-@section('content')
+<?php $__env->startSection('title', 'Home Page'); ?>
+<?php $__env->startSection('content'); ?>
  <!-- Content wrapper -->
  <div class="content-wrapper">
 
@@ -50,7 +50,7 @@
                                 <?php if (!empty($plotsGroup)): ?>
                                     <?php foreach ($plotsGroup['plots'] as $k=> $plot): ?>
                                         <?php if (($plot['allote_id'])): ?>
-                                            <a href="allote-plotes/{{($plot['allote_id'])}}" 
+                                            <a href="allote-plotes/<?php echo e(($plot['allote_id'])); ?>" 
                                                 class="col-3 col-md-2 col-lg-1 text-white bg-info text-center p-4" 
                                                 style="margin:1px" 
                                                 data-bs-toggle="tooltip" 
@@ -101,8 +101,8 @@
           <p>Add new card to complete payment</p>
         </div>
         
-        <form action="{{ route('bulk.store') }}" method="POST" class="dropzone"  id="dropzone-basic">
-          @csrf
+        <form action="<?php echo e(route('bulk.store')); ?>" method="POST" class="dropzone"  id="dropzone-basic">
+          <?php echo csrf_field(); ?>
             <div class="dz-message">
                 Drop files here or click to upload.
             </div>
@@ -112,8 +112,8 @@
     </div>
   </div>
 </div>
-@endsection
-@section('files')
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('files'); ?>
 <script src="../../assets/vendor/libs/jquery/jquery.js"></script>
     <script src="../../assets/vendor/libs/popper/popper.js"></script>
     <script src="../../assets/vendor/js/bootstrap.js"></script>
@@ -153,4 +153,6 @@
  <script src="../../assets/js/forms-file-upload.js"></script>
 
 
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layout.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\umaima\umaima\resources\views/plots/alloted-plot.blade.php ENDPATH**/ ?>

@@ -2,6 +2,18 @@
 use App\Models\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\DB;
+
+
+if (!function_exists('getPlotCategoryName')) {
+    function getPlotCategoryName($plotNumber)
+    {
+        return DB::table('plots')
+            ->join('categories', 'plots.category_id', '=', 'categories.id')
+            ->where('plots.plot_number', $plotNumber)
+            ->value('categories.name'); // returns single value
+    }
+}
 
  function check(string $permission): bool
     {

@@ -16,39 +16,48 @@
                 <form class="card-body" id="pay-form" onsubmit="return false">
                     <hr class="my-6 mx-n4" />
                     <div class="row mb-6">
-
+                        <input type="hidden" name="id" value="<?php echo e($payment->id); ?>" />
                         <div class="col-6">
                             <label class="col-form-label text-sm-end" for="birthdate">Payment Date</label>
-                            <input type="text" id="paydate" name="paydate" class="form-control dob-picker" placeholder="YYYY-MM-DD" />
+                            <input type="text" id="paydate" value="<?php echo e($payment->pdate); ?>" name="paydate" class="form-control dob-picker" placeholder="YYYY-MM-DD" />
                         </div>
 
                         <div class="col-6">
                             <label class="col-form-label text-sm-end" for="payment_type">Payment Type</label>
                             <select id="payment_type" name="payment_type" class="select2 form-select" data-allow-clear="true">
                                 <option value="">Select Payment Type</option>
-                                <option value="1">Receive</option>
-                                <option value="2">Payment</option>
+                                <option value="1" <?= $payment->payment_type==1?"selected":"";?>>Receive</option>
+                                <option value="2" <?= $payment->payment_type==2?"selected":"";?>>Payment</option>
                             </select>
                         </div>
 
-                        <div class="col-6 d-none" id="allote_section">
+                        <div class="col-6 <?= $payment->payment_type==1?'':'d-none'?>" id="allote_section">
                             <label class="col-form-label text-sm-end" for="allotees">Allotees</label>
                             <select id="allotees" name="allotees" class="select2 form-select" data-allow-clear="true">
                                 <option value="">Select Allotee</option>
+                                <?php if($payment->payment_type==1){?>
+                                    <option selected value="<?php echo e($payment->allote_id); ?>"><?php echo e($payment->allote); ?></option>
+                                <?php } ?>
                             </select>
                         </div>
 
-                        <div class="col-6 d-none" id="plot_section">
+                        <div class="col-6 <?= $payment->payment_type==1?'':'d-none'?>" id="plot_section">
                             <label class="col-form-label text-sm-end" for="allotees">Plots</label>
                             <select id="plot" name="plot" class="select2 form-select" data-allow-clear="true">
                                 <option value="">Select Plot</option>
+                                <?php if(!empty($plot)){?>
+                                 <option selected value="<?php echo e($plot['plot']); ?>"><?php echo e($plot['plot_number']); ?></option>
+                                 <?php }?>
                             </select>
                         </div>
 
-                        <div class="col-6 d-none" id="expense_section">
+                        <div class="col-6 <?= $payment->payment_type==2?'':'d-none'?>" id="expense_section">
                             <label class="col-form-label text-sm-end" for="expense_heads">Expense Heads</label>
                             <select id="expense_heads" name="expense_heads" class="select2 form-select" data-allow-clear="true">
                                 <option value="">Select Expense Head</option>
+                                 <?php if($payment->payment_type==2){?>
+                                    <option selected value="<?php echo e($payment->expense); ?>"><?php echo e($payment->expense_name); ?></option>
+                                <?php } ?>
                             </select>
                         </div>
 
@@ -56,29 +65,33 @@
                             <label class="col-form-label text-sm-end" for="from_account"> Account</label>
                             <select id="from_account" name="from_account" class="select2 form-select" data-allow-clear="true">
                                 <option value="">Select Account</option>
+                                <?php foreach($accounts as $account){?>
+                                <option <?= $payment->bank_id==$account->id?"selected":""?> value="<?php echo e($account->id); ?>"><?php echo e($account->bank_name); ?></option>
+                                <?php }?>
+
                             </select>
                         </div>
 
                         <div class="col-6">
                             <label class="col-form-label text-sm-end" for="amount">Amount</label>
-                            <input type="number" id="amount" name="amount" class="form-control" tag="Enter Amount" />
+                            <input type="number" id="amount" value="<?php echo e($payment->amount); ?>" name="amount" class="form-control" tag="Enter Amount" />
                         </div>
 
                         <div class="col-6">
                             <label class="col-form-label text-sm-end" for="narration">Receipt No</label>
-                            <input type="text" id="receipt_id" name="receipt_id" class="form-control" tag="Enter Narration" />
+                            <input type="text" id="receipt_id" value="<?php echo e($payment->receipt_id); ?>" name="receipt_id" class="form-control" tag="Enter Narration" />
                         </div>
 
                         <div class="col-6">
                             <label class="col-form-label text-sm-end" for="narration">Narration</label>
-                            <input type="text" id="narration" name="narration" class="form-control" tag="Enter Narration" />
+                            <input type="text" id="narration"  value="<?php echo e($payment->narration); ?>" name="narration" class="form-control" tag="Enter Narration" />
                         </div>
                     </div>
 
                     <div class="pt-6">
                         <div class="row justify-content-end">
                             <div class="col-sm-12">
-                                <button type="submit" id="add-btn" class="btn btn-primary me-4">Submit</button>
+                                <button type="submit" id="add-btn" class="btn btn-primary me-4">update</button>
                                 <button type="reset" class="btn btn-label-secondary">Cancel</button>
                             </div>
                         </div>
@@ -171,7 +184,7 @@
                     }
                 });
             }
-            fetchAccounts();
+            // fetchAccounts();
 
             function fetchExpenseHeads() {
                 $.ajax({
@@ -292,7 +305,7 @@
                 // Create a new FormData object from the form
                 const formData = new FormData(document.getElementById("pay-form"));
 
-                fetch("/api/cash/store", {
+                fetch("/api/cash/update", {
                     method: "POST",
                     body: formData,
                     headers: {

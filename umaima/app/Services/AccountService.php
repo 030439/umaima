@@ -15,6 +15,7 @@ use App\Models\AllocationDetail;
 use App\Models\PaymentSchedule;
 use Illuminate\Http\JsonResponse;
 use Exception;
+
 class AccountService
 {
     //
@@ -219,8 +220,15 @@ class AccountService
         }
     }
 
-
-
+    public function checkIFReceiptIdExists($receiptId)
+    {
+        // Check if the receipt ID exists in the payments table
+        $exists = DB::table('payments')->where('receipt_id', $receiptId)->exists();
+        
+        return response()->json([
+            'exists' => $exists,
+        ]);
+    }
 
     public function storePayment()
     {
@@ -254,6 +262,12 @@ class AccountService
                 ]);
             }
 
+            if($this->checkIFReceiptIdExists($this->request->input('receipt_id'))->getData()->exists){
+                return response()->json([
+                    'success' => false,
+                    'message' => "Receipt ID already exists."
+                ]);
+            }
             DB::beginTransaction();
 
             // Prepare data for insertion
@@ -315,6 +329,181 @@ class AccountService
                         logAction('Created Payment', $lastInsertedId);
                 $msg = "Payment created successfully!";
                 logAction('Created Payment', $lastInsertedId);
+            }
+
+            // Log the action
+            
+
+            DB::commit();
+
+            return response()->json([
+                'success' => $success,
+                'message' => $msg,
+            ]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+            ]);
+        }
+    }
+
+
+    public function deletePayment($id){
+            $payment=$this->getPaymentById($id);
+            try {
+            if($payment->payment_type==1){
+                $plotdata= DB::table('allocation_details')
+                    ->select('allocation_details.id','plot_paymnets.id as pid')
+                    ->join('plot_paymnets','allocation_details.id','=','plot_paymnets.allocation_details_id')
+                    //  ->where('payment_schedule.paid_on',"$payment->pdate")
+                    ->where('plot_paymnets.created_at',$payment->created_at)
+                    ->where('allocation_details.allote',$payment->allote_id)
+                    ->first();
+                    $allocationId=$plotdata->id;
+
+                    PlotPayment::where('id', $plotdata->pid)->delete(); 
+
+                    $schedule=['amount_paid'=>0,'paid_on'=>0];
+                    $record =  PaymentSchedule::where('allocation_details_id', $allocationId)
+                    ->where('paid_on', $payment->pdate)
+                    ->update($schedule);
+            }
+            // Delete the payment record
+            DB::table('payments')->where('id', $id)->delete();
+            logAction('Deleted Payment', $id);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Payment deleted successfully!'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error deleting payment: ' . $e->getMessage()
+            ]);
+        }
+    }
+
+
+     public function updatePayment()
+    {
+        $id = $this->request->input('id');
+        $payment=$this->getPaymentById($id); 
+        // dd($payment);
+        try {
+            $payment_type = $this->request->input('payment_type');
+            // Validation rules
+            $rules = [
+                'paydate' => 'required|date',
+                'payment_type' => 'required|integer',
+                'from_account' => 'required|integer',
+                'amount' => 'required|numeric',
+                'narration' => 'required|string',
+            ];
+
+            // Conditional validation rules
+            if ($payment_type == 1) {
+                $rules['allotees'] = 'required|integer';
+                $rules['plot'] = 'required|integer';
+            } else {
+                $rules['expense_heads'] = 'required|integer';
+            }
+
+            // Validate request data
+            $validator = Validator::make($this->request->all(), $rules);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => implode("\n", $validator->errors()->all())
+                ]);
+            }
+
+            DB::beginTransaction();
+
+            // Prepare data for insertion
+            $data = [
+                'paydate' => $this->request->input('paydate'),
+                'receipt_id' => $this->request->input('receipt_id'),
+                'payment_type' => $this->request->input('payment_type'),
+                'from_account' => $this->request->input('from_account'),
+                'amount' => $this->request->input('amount'),
+                'narration' => $this->request->input('narration'),
+                'allotees' => (int)$this->request->input('allotees', 0),
+                'expense_heads' => (int)$this->request->input('expense_heads', 0),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ];
+
+
+            if($payment->payment_type==1){
+                $plotdata= DB::table('allocation_details')
+                    ->select('allocation_details.id','plot_paymnets.id as pid')
+                    ->join('plot_paymnets','allocation_details.id','=','plot_paymnets.allocation_details_id')
+                    //  ->where('payment_schedule.paid_on',"$payment->pdate")
+                    ->where('plot_paymnets.created_at',$payment->created_at)
+                    ->where('allocation_details.allote',$payment->allote_id)
+                    ->first();
+                    $allocationId=$plotdata->id;
+
+                    PlotPayment::where('id', $plotdata->pid)->delete();                    
+                    $schedule=['amount_paid'=>0,'paid_on'=>0];
+                    $record =  PaymentSchedule::where('allocation_details_id', $allocationId)
+                    ->where('paid_on', $payment->pdate)
+                    ->update($schedule);
+            }
+
+            // Insert data and get the last inserted ID
+           
+            $success=true;
+            $allocationId = $this->request->input('plot');
+
+            if ($payment_type == 1) {
+                $pay = $this->payAmount();
+                // dd($pay);
+            
+                switch ($pay) {
+                    case 1:
+                        $std=$this->applyStanding();
+                        $msg = "Payment schedule updated successfully!";
+                        $lastInsertedId = DB::table('payments')->insertGetId($data);
+                        logAction('Created Payment', $lastInsertedId);
+                        break;
+                    case 2:
+                        $success=false;
+                        $msg = "Failed to update payment schedule!";
+                        break;
+                    case 3:
+                        $dd=$this->lateapplyStanding($allocationId);
+                       
+                        $msg = "Payment schedule updated successfully!";
+                          DB::table('payments')
+                            ->where('id', $id)
+                            ->update($data);
+                        logAction('Created Payment', $id);
+                        break;
+
+                        $success=false;
+                        $msg = "No matching payment schedule found.";
+                        
+                    case 5:
+                        $success=false;
+                        $msg = "Payment already Paid on this scheduled date.";
+                        
+                        break;
+                    default:
+                    $success=false;
+                        $msg = $pay; // Return the exception message
+                }
+            } else {
+                DB::table('payments')
+                ->where('id', $id)
+                ->update($data);
+                logAction('update Payment', $id);
+                $msg = "Payment updated successfully!";
+                logAction('update Payment', $id);
             }
 
             // Log the action
@@ -422,62 +611,62 @@ class AccountService
             ], 500);
         }
     }
-   public function addSurcharge($allocationId,$payDate){
-    $paymentSchedules = PaymentSchedule::where('allocation_details_id', $allocationId)
-                ->where('pay_date', '=', $payDate)
-                ->where('surcharge', 0)
-                ->where('amount_paid', 0)
-                ->get();
-            $surchargeRate = 15;
-            $previousOutstanding = 0;
+    public function addSurcharge($allocationId,$payDate){
+        $paymentSchedules = PaymentSchedule::where('allocation_details_id', $allocationId)
+                    ->where('pay_date', '=', $payDate)
+                    ->where('surcharge', 0)
+                    ->where('amount_paid', 0)
+                    ->get();
+                $surchargeRate = 15;
+                $previousOutstanding = 0;
 
-            foreach ($paymentSchedules as $schedule) {
-                $outstanding = $schedule->amount - $schedule->amount_paid;
+                foreach ($paymentSchedules as $schedule) {
+                    $outstanding = $schedule->amount - $schedule->amount_paid;
 
-                // Calculate surcharge if payment is not made
-                $surcharge = 0;
-                if ($schedule->amount_paid == 0) {
-                    $surcharge = $this->calculateSurcharge($outstanding, $surchargeRate);
-                    $outstanding += $surcharge; // Add surcharge to outstanding balance
+                    // Calculate surcharge if payment is not made
+                    $surcharge = 0;
+                    if ($schedule->amount_paid == 0) {
+                        $surcharge = $this->calculateSurcharge($outstanding, $surchargeRate);
+                        $outstanding += $surcharge; // Add surcharge to outstanding balance
+                    }
+                    $outstanding += $previousOutstanding;
+                    // Update the database with surcharge and outstanding
+                    $updated = PaymentSchedule::where('id', $schedule->id)->update([
+                        'surcharge' => $surcharge, 
+                        // 'outstanding' => $outstanding,
+                        'updated_at' => now(),
+                    ]);
                 }
-                $outstanding += $previousOutstanding;
-                // Update the database with surcharge and outstanding
-                $updated = PaymentSchedule::where('id', $schedule->id)->update([
-                    'surcharge' => $surcharge, 
-                    // 'outstanding' => $outstanding,
-                    'updated_at' => now(),
-                ]);
-            }
-            $this->applyStanding();
+                $this->applyStanding();
 
-   }
+    }
 
-   public function lateSurcharge($allocationId,$payDate){
-    $paymentSchedules = PaymentSchedule::where('allocation_details_id', $allocationId)
-                ->get();
-            $surchargeRate = 15;
-            $previousOutstanding = 0;
+    public function lateSurcharge($allocationId,$payDate){
+        $paymentSchedules = PaymentSchedule::where('allocation_details_id', $allocationId)
+                    ->get();
+                $surchargeRate = 15;
+                $previousOutstanding = 0;
 
-            foreach ($paymentSchedules as $schedule) {
-                $outstanding = $schedule->amount - $schedule->amount_paid;
+                foreach ($paymentSchedules as $schedule) {
+                    $outstanding = $schedule->amount - $schedule->amount_paid;
 
-                // Calculate surcharge if payment is not made
-                $surcharge = 0;
-                if ($schedule->amount_paid == 0) {
-                    $surcharge = $this->calculateSurcharge($outstanding, $surchargeRate);
-                    $outstanding += $surcharge; // Add surcharge to outstanding balance
+                    // Calculate surcharge if payment is not made
+                    $surcharge = 0;
+                    if ($schedule->amount_paid == 0) {
+                        $surcharge = $this->calculateSurcharge($outstanding, $surchargeRate);
+                        $outstanding += $surcharge; // Add surcharge to outstanding balance
+                    }
+                    $outstanding += $previousOutstanding;
+                    // Update the database with surcharge and outstanding
+                    $updated = PaymentSchedule::where('id', $schedule->id)->update([
+                        'surcharge' => $surcharge, 
+                        'outstanding' => $outstanding,
+                        'updated_at' => now(),
+                    ]);
                 }
-                $outstanding += $previousOutstanding;
-                // Update the database with surcharge and outstanding
-                $updated = PaymentSchedule::where('id', $schedule->id)->update([
-                    'surcharge' => $surcharge, 
-                     'outstanding' => $outstanding,
-                    'updated_at' => now(),
-                ]);
-            }
-            $this->applyStanding();
+                $this->applyStanding();
 
-   }
+    }
 
     public function payAmount()
     {
@@ -879,7 +1068,7 @@ class AccountService
         $length = $this->request->input('length', 10);
         $joins = $this->request->input('joins', []);
         $orderColumn = $this->request->input('orderColumn', 'paydate');
-        $orderDirection = $this->request->input('orderDirection', 'asc');
+        $orderDirection = $this->request->input('payments.id', 'desc');
         $groupBy = $this->request->input('groupBy', []);
         $having = $this->request->input('having', []);
         $paginate = $this->request->input('paginate', true);
@@ -960,8 +1149,8 @@ class AccountService
             $conditions,
             $filters,
             $joins,
-            $orderColumn,
-            $orderDirection,
+            'payments.id',
+            'desc',
             $groupBy ,
             $having ,
             $perPage ,
@@ -1289,12 +1478,21 @@ class AccountService
         return  DB::table('payments')
         ->leftjoin('allotes', 'payments.allotees', '=', 'allotes.id')
         ->leftjoin('banks', 'banks.id', '=', 'payments.from_account')
+        ->leftjoin('account_heads', 'account_heads.id', '=', 'payments.expense_heads')
         ->select(
+            'payments.id as id',
             'payments.paydate as pdate',
+            'payments.created_at as created_at',
+            'payments.updated_at as updated_at',
+            'payments.receipt_id as receipt_id',
             'payments.payment_type as payment_type',
             'payments.amount as amount',
             'payments.narration as narration',
+            'account_heads.id as expense',
             'banks.bank_name as account',
+            'banks.id as bank_id',
+            'account_heads.name as expense_name',
+            'allotes.id as allote_id',
             'allotes.fullname as allote'
         )
         ->where('payments.id','=',$id)

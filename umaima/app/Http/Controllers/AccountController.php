@@ -41,6 +41,14 @@ class AccountController extends Controller
         $result = $this->accountservice->storePayment();
         return ($result);
     }
+     public function deletePayment(){
+        $result = $this->accountservice->deletePayment();
+        return ($result);
+    }
+    public function updatePayment(){
+        $result = $this->accountservice->updatePayment();
+        return ($result);
+    }
     public function getPaymentsVoucher(){
         $result = $this->accountservice->getPaymentsVoucher();
         return ($result);
@@ -86,7 +94,23 @@ class AccountController extends Controller
      public function paymentEdit($id)
     {
         $payment = $this->accountservice->getPaymentById($id);
-        return view('accounts.editpay',['payment' => $payment]);
+        // dd($payment);
+        if($payment->payment_type==1){
+            $plots= DB::table('allocation_details')
+                    ->select('allocation_details.plot','plots.plot_number')
+                    ->join('plot_paymnets','allocation_details.id','=','plot_paymnets.allocation_details_id')
+                       ->join('plots','plots.id','=','allocation_details.plot')
+                    //  ->where('payment_schedule.paid_on',"$payment->pdate")
+                     ->where('plot_paymnets.created_at',$payment->updated_at)
+                      ->where('allocation_details.allote',$payment->allote_id)
+                    ->first();
+                    $plot=['plot_number' => $plots->plot_number, 'plot' => $plots->plot];
+        }else{
+            $plot = [];
+        }
+        // dd($plot);
+         $accounts =  DB::table('banks')->where('status','1')->get();
+        return view('accounts.editpay',['payment' => $payment,'accounts' => $accounts,'plot' => $plot]);
     }
 
     public function applyCharge(){

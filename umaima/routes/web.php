@@ -219,6 +219,7 @@ Route::middleware(['auth']) ->prefix('api')->group(function () {
         Route::POST('apply/surcharge','applyCharge')->name('payment.create');
         Route::POST('fetch-accounts','fetchAccounts')->name('cash.create');
         Route::POST('cash/store','storePayment')->name('payment.create');
+        Route::POST('cash/update','updatePayment')->name('payment.create');
         Route::POST('account-heads','addAccountHead')->name('account-head.create');
         Route::POST('getPayments','getPayments')->name('payment.read');
         Route::POST('getExpenses','getExpenses')->name('payment.read');
