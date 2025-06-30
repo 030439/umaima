@@ -98,19 +98,27 @@ $(function() {
                     title: "Actions",
                     searchable: false,
                     orderable: false,
-                    render: function(t, e, a, s) {
-                        return `
-                            <div class="d-flex align-items-center">
-                            
-                                <a href="allote-plotes/${a.id}" class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill">
-                                    <i class="ti ti-map ti-md"></i>
-                                </a>
-                                <a href="allote/edit/${a.id}" class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill">
-                                    <i class="ti ti-edit ti-md"></i>
-                                </a>
-                               
-                            </div>`;
+                  render: function(t, e, a, s) {
+                    let deleteButton = '';
+                    if (a.allote==0) {
+                        deleteButton = `
+                            <a href="allote/delete/${a.id}" class="btn btn-icon btn-text-danger waves-effect waves-light rounded-pill">
+                                <i class="ti ti-trash ti-md"></i>
+                            </a>`;
                     }
+
+                    return `
+                        <div class="d-flex align-items-center">
+                            <a href="allote-plotes/${a.id}" class="btn btn-icon btn-text-info waves-effect waves-light rounded-pill">
+                                <i class="ti ti-map ti-md"></i>
+                            </a>
+                            <a href="allote/edit/${a.id}" class="btn btn-icon btn-text-primary waves-effect waves-light rounded-pill">
+                                <i class="ti ti-edit ti-md"></i>
+                            </a>
+                            ${deleteButton}
+                        </div>`;
+                }
+
                     
                 }
             ],

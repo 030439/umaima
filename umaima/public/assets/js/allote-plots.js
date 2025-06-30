@@ -205,16 +205,16 @@ $(function() {
         });
     }
 
-    // Delete record functionality
-    $(".datatables-users").on("click", ".delete-record", function() {
-        if (confirm("Are you sure you want to delete this record?")) {
-            var t = $(this).closest("tr");
-            t.fadeOut(300, function() {
-                t.remove();
-            });
-        }
+        // Delete record functionality
+        $(".datatables-users").on("click", ".delete-record", function() {
+            if (confirm("Are you sure you want to delete this record?")) {
+                var t = $(this).closest("tr");
+                t.fadeOut(300, function() {
+                    t.remove();
+                });
+            }
+        });
     });
-});
 
 
   function showToast(message, type) {

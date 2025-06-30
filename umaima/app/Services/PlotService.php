@@ -422,6 +422,11 @@ class PlotService
                 ->where('id', $detail->plot)
                 ->orderByDesc('id')
                 ->value('plot_number');
+
+            $plotID = DB::table('plots')
+                ->where('id', $detail->plot)
+                ->orderByDesc('id')
+                ->value('id');
         
             // Aggregate payment_schedule data for this allocation_detail
                         // Query to get the aggregated data
@@ -450,7 +455,7 @@ class PlotService
                 'id' => $detail->id,
                 'plot' => $detail->plot,
                 'status' => $latestStatus,
-                'plot_number' => $latestPlotNumber ." ".getPlotCategoryName($latestPlotNumber),
+                'plot_number' => $latestPlotNumber ." ".getPlotCategoryName($plotID),
                 'totalDue' => $paymentSummary->totalDue ?? 0,
                 'amount' => $paymentSummary->totalAmount ?? 0,
                 'paid' => $paymentSummary->totalPaid ?? 0,
@@ -1130,7 +1135,7 @@ class PlotService
         $allote=$allotes->map(function ($allote) {
             return [
                 'value' => $allote->id, // assuming 'id' is a unique identifier
-                'label' => $allote->plot_number." ".getPlotCategoryName($allote->plot_number) // assuming 'name' holds the display name
+                'label' => $allote->plot_number." ".getPlotCategoryName($allote->id) // assuming 'name' holds the display name
             ];
         });
         return response()->json([

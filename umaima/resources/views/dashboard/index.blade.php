@@ -181,23 +181,23 @@
                                     <?php foreach ($plotsGroup['plots'] as $k=> $plot): ?>
                                         <?php if (($plot['allote_id'])): ?>
                                             <a href="allote-plotes/{{($plot['allote_id'])}}" 
-                                                class="col-3 col-md-2 col-lg-1 text-white bg-info text-center p-4" 
-                                                style="margin:1px" 
+                                                class="col-3 col-md-2 col-lg-2 text-white bg-info text-center p-4" 
+                                                style="border:1px solid #fff;" 
                                                 data-bs-toggle="tooltip" 
                                                 data-bs-placement="top" 
                                                 data-bs-custom-class="tooltip-info" 
                                                 data-bs-original-title="<?php echo  htmlspecialchars($plot['allote']) ?>">
-                                                <?php echo  htmlspecialchars($plot['plot_number']); echo " ".getPlotCategoryName($plot['plot_number']); ?>
+                                                <?php echo  htmlspecialchars($plot['plot_number']); echo " ".getPlotCategoryName($plot['pid']); ?>
                                             </a>
                                         <?php else: ?>
                                             <a href="#" 
-                                                class="col-3 col-md-2 col-lg-1 text-white bg-primary text-center p-4" 
-                                                style="margin:1px" 
+                                                class="col-3 col-md-2 col-lg-2 text-white bg-primary text-center p-4" 
+                                                style="border:1px solid #fff;"
                                                 data-bs-toggle="tooltip" 
                                                 data-bs-placement="top" 
                                                 data-bs-custom-class="tooltip-primary" 
                                                 data-bs-original-title="Unallocated">
-                                                <?php echo  htmlspecialchars($plot['plot_number']);echo " ".getPlotCategoryName($plot['plot_number']); ?>
+                                                <?php echo  htmlspecialchars($plot['plot_number']);echo " ".getPlotCategoryName($plot['pid']); ?>
                                             </a>
                                         <?php endif; ?>
                                     <?php endforeach; ?>

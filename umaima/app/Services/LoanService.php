@@ -288,6 +288,9 @@ class LoanService
         $conditions=[];
         $startDate = $this->request->input('startDate');
         $endDate = $this->request->input('endDate');
+          if(!($endDate)){
+            $endDate=$startDate;
+        }
     
         // Add startDate and endDate to the filters if they are provided
         

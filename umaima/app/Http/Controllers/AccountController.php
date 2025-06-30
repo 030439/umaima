@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Services\AccountService;
 use Illuminate\Http\Request;
+use App\Models\Scheme;
 use DB;
 
 class AccountController extends Controller
@@ -53,6 +54,10 @@ class AccountController extends Controller
         $result = $this->accountservice->getPaymentsVoucher();
         return ($result);
     }
+    public function receivingReportListing(){
+        $result = $this->accountservice->receivingReportListing();
+        return ($result);
+    }
     public function getLedger(){
         $result = $this->accountservice->getLedger();
         return ($result);
@@ -69,6 +74,16 @@ class AccountController extends Controller
         $allocation=$alloteDetail['allocation'];
 
         return view('reports.print-ledger',compact('ledgers','allote','allocation'));
+
+    }
+
+    public function ledgerPrintReceivingReport(Request $request){
+        $startDate =$request->input('startDate');
+        $endDate =$request->input('endDate');
+        $scheme =Scheme::where('id',$request->input('scheme'))->first()->name;
+        $reports=$this->accountservice->receivingReport();
+
+        return view('reports.print-receiving',compact('reports','startDate','endDate','scheme'));
 
     }
 
@@ -122,7 +137,7 @@ class AccountController extends Controller
          $schemes = DB::table('schemes')
         ->select(
             'schemes.name as scheme',
-            'schemes.id as sid'
+            'schemes.id as id'
         )
         ->orderBy('schemes.id') // Sort descending by plot ID
         ->get();

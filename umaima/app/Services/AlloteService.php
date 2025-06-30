@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\JsonResponse;
 use App\Models\Allote;
+use App\Models\AllocationDetail;
 use Exception;
 class AlloteService
 {
@@ -75,6 +76,19 @@ class AlloteService
             $page = ($start / $length) + 1 ,
             $paginate = true
         );
+
+         $data = $result['data'];
+        foreach ($data as &$row) {
+            $allote=AllocationDetail::where('allote', $row->id)
+                ->orderBy('id', 'desc')
+                ->first();
+            if($allote){
+                $row->allote=$row->id;
+            }
+            else{
+                $row->allote=0;
+            }
+        }
 
         // Return only the data if pagination is enabled, or full response if not paginated
         return[

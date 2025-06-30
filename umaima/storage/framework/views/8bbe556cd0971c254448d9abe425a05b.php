@@ -1,7 +1,7 @@
-@extends('layout.app')
+
 <?php $breadCrumb='Cashbook / <span class="text-primary"> Cashbook</span></i>'?>
-@section('title', 'Cashbook')
-@section('content')
+<?php $__env->startSection('title', 'Cashbook'); ?>
+<?php $__env->startSection('content'); ?>
   
 <!-- / Navbar -->
       <!-- Content wrapper -->
@@ -16,9 +16,9 @@
                   <div class="col-md-4">
                       <label for="flatpickr-date" class="form-label">Scheme </label>
                       <select id="paymentType" class="form-select">
-                          @foreach($schemes as $scheme)
-                              <option value="{{ $scheme->id }}">{{ $scheme->scheme }}</option>
-                          @endforeach
+                          <?php $__currentLoopData = $schemes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $scheme): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                              <option value="<?php echo e($scheme->id); ?>"><?php echo e($scheme->scheme); ?></option>
+                          <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                       </select>
                   </div>
                   <div class="col-md-3">
@@ -35,11 +35,11 @@
               </div>
             </div>
 
-          @endsection 
+          <?php $__env->stopSection(); ?> 
   
 
     
-@section('files')
+<?php $__env->startSection('files'); ?>
 
 <!-- Core JS -->
 <!-- build:js assets/vendor/js/core.js -->
@@ -130,5 +130,7 @@
       });
     }
   });
-@endsection
+<?php $__env->stopSection(); ?>
 
+
+<?php echo $__env->make('layout.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\umaima\umaima\resources\views/accounts/receivingReport.blade.php ENDPATH**/ ?>

@@ -10,7 +10,7 @@ if (!function_exists('getPlotCategoryName')) {
     {
         return DB::table('plots')
             ->join('categories', 'plots.category_id', '=', 'categories.id')
-            ->where('plots.plot_number', $plotNumber)
+            ->where('plots.id', $plotNumber)
             ->value('categories.name'); // returns single value
     }
 }

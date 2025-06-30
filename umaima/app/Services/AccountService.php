@@ -795,6 +795,10 @@ class AccountService
         $startDate = $this->request->input('startDate');
         $endDate = $this->request->input('endDate');
 
+          if(!($endDate)){
+            $endDate=$startDate;
+        }
+
         // Initialize conditions array
         $conditions = [];
 
@@ -898,6 +902,9 @@ class AccountService
         $plot = $this->request->get('plot');
         $startDate = $this->request->input('startDate');
         $endDate = $this->request->input('endDate');
+          if(!($endDate)){
+            $endDate=$startDate;
+        }
 
         // Initialize conditions array
         $conditions = [];
@@ -967,6 +974,9 @@ class AccountService
         $conditions=[];
         $startDate = $this->request->input('startDate');
         $endDate = $this->request->input('endDate');
+        if(!($endDate)){
+            $endDate=$startDate;
+        }
         $plot = $this->request->input('plot');
     
         // Add startDate and endDate to the filters if they are provided
@@ -1039,6 +1049,9 @@ class AccountService
     {
         $startDate = $this->request->input('startDate');
         $endDate = $this->request->input('endDate');
+          if(!($endDate)){
+            $endDate=$startDate;
+        }
         $subcat = $this->request->get('allote');
 
 
@@ -1062,6 +1075,66 @@ class AccountService
         $results = $data->get();
         return $results;
     }
+
+
+ public function receivingReport()
+{
+    $startDate =$this->request->input('startDate');
+    $endDate =$this->request->input('endDate');
+        if(!($endDate)){
+            $endDate=$startDate;
+        }
+    $subcat =$this->request->get('scheme');
+
+    $payments = PlotPayment::select(
+            'categories.id as category_id',
+            'categories.name as category',
+            'plot_paymnets.paydate',
+            'plot_paymnets.amount',
+            'plot_paymnets.receipt_id',
+            'plot_paymnets.narration',
+            'plots.plot_number',
+            'allotes.fullname',
+        )
+        ->join('allocation_details', 'allocation_details.id', '=', 'plot_paymnets.allocation_details_id')
+        ->join('allotes', 'allotes.id', '=', 'allocation_details.allote')
+        ->join('plots', 'plots.plot_number', '=', 'allocation_details.plot')
+        ->join('categories', 'categories.id', '=', 'plots.category_id')
+        ->where('plots.scheme_id', $subcat)
+        ->whereBetween('plot_paymnets.paydate', [$startDate, $endDate])
+        ->orderBy('categories.name')
+        ->orderBy('plot_paymnets.paydate')
+        ->get();
+
+    // Group by category (e.g., Block B, C, D)
+    $grouped = [];
+    foreach ($payments as $payment) {
+        $cat = $payment->category;
+
+        if (!isset($grouped[$cat])) {
+            $grouped[$cat] = [
+                'category_id' => $payment->category_id,
+                'category_name' => $cat,
+                'total' => 0,
+                'records' => []
+            ];
+        }
+
+        $grouped[$cat]['records'][] = [
+            'allote' => $payment->fullname,
+            'plot' => $payment->plot_number,
+            'paydate' => $payment->paydate,
+            'receipt_id' => $payment->receipt_id,
+            'narration' => $payment->narration,
+            'amount' => $payment->amount
+        ];
+
+        $grouped[$cat]['total'] += $payment->amount;
+    }
+
+    return (array_values($grouped));
+}
+
 
     public function getPaymentsVoucher()
     {
@@ -1094,6 +1167,122 @@ class AccountService
         $conditions=[];
         $startDate = $this->request->input('startDate');
         $endDate = $this->request->input('endDate');
+
+          if(!($endDate)){
+            $endDate=$startDate;
+        }
+    
+        // Add startDate and endDate to the filters if they are provided
+        
+        $joins = [
+            [
+                'table' => 'allotes',
+                'first' => 'payments.allotees',
+                'operator' => '=',
+                'second' => 'allotes.id',
+                'type'=>'leftJoin'
+            ],
+            [
+                'table' => 'account_heads',
+                'first' => 'payments.expense_heads',
+                'operator' => '=',
+                'second' => 'account_heads.id',
+                'type'=>'leftJoin'
+            ],
+            [
+                'table' => 'banks',
+                'first' => 'payments.from_account',
+                'operator' => '=',
+                'second' => 'banks.id',
+                'type'=>'leftJoin'
+            ],
+        ];
+
+        if (!empty($searchValue)) {
+            // Using an associative array instead of a nested array
+            $filters['paydate'] = '%' . $searchValue . '%'; // This will be like 'name' => '%searchValue%'
+            $filters['from_account'] = '%' . $searchValue . '%';
+            $filters['amount'] = '%' . $searchValue . '%';
+            $filters['narration'] = '%' . $searchValue . '%';
+            $filters['account_heads.name'] = '%' . $searchValue . '%';
+            $filters['allotes.fullname'] = '%' . $searchValue . '%';
+        }
+        if (!empty($startDate) && !empty($endDate)) {
+            $conditions[] = ['paydate', '>=', $startDate]; // start date condition
+            $conditions[] = ['paydate', '<=', $endDate]; // end date condition
+        }
+        $paymentType = $this->request->get('payment');
+        $subcat = $this->request->get('subcat');
+        //code for filter of payment by type and sub cat
+        if (!empty($paymentType)) {
+            $conditions[] = ['payment_type', '=', $paymentType];
+        
+            if (!empty($subcat)) {
+                $conditions[] = [$paymentType == 1 ? 'allotees' : 'expense_heads', '=', $subcat];
+            }
+        }
+        
+
+        // Fetch the records using QueryTrait's fetchRecords method
+        $result = $this->fetchRecords(
+            'payments',
+            $columns,
+            $conditions,
+            $filters,
+            $joins,
+            'payments.id',
+            'desc',
+            $groupBy ,
+            $having ,
+            $perPage ,
+            $page = ($start / $length) + 1 ,
+            $paginate = true
+        );
+
+        // Return only the data if pagination is enabled, or full response if not paginated
+        return[
+            'data' => $result['data'],
+            'recordsTotal' => $result['recordsTotal'],
+            'recordsFiltered' => $result['recordsFiltered'],
+            'draw' => $draw,
+        ];
+    }
+
+
+     public function receivingReportListing()
+    {
+        // Use request parameters with fallback defaults
+        $perPage = $this->request->input('length', 10);
+        $page = $this->request->input('page', 1);
+        $start = $this->request->input('start', 0);
+        $length = $this->request->input('length', 10);
+        $joins = $this->request->input('joins', []);
+        $orderColumn = $this->request->input('orderColumn', 'paydate');
+        $orderDirection = $this->request->input('payments.paydate', 'desc');
+        $groupBy = $this->request->input('groupBy', []);
+        $having = $this->request->input('having', []);
+        $paginate = $this->request->input('paginate', true);
+        $draw=$this->request->get('draw');
+        $searchValue = $this->request->get('search')['value']; // This is the value you want to search for
+        
+
+        $columns = [
+            'payments.*',
+            'banks.bank_name  as bank',
+            'banks.account_no  as account',
+            'allotes.fullname',
+            'allotes.phone',
+            'account_heads.name as expense'
+        ];
+
+        // Initialize an array for the conditions
+        $filters = [];
+        $conditions=[];
+        $startDate = $this->request->input('startDate');
+        $endDate = $this->request->input('endDate');
+          if(!($endDate)){
+            $endDate=$startDate;
+        }
     
         // Add startDate and endDate to the filters if they are provided
         
@@ -1216,6 +1405,9 @@ class AccountService
         $conditions=[];
         $startDate = $this->request->input('startDate');
         $endDate = $this->request->input('endDate');
+          if(!($endDate)){
+            $endDate=$startDate;
+        }
     
         // Add startDate and endDate to the filters if they are provided
         
@@ -1321,6 +1513,9 @@ class AccountService
         $conditions=[];
         $startDate = $this->request->input('startDate');
         $endDate = $this->request->input('endDate');
+          if(!($endDate)){
+            $endDate=$startDate;
+        }
     
         // Add startDate and endDate to the filters if they are provided
         

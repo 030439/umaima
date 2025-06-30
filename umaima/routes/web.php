@@ -34,6 +34,7 @@ Route::middleware('web')->group(function () {
     Route::post('/sign-in', [UsersController::class, 'login']);
     // other web routes
  });
+   
 Route::get("/clearData",function(){
     \Artisan::call('cache:clear');
      \Artisan::call('route:clear');
@@ -117,6 +118,7 @@ Route::middleware('auth')->group(function () {
         Route::get('plot-payment/{id}','plotePayment')->name('payment.read');
         Route::get('plot-payments/{id}','plotePayments')->name('payment.read');
         Route::get('allote/edit/{id}','edit')->name('allote.write');
+        Route::get('allote/delete/{id}','deleteAllote')->name('allote.write');
         Route::get('allote/inactive','inactive');
         Route::get('allote.ledger','ledger')->name('allote.ledger');
 
@@ -226,9 +228,11 @@ Route::middleware(['auth']) ->prefix('api')->group(function () {
         Route::POST('getPayments','getPayments')->name('payment.read');
         Route::POST('getExpenses','getExpenses')->name('payment.read');
         Route::POST('getPaymentsVoucher','getPaymentsVoucher')->name('payment.read');
+        Route::POST('receivingReport','receivingReportListing')->name('payment.read');
         Route::POST('getLedger', 'getLedger')->name('payment.getLedger');
         Route::POST('alloteData', 'alloteData')->name('payment.alloteData');
         Route::post('ledgerPrint','ledgerPrint');
+        Route::post('ledgerPrintReceivingReport','ledgerPrintReceivingReport');
        
     });
 

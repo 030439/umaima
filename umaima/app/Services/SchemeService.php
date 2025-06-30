@@ -249,7 +249,7 @@ class SchemeService
         ->leftJoin('allocation_details', 'allocation_details.plot', '=', 'plots.id')
         ->leftJoin('allotes', 'allocation_details.allote', '=', 'allotes.id')
         ->select(
-            'plots.plot_number as id',
+            'plots.id as id',
             'plots.status as plot_status',
             'plots.plot_number',
             'schemes.name as scheme',
@@ -276,6 +276,7 @@ class SchemeService
                             'allote' => $plot->allote_name?$plot->allote_name:'', // Handle missing allote name
                             'status' => $plot->plot_status,
                             'plot_number' => $plot->plot_number,
+                            'pid' => $plot->id,
                     
                     ];
                 })->all(),

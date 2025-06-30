@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Services\AlloteService;
 use Illuminate\Http\Request;
 use App\Models\Allote;
+use App\Models\AllocationDetail;
 use DB;
 use Carbon\Carbon;
 class AlloteController extends Controller
@@ -25,6 +26,19 @@ class AlloteController extends Controller
     public function alloteCreate(){
         return view('allote.add');
     }
+    public function deleteAllote($id)
+    {
+        // Check if this allote is linked to any allocation detail
+        $allocation = AllocationDetail::where('allote', $id)->exists();
+
+        if (!$allocation) {
+            Allote::where('id', $id)->delete();
+            return back()->with('success', 'Allote deleted successfully.');
+        }
+
+        return back()->with('error', 'Cannot delete: This allote is in use.');
+    }
+
     public function ledger(){
         return view('reports.allote-ledger');
     }
