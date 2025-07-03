@@ -249,8 +249,15 @@ class AlloteService
         $data = $result['data'];
         $due=0;
         foreach ($data as &$row) {
+
             $due+=$row->amount-$row->amount_paid;
             $row->due=$due;
+            if($row->paid_on>0){
+                $row->receipt=$this->getReceiptByAllocation($row->allocation_details_id,$row->paid_on);
+            }else{
+                $row->receipt="-";
+            }
+            
         }
         return[
             'data' => $data,
@@ -260,6 +267,13 @@ class AlloteService
         ];
     }
 
+    public function getReceiptByAllocation($id,$date){
+          return DB::table('plot_paymnets')
+                ->where('allocation_details_id', $id)
+                ->where('paydate', $date)
+                ->orderByDesc('id')
+                ->value('receipt_id');
+    }
     public function addAllote()
     {
         try {

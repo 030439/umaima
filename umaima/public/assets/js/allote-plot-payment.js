@@ -42,20 +42,20 @@ $(function() {
                 { data: 'id',title:"due-date" },       // Map to 'id' in the returned JSON
                 { data: 'id',title:"amount-paid" }, 
                 { data: 'id',title:"paid-on" }, 
+                { data: 'id',title:"receipt-no" }, 
                 { data: 'id',title:"outstanding" },  
-                { data: 'id',title:"surcharge" },   
+                { data: 'id',title:"surcharge" },
+                   
             ],
             columnDefs: [
                
                
                 {
                     targets: 0,
-                    responsivePriority: 4,
                     render: function(t, e, a, s) {
-                        var n = a.payment
-                        return '<div class="d-flex justify-content-start align-items-center user-name">' +
-                            '<div class="d-flex flex-column"><a href="' + r + '" class="text-heading text-truncate"><span class="fw-medium">' + n + "</span></a></div></div>";
+                        return '<span class="text-heading">' + a.payment + "</span>";
                     }
+                    
                 },
                 {
                     targets: 1,
@@ -85,11 +85,17 @@ $(function() {
                 {
                     targets: 5,
                     render: function(t, e, a, s) {
-                        return '<span class="text-heading">' + a.outstanding + "</span>";
+                        return '<span class="text-heading">' + a.receipt + "</span>";
                     }
                 },
                 {
                     targets: 6,
+                    render: function(t, e, a, s) {
+                        return '<span class="text-heading">' + a.outstanding + "</span>";
+                    }
+                },
+                {
+                    targets: -1,
                     render: function(t, e, a, s) {
                         return '<span class="text-heading">' + a.surcharge + "</span>";
                     }

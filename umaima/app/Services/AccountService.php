@@ -366,7 +366,13 @@ class AccountService
                     $allocationId=$plotdata->id;
 
              
-                    PlotPayment::where('id', $plotdata->pid)->delete(); 
+                    $deletePlotPay=PlotPayment::where('id', $plotdata->pid)->delete(); 
+                    if(!$deletePlotPay){
+                        return response()->json([
+                            'success' => false,
+                            'message' => "Something went wrong"
+                        ]);
+                    }
 
                     $schedule=['amount_paid'=>0,'paid_on'=>0];
                     $record =  PaymentSchedule::where('allocation_details_id', $allocationId)
@@ -1090,7 +1096,7 @@ class AccountService
             'categories.id as category_id',
             'categories.name as category',
             'plot_paymnets.paydate',
-            'plot_paymnets.amount',
+            'payments.amount',
             'plot_paymnets.receipt_id',
             'plot_paymnets.narration',
             'plots.plot_number',
@@ -1098,7 +1104,8 @@ class AccountService
         )
         ->join('allocation_details', 'allocation_details.id', '=', 'plot_paymnets.allocation_details_id')
         ->join('allotes', 'allotes.id', '=', 'allocation_details.allote')
-        ->join('plots', 'plots.plot_number', '=', 'allocation_details.plot')
+        ->join('plots', 'plots.id', '=', 'allocation_details.plot')
+        ->join('payments','payments.created_at','=','plot_paymnets.created_at')
         ->join('categories', 'categories.id', '=', 'plots.category_id')
         ->where('plots.scheme_id', $subcat)
         ->whereBetween('plot_paymnets.paydate', [$startDate, $endDate])

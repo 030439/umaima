@@ -191,7 +191,7 @@
         </table>
     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
       </div>
-      <p class="category-title" style="text-align:right">OVERALL TOTAL: <?php echo e($total); ?></p>
+      <p class="category-title" style="text-align:right">OVERALL TOTAL&nbsp;&nbsp;:&nbsp;&nbsp; <?php echo e($total); ?></p>
 
      
     </section>

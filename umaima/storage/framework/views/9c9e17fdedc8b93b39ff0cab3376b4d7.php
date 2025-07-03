@@ -1,7 +1,7 @@
-@extends('layout.app')
+
 <?php $breadCrumb='Allote / <span class="text-primary">Plots</span></i>'?>
-@section('title', 'Scheme Plot')
-@section('content')
+<?php $__env->startSection('title', 'Scheme Plot'); ?>
+<?php $__env->startSection('content'); ?>
 <div class="content-wrapper">
 <span id="pid" title="<?php echo $pid?>"></span>
 <!-- Content -->
@@ -101,8 +101,8 @@
             </div>
       </div>
   </div>
-@endsection
-@section('files')
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('files'); ?>
 <script src="../../assets/vendor/libs/jquery/jquery.js"></script>
     <script src="../../assets/vendor/libs/popper/popper.js"></script>
     <script src="../../assets/vendor/js/bootstrap.js"></script>
@@ -131,5 +131,6 @@
 
     <!-- Page JS -->
     <script src="../../assets/js/allote-plot-payment.js"></script>
-@endsection
+<?php $__env->stopSection(); ?>
           
+<?php echo $__env->make('layout.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\umaima\umaima\resources\views/allote/plot-payment.blade.php ENDPATH**/ ?>
