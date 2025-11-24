@@ -13,7 +13,7 @@
             <div class="card-header">
               <h5 class="card-title">Filter</h5>
               <div class="d-flex justify-content-between align-items-center row pt-4 gap-6 gap-md-0">
-                  <div class="col-md-4">
+                  <div class="col-md-3">
                       <label for="flatpickr-date" class="form-label">Scheme </label>
                       <select id="paymentType" class="form-select">
                           @foreach($schemes as $scheme)
@@ -29,14 +29,24 @@
                       <label for="flatpickr-date" class="form-label">To Date</label>
                       <input type="date" class="form-control" placeholder="YYYY-MM-DD" id="todate">
                   </div>
-                  <div class="col-md-2">
-                    <button class="btn btn-primary mt-4" id="ledgerPrint" onclick="ledgerPrint()">Print</button>
+                 
+                  <div class="col-md-3 mt-1">
+                    <button class="btn btn-primary mt-4" id="ledgerPrint" onclick="ledgerPrint()">View</button>
+                    <button class="btn btn-primary mt-4" id="ledgerPrintBtn" onclick="ledgerPrintRes()">Print</button>
                   </div>
               </div>
+               <div class="row">
+                    <div class="col-10"></div>
+                    <div class="col-2"></div>
+                  </div>
             </div>
-
-          @endsection 
+          <div class="card">
+            <div id="result"></div>
+          </div>
   
+          @endsection 
+
+         
 
     
 @section('files')
@@ -84,51 +94,6 @@
 <script src="../../assets/js/main.js"></script>
 
 <script>
-  $(document).ready(function() {
-    function ledgerPrint() 
-    {
-      var scheme = $('#paymentType').val();
-      var fromdate_ = $('#fromdate').val(); 
-      var todate_ = $('#todate').val(); 
-
-      if(!scheme){
-        return   alert("Please select a Scheme", "danger");
-      }
-      if(!fromdate_){
-        return   alert("Please select a From date", "danger");
-      }
-      if(!todate_){
-        return   alert("Please select a to date", "danger");
-      }
-
-
-      $.ajax({
-          method: "POST",
-          url: "/api/ledgerPrintReceivingReport",
-          headers: {
-              "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
-          },
-          data: {
-              startDate: fromdate_,
-              endDate: todate_,
-              scheme: scheme,
-          },
-          success: function(data) {
-              if (data) {
-                  var printWindow = window.open('', '_blank');
-                  printWindow.document.open();
-                  printWindow.document.write(data); // write the server response into the new window
-                  printWindow.document.close();
-                  printWindow.focus();
-                  printWindow.print(); // trigger the print dialog
-                  printWindow.close(); // optional: close after printing
-              }
-          },
-          error: function(xhr, status, error) {
-              console.error("AJAX Error:", status, error);
-          }
-      });
-    }
-  });
+ 
 @endsection
 

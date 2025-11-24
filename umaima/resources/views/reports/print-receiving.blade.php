@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Tax Invoice</title>
+    <title></title>
     <link rel="shortcut icon" type="image/png" href="./favicon.png" />
     <style>
       * {
@@ -137,7 +137,7 @@
   <body>
 
   
-    <section class="main-pd-wrapper" style="margin:10px 20px">
+    <section class="main-pd-wrapper" style="">
       <div style="">
           <div class="report-meta">
     Report Print: <?php date_default_timezone_set('Asia/Karachi');
@@ -182,7 +182,7 @@
             @endforeach
             <?php $total+=$report['total'];?>
             <tr class="total-row">
-                <td colspan="5">TOTAL &gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; Block B</td>
+                <td colspan="5">TOTAL &gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; Block {{$report['category_name']}}</td>
                 <td>{{$report['total']}}</td>
             </tr>
             

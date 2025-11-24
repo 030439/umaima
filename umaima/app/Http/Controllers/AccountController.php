@@ -109,17 +109,17 @@ class AccountController extends Controller
      public function paymentEdit($id)
     {
         $payment = $this->accountservice->getPaymentById($id);
-        // dd($payment);
         if($payment->payment_type==1){
             $plots= DB::table('allocation_details')
-                    ->select('allocation_details.plot','plots.plot_number')
+                    ->select('allocation_details.plot','plots.plot_number','allocation_details.id as pid')
                     ->join('plot_paymnets','allocation_details.id','=','plot_paymnets.allocation_details_id')
                        ->join('plots','plots.id','=','allocation_details.plot')
                     //  ->where('payment_schedule.paid_on',"$payment->pdate")
-                     ->where('plot_paymnets.created_at',$payment->updated_at)
+                    //  ->where('plot_paymnets.created_at',$payment->updated_at)
                       ->where('allocation_details.allote',$payment->allote_id)
                     ->first();
-                    $plot=['plot_number' => $plots->plot_number, 'plot' => $plots->plot];
+                    
+                    $plot=['plot_number' => $plots->plot_number, 'plot' => $plots->pid];
         }else{
             $plot = [];
         }

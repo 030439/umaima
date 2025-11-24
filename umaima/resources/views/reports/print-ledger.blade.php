@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Tax Invoice</title>
+    <title>Print</title>
     <link rel="shortcut icon" type="image/png" href="./favicon.png" />
     <style>
       * {

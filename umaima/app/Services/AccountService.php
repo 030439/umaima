@@ -124,7 +124,7 @@ class AccountService
         $bank=$banks->map(function ($bank) {
             return [
                 'value' => $bank->id, // assuming 'id' is a unique identifier
-                'label' => $bank->bank_name.'('.$bank->account_no.')' // assuming 'name' holds the display name
+                'label' => $bank->bank_name // assuming 'name' holds the display name
             ];
         });
         return response()->json([
@@ -399,9 +399,20 @@ class AccountService
 
      public function updatePayment()
     {
+         
         $id = $this->request->input('id');
         $payment=$this->getPaymentById($id); 
-        // dd($payment);
+
+        $exists = DB::table('payments')->where('receipt_id', $this->request->input('receipt_id'))->where('id', $id)->exists();
+       
+        if($this->checkIFReceiptIdExists($this->request->input('receipt_id'))->getData()->exists){
+            if(!$exists){
+                return response()->json([
+                'success' => false,
+                'message' => "Receipt ID already exists."
+            ]);
+            }
+        }
         try {
             $payment_type = $this->request->input('payment_type');
             // Validation rules
@@ -443,19 +454,19 @@ class AccountService
                 'narration' => $this->request->input('narration'),
                 'allotees' => (int)$this->request->input('allotees', 0),
                 'expense_heads' => (int)$this->request->input('expense_heads', 0),
-                'created_at' => now(),
-                'updated_at' => now(),
             ];
 
 
             if($payment->payment_type==1){
+
                 $plotdata= DB::table('allocation_details')
                     ->select('allocation_details.id','plot_paymnets.id as pid')
                     ->join('plot_paymnets','allocation_details.id','=','plot_paymnets.allocation_details_id')
                     //  ->where('payment_schedule.paid_on',"$payment->pdate")
-                    ->where('plot_paymnets.created_at',$payment->created_at)
+                    ->where('plot_paymnets.receipt_id',$payment->receipt_id)
                     ->where('allocation_details.allote',$payment->allote_id)
                     ->first();
+                    
                     $allocationId=$plotdata->id;
 
                     PlotPayment::where('id', $plotdata->pid)->delete();                    
@@ -472,13 +483,14 @@ class AccountService
 
             if ($payment_type == 1) {
                 $pay = $this->payAmount();
-                // dd($pay);
-            
                 switch ($pay) {
                     case 1:
                         $std=$this->applyStanding();
                         $msg = "Payment schedule updated successfully!";
-                        $lastInsertedId = DB::table('payments')->insertGetId($data);
+                        DB::table('payments')
+                            ->where('id', $id)
+                            ->update($data);
+                        $lastInsertedId = $id;//DB::table('payments')->insertGetId($data);
                         logAction('Created Payment', $lastInsertedId);
                         break;
                     case 2:
@@ -690,7 +702,7 @@ class AccountService
             $payDate = Carbon::parse($paidOn)->format('Y-m-15');
             $dm=Carbon::parse($paidOn)->format('Y-m');
             $pD = Carbon::parse($paidOn)->format('Y-m');
-            
+            $amount=$amountPaid;
 
             $paymentSchedule = DB::table('payment_schedule')
             ->where('allocation_details_id', $allocationId)
@@ -759,10 +771,8 @@ class AccountService
                         'allocation_details_id'=>$allocationId,
                         'receipt_id'=>$receipt_id,
                         'paydate'=>$paidOn,
-                        'amount'=>$amountPaid,
-                        'narration'=>$narration,
-                        'created_at' => now(),
-                        'updated_at' => now(),
+                        'amount'=>$amount,
+                        'narration'=>$narration
                     ];
     
                     PlotPayment::create($plotPayments);
@@ -779,10 +789,9 @@ class AccountService
                 $plotPayments= [
                     'allocation_details_id'=>$allocationId,
                     'paydate'=>$paidOn,
-                    'amount'=>$amountPaid,
+                    'amount'=>$amount,
                     'narration'=>$narration,
-                    'created_at' => now(),
-                    'updated_at' => now(),
+                    'receipt_id'=>$receipt_id,
                 ];
 
                 PlotPayment::create($plotPayments);
@@ -1096,7 +1105,7 @@ class AccountService
             'categories.id as category_id',
             'categories.name as category',
             'plot_paymnets.paydate',
-            'payments.amount',
+            'plot_paymnets.amount',
             'plot_paymnets.receipt_id',
             'plot_paymnets.narration',
             'plots.plot_number',
@@ -1105,7 +1114,7 @@ class AccountService
         ->join('allocation_details', 'allocation_details.id', '=', 'plot_paymnets.allocation_details_id')
         ->join('allotes', 'allotes.id', '=', 'allocation_details.allote')
         ->join('plots', 'plots.id', '=', 'allocation_details.plot')
-        ->join('payments','payments.created_at','=','plot_paymnets.created_at')
+        // ->join('payments','payments.created_at','=','plot_paymnets.created_at')
         ->join('categories', 'categories.id', '=', 'plots.category_id')
         ->where('plots.scheme_id', $subcat)
         ->whereBetween('plot_paymnets.paydate', [$startDate, $endDate])
@@ -1126,14 +1135,25 @@ class AccountService
                 'records' => []
             ];
         }
-
+        $new=0;
+        // $res=$this->getAmount( $payment->created_at);
+        // if($res){
+        //     $receipt_id=$res->receipt_id;
+        //     $amount=$res->amount;
+        // }
+        // else{
+        //     $receipt_id=$payment->receipt_id;
+        //     $amount=$payment->amount;
+        // }
+         $receipt_id=$payment->receipt_id;
+        $amount=$payment->amount;
         $grouped[$cat]['records'][] = [
             'allote' => $payment->fullname,
             'plot' => $payment->plot_number,
             'paydate' => $payment->paydate,
-            'receipt_id' => $payment->receipt_id,
+            'receipt_id' => $receipt_id,
             'narration' => $payment->narration,
-            'amount' => $payment->amount
+            'amount' => $amount
         ];
 
         $grouped[$cat]['total'] += $payment->amount;
@@ -1142,6 +1162,10 @@ class AccountService
     return (array_values($grouped));
 }
 
+public function getAmount($date){
+    $amount=Payment::where("created_at",$date)->first();
+    return $amount;
+}
 
     public function getPaymentsVoucher()
     {
@@ -1675,11 +1699,12 @@ class AccountService
             ]);
         }
     }
-    
+
     private function calculateSurcharge($amount, $rate)
     {
         return ($amount * $rate) / 100;
     }
+
     public function getPaymentById($id){
         return  DB::table('payments')
         ->leftjoin('allotes', 'payments.allotees', '=', 'allotes.id')
@@ -1704,5 +1729,4 @@ class AccountService
         ->where('payments.id','=',$id)
         ->first();
     }
-
 }

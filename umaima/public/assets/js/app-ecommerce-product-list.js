@@ -101,7 +101,6 @@ $(function () {
                     return'<h6 class="mb-0 align-items-center d-flex w-px-100 ' +
                               a.bank +
                               '">' +a.bank+
-                              a.account +
                               "</h6>";
                 },
                

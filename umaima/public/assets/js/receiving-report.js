@@ -364,13 +364,7 @@ function ledgerPrint() {
         },
         success: function(data) {
             if (data) {
-                var printWindow = window.open('', '_blank');
-                printWindow.document.open();
-                printWindow.document.write(data); // write the server response into the new window
-                printWindow.document.close();
-                printWindow.focus();
-                printWindow.print(); // trigger the print dialog
-                printWindow.close(); // optional: close after printing
+               $("#result").html($.parseHTML(data));
             }
         },
         error: function(xhr, status, error) {
@@ -378,3 +372,53 @@ function ledgerPrint() {
         }
     });
 }
+
+
+
+  function ledgerPrintRes() 
+    {
+      var scheme = $('#paymentType').val();
+      var fromdate_ = $('#fromdate').val(); 
+      var todate_ = $('#todate').val(); 
+
+      if(!scheme){
+        return   alert("Please select a Scheme", "danger");
+      }
+      if(!fromdate_){
+        return   alert("Please select a From date", "danger");
+      }
+      if(!todate_){
+        return   alert("Please select a to date", "danger");
+      }
+
+
+      $.ajax({
+          method: "POST",
+          url: "/api/ledgerPrintReceivingReport",
+          headers: {
+              "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+          },
+          data: {
+              startDate: fromdate_,
+              endDate: todate_,
+              scheme: scheme,
+          },
+          success: function(data) {
+            var printWindow = window.open('', '_blank');
+            printWindow.document.open();
+            printWindow.document.write(data);
+            printWindow.document.close();
+
+            // Wait for the new window to finish loading before printing
+            printWindow.onload = function () {
+                printWindow.focus();
+                printWindow.print();
+                // Optionally close after printing
+                printWindow.close();
+            };
+        },
+          error: function(xhr, status, error) {
+              console.error("AJAX Error:", status, error);
+          }
+      });
+    }

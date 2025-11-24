@@ -57,7 +57,7 @@
                                                 data-bs-placement="top" 
                                                 data-bs-custom-class="tooltip-info" 
                                                 data-bs-original-title="<?php echo  htmlspecialchars($plot['allote']) ?>">
-                                                <?php echo  htmlspecialchars($plot['plot_number']);echo " ".getPlotCategoryName($plot['plot_number']);  ?>
+                                                <?php echo  htmlspecialchars($plot['plot_number']);echo " ".getPlotCategoryName($plot['pid']);  ?>
                                             </a>
                                         <?php else: ?>
                                             <a href="#" 
@@ -67,7 +67,7 @@
                                                 data-bs-placement="top" 
                                                 data-bs-custom-class="tooltip-primary" 
                                                 data-bs-original-title="Unallocated">
-                                                <?php echo  htmlspecialchars($plot['plot_number']); echo " ".getPlotCategoryName($plot['plot_number']); ?>
+                                                <?php echo  htmlspecialchars($plot['plot_number']); echo " ".getPlotCategoryName($plot['pid']); ?>
                                             </a>
                                         <?php endif; ?>
                                     <?php endforeach; ?>
