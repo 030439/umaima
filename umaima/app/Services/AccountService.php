@@ -924,13 +924,13 @@ class AccountService
         // Initialize conditions array
         $conditions = [];
 
-        if (!empty($startDate) && !empty($endDate)) {
-            $conditions[] = ['paydate', '>=', $startDate]; // start date condition
-            $conditions[] = ['paydate', '<=', $endDate]; // end date condition
-        }
+        // if (!empty($startDate) && !empty($endDate)) {
+        //     $conditions[] = ['paydate', '>=', $startDate]; // start date condition
+        //     $conditions[] = ['paydate', '<=', $endDate]; // end date condition
+        // }
 
         // Get allote information
-        $allote = Allote::select('fullname', 'father')
+        $allote = Allote::select('fullname', 'father','id')
             ->where('id', '=', $id)
             ->first();
 
@@ -948,7 +948,7 @@ class AccountService
             ->join('schemes', 'schemes.id', 'plots.scheme_id')
             ->where('allocation_details.allote', '=', $id);
 
-        if ($plot && $plot > 0) {
+        if (!$plot && $plot > 0) {
             $allocationQuery->where('allocation_details.plot', '=', $plot);
         }
 
@@ -1110,6 +1110,7 @@ class AccountService
             'plot_paymnets.narration',
             'plots.plot_number',
             'allotes.fullname',
+            'allotes.id as aid',
         )
         ->join('allocation_details', 'allocation_details.id', '=', 'plot_paymnets.allocation_details_id')
         ->join('allotes', 'allotes.id', '=', 'allocation_details.allote')
@@ -1146,6 +1147,9 @@ class AccountService
         //     $amount=$payment->amount;
         // }
          $receipt_id=$payment->receipt_id;
+         if(empty($receipt_id)){
+            $receipt_id=$this->getReceiptFromPayments($payment->paydate,$payment->aid,$payment->amount);
+         }
         $amount=$payment->amount;
         $grouped[$cat]['records'][] = [
             'allote' => $payment->fullname,
@@ -1161,7 +1165,10 @@ class AccountService
 
     return (array_values($grouped));
 }
-
+public function getReceiptFromPayments($date,$allote,$amount){
+    $record=Payment::where("allotees",$allote)->where("amount",$amount)->where("paydate",$date)->first();
+    return $record?$record->receipt_id:"";
+}
 public function getAmount($date){
     $amount=Payment::where("created_at",$date)->first();
     return $amount;

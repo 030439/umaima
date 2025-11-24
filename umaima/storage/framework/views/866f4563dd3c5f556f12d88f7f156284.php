@@ -99,6 +99,16 @@
             <div>Plot Allotment</div>
           </a>
         </li>
+         <li class="menu-item">
+              <a href="<?php echo e(route('plot.cancel')); ?>" class="menu-link">
+                <div>Plot Cancellation</div>
+              </a>
+            </li>
+          <li class="menu-item">
+          <a href="<?php echo e(route('plot.adjust')); ?>" class="menu-link">
+            <div>Plot Adjustment</div>
+          </a>
+        </li>
 
         <?php if(check('transfer.read')): ?>
         <li class="menu-item <?php echo e(request()->routeIs('transfer.read') ? 'active' : ''); ?>">

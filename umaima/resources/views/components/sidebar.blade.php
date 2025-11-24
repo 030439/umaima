@@ -99,6 +99,16 @@
             <div>Plot Allotment</div>
           </a>
         </li>
+         <li class="menu-item">
+              <a href="{{ route('plot.cancel') }}" class="menu-link">
+                <div>Plot Cancellation</div>
+              </a>
+            </li>
+          <li class="menu-item">
+          <a href="{{ route('plot.adjust') }}" class="menu-link">
+            <div>Plot Adjustment</div>
+          </a>
+        </li>
 
         @if(check('transfer.read'))
         <li class="menu-item {{ request()->routeIs('transfer.read') ? 'active' : '' }}">

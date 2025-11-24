@@ -51,6 +51,13 @@ class BankService
             }
         }
 
+        $loans = DB::table('cancellation')->where('bank', $id)->get();
+        if(!empty($loans)){
+            foreach ($loans as $row) {
+                $balance += $row->amount;
+            }
+        }
+
         return $balance; // or handle the case where the bank is not found
     }
 

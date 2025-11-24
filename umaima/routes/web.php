@@ -54,6 +54,7 @@ Route::middleware('auth')->group(function () {
     ->group(function(){
         Route::get('plot/transfer','plotTransfer')->name('transfer.read');
         Route::get('transfer-create','createTransfer')->name('transfer.create');
+        Route::post('plot-adjustStore','adjustStore')->name('transfer.adjustStore');
     });
 
     Route::get('/',[DashboardController::class,'index'])->name('dashboard.index');
@@ -86,7 +87,12 @@ Route::middleware('auth')->group(function () {
     Route::controller(PlotController::class)
         ->prefix('setup')
         ->group(function(){
+            Route::get('plot-adjust','plotAdjust')->name('plot.adjust');
+              Route::get('plot-adjust-create','adjustCreate');
+
             Route::get('plot-size','plotSize')->name('plot.size');
+            Route::get('plot-cancel','plotCancel')->name('plot.cancel');
+            Route::get('cancel-create','cancelCreate')->name('plot.cancel-create');
             Route::get('plot-location','plotSize')->name('plot.location');
             Route::get('plot.installments','installments')->name('plot.installments');
             Route::post('create-plot-location','createPlotLocation');
@@ -241,9 +247,14 @@ Route::middleware(['auth']) ->prefix('api')->group(function () {
 Route::middleware('auth')->prefix('api')->group(function(){
     Route::controller(TransferController::class)
     ->group(function(){
+        Route::post('canceList','canceList')->name('transfer.list');
+        Route::post('adjustList ','adjustList')->name('transfer.list');
         Route::post('transerList','transerList')->name('transfer.list');
         Route::post('get-allote-by-plot', 'getAlloteByPlot')->name('transfer.store');
+        Route::post('get-amount-by-plot', 'getAmountByPlot')->name('transfer.stores');
+        Route::post('cancel-store', 'cancelStore')->name('cancel.store');
         Route::post('/get-plot-by-scheme','getplotByScheme');
+         Route::post('/get-plot-by-scheme-alloted','getplotBySchemeAlloted');
         Route::post('/transfer-plot','transferPlot')->name('transfer.create');
     });
     Route::post("getAllotiesNames",[AlloteController::class,'getAllotiesNames']);

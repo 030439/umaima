@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\JsonResponse;
 use App\Models\Plot;
 use App\Models\AllocationDetail;
+use App\Models\PlotPayment;
+use App\Models\PaymentSchedule;
 use App\Models\Transfer;
 use Carbon\Carbon;
 use Exception;
@@ -99,6 +101,207 @@ class PlotService
     
         $result = $this->fetchRecords(
             "transfers",
+            $columns,
+            $conditions = [],
+            $filters,
+            $joins,
+            $orderColumn,
+            $orderDirection,
+            $groupBy ,
+            $having ,
+            $perPage ,
+            $page = ($start / $length) + 1 ,
+            $paginate = true
+        );
+
+        // Return only the data if pagination is enabled, or full response if not paginated
+        return[
+            'data' => $result['data'],
+            'recordsTotal' => $result['recordsTotal'],
+            'recordsFiltered' => $result['recordsFiltered'],
+            'draw' => $draw,
+        ];
+    }
+
+     public function adjustList()
+    {
+        // Use request parameters with fallback defaults
+        $perPage = $this->request->input('length', 10);
+        $start = $this->request->input('start', 0);
+        $length = $this->request->input('length', 10);
+        $page = $this->request->input('page', 1);
+        $orderColumn = $this->request->input('orderColumn', 'plot_adjust.id');
+        $orderDirection = $this->request->input('orderDirection', 'asc');
+        $groupBy = $this->request->input('groupBy', []);
+        $having = $this->request->input('having', []);
+        $paginate = $this->request->input('paginate', true);
+        $draw=$this->request->get('draw');
+        $searchValue = $this->request->get('search')['value']; // This is the value you want to search for
+
+        // Initialize an array for the conditions
+        $columns = [
+            'plot_adjust.id as id',
+            'plot_adjust.narration as narration',
+            'plot_adjust.amount as amount',
+            'from_allotes.fullname as from', // Use "from_allotes" alias
+            'to_allotes.fullname as to',   // Use "to_allotes" alias
+            'plot_adjust.date as tdate',
+            'froms.name as scheme1',
+            'tos.name as scheme2',
+            'plots1.plot_number as plot1',
+            'plot2.plot_number as plot2'
+        ];
+        $joins = [
+
+            [
+                'table' => 'plots as plots1',
+                'first' => 'plot_adjust.plot',
+                'operator' => '=',
+                'second' => 'plots1.id',
+                'type'=>'join'
+            ],
+             [
+                'table' => 'plots as plot2',
+                'first' => 'plot_adjust.to_plot',
+                'operator' => '=',
+                'second' => 'plot2.id',
+                'type'=>'join'
+            ],
+
+            
+            [
+                'table' => 'schemes as froms',
+                'first' => 'plot_adjust.scheme_from',
+                'operator' => '=',
+                'second' => 'froms.id',
+                'type'=>'join'
+            ],
+             [
+                'table' => 'schemes as tos',
+                'first' => 'plot_adjust.to_scheme',
+                'operator' => '=',
+                'second' => 'tos.id',
+                'type'=>'join'
+            ],
+            [
+                'table' => 'allotes as from_allotes', // Alias "allotes" as "from_allotes"
+                'first' => 'plot_adjust.allote',  // Link to the sender's allote ID
+                'operator' => '=',
+                'second' => 'from_allotes.id',        
+                'type'=>'join'
+            ],
+            [
+                'table' => 'allotes as to_allotes',    // Alias "allotes" as "to_allotes"
+                'first' => 'plot_adjust.to_allote',    // Link to the receiver's allote ID
+                'operator' => '=',
+                'second' => 'to_allotes.id',
+                'type'=>'join'
+            ],
+        ];
+
+
+        $filters = [];
+
+        if (!empty($searchValue)) {
+            // Using an associative array instead of a nested array
+            $filters['froms.name'] = '%' . $searchValue . '%'; // This will be like 'name' => '%searchValue%'
+            $filters['plot_adjust.plot'] = '%' . $searchValue . '%';
+            $filters['tos.name'] = '%' . $searchValue . '%'; 
+        }
+
+        // Fetch the records using QueryTrait's fetchRecords method
+    
+        $result = $this->fetchRecords(
+            "plot_adjust",
+            $columns,
+            $conditions = [],
+            $filters,
+            $joins,
+            $orderColumn,
+            $orderDirection,
+            $groupBy ,
+            $having ,
+            $perPage ,
+            $page = ($start / $length) + 1 ,
+            $paginate = true
+        );
+
+        // Return only the data if pagination is enabled, or full response if not paginated
+        return[
+            'data' => $result['data'],
+            'recordsTotal' => $result['recordsTotal'],
+            'recordsFiltered' => $result['recordsFiltered'],
+            'draw' => $draw,
+        ];
+    }
+
+
+      public function canceList()
+    {
+        // Use request parameters with fallback defaults
+        $perPage = $this->request->input('length', 10);
+        $start = $this->request->input('start', 0);
+        $length = $this->request->input('length', 10);
+        $page = $this->request->input('page', 1);
+        $orderColumn = $this->request->input('orderColumn', 'cancellation.id');
+        $orderDirection = $this->request->input('orderDirection', 'asc');
+        $groupBy = $this->request->input('groupBy', []);
+        $having = $this->request->input('having', []);
+        $paginate = $this->request->input('paginate', true);
+        $draw=$this->request->get('draw');
+        $searchValue = $this->request->get('search')['value']; // This is the value you want to search for
+
+        // Initialize an array for the conditions
+        $columns = [
+            'cancellation.id as id',
+            'cancellation.narration as narration',
+            'cancellation.amount as amount',
+            'allotes.fullname as allote', // Use "to_allotes" alias
+            'cancellation.tdate as tdate',
+            'banks.bank_name as bank',
+            'plots.plot_number',
+        ];
+        $joins = [
+            
+            [
+                'table' => 'plots',
+                'first' => 'plots.id',
+                'operator' => '=',
+                'second' => 'cancellation.plot',
+                'type'=>'join'
+            ],
+            
+            [
+                'table' => 'allotes', // Alias "allotes" as "from_allotes"
+                'first' => 'cancellation.allote',  // Link to the sender's allote ID
+                'operator' => '=',
+                'second' => 'allotes.id',        
+                'type'=>'join'
+            ],
+             [
+                'table' => 'banks', // Alias "allotes" as "from_allotes"
+                'first' => 'cancellation.bank',  // Link to the sender's allote ID
+                'operator' => '=',
+                'second' => 'banks.id',        
+                'type'=>'join'
+            ],
+        ];
+
+
+        $filters = [];
+
+        if (!empty($searchValue)) {
+            // Using an associative array instead of a nested array
+            $filters['schemes.name'] = '%' . $searchValue . '%'; // This will be like 'name' => '%searchValue%'
+            $filters['plots.plot_number'] = '%' . $searchValue . '%';
+            $filters['plot_locations.location_name'] = '%' . $searchValue . '%';
+            $filters['plot_sizes.size'] = '%' . $searchValue . '%';
+        }
+
+        // Fetch the records using QueryTrait's fetchRecords method
+    
+        $result = $this->fetchRecords(
+            "cancellation",
             $columns,
             $conditions = [],
             $filters,
@@ -792,6 +995,21 @@ class PlotService
         }
     }
 
+     public function getplotBySchemeAlloted(){
+        $id=$this->request->input('id');
+        $allotes = DB::table('plots')->select('plot_number', 'id')->where('scheme_id', $id)->where('status', 0)->get();
+        $allote=$allotes->map(function ($allote) {
+            return [
+                'value' => $allote->id, // assuming 'id' is a unique identifier
+                'label' => $allote->plot_number // assuming 'name' holds the display name
+            ];
+        });
+        return response()->json([
+            'success' => true,
+            'plots' => $allote
+        ]);
+    }
+
     public function getplotByScheme(){
         $id=$this->request->input('id');
         $allotes = DB::table('plots')->select('plot_number', 'id')->where('scheme_id', $id)->where('status', 1)->get();
@@ -1128,6 +1346,33 @@ class PlotService
             ];
         return $arr;
     }
+    
+    public function getAmountByPlot(){
+        $plot = $this->request->input('plot');
+
+        $allotes = DB::table('allocation_details')
+            ->select('allocation_details.id as allocation')
+            ->where('allocation_details.plot', $plot)
+            ->first();
+
+        if (!$allotes) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No allocation found for this plot.'
+            ]);
+        }
+
+        $aggregatedData = DB::table('plot_paymnets')
+            ->selectRaw('SUM(amount) as totalAmount')
+            ->where('allocation_details_id', $allotes->allocation) // ✅ FIXED
+            ->first();
+
+        $amount = $aggregatedData->totalAmount ?? 0;
+
+        return [
+            'amount' => $amount
+        ];
+    }
 
     public function getplotBySchemes(){
         $id=$this->request->input('id');
@@ -1144,6 +1389,108 @@ class PlotService
         ]);
     }
 
+      public function cancelStore()
+    {
+        
+            $validator = Validator::make($this->request->all(), [
+                'scheme' => 'required',
+                'plot' => 'required',
+                'from' => 'required',
+                'allocation' => 'required',
+                // 'to' => 'required',
+                'amount' => 'required',
+                'date' => 'required',
+                'accountTo'=>'required|integer',
+            ]);
+            
+    
+            if ($validator->fails()) {
+                // Format the error messages as a single string with line breaks
+                $errorMessages = implode("\n", $validator->errors()->all());
+            
+                return response()->json([
+                    'success' => false,
+                    'message' => "\n" . $errorMessages
+                ], 422); // Unprocessable Entity
+            }
+
+            $allocation= $this->request->input('allocation');
+            $scheme= $this->request->input('scheme');
+            $plot= $this->request->input('plot');
+            $from= $this->request->input('from');
+            $to= $this->request->input('to');
+            $amount= $this->request->input('amount');
+            $date= $this->request->input('date');
+            $accountTo= $this->request->input('accountTo');
+            $narration= $this->request->input('narration');
+           
+            // Insert into schemes table
+            DB::beginTransaction();
+            try {
+
+                $data=[
+                    'plot'=>$plot,
+                    // 'scheme'=>$scheme,  
+                    'allocation'=>$allocation,
+                    'allote'=>$from,
+                    'amount'=>$amount,
+                    'tdate'=>$date,
+                    'bank'=>$accountTo,
+                    'narration'=>$narration,
+                    'created_at' => now(), // Set created_at to current timestamp
+                    'updated_at' => now(),
+                ];
+                
+                $id = (int) $allocation;
+                $record = AllocationDetail::withTrashed()->find($id);
+             
+                if ($record) {
+                    $record->forceDelete();
+                     Plot::where('id', $plot)->update(['status'=>1]);
+                } else {
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'No allocation record found.'
+                    ]);
+                }
+
+                $lastInsertedId = DB::table('cancellation')->insertGetId($data);
+                $receipt_ids=$this->generateRandomString();
+                $deductPay = [
+                'paydate' => $date,
+                'receipt_id' => $receipt_ids,
+                'payment_type' => 0,
+                'from_account' => $accountTo,
+                'amount' => $amount,
+                'narration' => "plot adjustment deduction",
+                'allotees' => 0,
+                'expense_heads' => 22,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ];
+
+            $lastInsertedId = DB::table('payments')->insertGetId($deductPay);
+           
+            // Log the action
+            logAction('Plot cancle created for  plot '.$plot .'form allote '.$from);
+    
+           
+            DB::commit();
+
+            return response()->json([
+                'message' => 'Plot Cancellation created successfully!',
+                'success' => true,
+            ]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            \Log::error('Error creating account: ' . $e->getMessage());
+
+            return response()->json([
+                'message' => $e->getMessage(),
+                'success' => false,
+            ]);
+        }
+    }
 
     public function transferPlot()
     {
@@ -1206,6 +1553,208 @@ class PlotService
 
             return response()->json([
                 'message' => 'design category created successfully!',
+                'success' => true,
+            ]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            \Log::error('Error creating account: ' . $e->getMessage());
+
+            return response()->json([
+                'message' => $e->getMessage(),
+                'success' => false,
+            ]);
+        }
+    }
+
+
+     public function payAmount($data)
+    {
+        try {
+            $allocationId = $data['plot'];
+            $amountPaid = $data['amount'];
+            $receipt_id = $data['receipt_id'];
+            $paidOn = $data['paydate'];
+            $narration=$data['narration'];
+            $payD=Carbon::parse($paidOn)->format('Y-m-d');
+            $payDate = Carbon::parse($paidOn)->format('Y-m-15');
+            $dm=Carbon::parse($paidOn)->format('Y-m');
+            $pD = Carbon::parse($paidOn)->format('Y-m');
+            $amount=$amountPaid;
+
+            $paymentSchedule = DB::table('payment_schedule')
+            ->where('allocation_details_id', $allocationId)
+            ->whereRaw("pay_date = ?", [$payDate])
+            ->first();
+            $late=false;
+           
+              $latePayment=[
+                        "allocation_details_id"=>$allocationId,
+                        "payment"=>"Plot Adjustment",
+                        "amount"=>0,
+                        "amount_paid"=>$amountPaid,
+                        "paid_on"=>$paidOn,
+                        "surcharge"=>0,
+                        "outstanding"=>0,
+                        "pay_date"=>0,
+                    ];
+                    $plotPayments= [
+                        'allocation_details_id'=>$allocationId,
+                        'receipt_id'=>$receipt_id,
+                        'paydate'=>$paidOn,
+                        'amount'=>$amount,
+                        'narration'=>$narration
+                    ];
+    
+                    PlotPayment::create($plotPayments);
+                    PaymentSchedule::create($latePayment);  
+
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
+    public function generateRandomString()
+    {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $randomString = '';
+        for ($i = 0; $i < 8; $i++) {
+            $index = rand(0, strlen($characters) - 1);
+            $randomString .= $characters[$index];
+        }
+        return $randomString;
+    }
+
+      public function adjustStore()
+    {   
+              $validator = Validator::make($this->request->all(), [
+                'scheme'        => 'required|integer',
+                'plot'          => 'required|integer',
+                'fromallote'    => 'required|string',
+                'from'          => 'required|integer',
+                'allocation'    => 'required|integer',
+                'toscheme'      => 'required|integer',
+                'toallote'      => 'required|string',
+                'toplot'        => 'required|integer',
+                'toallocation'  => 'required|integer',
+                'amount'        => 'required',
+                'bank'          => 'required|integer',
+                'date'          => 'required|date',
+                'tofrom'    => 'required|integer',
+                'narration'     => 'required|string|max:500',
+            ]);
+        
+               if ($validator->fails()) {
+                    // Format the error messages as a single string with line breaks
+                    $errorMessages = implode("\n", $validator->errors()->all());
+                    return response()->json([
+                        'success' => false,
+                        'message' => "\n" . $errorMessages
+                    ]); // Unprocessable Entity
+                }
+                
+
+            $allocation     = $this->request->input('allocation');
+            $scheme         = $this->request->input('scheme');
+            $plot           = $this->request->input('plot');
+            $from           = $this->request->input('from');
+            $amount         = $this->request->input('amount');
+            $date           = $this->request->input('date');
+            $narration      = $this->request->input('narration');
+            $fromallote     = $this->request->input('fromallote');
+            $toallote       = $this->request->input('tofrom');
+            $toscheme       = $this->request->input('toscheme');
+            $toplot         = $this->request->input('toplot');
+            $toallocation   = $this->request->input('toallocation');
+            $tofrom         = $this->request->input('tofrom');
+            $bank           = $this->request->input('bank');
+            $percentage     = $this->request->input('percentage')??0;
+
+               // 15%
+
+            $deduct = $amount * ($percentage / 100);  // Correct percentage calculation
+            $remaining = $amount - $deduct;
+
+           
+            // Insert into schemes table
+            DB::beginTransaction();
+            try {
+          
+            // Log the action
+             $id = (int) $allocation;
+            $record = AllocationDetail::withTrashed()->find($id);
+                if ($record) {
+                    $record->forceDelete();
+                    Plot::where('id', $plot)->update(['status'=>1]);
+                } else {
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'No allocation record found.'
+                    ]);
+                }
+
+                
+            
+            DB::table('plot_adjust')->insert([
+                'scheme_from'  => $scheme,
+                'plot'         => $plot,
+                'allote'       => $from,
+                'to_scheme'    => $toscheme,
+                'to_plot'      => $toplot,
+                'to_allote'    => $toallote,
+                'amount'       => $amount,
+                'date'         => $date,
+                'narration'    => $narration,
+            ]);
+            $receipt_id=$this->generateRandomString();
+            $receipt_ids=$this->generateRandomString();
+
+            $paid=[
+                'plot' => $toallocation,
+                'amount' => $remaining,
+                'receipt_id' => $receipt_id,
+                'paydate' => $date,
+                'narration'=>$narration
+            ];
+
+            $this->payAmount($paid);
+
+             $data = [
+                'paydate' => $date,
+                'receipt_id' => $receipt_id,
+                'payment_type' => 1,
+                'from_account' => $bank,
+                'amount' => $remaining,
+                'narration' => $narration,
+                'allotees' => $tofrom,
+                'expense_heads' => 0,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ];
+
+             $deductPay = [
+                'paydate' => $date,
+                'receipt_id' => $receipt_ids,
+                'payment_type' => 0,
+                'from_account' => 3,
+                'amount' => $deduct,
+                'narration' => "plot adjustment deduction",
+                'allotees' => 0,
+                'expense_heads' => 21,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ];
+
+            $lastInsertedId = DB::table('payments')->insertGetId($deductPay);
+
+            $lastInsertedId = DB::table('payments')->insertGetId($data);
+
+
+            logAction('Plot transfer created for');
+    
+           
+            DB::commit();
+
+            return response()->json([
+                'message' => 'Plot adjustment created successfully!',
                 'success' => true,
             ]);
         } catch (\Exception $e) {

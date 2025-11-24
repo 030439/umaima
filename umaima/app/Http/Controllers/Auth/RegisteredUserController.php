@@ -82,7 +82,6 @@ class RegisteredUserController extends Controller
                     'success' => false
                 ]);
             }
-            // Create a new user with mapped data
             $user = User::create([
                 'fname' => $data['firstName'],
                 'lname' => $data['lastName'],
@@ -91,17 +90,16 @@ class RegisteredUserController extends Controller
                 'email' => $data['email'],
                 'password' => Hash::make($data['password']),
             ]);
-            // Fire registered event and assign role
-            // event(new Registered($user));
-            $user->assignRole($data['role']);
 
-          $roleId = Role::where('name', $data['role'])->value('id');
+            $roleId = DB::table('roles')->where('name', $data['role'])->value('id');
 
-          DB::table('model_has_roles')->insert([
-            'model_id' => $user->id,
-            'role_id' => $roleId,
-            'model_type' => User::class, // Ensure this field is set correctly
-        ]);
+            DB::table('model_has_roles')->insert([
+                'model_id' => $user->id,
+                'role_id' => $roleId,
+                'model_type' => 'App\\Models\\User',
+            ]);
+
+        
         
         
             // Success response

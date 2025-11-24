@@ -174,6 +174,47 @@
 
 
   </div>
+
+
+  <div class="modal fade" id="addRoleModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-simple modal-dialog-centered modal-add-new-role">
+    <div class="modal-content">
+      <div class="modal-body">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="text-center mb-6">
+          <h4 class="role-title mb-2">Add New Role</h4>
+          <p>Set role permissions</p>
+        </div>
+        <!-- Add role form -->
+        <form id="addRoleForm" class="row g-6" onsubmit="return false">
+          <div class="col-12">
+            <label class="form-label" for="modalRoleName">Role Name</label>
+            <input type="text" id="modalRoleName" name="modalRoleName" class="form-control" placeholder="Enter a role name" tabindex="-1" />
+          </div>
+          <div class="col-12">
+            <h5 class="mb-6">Role Permissions</h5>
+            <!-- Permission table -->
+            <div class="table-responsive">
+              
+              <table class="table table-flush-spacing" id="permissionsTable">
+                
+                <tbody>
+                  
+                </tbody>
+              </table>
+            </div>
+            <!-- Permission table -->
+          </div>
+          <div class="col-12 text-center">
+            <button type="submit" class="btn btn-primary me-3">Submit</button>
+            <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+          </div>
+        </form>
+        <!--/ Add role form -->
+      </div>
+    </div>
+    </div>
+    </div>
           
 @endsection
 @section('files')
@@ -205,5 +246,7 @@
 
     <!-- Page JS -->
     <script src="../../assets/js/app-user-list.js"></script>
+   <script src="../../assets/js/app-access-roles.js"></script>
+<script src="../../assets/js/modal-add-role.js"></script>
 @endsection
           

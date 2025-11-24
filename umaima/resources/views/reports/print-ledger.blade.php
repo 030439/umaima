@@ -98,48 +98,59 @@
           <b>Tax Invoice</b>
         </h4> -->
 
-        <table style="width: 100%; table-layout: fixed">
-          <tr>
-            <td
-              style="border-left: 1px solid #ddd; border-right: 1px solid #ddd"
-            >
-              <div
-              >
-              <img src="https://deluxe.gogreenmotors.uk/assets/deluxe.jpg">
-                <p style="font-weight: bold; margin-top: 15px">
-                  GST TIN : 06AAFCD6498P1ZT
-                </p>
-              </div>
-            </td>
-            <td
-              align="right"
-              style="
-                text-align: right;
-                padding-left: 50px;
-                line-height: 1.5;
-                color: #323232;
-              "
-            >
-              <div>
-                <h4 style="margin-top: 5px; margin-bottom: 5px">
+      <h4 style="margin-top: 5px; margin-bottom: 5px">
                   {{$allote->fullname}}
                 </h4>
-                <!-- <p>NAME   :-  customer["name"]</p>
-                        <p>ADDRESS:- customer['address']</p>
-                        <p>MOBILE :- customer['mobile']</p>
-                        <p>OrderID   :- customer['order_id']</p>  -->
-                <p style="font-size: 14px">
+                 <p style="font-size: 14px">
                  {{$allote->address}}<br />
                   Tel:
                   <a href="tel:01241234568" style="color: #00bb07"
                     >{{$allote->phone}}</a
                   >
                 </p>
-              </div>
-            </td>
+
+            @php
+            use Illuminate\Support\Facades\DB;
+
+           $Totalplots = DB::table('allocation_details')
+          ->select('allocation_details.id', 'plots.plot_number','plots.deleted_at')
+          ->join('plots', 'plots.id', '=', 'allocation_details.plot')
+          ->where('allocation_details.allote', $allote->id)
+          ->where('allocation_details.deleted_at', NULL)
+          
+          ->get();
+
+            @endphp
+        <table style="width: 100%; table-layout: fixed" border="1">
+          <tr>
+            <th>Plot</th>
+            <th>Amount</th>
+            <th>Surcharge</th>
+            <th>Total</th>
+            <th>Paid</th>
+            <th>Remaining</th>
           </tr>
+          <?php 
+            foreach($Totalplots as $plot_){
+              $data = DB::table('payment_schedule')
+              ->selectRaw('SUM(amount) as payable, SUM(amount_paid) as paid, SUM(surcharge) as surcharge')
+              ->where('allocation_details_id', $plot_->id)
+              ->first();
+              $total_pay=$data->payable+$data->surcharge;
+              $remaining=$total_pay-$data->paid;
+              ?>
+              <tr>
+                <th>{{$plot_->plot_number}}</th>
+                <th>{{$data->payable}}</th>
+                <th>{{$data->surcharge}}</th>
+                <th>{{$total_pay}}</th>
+                <th>{{$data->paid}}</th>
+                <th>{{$remaining}}</th>
+              </tr>
+            <?php }?>
+         
+          
         </table>
-      </div>
       <table
         class="table table-bordered h4-14"
         style="width: 100%; -fs-table-paginate: paginate; margin-top: 15px"
@@ -187,7 +198,7 @@
             <th style="">Date</th>
             <th style=""> Receipt No</th>
             <th style=""> Amount </th>
-            <th style=""> Narration</th>
+            <!-- <th style=""> Narration</th> -->
           </tr>
         </thead>
         <tbody>
@@ -199,7 +210,7 @@
             <td>{{$ledger->paydate}}</td>
             <td>{{$ledger->receipt_id}}</td>
             <td>{{$ledger->amount}}</td>
-            <td>{{$ledger->narration}}</td>
+            <!-- <td>{{$ledger->narration}}</td> -->
           </tr>
           @endforeach
           @endif

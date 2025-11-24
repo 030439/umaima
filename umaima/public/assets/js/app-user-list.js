@@ -6,7 +6,7 @@ $(function() {
 
     var t, n = $(".datatables-users"),
         i = $(".select2"),
-        r = "app-user-view-account.html",
+        r = "#",
         o = {
             1: { title: "Pending", class: "bg-label-warning" },
             2: { title: "Active", class: "bg-label-success" },
@@ -243,7 +243,17 @@ $(function() {
                 init: function (e, a, t) {
                     $(a).removeClass("btn-secondary");
                 }
-            }
+            }, {
+                    text: '<i class="ti  ti-plus ti-xs me-0 me-sm-2"></i><span class="d-none d-sm-inline-block">Add New Role</span>',
+                    className: "add-new btn btn-primary mb-6 mb-md-0 waves-effect waves-light ",
+                    attr: {
+                        "data-bs-toggle": "modal", 
+                        "data-bs-target": "#addRoleModal"
+                    },
+                    init: function (e, a, t) {
+                        $(a).removeClass("btn-secondary");
+                    }
+                }
         ]
         });
     }

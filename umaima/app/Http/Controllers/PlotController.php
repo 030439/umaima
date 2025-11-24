@@ -20,6 +20,24 @@ class PlotController extends Controller
         return view('plots.allotment');
     }
 
+    public function plotAdjust(){
+        return view('plots.plotAdjust');
+    }
+    
+    public function adjustCreate(){
+        $banks = DB::table('banks')->get();
+        return view('plots.adjustCreate',compact('banks'));
+    }
+
+    public function plotCancel(){
+        return view('plots.plotCancel');
+    }
+     public function cancelCreate(){
+         $accounts =  DB::table('banks')->where('status','1')->get();
+        return view('plots.cancel',compact('accounts'));
+    }
+
+
     public function alloteePlotes($id){
         $result = $this->plotservice->alloteePlotes($id);
         return ($result);
